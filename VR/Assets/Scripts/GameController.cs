@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,36 +8,25 @@ using UnityEngine.Events;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-    [SerializeField]SceneResources sceneResources;
-    Dictionary<ResourceTypes, GameObject> resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
+    [SerializeField]Transform[] _spawnPoints;
+    [SerializeField]SceneResources _sceneResources;
 
+    Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
-    [Header("Events")]
-    public UnityEvent OnGameSceneLoad;
+    //[Header("Events")]
 
     private void Awake()
     {
-        if (!instance)
-        {
-            instance = this;
-        }
+        instance = this;
     }
     // Start is called before the first frame update
     void Start()
     {
-        foreach (var item in sceneResources.resources)
+        foreach (var item in _sceneResources.resources)
         {
-            resourcesRegister.Add(item.type, item.resource);
+            _resourcesRegister.Add(item.type, item.resource);
         }
-        OnGameSceneLoad.AddListener(delegate
-        {
-            PhotonNetwork.Instantiate(resourcesRegister[ResourceTypes.Player].name, Vector3.zero, transform.rotation);
-        });
+        PhotonNetwork.Instantiate(_resourcesRegister[ResourceTypes.Player].name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

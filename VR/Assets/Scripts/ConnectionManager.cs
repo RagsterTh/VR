@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
-     GameController gameController;
     private void Awake()
     {
         if (instance)
@@ -18,13 +18,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.ConnectUsingSettings();
     }
-    private void Start()
-    {
-        gameController= GetComponent<GameController>();
-    }
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.JoinLobby();
+    }
+    public override void OnJoinedLobby()
+    {
+        EnterRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
@@ -33,17 +33,9 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
 
 
-
     //Funções para incorporar no menu
     public void EnterRandomOrCreateRoom()
     {
         PhotonNetwork.JoinRandomOrCreateRoom();
-    }
-    private void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            EnterRandomOrCreateRoom();
-        }
     }
 }
