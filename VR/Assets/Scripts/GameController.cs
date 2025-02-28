@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField]Transform[] _spawnPoints;
     [SerializeField]SceneResources _sceneResources;
 
-    Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
+    static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
     //[Header("Events")]
 
@@ -26,7 +26,11 @@ public class GameController : MonoBehaviour
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
-        PhotonNetwork.Instantiate(_resourcesRegister[ResourceTypes.Player].name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation);
+        PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation);
+    }
+    public static GameObject GetResource(ResourceTypes resource)
+    {
+        return _resourcesRegister[resource];
     }
     
 }
