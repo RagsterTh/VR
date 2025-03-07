@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _phView = GetComponent<PhotonView>();
+        _phView = GetComponentInParent<PhotonView>();
         if (!_phView.IsMine)
         {
             this.enabled = false;
