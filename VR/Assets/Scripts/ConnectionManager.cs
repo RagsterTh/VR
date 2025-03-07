@@ -24,7 +24,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedLobby()
     {
-
+        EnterRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
