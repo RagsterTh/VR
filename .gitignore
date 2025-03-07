@@ -10,6 +10,10 @@
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 
+VR_clone_*/
+launch.json
+extensions.json
+settings.json
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
@@ -25,7 +29,7 @@
 
 # Visual Studio cache directory
 .vs/
-
+.vsconfig/
 # Gradle cache directory
 .gradle/
 
@@ -70,3 +74,1059 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+VR_clone_0/.clone
+VR_clone_0/.parrelsyncarg
+VR_clone_0/Assets/Data.meta
+VR_clone_0/Assets/Data/GameResources.asset
+VR_clone_0/Assets/Data/GameResources.asset.meta
+VR_clone_0/Assets/New Universal Render Pipeline Asset.asset
+VR_clone_0/Assets/New Universal Render Pipeline Asset.asset.meta
+VR_clone_0/Assets/New Universal Render Pipeline Asset_Renderer.asset
+VR_clone_0/Assets/New Universal Render Pipeline Asset_Renderer.asset.meta
+VR_clone_0/Assets/Photon.meta
+VR_clone_0/Assets/Photon/PhotonChat.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/changes-chat.txt
+VR_clone_0/Assets/Photon/PhotonChat/Code/changes-chat.txt.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChannelCreationOptions.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChannelCreationOptions.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChannelWellKnownProperties.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChannelWellKnownProperties.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatAppSettings.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatAppSettings.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatChannel.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatChannel.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatClient.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatClient.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatDisconnectCause.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatDisconnectCause.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatEventCode.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatEventCode.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatOperationCode.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatOperationCode.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatParameterCode.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatParameterCode.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatPeer.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatPeer.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatState.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatState.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatUserStatus.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/ChatUserStatus.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/IChatClientListener.cs
+VR_clone_0/Assets/Photon/PhotonChat/Code/IChatClientListener.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Code/PhotonChat.asmdef
+VR_clone_0/Assets/Photon/PhotonChat/Code/PhotonChat.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/EventSystemSpawner.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/EventSystemSpawner.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/OnStartDelete.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/OnStartDelete.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/TextButtonTransition.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/TextButtonTransition.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/TextToggleIsOnTransition.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/Common/TextToggleIsOnTransition.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/AppSettingsExtensions.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/AppSettingsExtensions.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChannelSelector.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChannelSelector.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChatAppIdCheckerUI.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChatAppIdCheckerUI.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChatGui.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/ChatGui.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Editor.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Editor/ChatEditor.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Editor/ChatEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/eurof35.ttf
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/eurof35.ttf.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/eurof_tt.txt
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/eurof_tt.txt.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/Gradient.png
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/Gradient.png.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/Jura-Medium.ttf
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/Jura-Medium.ttf.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/OutlinedSquaredBox.png
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/OutlinedSquaredBox.png.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/PunIcon-White-129.png
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/Files/PunIcon-White-129.png.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/FriendItem.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/FriendItem.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/IgnoreUiRaycastWhenInactive.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/IgnoreUiRaycastWhenInactive.cs.meta
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/NamePickGui.cs
+VR_clone_0/Assets/Photon/PhotonChat/Demos/DemoChat/NamePickGui.cs.meta
+VR_clone_0/Assets/Photon/PhotonLibs.meta
+VR_clone_0/Assets/Photon/PhotonLibs/changes-library.txt
+VR_clone_0/Assets/Photon/PhotonLibs/changes-library.txt.meta
+VR_clone_0/Assets/Photon/PhotonLibs/Metro.meta
+VR_clone_0/Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.dll
+VR_clone_0/Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.dll.meta
+VR_clone_0/Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pri
+VR_clone_0/Assets/Photon/PhotonLibs/Metro/Photon3Unity3D.pri.meta
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0.meta
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.deps.json.meta
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.dll
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.dll.meta
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.xml
+VR_clone_0/Assets/Photon/PhotonLibs/netstandard2.0/Photon3Unity3D.xml.meta
+VR_clone_0/Assets/Photon/PhotonLibs/Photon3Unity3D.dll
+VR_clone_0/Assets/Photon/PhotonLibs/Photon3Unity3D.dll.meta
+VR_clone_0/Assets/Photon/PhotonLibs/Photon3Unity3D.xml
+VR_clone_0/Assets/Photon/PhotonLibs/Photon3Unity3D.xml.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/PhotonWebSocket.asmdef
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/PhotonWebSocket.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/SocketWebTcp.cs.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.dll.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.README
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/websocket-sharp.README.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs.meta
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/WebSocket.jslib
+VR_clone_0/Assets/Photon/PhotonLibs/WebSocket/WebSocket.jslib.meta
+VR_clone_0/Assets/Photon/PhotonNetworking-Documentation.chm
+VR_clone_0/Assets/Photon/PhotonNetworking-Documentation.chm.meta
+VR_clone_0/Assets/Photon/PhotonRealtime.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/AppSettings.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/AppSettings.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/changes-realtime.txt
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/changes-realtime.txt.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/ConnectionHandler.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/ConnectionHandler.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/CustomTypesUnity.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/CustomTypesUnity.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Extensions.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Extensions.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/FriendInfo.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/FriendInfo.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/LoadBalancingClient.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/LoadBalancingClient.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/LoadBalancingPeer.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/LoadBalancingPeer.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonPing.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonPing.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonPingClasses.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonPingClasses.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonRealtime.asmdef
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/PhotonRealtime.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Player.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Player.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Region.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Region.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/RegionHandler.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Room.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Room.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/RoomInfo.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/SupportLogger.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/SupportLogger.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/SystemConnectionSummary.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/SystemConnectionSummary.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/Editor.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/Editor/AccountService.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/Editor/AccountService.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/Editor/PhotonEditorUtils.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/Editor/PhotonEditorUtils.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/PhotonAppSettings.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/Unity/PhotonAppSettings.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/WebRpc.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Code/WebRpc.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/ConnectAndJoinRandomLb.cs.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/DemoLoadBalancing-Scene.unity
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/DemoLoadBalancing-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/Jura-Medium-LB.ttf
+VR_clone_0/Assets/Photon/PhotonRealtime/Demos/DemoLoadBalancing/Jura-Medium-LB.ttf.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/changelog.txt
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/changelog.txt.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/CustomTypes.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/CustomTypes.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIcon.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIcon.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIconPro.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/CopyIconPro.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/help.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/help.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonGUI.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonUnityNetworking.Editor.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonUnityNetworking.Editor.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewHandler.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewHandler.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PhotonViewInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunGradient.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunGradient.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettings.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettings.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsFile.asset
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsFile.asset.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/PunSceneSettingsInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/LICENSE.txt
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/LICENSE.txt.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ReordableList/ReorderableListResources.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ServerSettingsInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/ServerSettingsInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/MonoBehaviourPunEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/MonoBehaviourPunEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonAnimatorViewEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonAnimatorViewEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbody2DViewEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbody2DViewEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbodyViewEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonRigidbodyViewEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewClassicEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewClassicEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Editor/Views/PhotonTransformViewEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Enums.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Enums.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Interfaces.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPhotonViewCallbacks.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPhotonViewCallbacks.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPunCallbacks.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Interfaces/IPunCallbacks.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonHandler.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonStreamQueue.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonStreamQueue.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonUnityNetworking.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonUnityNetworking.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PunClasses.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PunClasses.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/ServerSettings.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/ServerSettings.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Utilities.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Utilities/NestedComponentUtilities.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Utilities/NestedComponentUtilities.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbody2DView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbodyView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonRigidbodyView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformViewClassic.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonTransformViewClassic.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerAsteroid.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerAsteroid.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerPlayership.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/FlyerPlayership.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/ParticleAfterburner.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/ParticleAfterburner.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/WhiteSmooth.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/WhiteSmooth.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/WhiteUnlit.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Materials/WhiteUnlit.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Asteroid01.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Asteroid01.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/FlyerAsteroidB.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/FlyerAsteroidB.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/LaserBolt.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/LaserBolt.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/Asteroid.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/Asteroid.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/FlyerAsteroid1.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/FlyerAsteroid1.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/SpaceshipGlow.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/SpaceshipGlow.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/SpaceshipHull.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Materials/SpaceshipHull.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Spaceship.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Models/Spaceship.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/Bullet.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/Bullet.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/PlayerListEntry.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/PlayerListEntry.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/PlayerOverviewEntry.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/PlayerOverviewEntry.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/RoomListEntry.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Prefabs/RoomListEntry.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/BigAsteroid.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/BigAsteroid.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/SmallAsteroid.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/SmallAsteroid.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/Spaceship.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Resources/Spaceship.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-LobbyScene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-LobbyScene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/AsteroidsGame.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/AsteroidsGame.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Asteroid.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Asteroid.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/AsteroidsGameManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/AsteroidsGameManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Bullet.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Bullet.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/PlayerOverviewPanel.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/PlayerOverviewPanel.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Spaceship.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Game/Spaceship.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/LobbyMainPanel.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/LobbyMainPanel.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/LobbyTopPanel.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/LobbyTopPanel.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/PlayerListEntry.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/PlayerListEntry.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/RoomListEntry.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scripts/Lobby/RoomListEntry.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerAsteroidEmissive.tif
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerAsteroidEmissive.tif.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipAlbedo.tif
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipAlbedo.tif.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipEmission.tif
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipEmission.tif.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipOcclusion.tif
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Textures/FlyerPlayershipOcclusion.tif.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/DemoHub-Scene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/DemoHub-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Editor.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Editor/PunDemos.DemoHubEditor.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Editor/PunDemos.DemoHubEditor.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Editor/PunStartup.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Editor/PunStartup.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Scripts/DemoHubManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Scripts/DemoHubManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Scripts/ToDemoHubButton.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Scripts/ToDemoHubButton.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/Gradient.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/Gradient.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/OutlinedSquaredBox.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/OutlinedSquaredBox.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/PunIcon-White-129.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/PunIcon-White-129.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/toHub.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/Sprites/toHub.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/toHub.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoHub/toHub.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Black.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Black.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/LightGreen.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/LightGreen.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Orange.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Orange.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Red.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Red.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Yellow.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Materials/Yellow.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Procedural-Scene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Procedural-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Block.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Block.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Cluster.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Cluster.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/IngameControlPanel.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/IngameControlPanel.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Noise.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/Noise.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/ProceduralController.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/ProceduralController.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/WorldGenerator.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoProcedural/Scripts/WorldGenerator.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Copyrights.txt
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Copyrights.txt.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/billboardLower.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/billboardLower.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/flagGreen.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/flagGreen.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/_defaultMat.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/_defaultMat.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/bark.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/bark.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/grass.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/grass.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/grey.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/grey.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/red.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/red.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/road.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/road.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/tankco.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/tankco.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/wall.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/wall.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/white.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Materials/white.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/rail.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/rail.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadCornerSmall.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadCornerSmall.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadCornerSmallBorder.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadCornerSmallBorder.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadRampLongCurvedWall.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadRampLongCurvedWall.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStart.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStart.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStartPositions.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStartPositions.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStraight.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStraight.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStraightBridgeStart.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/roadStraightBridgeStart.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Textures.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Textures/tankco.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Racing Kit/Models/Textures/tankco.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/11 - Default.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/11 - Default.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default22662.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default22662.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default54.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/13 - Default54.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/20 - Default.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/20 - Default.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/22 - Default.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/22 - Default.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/24 - Default.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/24 - Default.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/car.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/car.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/ground_green.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/ground_green.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/ground_green232.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/ground_green232.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/insides_2.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/insides_2.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/insides_3.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/insides_3.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/leaves_palm_243.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/leaves_palm_243.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/No Name.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/No Name.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/roof.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/roof.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/tank.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/tank.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/windows_2.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Materials/windows_2.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/bush1.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/bush1.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_1.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_1.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_3.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_3.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_4.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/car_4.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/hamvee.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/hamvee.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/tree_1.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/tree_1.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/tree_6.FBX
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Kenney Assets/Stylized city/Models/tree_6.FBX.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_A.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_A.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_B.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_B.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_C.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_C.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_D.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Prefabs/SlotCar_D.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Resources.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Resources/Player Controller.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Resources/Player Controller.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Bezier.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Bezier.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierControlPointMode.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierControlPointMode.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierCurve.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierCurve.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierSpline.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/BezierSpline.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/BezierCurveInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/BezierCurveInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/BezierSplineInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/BezierSplineInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/LineInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/LineInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/PunDemos.DemoSlotcarEditor.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Editor/PunDemos.DemoSlotcarEditor.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Line.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/Line.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/SplinePosition.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/SplinePosition.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/SplineWalker.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/BezierCurve/SplineWalker.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/PlayerControl.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/PlayerControl.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/SlotLanes.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/SlotLanes.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/SlotRacerSplashScreen.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/Scripts/SlotRacerSplashScreen.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene/LightingData.asset
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene/LightingData.asset.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene/ReflectionProbe-0.exr
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/DemoSlotRacer/SlotCar-Scene/ReflectionProbe-0.exr.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PhotonUnityNetworking.Demos.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Animator.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Animator/Kyle Robot.controller
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Animator/Kyle Robot.controller.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/Red Beam.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/Red Beam.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureGreen12x.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureGreen12x.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureRed12x.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureRed12x.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureYellow12x.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Materials/UnitTextureYellow12x.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Demo Intro UI.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Demo Intro UI.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Game Manager.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Game Manager.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Player UI.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Player UI.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Quit Room Button.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Prefabs/Quit Room Button.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Resources.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Resources/My Robot Kyle -done-.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Resources/My Robot Kyle -done-.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 1.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 1.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 2.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 2.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 3.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 3.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 4.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room for 4.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/CameraWork.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/CameraWork.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/GameManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/GameManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/Launcher.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/Launcher.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/LoaderAnime.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/LoaderAnime.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerAnimatorManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerAnimatorManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerNameInputField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerNameInputField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerUI.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunBasics-Tutorial/Scripts/PlayerUI.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/ConnectToRegionUIForm.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/ConnectToRegionUIForm.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/CreateRoomUiForm.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/CreateRoomUiForm.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/LoadLevelUIForm.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/LoadLevelUIForm.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/SetRoomCustomPropertyUIForm.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/SetRoomCustomPropertyUIForm.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/UserIdUiForm.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Forms/UserIdUiForm.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Prefabs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Prefabs/Help Button.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Prefabs/Help Button.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Prefabs/Tab Toggle.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Prefabs/Tab Toggle.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit-Scene.unity
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit-Scene.unity.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/PunCockpit.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/AutoSyncSceneToggle.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/AutoSyncSceneToggle.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/BackgroundTimeOutField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/BackgroundTimeOutField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CrcCheckToggle.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CrcCheckToggle.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CurrentRoom.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CurrentRoom/CurrentRoomIsOpenToggle.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CurrentRoom/CurrentRoomIsOpenToggle.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CurrentRoom/CurrentRoomIsVisibleToggle.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/CurrentRoom/CurrentRoomIsVisibleToggle.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/DocLinkButton.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/DocLinkButton.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/GameVersionField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/GameVersionField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/BoolInputField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/BoolInputField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/IntInputField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/IntInputField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/StringInputField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/StringInputField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/ToggleExpand.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/Generic/ToggleExpand.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/LayoutElementMatchSize.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/LayoutElementMatchSize.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/NickNameField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/NickNameField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/OnlineDocButton.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/OnlineDocButton.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/SendRateField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/SendRateField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/SendRateOnSerializeField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Autonomous UI/SendRateOnSerializeField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Controllers.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Controllers/PlayerDetailsController.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Controllers/PlayerDetailsController.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/InfosPanelPlaceholder.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/InfosPanelPlaceholder.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/FriendListCell.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/FriendListCell.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/FriendListView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/FriendListView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PlayerListCell.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PlayerListCell.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PlayerListView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PlayerListView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PropertyCell.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/PropertyCell.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RegionListCell.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RegionListCell.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RegionListView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RegionListView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RoomListCell.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RoomListCell.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RoomListView.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/Lists/RoomListView.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/PropertyFields.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/PropertyFields/UserIdField.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/PropertyFields/UserIdField.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/AppVersionProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/AppVersionProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/BestRegionInPrefsProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/BestRegionInPrefsProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CloudRegionProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CloudRegionProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersInRoomProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersInRoomProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersOnMasterProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersOnMasterProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfPlayersProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfRoomsProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CountOfRoomsProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomAutoCleanupProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomAutoCleanupProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomEmptyRoomTtlProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomEmptyRoomTtlProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomExpectedUsersProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomExpectedUsersProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsOfflineProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsOfflineProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsOpenProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsOpenProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsVisibleProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomIsVisibleProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomMasterClientIdProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomMasterClientIdProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomMaxPlayersProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomMaxPlayersProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomNameProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomNameProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPlayerCountProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPlayerCountProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPlayerTtlProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPlayerTtlProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPropertiesListedInLobbyProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/CurrentRoomPropertiesListedInLobbyProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/GameVersionProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/GameVersionProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/IsConnectedAndReadyProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/IsConnectedAndReadyProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/IsConnectedProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/IsConnectedProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/OfflineModeProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/OfflineModeProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/PingProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/PingProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/PropertyListenerBase.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/PropertyListenerBase.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/ServerAddressProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/ServerAddressProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/ServerProperty.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ReadOnlyProperties/ServerProperty.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ScoreHelper.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ScoreHelper.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ThirdParty.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ThirdParty/PunCockpitEmbed.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/PunCockpit/Scripts/ThirdParty/PunCockpitEmbed.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidCrouch.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidCrouch.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdle.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdle.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdleJumpUp.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidIdleJumpUp.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidJumpAndFall.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidJumpAndFall.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidMidAir.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidMidAir.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRun.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRun.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRunTurn.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRunTurn.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRunTurnSharp.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidRunTurnSharp.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidStandTurn.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidStandTurn.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalk.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalk.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurn.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurn.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurnSharp.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/HumanoidWalkTurnSharp.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/EyesMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/EyesMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/SkinMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/SkinMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/SuitMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/SuitMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/TeethMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/TeethMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/TongueMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animations/Materials/TongueMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animator.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animator/ThirdPersonAnimatorController.controller
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Animator/ThirdPersonAnimatorController.controller.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/Gradient.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/Gradient.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/PlayerDiamond.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/PlayerDiamond.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/Robot_Color.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/Robot_Color.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitCircleMaterial.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitCircleMaterial.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitCircleTexture.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitCircleTexture.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureBlue.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureBlue.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureBlue12x.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureBlue12x.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureRed.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Materials/UnitTextureRed.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Models.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Models/Pointer.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Models/Pointer.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Models/Robot Kyle.fbx
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Models/Robot Kyle.fbx.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/PointerPrefab.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/PointerPrefab.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Button Regular.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Button Regular.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Toggle Regular.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Toggle Regular.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Tooltip.prefab
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Prefabs/UI/Tooltip.prefab.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/DocLinks.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/DocLinks.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/ThirdPersonCharacter.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/ThirdPersonCharacter.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/ThirdPersonUserControl.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Scripts/ThirdPersonUserControl.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/3dText.shader
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/3dText.shader.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxBright.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxBright.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxOrange.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxOrange.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxOrangeRed.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxOrangeRed.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxText.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxText.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxTextHover.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/BoxTextHover.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/DropDown Arrow.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/DropDown Arrow.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/DropDown CheckMark.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/DropDown CheckMark.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof35.ttf
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof35.ttf.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof_tt.txt
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/eurof_tt.txt.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Flat-Material.mat
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Flat-Material.mat.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Medium.ttf
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Jura-Medium.ttf.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Orbitron Black.ttf
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Orbitron Black.ttf.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/RoundedBox.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/RoundedBox.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Toggle.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/Toggle.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleHover.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleHover.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleOn.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleOn.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleOnHover.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Skin/ToggleOnHover.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Gradient.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Gradient.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Robot_Color.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Robot_Color.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Robot_Normal.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/Robot_Normal.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitCircleTexture.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitCircleTexture.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTexture.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTexture.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTextureBlue.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTextureBlue.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTextureRed.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/Shared Assets/Textures/UnitTextureRed.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/WebRpcImplementationExample.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Demos/WebRpcImplementationExample.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIcon-128.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIcon-128.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp128.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp128.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp32.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp32.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp48.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp48.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp512.png
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Icons/PunIconApp512.png.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/link.xml
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/link.xml.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/readme.txt
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/readme.txt.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Resources.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullArea.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullArea.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullingHandler.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/CullingHandler.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/CullAreaEditor.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/CullAreaEditor.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/PhotonUnityNetworking.Utilities.Culling.Editor.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Culling/Editor/PhotonUnityNetworking.Utilities.Culling.Editor.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonLagSimulationGui.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonLagSimulationGui.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonStatsGui.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PhotonStatsGui.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PointedAtGameObjectInfo.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/PointedAtGameObjectInfo.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/StatesGui.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Debugging/StatesGui.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonTeamsManagerInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonTeamsManagerInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PlayerNumberingInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PlayerNumberingInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PunTeamsInspector.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/Editor/PunTeamsInspector.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PhotonTeamsManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PhotonTeamsManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PlayerNumbering.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PlayerNumbering.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunPlayerScores.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunTeams.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonPlayer/PunTeams.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonUnityNetworking.Utilities.asmdef
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonUnityNetworking.Utilities.asmdef.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView/SmoothSyncMovement.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/PhotonView/SmoothSyncMovement.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/ConnectAndJoinRandom.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/ConnectAndJoinRandom.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/MoveByKeys.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/MoveByKeys.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickDestroy.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickDestroy.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickInstantiate.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickInstantiate.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickRpc.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnClickRpc.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnEscapeQuit.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnJoinedInstantiate.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnJoinedInstantiate.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnStartDelete.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Prototyping/OnStartDelete.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room/CountdownTimer.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/Room/CountdownTimer.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/TurnBased/PunTurnManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/ButtonInsideScrollList.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/ButtonInsideScrollList.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/EventSystemSpawner.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/GraphicToggleIsOnTransition.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/GraphicToggleIsOnTransition.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/OnPointerOverTooltip.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/OnPointerOverTooltip.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TabViewManager.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TabViewManager.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextButtonTransition.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextButtonTransition.cs.meta
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextToggleIsOnTransition.cs
+VR_clone_0/Assets/Photon/PhotonUnityNetworking/UtilityScripts/UI/TextToggleIsOnTransition.cs.meta
+VR_clone_0/Assets/Plugins.meta
+VR_clone_0/Assets/Plugins/ParrelSync.meta
+VR_clone_0/Assets/Plugins/ParrelSync/ScriptableObjects.meta
+VR_clone_0/Assets/Plugins/ParrelSync/ScriptableObjects/ParrelSyncProjectSettings.asset
+VR_clone_0/Assets/Plugins/ParrelSync/ScriptableObjects/ParrelSyncProjectSettings.asset.meta
+VR_clone_0/Assets/Prefabs.meta
+VR_clone_0/Assets/Prefabs/ConnectionManager.prefab
+VR_clone_0/Assets/Prefabs/ConnectionManager.prefab.meta
+VR_clone_0/Assets/Prefabs/GameController.prefab
+VR_clone_0/Assets/Prefabs/GameController.prefab.meta
+VR_clone_0/Assets/Prefabs/Resources.meta
+VR_clone_0/Assets/Prefabs/Resources/Player.prefab
+VR_clone_0/Assets/Prefabs/Resources/Player.prefab.meta
+VR_clone_0/Assets/Scenes.meta
+VR_clone_0/Assets/Scenes/Game.unity
+VR_clone_0/Assets/Scenes/Game.unity.meta
+VR_clone_0/Assets/Scenes/Menu.unity
+VR_clone_0/Assets/Scenes/Menu.unity.meta
+VR_clone_0/Assets/Scenes/Title.unity
+VR_clone_0/Assets/Scenes/Title.unity.meta
+VR_clone_0/Assets/Scripts.meta
+VR_clone_0/Assets/Scripts/ConnectionManager.cs
+VR_clone_0/Assets/Scripts/ConnectionManager.cs.meta
+VR_clone_0/Assets/Scripts/Data.meta
+VR_clone_0/Assets/Scripts/Data/SceneResources.cs
+VR_clone_0/Assets/Scripts/Data/SceneResources.cs.meta
+VR_clone_0/Assets/Scripts/Front.meta
+VR_clone_0/Assets/Scripts/GameController.cs
+VR_clone_0/Assets/Scripts/GameController.cs.meta
+VR_clone_0/Assets/Scripts/Teste.cs
+VR_clone_0/Assets/Scripts/Teste.cs.meta
+VR_clone_0/Assets/UniversalRenderPipelineGlobalSettings.asset
+VR_clone_0/Assets/UniversalRenderPipelineGlobalSettings.asset.meta
+VR_clone_0/collabignore.txt
+VR_clone_0/Packages/manifest.json
+VR_clone_0/Packages/packages-lock.json
+VR_clone_0/ProjectSettings/AudioManager.asset
+VR_clone_0/ProjectSettings/boot.config
+VR_clone_0/ProjectSettings/BurstAotSettings_StandaloneWindows.json
+VR_clone_0/ProjectSettings/ClusterInputManager.asset
+VR_clone_0/ProjectSettings/CommonBurstAotSettings.json
+VR_clone_0/ProjectSettings/DynamicsManager.asset
+VR_clone_0/ProjectSettings/EditorBuildSettings.asset
+VR_clone_0/ProjectSettings/EditorSettings.asset
+VR_clone_0/ProjectSettings/GraphicsSettings.asset
+VR_clone_0/ProjectSettings/InputManager.asset
+VR_clone_0/ProjectSettings/MemorySettings.asset
+VR_clone_0/ProjectSettings/NavMeshAreas.asset
+VR_clone_0/ProjectSettings/PackageManagerSettings.asset
+VR_clone_0/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
+VR_clone_0/ProjectSettings/Physics2DSettings.asset
+VR_clone_0/ProjectSettings/PresetManager.asset
+VR_clone_0/ProjectSettings/ProjectSettings.asset
+VR_clone_0/ProjectSettings/ProjectVersion.txt
+VR_clone_0/ProjectSettings/QualitySettings.asset
+VR_clone_0/ProjectSettings/SceneTemplateSettings.json
+VR_clone_0/ProjectSettings/ShaderGraphSettings.asset
+VR_clone_0/ProjectSettings/TagManager.asset
+VR_clone_0/ProjectSettings/TimelineSettings.asset
+VR_clone_0/ProjectSettings/TimeManager.asset
+VR_clone_0/ProjectSettings/UnityConnectSettings.asset
+VR_clone_0/ProjectSettings/URPProjectSettings.asset
+VR_clone_0/ProjectSettings/VersionControlSettings.asset
+VR_clone_0/ProjectSettings/VFXManager.asset
+VR_clone_0/ProjectSettings/XRSettings.asset
+VR/Packages/manifest.json
+VR/Packages/packages-lock.json
+VR/ProjectSettings/PackageManagerSettings.asset
+VR_clone_0/.vsconfig
+VR_clone_0/Assets/DefaultVolumeProfile.asset
+VR_clone_0/Assets/DefaultVolumeProfile.asset.meta
+VR_clone_0/ProjectSettings/MultiplayerManager.asset
+VR/Packages/manifest.json
+VR/Packages/packages-lock.json
+VR/ProjectSettings/PackageManagerSettings.asset
+VR/Packages/manifest.json
+VR/Packages/manifest.json
+VR/Packages/packages-lock.json
