@@ -16,6 +16,9 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+    public void Connection()
+    {
         PhotonNetwork.ConnectUsingSettings();
     }
     public override void OnConnectedToMaster()
@@ -24,17 +27,10 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedLobby()
     {
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel(1);
-    }
-
-
-
-    //Fun��es para incorporar no menu
-    public void EnterRandomOrCreateRoom()
-    {
-        PhotonNetwork.JoinRandomOrCreateRoom();
     }
 }
