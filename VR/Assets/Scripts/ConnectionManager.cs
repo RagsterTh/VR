@@ -24,7 +24,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedLobby()
     {
-        EnterRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
@@ -33,7 +32,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
 
 
-    //Funções para incorporar no menu
+    //Funï¿½ï¿½es para incorporar no menu
     public void EnterRandomOrCreateRoom()
     {
         PhotonNetwork.JoinRandomOrCreateRoom();
