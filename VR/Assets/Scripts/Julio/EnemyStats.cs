@@ -5,6 +5,7 @@ public class EnemyStats : MonoBehaviour,IShootable
     [SerializeField] EnemyData enemyData;
 
     float _damage;
+    
 
     private void Start()
     {
