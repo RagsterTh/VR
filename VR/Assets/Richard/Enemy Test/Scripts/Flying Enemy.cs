@@ -13,6 +13,7 @@ public class FlyingEnemy : Enemy
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        StartCoroutine(FindClose(players));
     }
     protected override IEnumerator FindClose(Transform[] players)
     {
@@ -24,6 +25,7 @@ public class FlyingEnemy : Enemy
         }
         followingPlayer = players[Array.IndexOf(playerDistances, playerDistances.Min())]; // Coleta o index do array baseado no menor distancia
         print(followingPlayer.name + ", Aerial");
+        agent.SetDestination(followingPlayer.position);
         //agent.SetDestination(followingPlayer.position);
         yield return new WaitForSeconds(1f);
         StartCoroutine(FindClose(players));
