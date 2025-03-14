@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
         PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation);
         if (!PhotonNetwork.IsMasterClient)
             return;
-        _enemyPool.CallObject(_spawnPoints[3].position);
+        _enemyPool.CallObject(_spawnPoints[0].position);
     }
     public static GameObject GetResource(ResourceTypes resource)
     {
