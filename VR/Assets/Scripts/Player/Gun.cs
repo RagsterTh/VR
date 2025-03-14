@@ -35,8 +35,8 @@ public class Gun : MonoBehaviour
             _target = null;
         }
     }
-    public void Shoot()
+    public void OnShoot()
     {
-        _target.Hit();
+        _target?.Hit();
     }
 }
