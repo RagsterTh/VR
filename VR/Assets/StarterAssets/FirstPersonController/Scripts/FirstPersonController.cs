@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -12,7 +11,6 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
-		PhotonView _phView;
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
@@ -90,11 +88,8 @@ namespace StarterAssets
 
 		private void Awake()
 		{
-            _phView = GetComponentInParent<PhotonView>();
-			if (!_phView.IsMine)
-				return;
-            // get a reference to our main camera
-            if (_mainCamera == null)
+			// get a reference to our main camera
+			if (_mainCamera == null)
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
@@ -117,18 +112,14 @@ namespace StarterAssets
 
 		private void Update()
 		{
-            if (!_phView.IsMine)
-                return;
-            JumpAndGravity();
+			JumpAndGravity();
 			GroundedCheck();
 			Move();
 		}
 
 		private void LateUpdate()
 		{
-            if (!_phView.IsMine)
-                return;
-            CameraRotation();
+			CameraRotation();
 		}
 
 		private void GroundedCheck()
