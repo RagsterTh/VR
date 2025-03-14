@@ -10,7 +10,6 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] float timeToSpawn;
     [SerializeField] SpawnerType typeOfEnemy;
-    [SerializeField] GameObject[] enemies; 
 
     private void Start()
     {
