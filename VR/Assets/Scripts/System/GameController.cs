@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
+    [SerializeField] ObjectPool _enemyPool;
     [SerializeField]Transform[] _spawnPoints;
     [SerializeField]SceneResources _sceneResources;
 
@@ -27,6 +28,9 @@ public class GameController : MonoBehaviour
             _resourcesRegister.Add(item.type, item.resource);
         }
         PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation);
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+        _enemyPool.CallObject(_spawnPoints[3].position);
     }
     public static GameObject GetResource(ResourceTypes resource)
     {
