@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ac100a98adf254ebc54ece51d3d993, type: 3}
+  m_Name: MedicalQuestionsData
+  m_EditorClassIdentifier: 
+  medicalDatas:
+  - {fileID: 11400000, guid: 311d1205ef2fa0a4dbe1953bc6f63e78, type: 2}
+  - {fileID: 11400000, guid: df04b7d84a7fd1a4f9c2884d0d920918, type: 2}
+  - {fileID: 11400000, guid: cbf113fd70241b64c8d531e8c486caa1, type: 2}
+  - {fileID: 11400000, guid: 3b3c8a050722c224a8367a2abbb6edd9, type: 2}
+  - {fileID: 11400000, guid: 16c13c87fef40584eb9a350bc61befe0, type: 2}
+  - {fileID: 11400000, guid: 8222168eb8bc0f943a2a940859c61767, type: 2}

@@ -34,4 +34,5 @@ public class MedicalData : ScriptableObject
     public DamageType damageType;
     public DamageIntensity damageIntensity;
     public TreatmentType treatmentType;
+    public string treatmentDescription;
 }
