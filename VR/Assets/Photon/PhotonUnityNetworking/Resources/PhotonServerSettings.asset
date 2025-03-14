@@ -42,6 +42,7 @@ MonoBehaviour:
   - RPC_RegisterAvatar
   - RPC_InitializePool
   - RPC_CallObject
+  - RPC_RegistePlayerAvatar
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

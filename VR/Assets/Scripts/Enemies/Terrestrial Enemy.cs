@@ -1,19 +1,14 @@
 using UnityEngine.AI;
 
-
-public class FlyingEnemy : Enemy
+public class TerrestrialEnemy : Enemy
 {
     NavMeshAgent agent;
     private void Start()
     {
+        base.Start();
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = 10;
+        agent.stoppingDistance = 5;
         StartCoroutine(FollowPlayer(agent));
-        print(agent.stoppingDistance + "Aerio");
+        print(agent.stoppingDistance + "Terestre");
     }
-    protected override void TakeDamage()
-    {
-
-    }
-
 }

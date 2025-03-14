@@ -1,17 +1,23 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IShootable
 {
-    public Transform[] players = new Transform[4];
-    public Transform followingPlayer;
+    //protected Transform[] players = new Transform[4];
+    protected Transform followingPlayer;
+    List<Transform> _playersPos = new List<Transform>();
 
-    private void Awake()
+    protected void Start()
     {
-        StartCoroutine(FindClose(players));
+        foreach(var t in GameController.instance.PlayerAvatar)
+        {
+            _playersPos.Add(t.transform);
+        }
+        StartCoroutine(FindClose(_playersPos.ToArray()));
     }
 
     IEnumerator FindClose(Transform[] players)
@@ -27,7 +33,7 @@ public abstract class Enemy : MonoBehaviour
         StartCoroutine(FindClose(players));
     }
 
-    protected abstract void TakeDamage();
+    
 
     protected virtual IEnumerator FollowPlayer(NavMeshAgent agent)
     {
@@ -37,5 +43,11 @@ public abstract class Enemy : MonoBehaviour
             agent.SetDestination(followingPlayer.position);
         }        
         StartCoroutine(FollowPlayer(agent));
+    }
+
+    public void Hit()
+    {
+        print("atirado");
+        gameObject.SetActive(false);
     }
 }

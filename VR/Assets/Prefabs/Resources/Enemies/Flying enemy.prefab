@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 8460005663445390998}
   - component: {fileID: 5294933097613423096}
   - component: {fileID: 8235713586207443238}
-  - component: {fileID: 3144937707562672019}
   - component: {fileID: 2265193057716139559}
   - component: {fileID: 2593693444501129241}
   - component: {fileID: 8978825011043010748}
@@ -219,33 +218,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   followingPlayer: {fileID: 0}
---- !u!54 &3144937707562672019
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180986575288623966}
-  serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!195 &2265193057716139559
 NavMeshAgent:
   m_ObjectHideFlags: 0
