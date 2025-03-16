@@ -16,7 +16,8 @@ public class GameController : MonoBehaviour
 
     public List<GameObject> PlayerAvatar { get => _playerAvatar;}
 
-    //[Header("Events")]
+    [Header("Events")]
+    public UnityEvent OnBattleBegin;
 
     private void Awake()
     {
@@ -30,10 +31,10 @@ public class GameController : MonoBehaviour
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
-        int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(0, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+        int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         if (PhotonNetwork.LocalPlayer.IsLocal)
         {
-            _phView.RPC("RPC_RegistePlayerAvatar", RpcTarget.AllBuffered, playerID);
+            _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
         }
         if (!PhotonNetwork.IsMasterClient)
             return;
@@ -42,10 +43,26 @@ public class GameController : MonoBehaviour
     {
         return _resourcesRegister[resource];
     }
-    [PunRPC]
-    public void RPC_RegistePlayerAvatar(int playerID)
+    public void BattleBegin()
     {
-        _playerAvatar.Add(PhotonNetwork.GetPhotonView(playerID).gameObject);
+        OnBattleBegin.Invoke();
+    }
+    /*
+    IEnumerator BattleBegin()
+    {
+        yield return new WaitForSeconds(2);
+        //_phView.RPC("RPC_BattleBegin", RpcTarget.AllBuffered);
+    }
+    */
+    [PunRPC]
+    public void RPC_RegisterPlayerAvatar(int playerID)
+    {
+        _playerAvatar.Add(PhotonNetwork.GetPhotonView(playerID).transform.GetChild(1).gameObject);
+    }
+    [PunRPC]
+    public void RPC_BattleBegin()
+    {
+        OnBattleBegin.Invoke();
     }
     
 }

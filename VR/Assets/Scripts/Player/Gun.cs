@@ -23,7 +23,6 @@ public class Gun : MonoBehaviour
     }
     void Aim()
     {
-        Debug.DrawRay(_gunDirection.position, _gunDirection.forward, Color.red);
         if (Physics.Raycast(_gunDirection.position, _gunDirection.forward, out RaycastHit hit))
         {
             if(hit.collider.TryGetComponent(out IShootable target))

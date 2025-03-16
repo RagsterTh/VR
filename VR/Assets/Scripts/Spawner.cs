@@ -19,6 +19,7 @@ public class Spawner : MonoBehaviour
     {
         yield return new WaitForSeconds(_timeToSpawn);
         _enemyPool.CallObject(transform.position);
+        StartCoroutine(Spawn());
 
     }
 }

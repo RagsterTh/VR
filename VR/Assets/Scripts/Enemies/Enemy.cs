@@ -2,21 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour, IShootable
 {
-    //protected Transform[] players = new Transform[4];
     protected Transform followingPlayer;
     List<Transform> _playersPos = new List<Transform>();
 
-    protected void Start()
+    protected void Awake()
     {
-        foreach(var t in GameController.instance.PlayerAvatar)
+        foreach (var t in GameController.instance.PlayerAvatar)
         {
             _playersPos.Add(t.transform);
         }
+
+    }
+    protected void OnEnable()
+    {
         StartCoroutine(FindClose(_playersPos.ToArray()));
     }
 
@@ -28,7 +32,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
         {
             playerDistances[i] = Vector3.Distance(players[i].transform.position, transform.position);
         }
-        followingPlayer = players[Array.IndexOf(playerDistances, playerDistances.Min())];
+        followingPlayer = players[Array.IndexOf(playerDistances, playerDistances.Min()) - 1];
         yield return new WaitForSeconds(.2f);
         StartCoroutine(FindClose(players));
     }
@@ -41,13 +45,12 @@ public abstract class Enemy : MonoBehaviour, IShootable
         if (agent)
         {
             agent.SetDestination(followingPlayer.position);
-        }        
+        }
         StartCoroutine(FollowPlayer(agent));
     }
 
     public void Hit()
     {
-        print("atirado");
         gameObject.SetActive(false);
     }
 }

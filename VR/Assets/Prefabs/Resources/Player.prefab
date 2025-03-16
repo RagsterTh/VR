@@ -65,6 +65,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5836193689886810477}
     m_Modifications:
+    - target: {fileID: 4135013735270702863, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393215578589016642, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8616685848737228371, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
       propertyPath: GroundLayers.m_Bits
       value: 1
@@ -72,6 +80,10 @@ PrefabInstance:
     - target: {fileID: 8616685848737228372, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616685848737228372, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: 9f58f8a0269ec3048bb5bf59cfa0c404, type: 3}
       propertyPath: m_RootOrder
