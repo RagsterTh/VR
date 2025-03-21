@@ -18,7 +18,16 @@ public class ObjectPool : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        _phView.RPC("RPC_InitializePool", RpcTarget.AllBuffered);
+
+        GameObject collection = new GameObject(_objectToPool.name + " Collection");
+        _pooledObjects = new List<GameObject>();
+        GameObject tmp;
+        for (int i = 0; i < _amountToPool; i++)
+        {
+            tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
+            tmp.SetActive(false);
+            _pooledObjects.Add(tmp);
+        }
 
     }
     public GameObject GetPooledObject()
@@ -48,7 +57,7 @@ public class ObjectPool : MonoBehaviour
         }
         return bullet;
     }
-
+    /*
     [PunRPC]
     public void RPC_InitializePool()
     {
@@ -59,8 +68,10 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _amountToPool; i++)
         {
             tmp = Instantiate(_objectToPool, collection.transform);
+            //tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
             tmp.SetActive(false);
             _pooledObjects.Add(tmp);
         }
     }
+    */
 }

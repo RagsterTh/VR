@@ -5,14 +5,16 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-
+using Photon.Pun;
 public abstract class Enemy : MonoBehaviour, IShootable
 {
+
     protected Transform followingPlayer;
     List<Transform> _playersPos = new List<Transform>();
-
+    PhotonView _phView;
     protected void Awake()
     {
+        _phView = GetComponent<PhotonView>();
         foreach (var t in GameController.instance.PlayerAvatar)
         {
             _playersPos.Add(t.transform);
@@ -50,6 +52,11 @@ public abstract class Enemy : MonoBehaviour, IShootable
     }
 
     public void Hit()
+    {
+        _phView.RPC("RPC_Hit", RpcTarget.All);
+    }
+    [PunRPC]
+    public void RPC_Hit()
     {
         gameObject.SetActive(false);
     }
