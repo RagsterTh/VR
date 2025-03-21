@@ -46,6 +46,8 @@ MonoBehaviour:
   - RPC_BattleBegin
   - RPC_RegisterPlayerAvatar
   - RPC_SwitchActivate
+  - RPC_Hit
+  - RPC_LoadingPools
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

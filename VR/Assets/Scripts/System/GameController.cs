@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     PhotonView _phView;
     public static GameController instance;
     [SerializeField]Transform[] _spawnPoints;
+    [SerializeField] ObjectPool[] _enemyPools;
     [SerializeField]SceneResources _sceneResources;
     List<GameObject> _playerAvatar = new List<GameObject>();
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour
         }
         if (!PhotonNetwork.IsMasterClient)
             return;
+
     }
     public static GameObject GetResource(ResourceTypes resource)
     {
@@ -47,13 +49,8 @@ public class GameController : MonoBehaviour
     {
         OnBattleBegin.Invoke();
     }
-    /*
-    IEnumerator BattleBegin()
-    {
-        yield return new WaitForSeconds(2);
-        //_phView.RPC("RPC_BattleBegin", RpcTarget.AllBuffered);
-    }
-    */
+
+    //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
