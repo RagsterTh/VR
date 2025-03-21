@@ -43,35 +43,18 @@ public class ObjectPool : MonoBehaviour
     }
     public void CallObject(Vector3 origin)
     {
-        _phView.RPC("RPC_CallObject", RpcTarget.AllBuffered, origin);
+        GameObject bullet = GetPooledObject();
+        _phView.RPC("RPC_CallObject", RpcTarget.AllBuffered, origin, bullet.GetPhotonView().ViewID);
     }
 
     [PunRPC]
-    public GameObject RPC_CallObject(Vector3 origin)
+    public void RPC_CallObject(Vector3 origin, int photonID)
     {
-        GameObject bullet = GetPooledObject();
+        GameObject bullet = PhotonNetwork.GetPhotonView(photonID).gameObject;
         if (bullet != null)
         {
             bullet.transform.position = origin;
             bullet.SetActive(true);
         }
-        return bullet;
     }
-    /*
-    [PunRPC]
-    public void RPC_InitializePool()
-    {
-        GameObject collection = new GameObject();
-        collection.name = _objectToPool.name + " Collection";
-        _pooledObjects = new List<GameObject>();
-        GameObject tmp;
-        for (int i = 0; i < _amountToPool; i++)
-        {
-            tmp = Instantiate(_objectToPool, collection.transform);
-            //tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
-            tmp.SetActive(false);
-            _pooledObjects.Add(tmp);
-        }
-    }
-    */
 }
