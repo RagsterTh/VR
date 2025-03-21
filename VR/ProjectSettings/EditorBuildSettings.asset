@@ -9,14 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Title.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 707acc8dffb72b144bb1ffbe1c965f3d
-  - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 3acebba3b58737b42a51fe841cf0549c
-  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 2adc004ff4a3590489194d01f9cdc16d
+  - enabled: 1
+    path: Assets/Scenes/Saguao.unity
+    guid: f683ebb614948a345a5b1f37a54f3b9e
+  - enabled: 1
+    path: Assets/Scenes/Globo.unity
+    guid: 6722fd8dd35458941acb9d316c22f223
+  - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 707acc8dffb72b144bb1ffbe1c965f3d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
   m_UseUCBPForAssetBundles: 0
