@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] MedicalQuestionsData medicalQuestionsData;
-    [SerializeField] int questionQt;
+    int questionQt;
     MedicalData _medicalData;
 
     [SerializeField] TMP_Text displayText;
@@ -15,6 +15,7 @@ public class MedicalQuestions : MonoBehaviour
 
     private void Start()
     {
+        questionQt = 1;
         SetButtons();
         ArrangeQuestion();
     }
@@ -76,6 +77,5 @@ public class MedicalQuestions : MonoBehaviour
         {
             SetID(5);
         });
-
     }
 }
