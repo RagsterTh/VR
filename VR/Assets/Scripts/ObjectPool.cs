@@ -25,7 +25,6 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < _amountToPool; i++)
         {
             tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
-            tmp.SetActive(false);
             _pooledObjects.Add(tmp);
         }
 
