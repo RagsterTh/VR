@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
-using static Unity.Burst.Intrinsics.X86.Avx;
 public abstract class Enemy : MonoBehaviour, IShootable
 {
 
@@ -31,13 +28,16 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     IEnumerator FindClose(Transform[] players)
     {
-        float[] playerDistances = new float[4]; // array de distancias
-
+        float distance = 50;
         for (int i = 0; i < players.Length; i++)
         {
-            playerDistances[i] = Vector3.Distance(players[i].transform.position, transform.position);
+            if(Vector3.Distance(players[i].position, transform.position) < distance)
+            {
+                distance = Vector3.Distance(players[i].position, transform.position);
+                followingPlayer = players[i];
+            }
+
         }
-        followingPlayer = players[Array.IndexOf(playerDistances, playerDistances.Min()) - 1];
         yield return new WaitForSeconds(.2f);
         StartCoroutine(FindClose(players));
     }
@@ -53,7 +53,6 @@ public abstract class Enemy : MonoBehaviour, IShootable
         }
         StartCoroutine(FollowPlayer(agent));
     }
-
     public void Hit()
     {
         _phView.RPC("RPC_Hit", RpcTarget.All);
