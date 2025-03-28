@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using static Unity.Burst.Intrinsics.X86.Avx;
 public abstract class Enemy : MonoBehaviour, IShootable
 {
 
@@ -15,14 +16,16 @@ public abstract class Enemy : MonoBehaviour, IShootable
     protected void Awake()
     {
         _phView = GetComponent<PhotonView>();
-        foreach (var t in GameController.instance.PlayerAvatar)
-        {
-            _playersPos.Add(t.transform);
-        }
+        gameObject.SetActive(false);
+
 
     }
     protected void OnEnable()
     {
+        foreach (var t in GameController.instance.PlayerAvatar)
+        {
+            _playersPos.Add(t.transform);
+        }
         StartCoroutine(FindClose(_playersPos.ToArray()));
     }
 
