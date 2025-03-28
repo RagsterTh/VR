@@ -3840,9 +3840,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1134689524}
-        m_TargetAssemblyTypeName: TitleFunctions, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 492254012}
+        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
+        m_MethodName: Connection
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3852,9 +3852,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 492254012}
-        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
-        m_MethodName: Connection
+      - m_Target: {fileID: 1134689524}
+        m_TargetAssemblyTypeName: TitleFunctions, Assembly-CSharp
+        m_MethodName: StartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

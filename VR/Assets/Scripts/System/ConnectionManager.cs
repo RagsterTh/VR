@@ -31,6 +31,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(1);
+        PhotonNetwork.LoadLevel(4);
     }
 }
