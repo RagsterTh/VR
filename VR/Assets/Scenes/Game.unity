@@ -1207,6 +1207,7 @@ MonoBehaviour:
   OnStartTime:
     m_PersistentCalls:
       m_Calls: []
+  timerText: []
 --- !u!4 &1911305726
 Transform:
   m_ObjectHideFlags: 0

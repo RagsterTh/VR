@@ -61,5 +61,10 @@ public class GameController : MonoBehaviour
     {
         OnBattleBegin.Invoke();
     }
+
+    public List<GameObject> GetPlayerList()
+    {
+        return _playerAvatar;
+    }
     
 }

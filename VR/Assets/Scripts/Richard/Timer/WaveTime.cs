@@ -2,6 +2,10 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
+using Photon.Pun.Demo.PunBasics;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class WaveTime : MonoBehaviourPunCallbacks
 {
@@ -10,9 +14,17 @@ public class WaveTime : MonoBehaviourPunCallbacks
     [SerializeField] float countdown;
 
     public UnityEvent OnStartTime;
+    [SerializeField] List<TextMeshProUGUI> timerText;
+    List<GameObject> players = new List<GameObject>();
+
 
     private void Awake()
     {
+        foreach (GameObject player in players)
+        {
+            timerText.Add(player.GetComponentInChildren<TextMeshProUGUI>());
+            print(player);
+        }
         countdown = startTime;
         OnStartTime.AddListener(delegate
         {
@@ -35,6 +47,11 @@ public class WaveTime : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(1);
         TimeRemaining();
+        foreach (var text in timerText)
+        {
+            text.text = TimeRemaining().ToString();
+            print(text);
+        }
         print(countdown);
         if (countdown <= 0)
         {
