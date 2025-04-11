@@ -1202,11 +1202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9db7c6fd2bdb134ea6ad2357fa7f8c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTime: 100
+  startTime: 5
   countdown: 0
-  OnStartTime:
-    m_PersistentCalls:
-      m_Calls: []
   timerText: []
 --- !u!4 &1911305726
 Transform:
