@@ -3,8 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
-using Photon.Pun.Demo.PunBasics;
-using NUnit.Framework;
 using System.Collections.Generic;
 
 public class WaveTime : MonoBehaviourPunCallbacks
@@ -12,8 +10,8 @@ public class WaveTime : MonoBehaviourPunCallbacks
 
     [SerializeField] int startTime;
     [SerializeField] float countdown;
-
-    [SerializeField] List<TextMeshProUGUI> timerText;
+    bool isEnded;
+    public UnityEvent OnEndTime;
 
     public void Start()
     {
@@ -21,22 +19,21 @@ public class WaveTime : MonoBehaviourPunCallbacks
     }
     public void StartTime()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            StartCoroutine(PrintTime());
-        }
+        StartCoroutine(PrintTime());
     }
 
     IEnumerator PrintTime()
     {
         yield return new WaitForSeconds(0);
-        countdown -= Time.deltaTime;
-        print((int)countdown);
-        if (countdown <= 0)
+        if (countdown <= 0 && !isEnded)
         {
             print("Cabo");
+            OnEndTime.Invoke();
+            isEnded = true;
             yield return null;
         }
+        countdown -= Time.deltaTime;
+        print((int)countdown);
         StartCoroutine(PrintTime());
     }
 }
