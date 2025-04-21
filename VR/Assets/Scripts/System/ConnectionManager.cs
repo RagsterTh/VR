@@ -16,6 +16,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        Connection();//Temporario
     }
     public void Connection()
     {
