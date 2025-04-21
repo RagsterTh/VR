@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4262497491492092399}
   - component: {fileID: 482832688052955511}
   - component: {fileID: 686753594839677023}
+  - component: {fileID: 6531349544144515084}
   m_Layer: 0
   m_Name: PlayerVRUI
   m_TagString: Untagged
@@ -66,6 +67,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ActionAssets:
   - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!114 &6531349544144515084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536126279012980523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58fb300057b88e4c8415a8f1ea9a2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &890630821150806687
 GameObject:
   m_ObjectHideFlags: 0

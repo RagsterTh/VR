@@ -6,6 +6,7 @@ using Photon.Pun;
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
+    public static bool isVR;
     private void Awake()
     {
         if (instance)
@@ -16,7 +17,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        Connection();//Temporario
+    }
+    private void Start()
+    {
+        if (ConnectionManager.isVR)
+            Connection();
     }
     public void Connection()
     {
