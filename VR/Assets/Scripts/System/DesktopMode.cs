@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Photon.Pun;
 public class DesktopMode : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,5 +12,12 @@ public class DesktopMode : MonoBehaviour
     void Update()
     {
         
+    }
+
+    //Temporary
+    public void OnConnection()
+    {
+        print("foi");
+        PhotonNetwork.ConnectUsingSettings();
     }
 }

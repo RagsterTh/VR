@@ -18,11 +18,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(gameObject);
         }
     }
-    private void Start()
-    {
-        if (ConnectionManager.isVR)
-            Connection();
-    }
     public void Connection()
     {
         PhotonNetwork.ConnectUsingSettings();
