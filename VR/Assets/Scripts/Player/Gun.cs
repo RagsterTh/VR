@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 public class Gun : MonoBehaviour
 {
-    GameObject _bullet;
     [SerializeField] float fireSpeed = 20;
     PhotonView _phView;
     [SerializeField] Transform _gunDirection;
@@ -14,7 +13,6 @@ public class Gun : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _bullet = GameController.GetResource(ResourceTypes.Bullet);
         _phView = GetComponentInParent<PhotonView>();
         if (!_phView.IsMine)
         {
@@ -41,13 +39,12 @@ public class Gun : MonoBehaviour
             _target = null;
         }
     }
-    public void OnShoot()
+    public void Shoot()
     {
         _target?.Hit();
     }
-    public void SetTarget(SelectEnterEventArgs value)
+    public void SetTarget(HoverEnterEventArgs value)
     {
         _target = value.interactableObject.transform.GetComponent<IShootable>();
-        _target?.Hit();
     }
 }
