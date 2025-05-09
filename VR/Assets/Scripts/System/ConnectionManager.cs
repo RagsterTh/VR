@@ -18,7 +18,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        if (SceneManager.GetActiveScene().name.Equals("Game"))
+        if (!SceneManager.GetActiveScene().name.Equals("Title"))
             Connection();
     }
     public void Connection()
@@ -35,7 +35,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        if(!SceneManager.GetActiveScene().name.Equals("Game"))
+        if(SceneManager.GetActiveScene().name.Equals("Title") || SceneManager.GetActiveScene().name.Equals("LoadingScene"))
             PhotonNetwork.LoadLevel(4);
     }
 }
