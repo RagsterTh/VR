@@ -887,7 +887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1162974476
 Transform:
   m_ObjectHideFlags: 0
@@ -904,6 +904,7 @@ Transform:
   - {fileID: 1181842143}
   - {fileID: 1380735313}
   - {fileID: 924560807}
+  - {fileID: 2143499444}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1181842142
@@ -1706,6 +1707,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: WaveTime, Assembly-CSharp
+        m_MethodName: StartTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1988704330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,6 +1975,11 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: fd419c6ad9bc18e409c510f7fc9cd235, type: 2}
   m_BuildHeightMesh: 0
+--- !u!4 &2143499444 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3876919656288855616, guid: 7fa318786f0741b458401735bc5d6806, type: 3}
+  m_PrefabInstance: {fileID: 2023756041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2114283753834967212
 GameObject:
   m_ObjectHideFlags: 0
