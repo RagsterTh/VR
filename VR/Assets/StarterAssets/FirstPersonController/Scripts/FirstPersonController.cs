@@ -119,7 +119,7 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			//CameraRotation();
+			CameraRotation();
 		}
 
 		private void GroundedCheck()
@@ -153,6 +153,7 @@ namespace StarterAssets
 
 		private void Move()
 		{
+			print("rolando");
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 
 			// a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
