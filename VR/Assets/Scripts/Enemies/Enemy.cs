@@ -62,4 +62,8 @@ public abstract class Enemy : MonoBehaviour, IShootable
     {
         gameObject.SetActive(false);
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        print("Foi");
+    }
 }

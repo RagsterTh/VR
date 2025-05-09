@@ -46,7 +46,9 @@ public class GameController : MonoBehaviour
     }
     public void BattleBegin()
     {
-        OnBattleBegin.Invoke();
+        //OnBattleBegin.Invoke();
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        _phView.RPC("RPC_BattleBegin", RpcTarget.All);
     }
 
     //RPC's
@@ -59,6 +61,11 @@ public class GameController : MonoBehaviour
     public void RPC_BattleBegin()
     {
         OnBattleBegin.Invoke();
+    }
+
+    public List<GameObject> GetPlayerList()
+    {
+        return _playerAvatar;
     }
     
 }
