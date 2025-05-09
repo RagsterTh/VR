@@ -26,19 +26,18 @@ public class GameController : MonoBehaviour
         _phView = GetComponent<PhotonView>();
     }
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         foreach (var item in _sceneResources.resources)
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
+        yield return new WaitUntil(() => PhotonNetwork.InRoom);
         int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         if (PhotonNetwork.LocalPlayer.IsLocal)
         {
             _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
         }
-        if (!PhotonNetwork.IsMasterClient)
-            return;
 
     }
     public static GameObject GetResource(ResourceTypes resource)
@@ -47,7 +46,9 @@ public class GameController : MonoBehaviour
     }
     public void BattleBegin()
     {
-        OnBattleBegin.Invoke();
+        //OnBattleBegin.Invoke();
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        _phView.RPC("RPC_BattleBegin", RpcTarget.All);
     }
 
     //RPC's
