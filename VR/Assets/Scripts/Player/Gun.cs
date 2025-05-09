@@ -1,8 +1,12 @@
 using Photon.Pun;
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 public class Gun : MonoBehaviour
 {
+    [SerializeField] float fireSpeed = 20;
     PhotonView _phView;
     [SerializeField] Transform _gunDirection;
     IShootable _target;
@@ -19,7 +23,7 @@ public class Gun : MonoBehaviour
 
     void FixedUpdate()
     {
-        Aim();
+        //Aim();
     }
     void Aim()
     {
@@ -35,8 +39,12 @@ public class Gun : MonoBehaviour
             _target = null;
         }
     }
-    public void OnShoot()
+    public void Shoot()
     {
         _target?.Hit();
+    }
+    public void SetTarget(HoverEnterEventArgs value)
+    {
+        _target = value.interactableObject.transform.GetComponent<IShootable>();
     }
 }

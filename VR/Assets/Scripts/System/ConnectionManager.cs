@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
@@ -17,6 +18,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+            Connection();
     }
     public void Connection()
     {
@@ -32,6 +35,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(4);
+        if(!SceneManager.GetActiveScene().name.Equals("Game"))
+            PhotonNetwork.LoadLevel(4);
     }
 }
