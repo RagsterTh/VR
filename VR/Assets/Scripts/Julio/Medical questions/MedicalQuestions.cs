@@ -1,81 +1,77 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MedicalQuestions : MonoBehaviour
 {
-    [SerializeField] MedicalQuestionsData medicalQuestionsData;
-    int questionQt;
-    MedicalData _medicalData;
+    [SerializeField] private MedicalQuestionsData medicalQuestionsData;
+    private MedicalData currentData;
 
-    [SerializeField] TMP_Text displayText;
-    int _treatmentID;
+    [SerializeField] private TMP_Text displayText;
+    [SerializeField] private Button[] answerButtons;
+    [SerializeField] private GameObject buttonPanel;
 
-    [SerializeField] Button[] _questions;
+    private TreatmentType correctTreatment;
+    private MedicalEmergency currentWound;
 
     private void Start()
     {
-        questionQt = 1;
-        SetButtons();
-        ArrangeQuestion();
+        buttonPanel.SetActive(false);
+        SetupButtons();
     }
 
-    public void SetID(int id) 
+    public void ShowTreatmentOptions(MedicalEmergency wound)
     {
-        if(id == _treatmentID) 
+        if (currentWound != null && currentWound != wound)
         {
-            Debug.Log("Tratamento certo");
-            ArrangeQuestion();
+            currentWound.ClearLabel();
+        }
+
+        currentWound = wound;
+        wound.ShowLabel();
+
+        int rand = Random.Range(0, medicalQuestionsData.medicalDatas.Length);
+        currentData = medicalQuestionsData.medicalDatas[rand];
+
+        displayText.text = $"Patient has a <b>{currentData.damageIntensity}</b> <b>{currentData.damageType}</b>.\nWhat is the correct treatment?";
+        correctTreatment = currentData.treatmentType;
+
+        buttonPanel.SetActive(true);
+    }
+
+    public void CheckAnswer(int answerID)
+    {
+        if ((int)correctTreatment == answerID)
+        {
+            Debug.Log("Correct treatment!");
+            if (currentWound != null)
+            {
+                Destroy(currentWound.gameObject);
+            }
         }
         else
-            Debug.Log("Tratamento falso");
-
-    }
-
-    public void ArrangeQuestion() 
-    {
-        if (questionQt <= 0)
         {
-            Debug.Log("Acabou as Perguntas");
-            displayText.text = ":)";
-            _treatmentID = 10;
-            return;
+            Debug.Log("Incorrect treatment!");
         }
-        else
-            questionQt--;
 
-        int randomMedicalData = Random.Range(0, medicalQuestionsData.medicalDatas.Length);
-        _medicalData = medicalQuestionsData.medicalDatas[randomMedicalData];
+        displayText.text = "";
+        buttonPanel.SetActive(false);
 
-        displayText.text = _medicalData.treatmentDescription;
-        _treatmentID = (int)_medicalData.treatmentType;
+        if (currentWound != null)
+        {
+            currentWound.ClearLabel();
+            currentWound = null;
+        }
     }
 
-    public void SetButtons() 
+    public void SetupButtons()
     {
-        _questions[0].onClick.AddListener(delegate
+        for (int i = 0; i < answerButtons.Length; i++)
         {
-            SetID(0);
-        });
-        _questions[1].onClick.AddListener(delegate
-        {
-            SetID(1);
-        });
-        _questions[2].onClick.AddListener(delegate
-        {
-            SetID(2);
-        });
-        _questions[3].onClick.AddListener(delegate
-        {
-            SetID(3);
-        });
-        _questions[4].onClick.AddListener(delegate
-        {
-            SetID(4);
-        });
-        _questions[5].onClick.AddListener(delegate
-        {
-            SetID(5);
-        });
+            int id = i;
+            answerButtons[i].onClick.RemoveAllListeners();
+            answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
+        }
     }
 }
