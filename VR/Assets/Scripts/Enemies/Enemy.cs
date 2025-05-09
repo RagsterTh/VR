@@ -64,6 +64,10 @@ public abstract class Enemy : MonoBehaviour, IShootable
     }
     private void OnCollisionEnter(Collision collision)
     {
-        print("Foi");
+        print("TOCOU");
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        print("TRIGGER");
     }
 }
