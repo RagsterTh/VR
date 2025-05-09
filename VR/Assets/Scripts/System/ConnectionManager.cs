@@ -36,6 +36,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         if(SceneManager.GetActiveScene().name.Equals("Title") || SceneManager.GetActiveScene().name.Equals("LoadingScene"))
-            PhotonNetwork.LoadLevel(4);
+            PhotonNetwork.LoadLevel(2);
     }
 }
