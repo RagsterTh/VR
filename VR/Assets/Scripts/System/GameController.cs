@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     {
         foreach (var item in _sceneResources.resources)
         {
+            print(item.type);
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);

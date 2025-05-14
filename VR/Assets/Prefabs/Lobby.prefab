@@ -729,7 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3864281866026420237}
   m_Layer: 0
-  m_Name: Saguao
+  m_Name: Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,7 +1908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7855879975435563514
 Transform:
   m_ObjectHideFlags: 0
