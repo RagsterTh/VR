@@ -315,6 +315,7 @@ GameObject:
   - component: {fileID: 6293392918445225656}
   - component: {fileID: 7346833723117000117}
   - component: {fileID: 4655402677022880787}
+  - component: {fileID: 8966293223151456427}
   m_Layer: 0
   m_Name: PlayerVR
   m_TagString: Player
@@ -613,6 +614,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!136 &8966293223151456427
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040953620420040771}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2798677468785640432
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,4 +55,9 @@ public class Gun : MonoBehaviour
     {
         _target = value.interactableObject.transform.GetComponent<IShootable>();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy"))
+            GameController.instance.LoadMedicalScene();
+    }
 }
