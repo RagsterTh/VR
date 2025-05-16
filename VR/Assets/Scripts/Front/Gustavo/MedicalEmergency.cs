@@ -3,7 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class MedicalEmergency : MonoBehaviour
+public class MedicalEmergency : MonoBehaviour, IShootable
 {
     [Header("Scale Effect")]
     [SerializeField] private Vector3 hoverScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -20,14 +20,14 @@ public class MedicalEmergency : MonoBehaviour
 
     private bool isSelected;
 
-    private void OnMouseEnter()
+    public void OnMouseEnter()
     {
         StartCoroutine(ScaleLerp(transform.localScale, hoverScale, scaleDuration));
         if (!isSelected && hoverLabel != null)
             hoverLabel.text = woundName;
     }
 
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         StartCoroutine(ScaleLerp(transform.localScale, originalScale, scaleDuration));
         if (!isSelected && hoverLabel != null)
@@ -36,11 +36,7 @@ public class MedicalEmergency : MonoBehaviour
 
     private void OnMouseDown()
     {
-        isSelected = true;
-        if (medicalSystem != null)
-        {
-            medicalSystem.ShowTreatmentOptions(this);
-        }
+        Hit();
     }
 
     public void ShowLabel()
@@ -71,5 +67,14 @@ public class MedicalEmergency : MonoBehaviour
             yield return null;
         }
         transform.localScale = end;
+    }
+
+    public void Hit()
+    {
+        isSelected = true;
+        if (medicalSystem != null)
+        {
+            medicalSystem.ShowTreatmentOptions(this);
+        }
     }
 }
