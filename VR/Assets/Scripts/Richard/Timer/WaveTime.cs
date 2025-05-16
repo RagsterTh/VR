@@ -17,6 +17,7 @@ public class WaveTime : MonoBehaviourPunCallbacks
     public void Start()
     {
         countdown = startTime;
+        timerText.text = "";
     }
     public void StartTime()
     {

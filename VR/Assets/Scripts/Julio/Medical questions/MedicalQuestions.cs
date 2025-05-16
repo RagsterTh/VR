@@ -1,3 +1,4 @@
+using Photon.Pun;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class MedicalQuestions : MonoBehaviour
     {
         buttonPanel.SetActive(false);
         SetupButtons();
+        PhotonNetwork.Disconnect();
     }
 
     public void ShowTreatmentOptions(MedicalEmergency wound)
