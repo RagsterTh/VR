@@ -8,9 +8,17 @@ public class TitleFunctions : MonoBehaviour
     [SerializeField]private GameObject _creditsBtn;
     [SerializeField]private GameObject _backBtn;
 
+    [SerializeField] ConnectionManager _connectionManager;
+
+    private void Awake()
+    {
+        _connectionManager = ConnectionManager.instance;
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("LoadingScene");
+        _connectionManager.Connection();
     }
 
     public void Credits(){
