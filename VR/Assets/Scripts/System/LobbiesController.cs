@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LobbiesController : MonoBehaviour
 {
@@ -26,7 +27,7 @@ public class LobbiesController : MonoBehaviour
         {
             playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].position, transform.rotation).GetPhotonView().ViewID;
         }
-
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
     public static GameObject GetResource(ResourceTypes resource)
     {

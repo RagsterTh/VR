@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
+using Photon.Pun;
 
 public class Balcony : MonoBehaviour
 {
@@ -17,9 +19,11 @@ public class Balcony : MonoBehaviour
     private Coroutine _typingCoroutine;
     private bool _isTyping = false;
     private bool _playerInRange = false;
-
+    PhotonView _phView;
+    public UnityEvent OnDialogueEnd;
     private void Start()
     {
+        _phView = GetComponent<PhotonView>();
         _merchantNameTMP.text = _merchantName;
         _dialogueCanvas.gameObject.SetActive(false);
     }
@@ -58,8 +62,13 @@ public class Balcony : MonoBehaviour
             StopCoroutine(_typingCoroutine);
 
         _dialogueText.text = "";
+        _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
     }
-
+    [PunRPC]
+    void RPC_ExitLobby()
+    {
+        OnDialogueEnd.Invoke();
+    }
     private void DisplayCurrentLine()
     {
         if (_typingCoroutine != null)
