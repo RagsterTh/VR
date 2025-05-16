@@ -858,6 +858,7 @@ GameObject:
   - component: {fileID: 591455471}
   - component: {fileID: 591455474}
   - component: {fileID: 591455475}
+  - component: {fileID: 591455477}
   - component: {fileID: 591455476}
   m_Layer: 0
   m_Name: Capsule
@@ -988,6 +989,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allWounds: []
   numberToActivate: 3
+--- !u!114 &591455477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591455469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43eb4c00778f7074c9b465daac4edbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woundsPrefab: []
 --- !u!1001 &644424952
 PrefabInstance:
   m_ObjectHideFlags: 0
