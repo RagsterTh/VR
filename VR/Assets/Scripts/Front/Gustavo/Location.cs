@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Location : MonoBehaviour
+public class Location : MonoBehaviour, IShootable
 {
     [SerializeField] GameObject _menuOBJ;
     [SerializeField] GameObject _menuConfirm;
@@ -20,23 +20,16 @@ public class Location : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (!_menuConfirm.activeInHierarchy)
-        {
-            _menuConfirm.SetActive(true);
-        }
-        else
-        {
-            _menuConfirm.SetActive(false);
-        }
+        Hit();
     }
 
-    void OnMouseEnter()
+    public void OnMouseEnter()
     {
         isOpened = true;
         StartCoroutine(InterpolateScale(transform.localScale, _upperScale, _interpolateTime));
     }
 
-    private void OnMouseExit()
+    public void OnMouseExit()
     {
         isOpened = false;
         StartCoroutine(InterpolateScale(transform.localScale, _originalScale, _interpolateTime));
@@ -52,5 +45,17 @@ public class Location : MonoBehaviour
             yield return null;
         }
         transform.localScale = end;
+    }
+
+    public void Hit()
+    {
+        if (!_menuConfirm.activeInHierarchy)
+        {
+            _menuConfirm.SetActive(true);
+        }
+        else
+        {
+            _menuConfirm.SetActive(false);
+        }
     }
 }

@@ -7,6 +7,7 @@ public class TitleFunctions : MonoBehaviour
     [SerializeField]private GameObject _playBtn;
     [SerializeField]private GameObject _creditsBtn;
     [SerializeField]private GameObject _backBtn;
+
     public void StartGame()
     {
         SceneManager.LoadScene("LoadingScene");

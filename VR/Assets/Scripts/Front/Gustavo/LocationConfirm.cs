@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class LocationConfirm : MonoBehaviour
@@ -10,6 +11,6 @@ public class LocationConfirm : MonoBehaviour
     }
     public void Confirm()
     {
-        Debug.Log("mudar de cena");
+        PhotonNetwork.LoadLevel("Game");
     }
 }

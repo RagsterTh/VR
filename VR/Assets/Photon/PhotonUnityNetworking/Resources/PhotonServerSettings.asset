@@ -48,6 +48,7 @@ MonoBehaviour:
   - RPC_SwitchActivate
   - RPC_Hit
   - RPC_LoadingPools
+  - RPC_ExitLobby
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

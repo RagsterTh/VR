@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
+    public static bool isVR;
     private void Awake()
     {
         if (instance)
@@ -16,6 +18,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        if (!SceneManager.GetActiveScene().name.Equals("Title"))
+            Connection();
     }
     public void Connection()
     {
@@ -31,6 +35,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(4);
+        if(SceneManager.GetActiveScene().name.Equals("Title") || SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+            PhotonNetwork.LoadLevel(2);
     }
 }
