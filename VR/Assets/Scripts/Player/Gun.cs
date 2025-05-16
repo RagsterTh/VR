@@ -2,10 +2,12 @@ using Photon.Pun;
 using StarterAssets;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
@@ -22,8 +24,12 @@ public class Gun : MonoBehaviour
     [SerializeField] XROrigin _xrOrigin;
     [SerializeField]InputActionManager _inputActionManager;
     [SerializeField]ContinuousTurnProvider _continuousTurnProvider;
+    [SerializeField]FirstPersonController _firstPersonController;
+    [SerializeField]XRBodyTransformer _bodyTransformer;
+    [SerializeField]LocomotionMediator _locomotionMediator;
+    [SerializeField] PlayerInput _playerInput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         _phView = GetComponentInParent<PhotonView>();
         if (!_phView.IsMine)
@@ -34,6 +40,10 @@ public class Gun : MonoBehaviour
             _xrOrigin.enabled = false;
             _inputActionManager.enabled = false;
             _continuousTurnProvider.enabled = false;
+            _firstPersonController.enabled = false;
+            _bodyTransformer.enabled = false;
+            _locomotionMediator.enabled = false;
+            _playerInput.enabled = false;
         }
     }
 

@@ -1059,6 +1059,10 @@ MonoBehaviour:
   _xrOrigin: {fileID: 773806925081276760}
   _inputActionManager: {fileID: 9071251373246181165}
   _continuousTurnProvider: {fileID: 6293392918445225656}
+  _firstPersonController: {fileID: 529740600492827983}
+  _bodyTransformer: {fileID: 5415529304573910392}
+  _locomotionMediator: {fileID: 2106601324947490530}
+  _playerInput: {fileID: 4340690387536395069}
 --- !u!114 &4655402677022880787
 MonoBehaviour:
   m_ObjectHideFlags: 0
