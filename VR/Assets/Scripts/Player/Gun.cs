@@ -1,8 +1,13 @@
 using Photon.Pun;
+using StarterAssets;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Inputs;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 public class Gun : MonoBehaviour
 {
@@ -10,6 +15,13 @@ public class Gun : MonoBehaviour
     PhotonView _phView;
     [SerializeField] Transform _gunDirection;
     IShootable _target;
+
+    //Temporário
+    [SerializeField] ContinuousMoveProvider _continuesMoveProvider;
+    [SerializeField] StarterAssetsInputs _starterAssetsInputs;
+    [SerializeField] XROrigin _xrOrigin;
+    [SerializeField]InputActionManager _inputActionManager;
+    [SerializeField]ContinuousTurnProvider _continuousTurnProvider;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +29,11 @@ public class Gun : MonoBehaviour
         if (!_phView.IsMine)
         {
             this.enabled = false;
+            _continuesMoveProvider.enabled = false;
+            _starterAssetsInputs.enabled = false;
+            _xrOrigin.enabled = false;
+            _inputActionManager.enabled = false;
+            _continuousTurnProvider.enabled = false;
         }
     }
 
