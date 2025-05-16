@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour
         {
             _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
         }
+        PhotonNetwork.AutomaticallySyncScene = false;
 
     }
     public static GameObject GetResource(ResourceTypes resource)
@@ -76,6 +77,10 @@ public class GameController : MonoBehaviour
     public List<GameObject> GetPlayerList()
     {
         return _playerAvatar;
+    }
+    public void LoadMedicalScene()
+    {
+        PhotonNetwork.LoadLevel("MedicalQuestions");
     }
     
 }
