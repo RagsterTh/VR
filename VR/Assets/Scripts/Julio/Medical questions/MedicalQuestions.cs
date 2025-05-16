@@ -32,8 +32,14 @@ public class MedicalQuestions : MonoBehaviour
         currentWound = wound;
         wound.ShowLabel();
 
-        int rand = UnityEngine.Random.Range(0, medicalQuestionsData.medicalDatas.Length);
-        currentData = medicalQuestionsData.medicalDatas[rand];
+        if (!wound.HasAssignedData)
+        {
+            int rand = UnityEngine.Random.Range(0, medicalQuestionsData.medicalDatas.Length);
+            MedicalData assignedData = medicalQuestionsData.medicalDatas[rand];
+            wound.AssignMedicalData(assignedData);
+        }
+
+        currentData = wound.GetAssignedMedicalData();
         correctTreatment = currentData.treatmentType;
 
         string damageType = FormatEnum(currentData.damageType);

@@ -20,6 +20,23 @@ public class MedicalEmergency : MonoBehaviour, IShootable
 
     private bool isSelected;
 
+    private MedicalData assignedMedicalData;
+
+    public bool HasAssignedData => assignedMedicalData != null;
+
+    public void AssignMedicalData(MedicalData data)
+    {
+        if (assignedMedicalData == null)
+        {
+            assignedMedicalData = data;
+        }
+    }
+
+    public MedicalData GetAssignedMedicalData()
+    {
+        return assignedMedicalData;
+    }
+
     public void OnMouseEnter()
     {
         StartCoroutine(ScaleLerp(transform.localScale, hoverScale, scaleDuration));
