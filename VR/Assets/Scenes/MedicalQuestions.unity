@@ -1022,6 +1022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerVR
       objectReference: {fileID: 0}
+    - target: {fileID: 2040953620420040771, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6165695049661154701, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
       propertyPath: m_Enabled
       value: 0

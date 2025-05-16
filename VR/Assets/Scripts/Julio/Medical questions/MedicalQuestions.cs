@@ -1,8 +1,8 @@
 using Photon.Pun;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class MedicalQuestions : MonoBehaviour
 {
@@ -19,7 +19,6 @@ public class MedicalQuestions : MonoBehaviour
     private void Start()
     {
         buttonPanel.SetActive(false);
-        SetupButtons();
         PhotonNetwork.Disconnect();
     }
 
@@ -33,20 +32,49 @@ public class MedicalQuestions : MonoBehaviour
         currentWound = wound;
         wound.ShowLabel();
 
-        int rand = Random.Range(0, medicalQuestionsData.medicalDatas.Length);
+        int rand = UnityEngine.Random.Range(0, medicalQuestionsData.medicalDatas.Length);
         currentData = medicalQuestionsData.medicalDatas[rand];
-
-        displayText.text = $"Patient has a <b>{currentData.damageIntensity}</b> <b>{currentData.damageType}</b>.\nWhat is the correct treatment?";
         correctTreatment = currentData.treatmentType;
 
+        string damageType = FormatEnum(currentData.damageType);
+        string intensity = FormatEnum(currentData.damageIntensity);
+
+        displayText.text = $"<b>Relatório Clínico:</b>\n" +
+                           $"O paciente apresenta uma lesão <b>{intensity.ToLower()}</b> do tipo <b>{damageType.ToLower()}</b>.\n\n" +
+                           $"Selecione o tratamento mais adequado:";
+
+        SetupButtons();
         buttonPanel.SetActive(true);
+    }
+
+    private void SetupButtons()
+    {
+        TreatmentType[] allTreatments = (TreatmentType[])Enum.GetValues(typeof(TreatmentType));
+
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            if (i < allTreatments.Length)
+            {
+                int id = i;
+                TreatmentType treatment = allTreatments[i];
+
+                answerButtons[i].gameObject.SetActive(true);
+                answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(treatment);
+                answerButtons[i].onClick.RemoveAllListeners();
+                answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
+            }
+            else
+            {
+                answerButtons[i].gameObject.SetActive(false);
+            }
+        }
     }
 
     public void CheckAnswer(int answerID)
     {
         if ((int)correctTreatment == answerID)
         {
-            Debug.Log("Correct treatment!");
+            Debug.Log("Tratamento correto!");
             if (currentWound != null)
             {
                 Destroy(currentWound.gameObject);
@@ -54,7 +82,7 @@ public class MedicalQuestions : MonoBehaviour
         }
         else
         {
-            Debug.Log("Incorrect treatment!");
+            Debug.Log("Tratamento incorreto!");
         }
 
         displayText.text = "";
@@ -67,13 +95,11 @@ public class MedicalQuestions : MonoBehaviour
         }
     }
 
-    public void SetupButtons()
+    private string FormatEnum(Enum value)
     {
-        for (int i = 0; i < answerButtons.Length; i++)
-        {
-            int id = i;
-            answerButtons[i].onClick.RemoveAllListeners();
-            answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
-        }
+        string formatted = value.ToString();
+        formatted = System.Text.RegularExpressions.Regex.Replace(formatted, "([a-z])([A-Z])", "$1 $2");
+        formatted = formatted.Replace("E", " e ");
+        return formatted;
     }
 }

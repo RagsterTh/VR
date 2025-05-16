@@ -3,29 +3,32 @@ using UnityEngine;
 [System.Serializable]
 public enum DamageType
 {
-    escoriação,
-    cortes,
-    perfuração,
-    queimadura,
-    queimaduraQuimica,
-    queimaduraRadioativa
+    Escoriacao,
+    Corte,
+    Perfuracao,
+    QueimaduraTermica,
+    QueimaduraQuimica,
+    QueimaduraRadioativa
 }
 
 public enum DamageIntensity
 {
-    danoLeve,
-    danoModerado,
-    danoExpressivo
+    Leve,
+    Moderado,
+    Grave
 }
 
 public enum TreatmentType
 {
-    escoriação,
-    cortes,
-    perfuração,
-    queimadura,
-    queimaduraQuimica,
-    queimaduraRadioativa
+    LimpezaEAntissepsia,
+    CurativoSimples,
+    CurativoCompressivo,
+    EstancarSangramento,
+    Imobilizacao,
+    IrrigacaoComSoro,
+    NeutralizacaoQuimica,
+    TratamentoComPomada,
+    AtendimentoHospitalarImediato
 }
 
 [CreateAssetMenu(fileName = "MedicalData", menuName = "Data/Medical Data")]
@@ -34,5 +37,6 @@ public class MedicalData : ScriptableObject
     public DamageType damageType;
     public DamageIntensity damageIntensity;
     public TreatmentType treatmentType;
+    [TextArea(3, 6)]
     public string treatmentDescription;
 }
