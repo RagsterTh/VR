@@ -222,7 +222,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 0}
   - {fileID: 8252545434723663233}
   m_InteractionLayers:
     m_Bits: 2
@@ -295,7 +294,7 @@ GameObject:
   - component: {fileID: 2109173605492755616}
   - component: {fileID: 4351553148208865152}
   - component: {fileID: 7504706611208160486}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cube
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -4955,7 +4955,6 @@ GameObject:
   - component: {fileID: 1365641000765488002}
   - component: {fileID: 2355614752304103417}
   - component: {fileID: 8460005663445390998}
-  - component: {fileID: 5294933097613423096}
   - component: {fileID: 8235713586207443238}
   - component: {fileID: 2265193057716139559}
   - component: {fileID: 2593693444501129241}
@@ -5038,27 +5037,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5294933097613423096
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180986575288623966}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8235713586207443238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5236,7 +5214,7 @@ GameObject:
   - component: {fileID: 7594667956834450165}
   - component: {fileID: 4080505470814989945}
   - component: {fileID: 5217805671733756162}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GameObject
   m_TagString: Enemy
   m_Icon: {fileID: 0}
