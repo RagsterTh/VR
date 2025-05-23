@@ -49,6 +49,7 @@ MonoBehaviour:
   - RPC_Hit
   - RPC_LoadingPools
   - RPC_ExitLobby
+  - RPC_LoadMedicalQuestions
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

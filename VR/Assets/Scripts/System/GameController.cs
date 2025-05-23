@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class GameController : MonoBehaviour
     {
         instance = this;
         _phView = GetComponent<PhotonView>();
+        _resourcesRegister.Clear();
+        
     }
     // Start is called before the first frame update
     IEnumerator Start()
@@ -77,9 +80,25 @@ public class GameController : MonoBehaviour
     {
         return _playerAvatar;
     }
+
+    public void BattleEnd()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            _phView.RPC("RPC_LoadMedicalQuestions", RpcTarget.All);
+
+    }
     public void LoadMedicalScene()
     {
         PhotonNetwork.LoadLevel("MedicalQuestions");
+    }
+    [PunRPC]
+    void RPC_LoadMedicalQuestions()
+    {
+        if (SceneManager.GetActiveScene().name.Equals("MedicalQuestions"))
+            return;
+
+        PhotonNetwork.LoadLevel("MedicalQuestions");
+
     }
     
 }
