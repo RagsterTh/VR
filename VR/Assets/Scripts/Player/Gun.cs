@@ -39,6 +39,7 @@ public class Gun : MonoBehaviour
     }
     public void Shoot()
     {
+        print("atirei"+_target);
         _target?.Hit();
     }
     public void SetTarget(HoverEnterEventArgs value)
@@ -49,5 +50,9 @@ public class Gun : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
             GameController.instance.LoadMedicalScene();
+    }
+    public void NullTarget()
+    {
+        _target = null;
     }
 }

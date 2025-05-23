@@ -13,6 +13,7 @@ public class LobbiesController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
+        _resourcesRegister.Clear();
         foreach (var item in _sceneResources.resources)
         {
             _resourcesRegister.Add(item.type, item.resource);

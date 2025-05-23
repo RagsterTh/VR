@@ -214,7 +214,7 @@ PrefabInstance:
       objectReference: {fileID: 1943353006}
     - target: {fileID: 5772907420807406609, guid: 7443d00187b43c444a61ce25f3069fad, type: 3}
       propertyPath: OnEndTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadMedicalScene
+      value: BattleEnd
       objectReference: {fileID: 0}
     - target: {fileID: 5772907420807406609, guid: 7443d00187b43c444a61ce25f3069fad, type: 3}
       propertyPath: OnEndTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
