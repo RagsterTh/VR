@@ -6,4 +6,5 @@ public class EnemyData : ScriptableObject
     public float damage;
     public float movimentVelocity;
 
+    public GameObject bullet;
 }

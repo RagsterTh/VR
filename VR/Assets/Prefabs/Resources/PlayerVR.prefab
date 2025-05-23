@@ -328,7 +328,6 @@ GameObject:
   - component: {fileID: 4655402677022880787}
   - component: {fileID: 8966293223151456427}
   - component: {fileID: 1411004356417313517}
-  - component: {fileID: 4264730131452742383}
   m_Layer: 0
   m_Name: PlayerVR
   m_TagString: Player

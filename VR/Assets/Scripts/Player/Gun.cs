@@ -44,7 +44,7 @@ public class Gun : MonoBehaviour
     }
     public void Shoot()
     {
-        print("atirei"+_target);
+        //print("atirei"+_target);    
         _target?.Hit();
     }
     public void SetTarget(HoverEnterEventArgs value)
