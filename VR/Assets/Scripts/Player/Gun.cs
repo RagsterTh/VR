@@ -21,7 +21,8 @@ public class Gun : MonoBehaviour
 
     void FixedUpdate()
     {
-        //Aim();
+        if(!ConnectionManager.isVR)
+            Aim();
     }
     void Aim()
     {
@@ -30,6 +31,10 @@ public class Gun : MonoBehaviour
             if(hit.collider.TryGetComponent(out IShootable target))
             {
                 this._target = target;
+
+            } else
+            {
+                this._target = null;
             }
         }
         else
@@ -45,11 +50,6 @@ public class Gun : MonoBehaviour
     public void SetTarget(HoverEnterEventArgs value)
     {
         _target = value.interactableObject.transform.GetComponent<IShootable>();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("Enemy"))
-            GameController.instance.LoadMedicalScene();
     }
     public void NullTarget()
     {

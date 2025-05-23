@@ -22,4 +22,9 @@ public class PlayerPrefabNetwork : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+            GameController.instance.LoadMedicalScene();
+    }
 }
