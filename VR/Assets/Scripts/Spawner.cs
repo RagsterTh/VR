@@ -4,6 +4,7 @@ using Photon.Realtime;
 using UnityEngine;
 using ExitGames.Client.Photon;
 using System.Collections;
+using static Meta.XR.MRUtilityKit.FindSpawnPositions;
 enum SpawnerType
 {
     Terrestial, Aerial
@@ -13,6 +14,8 @@ public class Spawner : MonoBehaviourPunCallbacks
 {
     [SerializeField] ObjectPool _enemyPool;
     [SerializeField] float _timeToSpawn;
+
+    [SerializeField] SpawnRotate spawnRotation;
 
     bool isTime;
     private void Start()
@@ -30,7 +33,7 @@ public class Spawner : MonoBehaviourPunCallbacks
         if (!isTime)
         {
             yield return new WaitForSeconds(_timeToSpawn);
-            _enemyPool.CallObject(transform.position);
+            _enemyPool.CallObject(spawnRotation.RotateSpawn());
             StartCoroutine(Spawn());
         }
     }

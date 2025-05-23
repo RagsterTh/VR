@@ -98,7 +98,5 @@ public class GameController : MonoBehaviour
             return;
 
         PhotonNetwork.LoadLevel("MedicalQuestions");
-
-    }
-    
+    }    
 }
