@@ -50,6 +50,10 @@ MonoBehaviour:
   - RPC_LoadingPools
   - RPC_ExitLobby
   - RPC_LoadMedicalQuestions
+  - RPC_PlaySound
+  - RPC_Interpolation
+  - RPC_Deselect
+  - RPC_Select
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
