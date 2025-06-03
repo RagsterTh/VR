@@ -10,6 +10,14 @@ public class FlyingEnemy : MovingEnemy
 
     [SerializeField] float stopingDistance;
 
+    [SerializeField] float fireRate;
+
+    [SerializeField] bool isInRange;
+
+    [SerializeField] float projectileForce;
+
+    [SerializeField] float projectileDestroyTime;
+
     void Start()
     {
         agent.stoppingDistance = stopingDistance;
@@ -18,23 +26,43 @@ public class FlyingEnemy : MovingEnemy
         agent.height = value;
         agent.baseOffset = value;
         StartCoroutine(IsInRange());
+        StartCoroutine(Fire());
     }
 
     IEnumerator IsInRange()
     {
-        yield return new WaitForSeconds(1f);
-        if (agent.pathPending)
+        yield return new WaitForSeconds(0.2f);
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            print("Paro");
-            Fire();
+            isInRange = true;            
+        }
+        else
+        {
+            isInRange = false;
         }
         StartCoroutine(IsInRange());
     }
 
 
-    void Fire()
+    IEnumerator Fire()
     {
-        GameObject a = Instantiate(data.bullet, muzzle.position, Quaternion.identity);
-        a.GetComponent<Rigidbody>().AddForce(muzzle.forward);
+        yield return new WaitForSeconds(fireRate);
+        if (isInRange)
+        {
+            Vector3 direction = new Vector3 (agent.destination.x, agent.destination.y + 2.5f, agent.destination.z) - muzzle.transform.position;
+            direction = direction.normalized;
+            Physics.Linecast(muzzle.position, agent.destination);
+            Debug.DrawLine(transform.position, agent.destination);
+            GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
+            StartCoroutine(DestroyBullet(projectile));
+        }
+        StartCoroutine(Fire());
+    }
+
+    IEnumerator DestroyBullet(GameObject projectile)
+    {
+        yield return new WaitForSeconds(projectileDestroyTime);
+        PhotonNetwork.Destroy(projectile.GetComponent<PhotonView>());
     }
 }
