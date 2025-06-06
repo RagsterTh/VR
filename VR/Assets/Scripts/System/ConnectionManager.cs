@@ -45,7 +45,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             foreach (var item in GameController.instance.GetPlayerList())
             {
                 if (item.GetPhotonView().ControllerActorNr == otherPlayer.ActorNumber)
-                    GameController.instance.RemovePlayerAvatar(item.GetPhotonView().ViewID);
+                    GameController.instance.RefreshPlayerList();
             }
     }
 }

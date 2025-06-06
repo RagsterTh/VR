@@ -64,9 +64,9 @@ public class GameController : MonoBehaviour
         PhotonNetwork.CurrentRoom.IsOpen = false;
         _phView.RPC("RPC_BattleBegin", RpcTarget.All);
     }
-    public void RemovePlayerAvatar(int playerID)
+    public void RefreshPlayerList()
     {
-        _phView.RPC("RPC_RemovePlayerAvatar", RpcTarget.All, playerID);
+        _phView.RPC("RPC_RefreshPlayerList", RpcTarget.All);
     }
 
     //RPC's
@@ -76,15 +76,16 @@ public class GameController : MonoBehaviour
         _playerAvatar.Add(PhotonNetwork.GetPhotonView(playerID).transform.GetChild(1).gameObject);
     }
     [PunRPC]
-    public void RPC_RemovePlayerAvatar(int playerID)
-    {
-        foreach (var player in _playerAvatar)
+    public void RPC_RefreshPlayerList()
+    {//Precisa ser modificado ainda
+        for (int i = 0; i < _playerAvatar.Count; i++)
         {
-            if(player.GetPhotonView().ViewID == playerID)
+            if (_playerAvatar[i] == null)
             {
-                _playerAvatar.Remove(player);
+                _playerAvatar.RemoveAt(i);
                 break;
             }
+
         }
         OnPlayerLeftBattle.Invoke();
     }
