@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
 
     [Header("Events")]
     public UnityEvent OnBattleBegin;
+    public UnityEvent OnPlayerLeftBattle;
 
     private void Awake()
     {
@@ -63,12 +64,29 @@ public class GameController : MonoBehaviour
         PhotonNetwork.CurrentRoom.IsOpen = false;
         _phView.RPC("RPC_BattleBegin", RpcTarget.All);
     }
+    public void RemovePlayerAvatar(int playerID)
+    {
+        _phView.RPC("RPC_RemovePlayerAvatar", RpcTarget.All, playerID);
+    }
 
     //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
         _playerAvatar.Add(PhotonNetwork.GetPhotonView(playerID).transform.GetChild(1).gameObject);
+    }
+    [PunRPC]
+    public void RPC_RemovePlayerAvatar(int playerID)
+    {
+        foreach (var player in _playerAvatar)
+        {
+            if(player.GetPhotonView().ViewID == playerID)
+            {
+                _playerAvatar.Remove(player);
+                break;
+            }
+        }
+        OnPlayerLeftBattle.Invoke();
     }
     [PunRPC]
     public void RPC_BattleBegin()

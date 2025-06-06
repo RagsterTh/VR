@@ -54,6 +54,9 @@ MonoBehaviour:
   - RPC_Interpolation
   - RPC_Deselect
   - RPC_Select
+  - RPC_RefreshEnemies
+  - RPC_RemovePlayerAvatar
+  - RPC_StartBattle
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

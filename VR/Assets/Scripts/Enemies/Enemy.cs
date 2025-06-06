@@ -17,13 +17,33 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
 
     }
+    public void Start()
+    {
+        GameController.instance.OnPlayerLeftBattle.AddListener(delegate
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                _phView.RPC("RPC_RefreshEnemies", RpcTarget.All);
+            }
+        });
+    }
     protected void OnEnable()
+    {
+        InitializeBattle();
+    }
+    void InitializeBattle()
     {
         foreach (var t in GameController.instance.PlayerAvatar)
         {
             _playersPos.Add(t.transform);
         }
         StartCoroutine(FindClose(_playersPos.ToArray()));
+    }
+    [PunRPC]
+    public void RPC_RefreshEnemies()
+    {
+        StopAllCoroutines();
+        InitializeBattle();
     }
 
     IEnumerator FindClose(Transform[] players)
