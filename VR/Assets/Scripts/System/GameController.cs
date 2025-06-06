@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
         {
             if(player.GetPhotonView().ViewID == playerID)
             {
-                PhotonNetwork.Destroy(player);
+                PhotonNetwork.Destroy(player.transform.parent.gameObject);
                 _playerAvatar.Remove(player);
                 break;
             }

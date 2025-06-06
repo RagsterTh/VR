@@ -3776,6 +3776,7 @@ MonoBehaviour:
   _playBtn: {fileID: 1493309482}
   _creditsBtn: {fileID: 124469024}
   _backBtn: {fileID: 1617726630}
+  _connectionManager: {fileID: 0}
 --- !u!1 &1442562793
 GameObject:
   m_ObjectHideFlags: 0
