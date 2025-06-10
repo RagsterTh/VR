@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,20 +38,20 @@ public class GameController : MonoBehaviour
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        int playerID;
         if (ConnectionManager.isVR)
         {
-            playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+            if (PhotonNetwork.LocalPlayer.IsLocal)
+            {
+                _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
+            }
         }
         else
         {
-            playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+            //playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         }
 
-        if (PhotonNetwork.LocalPlayer.IsLocal)
-        {
-            _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
-        }
+
         PhotonNetwork.AutomaticallySyncScene = false;
 
     }
