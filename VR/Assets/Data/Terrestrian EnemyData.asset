@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27179a3fd94169b408ebf08df4211b59, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 9b0cae1dfed28084a82e3a0fcdf56179, type: 3}
+  m_Name: Terrestrian EnemyData
   m_EditorClassIdentifier: 
-  maxLife: 5
+  damage: 1
+  movimentVelocity: 5
+  bullet: {fileID: 5658246691063477618, guid: 8caed8bab5653b2488e2c6217b0c8d0c, type: 3}

@@ -16,15 +16,4 @@ public class PlayerPrefabNetwork : MonoBehaviour
             item.SetActive(true);
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-            GameController.instance.LoadMedicalScene();
-    }
 }

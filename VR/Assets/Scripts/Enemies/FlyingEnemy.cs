@@ -49,7 +49,7 @@ public class FlyingEnemy : MovingEnemy
         yield return new WaitForSeconds(fireRate);
         if (isInRange)
         {
-            Vector3 direction = new Vector3 (agent.destination.x, agent.destination.y + 2.5f, agent.destination.z) - muzzle.transform.position;
+            Vector3 direction = new Vector3 (agent.destination.x, agent.destination.y + 1.5f, agent.destination.z) - muzzle.transform.position;
             direction = direction.normalized;
             Physics.Linecast(muzzle.position, agent.destination);
             Debug.DrawLine(transform.position, agent.destination);

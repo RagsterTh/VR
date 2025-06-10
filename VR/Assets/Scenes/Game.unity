@@ -352,7 +352,7 @@ PrefabInstance:
       objectReference: {fileID: 1181842144}
     - target: {fileID: 1377769224813061459, guid: 424723a0a7a426e4080c13371452f7d1, type: 3}
       propertyPath: _timeToSpawn
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1377769224813061459, guid: 424723a0a7a426e4080c13371452f7d1, type: 3}
       propertyPath: spawnRotation
@@ -840,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 1380735312}
     - target: {fileID: 1377769224813061459, guid: 424723a0a7a426e4080c13371452f7d1, type: 3}
       propertyPath: _timeToSpawn
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1377769224813061459, guid: 424723a0a7a426e4080c13371452f7d1, type: 3}
       propertyPath: spawnRotation

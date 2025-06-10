@@ -18,6 +18,10 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
     public void TakeDamage(float dmg)
     {
         _curLife -= dmg;
+        if (_curLife <= 0)
+        {
+            Die();
+        }
     }
 
     public void Heal(float healAmount)
@@ -26,6 +30,14 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
         if(_curLife >= playerData.maxLife) 
         {
             _curLife = playerData.maxLife;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (true)
+        {
+
         }
     }
 }
