@@ -17,4 +17,8 @@ public class CamUser : MonoBehaviour
     {
         
     }
+    public void OnActive()
+    {
+        GameController.instance.ActiveBattle();
+    }
 }

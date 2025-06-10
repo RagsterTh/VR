@@ -14,6 +14,7 @@ public class GameController : MonoBehaviour
     [SerializeField]Transform[] _spawnPoints;
     [SerializeField] ObjectPool[] _enemyPools;
     [SerializeField]SceneResources _sceneResources;
+    [SerializeField]Switch _switch;
     List<GameObject> _playerAvatar = new List<GameObject>();
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
@@ -101,6 +102,11 @@ public class GameController : MonoBehaviour
         return _playerAvatar;
     }
 
+    public void ActiveBattle()
+    {
+        _switch.Active("RPC_SwitchActivate");
+    }
+    //Abaixo aqui preciso testar
     public void BattleEnd()
     {
         if (PhotonNetwork.IsMasterClient)
