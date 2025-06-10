@@ -10,40 +10,20 @@ public abstract class Enemy : MonoBehaviour, IShootable
     protected Transform followingPlayer;
     List<Transform> _playersPos = new List<Transform>();
     PhotonView _phView;
+
     protected void Awake()
     {
         _phView = GetComponent<PhotonView>();
         gameObject.SetActive(false);
-
-
     }
-    public void Start()
-    {
-        GameController.instance.OnPlayerLeftBattle.AddListener(delegate
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                _phView.RPC("RPC_RefreshEnemies", RpcTarget.All);
-            }
-        });
-    }
+
     protected void OnEnable()
-    {
-        InitializeBattle();
-    }
-    void InitializeBattle()
     {
         foreach (var t in GameController.instance.PlayerAvatar)
         {
             _playersPos.Add(t.transform);
         }
         StartCoroutine(FindClose(_playersPos.ToArray()));
-    }
-    [PunRPC]
-    public void RPC_RefreshEnemies()
-    {
-        StopAllCoroutines();
-        InitializeBattle();
     }
 
     IEnumerator FindClose(Transform[] players)
@@ -62,21 +42,22 @@ public abstract class Enemy : MonoBehaviour, IShootable
         StartCoroutine(FindClose(players));
     }
 
-    
-
     protected virtual IEnumerator FollowPlayer(NavMeshAgent agent)
     {
         yield return new WaitForSeconds(.1f);
-        if (agent)
-        {
-            agent.SetDestination(followingPlayer.position);
-        }
+        if(followingPlayer)
+            if (agent)
+            {
+                agent.SetDestination(followingPlayer.position);
+            }
         StartCoroutine(FollowPlayer(agent));
     }
+
     public void Hit()
     {
         _phView.RPC("RPC_Hit", RpcTarget.All);
     }
+
     [PunRPC]
     public void RPC_Hit()
     {

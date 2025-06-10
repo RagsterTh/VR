@@ -2,14 +2,14 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
 [RequireComponent(typeof(PhotonView))]
-public class Switch : MonoBehaviour, IShootable
+public class Switch : MonoBehaviour
 {
     PhotonView _phView;
     public UnityEvent OnSwitchActivate;
 
-    public void Hit()
+    public void Active(string rpc)
     {
-        _phView.RPC("RPC_SwitchActivate", RpcTarget.AllBuffered);
+        _phView.RPC(rpc, RpcTarget.AllBuffered);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

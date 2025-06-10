@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyStats : MonoBehaviour,IShootable
+public class EnemyStats : MonoBehaviour
 {
     [SerializeField] EnemyData enemyData;
 
@@ -10,10 +10,6 @@ public class EnemyStats : MonoBehaviour,IShootable
     private void Start()
     {
         _damage = enemyData.damage;
-    }
-    public void Hit()
-    {
-        gameObject.SetActive(false);
     }
 
 }

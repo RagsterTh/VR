@@ -328,6 +328,7 @@ GameObject:
   - component: {fileID: 6165695049661154701}
   - component: {fileID: 4655402677022880787}
   - component: {fileID: 8966293223151456427}
+  - component: {fileID: -4815223319634337303}
   - component: {fileID: 1411004356417313517}
   m_Layer: 0
   m_Name: PlayerVR
@@ -445,6 +446,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &-4815223319634337303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040953620420040771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc0583a90ed3d7e49889a0e7b98b0602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 9776b90ffc251e244824009314602433, type: 2}
 --- !u!114 &1411004356417313517
 MonoBehaviour:
   m_ObjectHideFlags: 0

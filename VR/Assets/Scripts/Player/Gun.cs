@@ -7,7 +7,6 @@ public class Gun : MonoBehaviour
     PhotonView _phView;
     [SerializeField] Transform _gunDirection;
     IShootable _target;
-    ISoundable _sound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -37,34 +36,23 @@ public class Gun : MonoBehaviour
             {
                 this._target = null;
             }
-            if (hit.collider.TryGetComponent(out ISoundable sound))
-            {
-                this._sound = sound;
-
-            }
-            else
-            {
-                this._sound = null;
-            }
         }
         else
         {
-            _sound = null;
+            _target = null;
         }
     }
     public void Shoot()
     {
-        _sound?.PlaySound();
+        //print("atirei"+_target);    
         _target?.Hit();
     }
     public void SetTarget(HoverEnterEventArgs value)
     {
         _target = value.interactableObject.transform.GetComponent<IShootable>();
-        _sound = value.interactableObject.transform.GetComponent<ISoundable>();
     }
     public void NullTarget()
     {
         _target = null;
-        _sound = null;
     }
 }

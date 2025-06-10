@@ -9,7 +9,6 @@ public class SpawnRotate : MonoBehaviour
     public Vector3 RotateSpawn()
     {
         float i = Random.Range(0,361);
-        print(i);
         float angle = i * Mathf.PI * 2/360;
         Vector3 center = Vector3.zero;
         float x = center.x + Mathf.Cos(angle) * radius;
