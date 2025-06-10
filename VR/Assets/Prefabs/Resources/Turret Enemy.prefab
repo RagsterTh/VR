@@ -211,6 +211,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a287512e18706f84f909bb53bed43e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  muzzle: {fileID: 0}
+  data: {fileID: 0}
+  stopingDistance: 0
+  fireRate: 0
+  isInRange: 0
+  projectileForce: 0
+  projectileDestroyTime: 0
 --- !u!114 &833312223349775112
 MonoBehaviour:
   m_ObjectHideFlags: 0
