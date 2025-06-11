@@ -58,6 +58,7 @@ MonoBehaviour:
   - RPC_RemovePlayerAvatar
   - RPC_StartBattle
   - RPC_RefreshPlayerList
+  - RPC_LoadLevel
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

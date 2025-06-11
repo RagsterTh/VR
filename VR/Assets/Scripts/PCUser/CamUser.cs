@@ -1,15 +1,22 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 public class CamUser : MonoBehaviour
 {
     PhotonView _phView;
-    GameObject cam;
+    GameObject _cam;
+    GameObject _controllerPanel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cam = transform.GetChild(0).gameObject;
+        _cam = transform.GetChild(0).gameObject;
         _phView = GetComponent<PhotonView>();
-        cam.SetActive(!ConnectionManager.isVR);
+        if (ConnectionManager.isVR)
+            return;
+
+        _controllerPanel = GetComponentInChildren<Image>(true).gameObject;
+        _cam.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Update is called once per frame
@@ -19,6 +26,11 @@ public class CamUser : MonoBehaviour
     }
     public void OnActive()
     {
-        GameController.instance.ActiveBattle();
+        if (!_phView.IsMine)
+            return;
+
+
+        _controllerPanel.SetActive(!_controllerPanel.activeSelf);
+        //GameController.instance.ActiveBattle();
     }
 }
