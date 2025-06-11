@@ -70,7 +70,19 @@ public class GameController : MonoBehaviour
     {
         _phView.RPC("RPC_RemovePlayerAvatar", RpcTarget.All, playerID);
     }
+    public List<GameObject> GetPlayerList()
+    {
+        return _playerAvatar;
+    }
 
+    public void ActiveBattle()
+    {
+        _switch.Active("RPC_SwitchActivate");
+    }
+    public void LoadLevel(string scene)
+    {
+        _phView.RPC("RPC_LoadLevel", RpcTarget.All, scene);
+    }
     //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
@@ -96,16 +108,12 @@ public class GameController : MonoBehaviour
     {
         OnBattleBegin.Invoke();
     }
-
-    public List<GameObject> GetPlayerList()
+    [PunRPC]
+    public void RPC_LoadLevel(string scene)
     {
-        return _playerAvatar;
+        PhotonNetwork.LoadLevel(scene);
     }
 
-    public void ActiveBattle()
-    {
-        _switch.Active("RPC_SwitchActivate");
-    }
     //Abaixo aqui preciso testar
     public void BattleEnd()
     {
