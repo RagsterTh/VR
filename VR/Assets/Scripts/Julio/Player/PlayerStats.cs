@@ -4,7 +4,9 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
 {
     [SerializeField] PlayerData playerData;
 
-    float _curLife;
+    [SerializeField] TempGUI gui;
+
+    public float _curLife;
 
     private void Start()
     {
@@ -18,6 +20,7 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
     public void TakeDamage(float dmg)
     {
         _curLife -= dmg;
+        gui.AtualizeBar(playerData.maxLife, _curLife);
         if (_curLife <= 0)
         {
             Die();

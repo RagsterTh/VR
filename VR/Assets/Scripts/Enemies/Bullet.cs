@@ -4,9 +4,7 @@ using Photon.Pun;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] float _destroyTime;
-
-    [SerializeField] float _damage;
+    [SerializeField] float damage;
 
     [SerializeField] bool hasCollided;
 
@@ -24,6 +22,11 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         hasCollided = true;
+        if (other.TryGetComponent(out IDamageable damageble))
+        {
+            damageble.TakeDamage(damage);
+            print("deu dano");
+        }
         Collision();
     }
     

@@ -210,6 +210,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73c7e216ce8b9264c82d60fc79f4d8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _destroyTime: 0
-  _damage: 0
+  damage: 1
   hasCollided: 0
