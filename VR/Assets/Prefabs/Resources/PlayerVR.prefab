@@ -459,6 +459,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 9776b90ffc251e244824009314602433, type: 2}
   gui: {fileID: 966562563424988391}
   _curLife: 5
+  damagesTaken: 0
 --- !u!114 &1411004356417313517
 MonoBehaviour:
   m_ObjectHideFlags: 0
