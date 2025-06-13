@@ -52,7 +52,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
         StartCoroutine(FollowPlayer(agent));
     }
 
-    public void Hit()
+    public virtual void Hit()
     {
         _phView.RPC("RPC_Hit", RpcTarget.All);
     }

@@ -17,17 +17,6 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        print("bateu Collision " + collision.gameObject.name);
-        hasCollided = true;
-        if (collision.gameObject.TryGetComponent(out PlayerStats damageble))
-        {
-            damageble.TakeDamage(damage);
-            print("deu dano");
-        }
-        Collision();
-    }
-    private void OnTriggerEnter(Collider other)
-    {
         hasCollided = true;
         Collision();
     }

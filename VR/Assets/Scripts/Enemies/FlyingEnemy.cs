@@ -18,8 +18,11 @@ public class FlyingEnemy : MovingEnemy
 
     [SerializeField] float projectileDestroyTime;
 
+    bool hasDisable;
+
     void Start()
     {
+        StartCoroutine(FollowPlayer(agent));
         agent.stoppingDistance = stopingDistance;
         agent.speed = data.movimentVelocity;
         float value = Random.Range(2, 5);
@@ -32,13 +35,16 @@ public class FlyingEnemy : MovingEnemy
     new void OnEnable()
     {
         base.OnEnable();
-        StartCoroutine(FollowPlayer(agent));
-        float value = Random.Range(2, 5);
-        fireRate = value;
-        agent.height = value;
-        agent.baseOffset = value;
-        StartCoroutine(IsInRange());
-        StartCoroutine(Fire());
+        if (hasDisable)
+        {
+            StartCoroutine(FollowPlayer(agent));
+            float value = Random.Range(2, 5);
+            fireRate = value;
+            agent.height = value;
+            agent.baseOffset = value;
+            StartCoroutine(IsInRange());
+            StartCoroutine(Fire());
+        }        
     }
 
     IEnumerator IsInRange()
@@ -66,8 +72,15 @@ public class FlyingEnemy : MovingEnemy
             Physics.Linecast(muzzle.position, agent.destination);
             Debug.DrawLine(transform.position, agent.destination);
             GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
+            print(projectile.gameObject.name);
             projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
         }
         StartCoroutine(Fire());
+    }
+
+    public override void Hit()
+    {
+        base.Hit();
+        hasDisable = true;
     }
 }

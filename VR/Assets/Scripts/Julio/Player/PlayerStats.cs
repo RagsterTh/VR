@@ -1,50 +1,13 @@
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour, IDamageable, IHealable
+public class PlayerStats : MonoBehaviour, IDamageable
 {
     [SerializeField] PlayerData playerData;
 
-    [SerializeField] TempGUI gui;
-
-    public float _curLife;
-
     public int damagesTaken;
 
-    private void Start()
+    public void TakeDamage()
     {
-        _curLife = playerData.maxLife;
-    }
-    public void Die()
-    {
-        Debug.Log("Player Dead");
-    }
-
-    public void TakeDamage(float dmg)
-    {
-        print("receba");
-        _curLife -= dmg;
         damagesTaken++;
-        gui.AtualizeBar(playerData.maxLife, _curLife);
-        if (_curLife <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void Heal(float healAmount)
-    {
-        _curLife += healAmount;
-        if(_curLife >= playerData.maxLife) 
-        {
-            _curLife = playerData.maxLife;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (true)
-        {
-
-        }
     }
 }
