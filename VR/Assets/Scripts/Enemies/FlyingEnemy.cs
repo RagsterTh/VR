@@ -29,6 +29,17 @@ public class FlyingEnemy : MovingEnemy
         StartCoroutine(Fire());
     }
 
+    new void OnEnable()
+    {
+        base.OnEnable();
+        StartCoroutine(FollowPlayer(agent));
+        float value = Random.Range(2, 5);
+        agent.height = value;
+        agent.baseOffset = value;
+        StartCoroutine(IsInRange());
+        StartCoroutine(Fire());
+    }
+
     IEnumerator IsInRange()
     {
         yield return new WaitForSeconds(0.2f);
@@ -55,14 +66,7 @@ public class FlyingEnemy : MovingEnemy
             Debug.DrawLine(transform.position, agent.destination);
             GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
-            StartCoroutine(DestroyBullet(projectile));
         }
         StartCoroutine(Fire());
-    }
-
-    IEnumerator DestroyBullet(GameObject projectile)
-    {
-        yield return new WaitForSeconds(projectileDestroyTime);
-        PhotonNetwork.Destroy(projectile.GetComponent<PhotonView>());
     }
 }

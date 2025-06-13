@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Photon.Pun;
+using Oculus.Interaction;
 
 public class Bullet : MonoBehaviour
 {
@@ -16,17 +17,18 @@ public class Bullet : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        print("bateu Collision " + collision.gameObject.name);
         hasCollided = true;
+        if (collision.gameObject.TryGetComponent(out PlayerStats damageble))
+        {
+            damageble.TakeDamage(damage);
+            print("deu dano");
+        }
         Collision();
     }
     private void OnTriggerEnter(Collider other)
     {
         hasCollided = true;
-        if (other.TryGetComponent(out IDamageable damageble))
-        {
-            damageble.TakeDamage(damage);
-            print("deu dano");
-        }
         Collision();
     }
     
@@ -37,9 +39,7 @@ public class Bullet : MonoBehaviour
 
     IEnumerator DestroyBullet()
     {
-        print("if Collide");
         yield return new WaitUntil(Collision);
-        print("Collide true");
         PhotonNetwork.Destroy(gameObject.GetComponent<PhotonView>());
     }
 }

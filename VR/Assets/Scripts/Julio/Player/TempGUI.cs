@@ -7,6 +7,6 @@ public class TempGUI : MonoBehaviour
     
     public void AtualizeBar(float max, float current)
     {
-        _healthBar.fillAmount = max/current;
+        _healthBar.fillAmount = current/max;
     }
 }

@@ -8,6 +8,8 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
 
     public float _curLife;
 
+    public int damagesTaken;
+
     private void Start()
     {
         _curLife = playerData.maxLife;
@@ -19,7 +21,9 @@ public class PlayerStats : MonoBehaviour, IDamageable, IHealable
 
     public void TakeDamage(float dmg)
     {
+        print("receba");
         _curLife -= dmg;
+        damagesTaken++;
         gui.AtualizeBar(playerData.maxLife, _curLife);
         if (_curLife <= 0)
         {
