@@ -34,6 +34,7 @@ public class FlyingEnemy : MovingEnemy
         base.OnEnable();
         StartCoroutine(FollowPlayer(agent));
         float value = Random.Range(2, 5);
+        fireRate = value;
         agent.height = value;
         agent.baseOffset = value;
         StartCoroutine(IsInRange());

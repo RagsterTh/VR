@@ -5053,7 +5053,7 @@ MonoBehaviour:
   muzzle: {fileID: 8405801597568876154}
   data: {fileID: 11400000, guid: 5f71a5596f88550449b2f3df65720056, type: 2}
   stopingDistance: 10
-  fireRate: 1.5
+  fireRate: 2.5
   isInRange: 0
   projectileForce: 15
   projectileDestroyTime: 3
