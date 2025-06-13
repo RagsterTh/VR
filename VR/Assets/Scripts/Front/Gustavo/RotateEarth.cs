@@ -22,7 +22,7 @@ public class RotateEarth : MonoBehaviour
         transform.Rotate(Vector3.down, _currentRotationSpeed * Time.deltaTime * 50f);
     }
 
-    private void OnMouseDrag()
+    public void OnMouseDrag()
     {
         float deltaX = Input.GetAxis("Mouse X");
         _currentRotationSpeed += deltaX * _rotationSpeed;

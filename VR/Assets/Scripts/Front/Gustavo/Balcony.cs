@@ -62,7 +62,6 @@ public class Balcony : MonoBehaviour
             StopCoroutine(_typingCoroutine);
 
         _dialogueText.text = "";
-        _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
     }
     [PunRPC]
     void RPC_ExitLobby()
@@ -109,6 +108,7 @@ public class Balcony : MonoBehaviour
             else
             {
                 EndDialogue();
+                _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
             }
         }
     }

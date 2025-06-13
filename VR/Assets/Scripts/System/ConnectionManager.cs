@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using Photon.Realtime;
 
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
@@ -37,5 +38,14 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if(SceneManager.GetActiveScene().name.Equals("Title") || SceneManager.GetActiveScene().name.Equals("LoadingScene"))
             PhotonNetwork.LoadLevel(2);
+    }
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if(SceneManager.GetActiveScene().name.Equals("Game"))
+            foreach (var item in GameController.instance.GetPlayerList())
+            {
+                if (item.GetPhotonView().ControllerActorNr == otherPlayer.ActorNumber)
+                    GameController.instance.RemovePlayerAvatar(item.GetPhotonView().ViewID);
+            }
     }
 }

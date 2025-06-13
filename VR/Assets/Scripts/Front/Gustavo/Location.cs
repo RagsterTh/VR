@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using Photon.Pun;
 public class Location : MonoBehaviour, IShootable
 {
     [SerializeField] GameObject _menuOBJ;
@@ -10,6 +10,12 @@ public class Location : MonoBehaviour, IShootable
     [SerializeField] Vector3 _originalScale;
     [SerializeField] Vector3 _upperScale;
     [SerializeField] float _interpolateTime;
+    PhotonView _phView;
+
+    private void Start()
+    {
+        _phView = GetComponent<PhotonView>();
+    }
 
     private void FixedUpdate()
     {
@@ -25,14 +31,12 @@ public class Location : MonoBehaviour, IShootable
 
     public void OnMouseEnter()
     {
-        isOpened = true;
-        StartCoroutine(InterpolateScale(transform.localScale, _upperScale, _interpolateTime));
+        _phView.RPC("RPC_Select", RpcTarget.AllBuffered);
     }
 
     public void OnMouseExit()
     {
-        isOpened = false;
-        StartCoroutine(InterpolateScale(transform.localScale, _originalScale, _interpolateTime));
+        _phView.RPC("RPC_Deselect", RpcTarget.AllBuffered);
     }
 
     IEnumerator InterpolateScale(Vector3 start, Vector3 end, float time)
@@ -46,8 +50,25 @@ public class Location : MonoBehaviour, IShootable
         }
         transform.localScale = end;
     }
-
+    
     public void Hit()
+    {
+        _phView.RPC("RPC_Hit", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    public void RPC_Select()
+    {
+        isOpened = true;
+        StartCoroutine(InterpolateScale(transform.localScale, _upperScale, _interpolateTime));
+    }
+    [PunRPC]
+    public void RPC_Deselect()
+    {
+        isOpened = false;
+        StartCoroutine(InterpolateScale(transform.localScale, _originalScale, _interpolateTime));
+    }
+    [PunRPC]
+    public void RPC_Hit()
     {
         if (!_menuConfirm.activeInHierarchy)
         {

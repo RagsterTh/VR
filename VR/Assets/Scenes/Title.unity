@@ -3776,6 +3776,7 @@ MonoBehaviour:
   _playBtn: {fileID: 1493309482}
   _creditsBtn: {fileID: 124469024}
   _backBtn: {fileID: 1617726630}
+  _connectionManager: {fileID: 0}
 --- !u!1 &1442562793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5644,6 +5645,22 @@ PrefabInstance:
     - target: {fileID: 682282732722005719, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
       propertyPath: _hideWhenNoInteractable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036442044083291614, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036442044083291614, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036442044083291614, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4036442044083291614, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036442044083751426, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
       propertyPath: m_LocalPosition.x

@@ -45,10 +45,11 @@ public abstract class Enemy : MonoBehaviour, IShootable
     protected virtual IEnumerator FollowPlayer(NavMeshAgent agent)
     {
         yield return new WaitForSeconds(.1f);
-        if (agent)
-        {
-            agent.SetDestination(followingPlayer.position);
-        }
+        if(followingPlayer)
+            if (agent)
+            {
+                agent.SetDestination(followingPlayer.position);
+            }
         StartCoroutine(FollowPlayer(agent));
     }
 
