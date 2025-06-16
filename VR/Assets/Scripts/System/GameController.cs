@@ -79,10 +79,7 @@ public class GameController : MonoBehaviour
     {
         _switch.Active("RPC_SwitchActivate");
     }
-    public void LoadLevel(string scene)
-    {
-        _phView.RPC("RPC_LoadLevel", RpcTarget.All, scene);
-    }
+    
     //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
@@ -108,11 +105,7 @@ public class GameController : MonoBehaviour
     {
         OnBattleBegin.Invoke();
     }
-    [PunRPC]
-    public void RPC_LoadLevel(string scene)
-    {
-        PhotonNetwork.LoadLevel(scene);
-    }
+
 
     //Abaixo aqui preciso testar
     public void BattleEnd()
