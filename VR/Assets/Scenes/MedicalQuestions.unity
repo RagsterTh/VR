@@ -2755,9 +2755,10 @@ MonoBehaviour:
   cameraTransform: {fileID: 2143157994}
   hudObject: {fileID: 1557325390}
   distanceAhead: 0.1
-  heightOffset: 0
+  heightOffset: 1
   positionSmooth: 5
   rotationSmooth: 5
+  deadZoneRadius: 0.2
 --- !u!1 &1745642750
 GameObject:
   m_ObjectHideFlags: 0
