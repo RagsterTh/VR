@@ -19,14 +19,9 @@ public class LobbiesController : MonoBehaviour
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        int playerID;
         if (ConnectionManager.isVR)
         {
-            playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].position, transform.rotation).GetPhotonView().ViewID;
-        }
-        else
-        {
-            playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[PhotonNetwork.LocalPlayer.ActorNumber - 1].position, transform.rotation).GetPhotonView().ViewID;
+            PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView();
         }
         PhotonNetwork.AutomaticallySyncScene = true;
     }

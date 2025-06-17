@@ -28,16 +28,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
-    }
-    public override void OnJoinedLobby()
-    {
         PhotonNetwork.JoinRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
-        if(SceneManager.GetActiveScene().name.Equals("Title") || SceneManager.GetActiveScene().name.Equals("LoadingScene"))
-            PhotonNetwork.LoadLevel(2);
+        if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+            PhotonNetwork.LoadLevel(1);
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
