@@ -52,9 +52,6 @@ public class GameController : MonoBehaviour
             //playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         }
 
-
-        PhotonNetwork.AutomaticallySyncScene = false;
-
     }
     public static GameObject GetResource(ResourceTypes resource)
     {
@@ -106,24 +103,15 @@ public class GameController : MonoBehaviour
         OnBattleBegin.Invoke();
     }
 
-
-    //Abaixo aqui preciso testar
     public void BattleEnd()
     {
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_LoadMedicalQuestions", RpcTarget.All);
 
     }
-    public void LoadMedicalScene()
-    {
-        PhotonNetwork.LoadLevel("MedicalQuestions");
-    }
     [PunRPC]
     void RPC_LoadMedicalQuestions()
     {
-        if (SceneManager.GetActiveScene().name.Equals("MedicalQuestions"))
-            return;
-
         PhotonNetwork.LoadLevel("MedicalQuestions");
     }    
 }

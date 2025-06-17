@@ -2,9 +2,7 @@ using Photon.Pun;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using UnityEngine;
-using ExitGames.Client.Photon;
 using System.Collections;
-using static Meta.XR.MRUtilityKit.FindSpawnPositions;
 enum SpawnerType
 {
     Terrestial, Aerial
