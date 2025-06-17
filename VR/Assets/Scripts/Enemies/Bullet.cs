@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision)
-    {
+    { 
         hasCollided = true;
         Collision();
     }
