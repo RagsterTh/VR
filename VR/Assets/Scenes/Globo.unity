@@ -1337,10 +1337,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lobby 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3373180053602314860, guid: b82b1450f17c74d499c11805cf0162fa, type: 3}
-      propertyPath: sceneViewId
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3864281866026420237, guid: b82b1450f17c74d499c11805cf0162fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5

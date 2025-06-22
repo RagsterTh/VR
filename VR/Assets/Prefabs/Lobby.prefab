@@ -1878,7 +1878,7 @@ Transform:
   m_GameObject: {fileID: 3331605589977933186}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.968539, y: 3.356, z: 1.3633118}
+  m_LocalPosition: {x: 5.968539, y: 3.356, z: 1.363312}
   m_LocalScale: {x: 4, y: 2.5, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2361,6 +2361,7 @@ GameObject:
   - component: {fileID: 8108558552172770863}
   - component: {fileID: 2478680930881442502}
   - component: {fileID: 5182991608400932468}
+  - component: {fileID: 6533919231386572970}
   m_Layer: 0
   m_Name: Porta
   m_TagString: Untagged
@@ -2397,9 +2398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b20de484ae357f419863ac7a1a96bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _door1: {fileID: 3331605589977933186}
-  _door2: {fileID: 977729600865789779}
-  distance: 1
+  _animationName: doorAnimation
 --- !u!65 &5182991608400932468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2421,6 +2420,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.7582645, y: 3.926509, z: 1.4901303}
   m_Center: {x: 7.1190147, y: 4.010528, z: -0.6222959}
+--- !u!111 &6533919231386572970
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4556078001889160282}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 31d4e8de260ec0049928ba00b2b37413, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &4783873822189606054
 GameObject:
   m_ObjectHideFlags: 0
