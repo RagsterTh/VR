@@ -211,13 +211,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 122708621}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.17364816, w: 0.9848078}
+  m_LocalRotation: {x: 0, y: 0, z: 0.1736482, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10.2, y: 10.2, z: 10.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2112396797}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
+  m_LocalEulerAnglesHint: {x: 0, y: -71.519035, z: 20}
 --- !u!135 &122708623
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1337,6 +1337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lobby 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3373180053602314860, guid: b82b1450f17c74d499c11805cf0162fa, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3864281866026420237, guid: b82b1450f17c74d499c11805cf0162fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -2201,13 +2205,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354556150}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.17364816, w: 0.9848078}
+  m_LocalRotation: {x: 0, y: 0, z: 0.1736482, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2112396797}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
+  m_LocalEulerAnglesHint: {x: 0, y: -50.656227, z: 20}
 --- !u!1 &1364685025
 GameObject:
   m_ObjectHideFlags: 0
@@ -3255,6 +3259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2112396797}
   - component: {fileID: 2112396798}
+  - component: {fileID: 2112396799}
   m_Layer: 0
   m_Name: Obj
   m_TagString: Untagged
@@ -3271,7 +3276,7 @@ Transform:
   m_GameObject: {fileID: 2112396796}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.63, z: 0}
+  m_LocalPosition: {x: 0, y: 4.72, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3301,6 +3306,23 @@ MonoBehaviour:
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!111 &2112396799
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2112396796}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: ced6a99d3436b034daa524e269a82f8f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ced6a99d3436b034daa524e269a82f8f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
