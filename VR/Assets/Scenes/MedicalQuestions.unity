@@ -2758,7 +2758,7 @@ MonoBehaviour:
   heightOffset: 1
   positionSmooth: 5
   rotationSmooth: 5
-  deadZoneRadius: 0.2
+  deadZoneAngle: 45
 --- !u!1 &1745642750
 GameObject:
   m_ObjectHideFlags: 0
