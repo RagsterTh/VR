@@ -1363,8 +1363,11 @@ MonoBehaviour:
   _merchantNameTMP: {fileID: 987849257972462101}
   _merchantName: Director
   _dialogueLines:
-  - Precisamos de sua ajuda!
-  - A guarda do embau esta sendo atacada!
+  - Seja bem vindo ao Senac!
+  - "Aqui voc\xEA ir\xE1 conhecer um pouco mais de nossos cursos"
+  - "Tu ir\xE1 experienciar um pouco de cada curso"
+  - Turismo, Enfermagem e o EMETEC
+  - "Voc\xEA ser\xE1 direcionado junto aos seus colegas"
   _textSpeed: 0.05
   OnDialogueEnd:
     m_PersistentCalls:
