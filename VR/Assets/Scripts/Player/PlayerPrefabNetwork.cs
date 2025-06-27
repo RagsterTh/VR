@@ -1,9 +1,17 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
+
+public enum PlayerTool
+{
+    Hand, Gun
+}
 public class PlayerPrefabNetwork : MonoBehaviour
 {
     PhotonView _phView;
-    [SerializeField] GameObject[] elements;
+    [SerializeField] GameObject[] _elements;
+    [SerializeField] GameObject _gun;
+    [SerializeField] GameObject _hand;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -11,9 +19,23 @@ public class PlayerPrefabNetwork : MonoBehaviour
         if (!_phView.IsMine)
             return;
 
-        foreach (var item in elements)
+        foreach (var item in _elements)
         {
             item.SetActive(true);
         }
+        /*
+        switch (SceneManager.GetActiveScene().name)
+        {
+            default:
+                _phView
+                break;
+
+        }
+        */
+    }
+    [PunRPC]
+    void RPC_Hands(int tool)
+    {
+
     }
 }
