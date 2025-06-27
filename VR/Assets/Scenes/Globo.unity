@@ -4010,10 +4010,18 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4954066979172484431, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0182ea008486cb543bab7d906a2a27d5, type: 2}
     - target: {fileID: 5447260008744696111, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
       propertyPath: sceneViewId
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6741975497209701719, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2ce0bbb6ea832ec4888aa36423b235ab, type: 2}
     - target: {fileID: 8462558896037914388, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
       propertyPath: sceneViewId
       value: 2
