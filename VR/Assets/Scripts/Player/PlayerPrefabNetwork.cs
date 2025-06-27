@@ -10,8 +10,10 @@ public class PlayerPrefabNetwork : MonoBehaviour
 {
     PhotonView _phView;
     [SerializeField] GameObject[] _elements;
-    [SerializeField] GameObject _gun;
-    [SerializeField] GameObject _hand;
+    [SerializeField] GameObject _leftGun;
+    [SerializeField] GameObject _rightGun;
+    [SerializeField] GameObject _leftHand;
+    [SerializeField] GameObject _rightHand;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -23,19 +25,25 @@ public class PlayerPrefabNetwork : MonoBehaviour
         {
             item.SetActive(true);
         }
-        /*
+        
         switch (SceneManager.GetActiveScene().name)
         {
+            case "Game":
+                _phView.RPC("RPC_Hands", RpcTarget.AllBuffered, (int)PlayerTool.Gun);
+                break;
             default:
-                _phView
+                _phView.RPC("RPC_Hands", RpcTarget.AllBuffered, (int)PlayerTool.Hand);
                 break;
 
         }
-        */
+        
     }
     [PunRPC]
     void RPC_Hands(int tool)
     {
-
+        _leftGun.SetActive(tool != (int)PlayerTool.Hand);
+        _rightGun.SetActive(tool != (int)PlayerTool.Hand);
+        _leftHand.SetActive(tool == (int)PlayerTool.Hand);
+        _rightHand.SetActive(tool == (int)PlayerTool.Hand);
     }
 }

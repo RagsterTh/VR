@@ -55,4 +55,8 @@ public class Gun : MonoBehaviour
     {
         _target = null;
     }
+    public void HandTouch(HoverEnterEventArgs value)
+    {
+        value.interactableObject.transform.GetComponent<IShootable>().Hit();
+    }
 }
