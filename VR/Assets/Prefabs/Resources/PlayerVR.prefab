@@ -457,10 +457,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e6842d51429c34f99e8fc4e7554fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elements:
-  - {fileID: 2051942870035437659}
+  _elements:
   - {fileID: 7521047199594845950}
-  - {fileID: 3795559047295461352}
+  - {fileID: 2798677468785640432}
+  - {fileID: 151250083572279973}
+  _gun: {fileID: 0}
+  _hand: {fileID: 0}
 --- !u!1 &2798677468785640432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,6 +1960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ARMA Final 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3656131033731418534, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4176806497707594524, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.5
@@ -2116,7 +2122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2447424620550846319, guid: b200f6587d118224eba8467281481800, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3234853630605623997, guid: b200f6587d118224eba8467281481800, type: 3}
       propertyPath: m_RootOrder
@@ -2424,11 +2430,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3234853630605623997, guid: b200f6587d118224eba8467281481800, type: 3}
   m_PrefabInstance: {fileID: 4435773583719001908}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2051942870035437659 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2447424620550846319, guid: b200f6587d118224eba8467281481800, type: 3}
-  m_PrefabInstance: {fileID: 4435773583719001908}
-  m_PrefabAsset: {fileID: 0}
 --- !u!120 &8397425149021826245 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 5262083691642962929, guid: b200f6587d118224eba8467281481800, type: 3}
@@ -2439,7 +2440,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4808866746549998793, guid: b200f6587d118224eba8467281481800, type: 3}
   m_PrefabInstance: {fileID: 4435773583719001908}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2051942870035437659}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25a07ef133a37d140a87cdf1f1c75fdf, type: 3}
@@ -3245,7 +3246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4804964734930210078, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5745700813747042508, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
       propertyPath: m_RootOrder
@@ -3308,11 +3309,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
---- !u!1 &3795559047295461352 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4804964734930210078, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
-  m_PrefabInstance: {fileID: 8503395536300911350}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4161032886604730938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5745700813747042508, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
@@ -3323,7 +3319,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2442306273320644280, guid: 3df3e1220f2164f448701a6de8084f92, type: 3}
   m_PrefabInstance: {fileID: 8503395536300911350}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3795559047295461352}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25a07ef133a37d140a87cdf1f1c75fdf, type: 3}
@@ -3340,6 +3336,10 @@ PrefabInstance:
     - target: {fileID: 8076964948959977597, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: m_Name
       value: ARMA Final
+      objectReference: {fileID: 0}
+    - target: {fileID: 8076964948959977597, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8889248592107813575, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: m_LocalScale.x

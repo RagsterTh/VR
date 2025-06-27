@@ -59,6 +59,7 @@ MonoBehaviour:
   - RPC_StartBattle
   - RPC_RefreshPlayerList
   - RPC_LoadLevel
+  - RPC_Hands
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
