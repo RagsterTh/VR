@@ -42,10 +42,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlinkingStrenght: 2
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _alpha: 0.59
-    - _fresnelPower: 4.08
+    - _ScrollSpeed: 1
+    - _StripeStrenght: 0.68
+    - _StripesFrequency: 13.75
+    - _StripesOffset: 1.23
+    - _StripesRotation: 90
+    - _StripesThickness: 0.14
+    - _alpha: 0.83
+    - _fresnelPower: 3.21
     m_Colors:
     - _fresnelColor: {r: 0.19607845, g: 0.7294118, b: 0.65882355, a: 1}
   m_BuildTextureStacks: []
