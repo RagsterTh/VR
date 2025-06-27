@@ -2419,6 +2419,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: _merchantName
+      value: Atendente
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: _dialogueLines.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: '_dialogueLines.Array.data[0]'
+      value: "Seja bem vindo ao Senac Palho\xE7a!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: '_dialogueLines.Array.data[1]'
+      value: "Aqui voc\xEA vai experienciar nossos cursos."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: '_dialogueLines.Array.data[2]'
+      value: Turismo, EMETEC e Enfermagem
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: '_dialogueLines.Array.data[3]'
+      value: "Voc\xEA sera direcionado junto com seus parceiros"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: OnDialogueEnd.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
