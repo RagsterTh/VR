@@ -2,7 +2,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
 [RequireComponent(typeof(PhotonView))]
-public class Switch : MonoBehaviour, IShootable
+public class Switch : MonoBehaviour
 {
     PhotonView _phView;
     public UnityEvent OnSwitchActivate;
@@ -27,10 +27,5 @@ public class Switch : MonoBehaviour, IShootable
     public void RPC_SwitchActivate()
     {
         OnSwitchActivate.Invoke();
-    }
-
-    public void Hit()
-    {
-        Active("RPC_SwitchActivate");
     }
 }
