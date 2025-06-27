@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using Photon.Realtime;
-
+using ExitGames.Client.Photon;
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
@@ -22,6 +19,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         if (!SceneManager.GetActiveScene().name.Equals("Title"))
             Connection();
     }
+    private void Start()
+    {
+        Hashtable hash = new Hashtable();
+        hash.Add("IsVR", isVR);
+        PhotonNetwork.SetPlayerCustomProperties(hash);
+    }
     public void Connection()
     {
         PhotonNetwork.ConnectUsingSettings();
@@ -32,8 +35,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
-            PhotonNetwork.LoadLevel(1);
+#if UNITY_EDITOR
+        if(isVR)
+            if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+                PhotonNetwork.LoadLevel(1);
+#endif
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
