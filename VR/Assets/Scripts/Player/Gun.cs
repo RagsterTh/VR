@@ -1,62 +1,26 @@
-using Photon.Pun;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+using Photon.Pun;
+
 public class Gun : MonoBehaviour
 {
-    [SerializeField] float fireSpeed = 20;
     PhotonView _phView;
-    [SerializeField] Transform _gunDirection;
-    IShootable _target;
-
+    [SerializeField] float _bulletSpeed = 4;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    void Start()
     {
         _phView = GetComponentInParent<PhotonView>();
-        if (!_phView.IsMine)
-        {
-            this.enabled = false;
-        }
+        if(!_phView.IsMine)
+            enabled = false;
     }
 
-
-    void FixedUpdate()
+    // Update is called once per frame
+    void Update()
     {
-        if(!ConnectionManager.isVR)
-            Aim();
+        
     }
-    void Aim()
+    public void OnActivate()
     {
-        if (Physics.Raycast(_gunDirection.position, _gunDirection.forward, out RaycastHit hit))
-        {
-            if(hit.collider.TryGetComponent(out IShootable target))
-            {
-                this._target = target;
-
-            } else
-            {
-                this._target = null;
-            }
-        }
-        else
-        {
-            _target = null;
-        }
-    }
-    public void Shoot()
-    {
-        //print("atirei"+_target);    
-        _target?.Hit();
-    }
-    public void SetTarget(HoverEnterEventArgs value)
-    {
-        _target = value.interactableObject.transform.GetComponent<IShootable>();
-    }
-    public void NullTarget()
-    {
-        _target = null;
-    }
-    public void HandTouch(HoverEnterEventArgs value)
-    {
-        value.interactableObject.transform.GetComponent<IShootable>().Hit();
+        GameObject temp = PhotonNetwork.Instantiate("PlayerBullet", transform.GetChild(0).position, transform.rotation);
+        temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
     }
 }
