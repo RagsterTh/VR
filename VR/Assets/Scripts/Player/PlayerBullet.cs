@@ -23,7 +23,12 @@ public class PlayerBullet : MonoBehaviour
     {
         if(other.TryGetComponent(out IShootable target))
         {
-            target.Hit();
+            target?.Hit();
+            gameObject.SetActive(false);
+        }
+        if(other.transform.parent.TryGetComponent(out IShootable target2))
+        {
+            target2?.Hit();
             gameObject.SetActive(false);
         }
     }
