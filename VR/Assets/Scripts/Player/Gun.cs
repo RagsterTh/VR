@@ -1,5 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.InputSystem;
 
 public class Gun : MonoBehaviour
 {
@@ -18,9 +19,13 @@ public class Gun : MonoBehaviour
     {
         
     }
-    public void OnActivate()
+    public void Shoot(InputAction.CallbackContext value)
     {
-        GameObject temp = PhotonNetwork.Instantiate("PlayerBullet", transform.GetChild(0).position, transform.rotation);
-        temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
+        if (value.performed)
+        {
+            GameObject temp = PhotonNetwork.Instantiate("PlayerBullet", transform.GetChild(0).position, transform.rotation);
+            temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
+        }
+
     }
 }
