@@ -6,12 +6,17 @@ public class Gun : MonoBehaviour
 {
     PhotonView _phView;
     [SerializeField] float _bulletSpeed = 4;
+    ObjectPool _playersBullets;
+    Transform _gunPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _phView = GetComponentInParent<PhotonView>();
         if(!_phView.IsMine)
             enabled = false;
+
+        _gunPoint = transform.GetChild(0);
+        _playersBullets = GameController.instance.PlayersBullets;
     }
 
     // Update is called once per frame
@@ -23,8 +28,8 @@ public class Gun : MonoBehaviour
     {
         if (value.performed)
         {
-            GameObject temp = PhotonNetwork.Instantiate("PlayerBullet", transform.GetChild(0).position, transform.rotation);
-            temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
+            _playersBullets.CallObject(_gunPoint.position, _gunPoint.rotation);
+            //temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
         }
 
     }

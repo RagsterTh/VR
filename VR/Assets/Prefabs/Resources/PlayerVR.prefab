@@ -2506,7 +2506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f201a84119a7e74cab4809a9a1e4269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 4
+  _bulletSpeed: 7
 --- !u!4 &2187355136832588846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4176806497707594524, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
@@ -4063,7 +4063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f201a84119a7e74cab4809a9a1e4269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletSpeed: 4
+  _bulletSpeed: 7
 --- !u!1001 &8987838159104831430
 PrefabInstance:
   m_ObjectHideFlags: 0

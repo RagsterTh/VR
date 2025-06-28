@@ -10,7 +10,7 @@ public struct Resources
 }
 public enum ResourceTypes
 {
-    PlayerVR, PlayerBullet
+    PlayerVR
 }
 [CreateAssetMenu(menuName = "SceneResources", fileName = "newResourcesList")]
 public class SceneResources : ScriptableObject

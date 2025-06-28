@@ -13,12 +13,14 @@ public class GameController : MonoBehaviour
     public static GameController instance;
     [SerializeField]Transform[] _spawnPoints;
     [SerializeField] ObjectPool[] _enemyPools;
+    [SerializeField] ObjectPool _playersBullets;
     [SerializeField]SceneResources _sceneResources;
     [SerializeField]Switch _switch;
     List<GameObject> _playerAvatar = new List<GameObject>();
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
     public List<GameObject> PlayerAvatar { get => _playerAvatar;}
+    public ObjectPool PlayersBullets { get => _playersBullets;}
 
     [Header("Events")]
     public UnityEvent OnBattleBegin;
