@@ -60,6 +60,7 @@ MonoBehaviour:
   - RPC_RefreshPlayerList
   - RPC_LoadLevel
   - RPC_Hands
+  - RPC_CallObjectWithRotation
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
