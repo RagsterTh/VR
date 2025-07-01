@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 2adc004ff4a3590489194d01f9cdc16d
   - enabled: 1
-    path: Assets/Scenes/Globo.unity
-    guid: 6722fd8dd35458941acb9d316c22f223
+    path: Assets/Scenes/GloboV2.unity
+    guid: ff767ae70df894b4382bd4c21ffc756a
   - enabled: 1
     path: Assets/Scenes/Saguao.unity
     guid: f683ebb614948a345a5b1f37a54f3b9e
