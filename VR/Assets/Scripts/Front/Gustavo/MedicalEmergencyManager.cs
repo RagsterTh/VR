@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class MedicalEmergencyManager : MonoBehaviour
 {
-    [SerializeField] private MedicalEmergency[] allWounds;
+    private MedicalEmergency[] allWounds;
     [SerializeField] private int numberToActivate = 3;
 
     private void Start()
     {
+        //allWounds = GetComponentsInChildren<MedicalEmergency>();
         ActivateRandomWounds();
     }
 
