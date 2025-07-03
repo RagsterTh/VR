@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -959,8 +959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -1537,7 +1537,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9613017, z: -0, w: -0.27549785}
   m_LocalPosition: {x: 0.335, y: 1.2079098, z: -0.028}
-  m_LocalScale: {x: 0.17, y: 0.17, z: 0.17}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3343222278069677346}
@@ -1554,8 +1554,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -1855,8 +1855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -2314,8 +2314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -3164,8 +3164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -3275,7 +3275,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1168774785}
-  - {fileID: 3343222278069677346}
   m_Father: {fileID: 1703198037}
   m_LocalEulerAnglesHint: {x: 0, y: 6.81, z: 0}
 --- !u!1 &1584973882
@@ -3423,8 +3422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -4249,8 +4248,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb8495e946a1b740af0109b2284a4dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverScale: {x: 0.7, y: 0.7, z: 0.7}
-  originalScale: {x: 0.5, y: 0.5, z: 0.5}
+  hoverScale: {x: 0.4, y: 0.4, z: 0.4}
+  originalScale: {x: 0.16, y: 0.5, z: 0.5}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -5269,10 +5268,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2679169394079414168}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9982347, z: -0, w: 0.059393484}
-  m_LocalPosition: {x: -0.6363915, y: 0.35903612, z: 3.357867}
-  m_LocalScale: {x: 1.2048191, y: 1.2048193, z: 1.2048191}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 1.42, y: -0.61, z: -8.84}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2155283120132542264}
   - {fileID: 1293750360485176073}
@@ -5284,8 +5283,8 @@ Transform:
   - {fileID: 934527297}
   - {fileID: 192480123}
   - {fileID: 701126079}
-  m_Father: {fileID: 1557325390}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 180, z: -90}
 --- !u!1 &3392941292908421003
 GameObject:
   m_ObjectHideFlags: 0
@@ -6593,3 +6592,4 @@ SceneRoots:
   - {fileID: 1703198037}
   - {fileID: 644424952}
   - {fileID: 2093261484}
+  - {fileID: 3343222278069677346}
