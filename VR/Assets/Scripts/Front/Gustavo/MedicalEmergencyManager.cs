@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MedicalEmergencyManager : MonoBehaviour
 {
-    private MedicalEmergency[] allWounds;
+    [SerializeField]private MedicalEmergency[] allWounds;
     [SerializeField] private int numberToActivate = 3;
 
     private void Start()
