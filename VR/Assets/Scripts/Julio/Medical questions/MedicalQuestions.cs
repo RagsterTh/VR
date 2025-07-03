@@ -3,11 +3,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-
+using System.Collections;
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] private MedicalQuestionsData medicalQuestionsData;
     private MedicalData currentData;
+
+    [SerializeField] private GameObject[] possibleWounds;
 
     [SerializeField] private TMP_Text displayText;
     [SerializeField] private Button[] answerButtons;
@@ -20,6 +22,14 @@ public class MedicalQuestions : MonoBehaviour
     {
         buttonPanel.SetActive(false);
         PhotonNetwork.Disconnect();
+        ChooseWound();
+    }
+
+    public void ChooseWound() 
+    {
+        int randomNum = UnityEngine.Random.Range(0,possibleWounds.Length);
+        possibleWounds[randomNum].SetActive(true);
+        Debug.Log("AAAA");
     }
 
     public void ShowTreatmentOptions(MedicalEmergency wound)
