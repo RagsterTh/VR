@@ -23,6 +23,7 @@ public class TitleFunctions : MonoBehaviour
     }
 
     public void Credits(){
+
         _credits.transform.localPosition = new Vector3(0, -700, 0);
 
         StartCoroutine(CreditsAnimation());
@@ -34,7 +35,7 @@ public class TitleFunctions : MonoBehaviour
             _credits.transform.localPosition = new Vector3(0, y, 0);
             y += 5;
             yield return new WaitForSeconds(0.01f);
-            if (y >= 3500)
+            if (y >= 5500)
             {
                 isRunning = false;
                 StartGame();
