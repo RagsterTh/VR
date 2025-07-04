@@ -325,6 +325,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1777546028127056054, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2040953620420040771, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
       propertyPath: m_Name
       value: PlayerVR
@@ -356,6 +360,10 @@ PrefabInstance:
     - target: {fileID: 4948612777366153166, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
       propertyPath: m_InteractionLayers.m_Bits
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5230146690379466278, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
+      propertyPath: sceneViewId
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6334015674497074254, guid: 6d44a7bc86f55b0449daff60619a28aa, type: 3}
       propertyPath: m_FarAttachMode
