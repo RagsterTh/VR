@@ -301,7 +301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &124469025
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1494,128 +1494,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New Text
-
-    New
-    Text
-
-    New Text
-
-    New Text
-
-    New Text'
+  m_text: "Professores:\r\nAlexandre da Silva Thiesen : Dire\xE7\xE3o da Programa\xE7\xE3o
+    Back-end\r\nBruno Martins de Abreu : Dire\xE7\xE3o da Programa\xE7\xE3o Front-end\r\nClaudio
+    Roberto Martins : Dire\xE7\xE3o de Som e Game Design\r\nDaniel Pinho Campos :
+    Dire\xE7\xE3o Art\xEDstica\r\n\r\nAlunos:\r\nBeatriz Ramirez dos Santos : Modelador
+    3D\r\nGabriel William Alves da Veiga : Artista 3D\r\nGustavo Roncuni de Medeiros
+    : Programador Front-End\r\nHeitor Avila Fochesato : Sound Designer\r\nJulio Bernardo
+    Silveira : Programador Back-End\r\nLouise Scheibler Neckel : Modelador 3D\r\nRafael
+    da Silva Correa : Artista 3D\r\nRichard Bertan : Programador Back-End\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1708,11 +1594,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 915792752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 643, y: -1247}
-  m_SizeDelta: {x: 900, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1600, y: 300}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &478075653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2817,7 +2703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &824422584
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2833,10 +2719,10 @@ RectTransform:
   - {fileID: 139937680}
   m_Father: {fileID: 915792752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 550, y: -539.99994}
+  m_SizeDelta: {x: 900, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &824422585
 MonoBehaviour:
@@ -3775,7 +3661,7 @@ MonoBehaviour:
   _credits: {fileID: 478075649}
   _playBtn: {fileID: 1493309482}
   _creditsBtn: {fileID: 124469024}
-  _backBtn: {fileID: 1617726630}
+  _backBtn: {fileID: 0}
   _connectionManager: {fileID: 0}
 --- !u!1 &1442562793
 GameObject:
@@ -3832,7 +3718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1493309483
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3848,10 +3734,10 @@ RectTransform:
   - {fileID: 361285873}
   m_Father: {fileID: 915792752}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 550, y: -379.99994}
+  m_SizeDelta: {x: 900, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1493309484
 MonoBehaviour:
