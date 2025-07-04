@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour
     public void BattleBegin()
     {
         //OnBattleBegin.Invoke();
-        PhotonNetwork.CurrentRoom.IsOpen = false;
+        //PhotonNetwork.CurrentRoom.IsOpen = false;
         _phView.RPC("RPC_BattleBegin", RpcTarget.All);
     }
     public void RemovePlayerAvatar(int playerID)
