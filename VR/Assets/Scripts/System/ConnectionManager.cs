@@ -35,12 +35,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        
+        /*
 #if UNITY_EDITOR 
         if(isVR)
             if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
                 PhotonNetwork.LoadLevel(1);
 #endif
+        */
         
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
