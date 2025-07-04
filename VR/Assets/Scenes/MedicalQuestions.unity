@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -1722,7 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -2482,7 +2482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -3389,7 +3389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -3647,7 +3647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -3963,7 +3963,7 @@ MonoBehaviour:
   heightOffset: 1
   positionSmooth: 5
   rotationSmooth: 4
-  deadZoneAngle: 20
+  deadZoneAngle: 40
 --- !u!1 &1745642750
 GameObject:
   m_ObjectHideFlags: 0
@@ -4473,7 +4473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
-  originalScale: {x: 0.16, y: 0.5, z: 0.5}
+  originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
   woundName: Unknown wound
   woundDescription: No description provided.
@@ -4776,6 +4776,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2129518686
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.048
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.144
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7489558
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.66261995
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 83
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2721436552949770320, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fd21945438aeef46ad76c81866d3faa, type: 2}
+    - target: {fileID: 919132149155446097, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: m_Name
+      value: Medical table
+      objectReference: {fileID: 0}
+    - target: {fileID: 1220760916575554436, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fd21945438aeef46ad76c81866d3faa, type: 2}
+    - target: {fileID: 3873761499534633610, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fd21945438aeef46ad76c81866d3faa, type: 2}
+    - target: {fileID: 6444193166412735111, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8fd21945438aeef46ad76c81866d3faa, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -2845779275431937956, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d69fdec0224ce184e9b76cf9567f01e1, type: 3}
 --- !u!1 &111670000369217078
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,7 +5306,7 @@ Transform:
   m_GameObject: {fileID: 6754186931335209606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.499}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5488,7 +5578,7 @@ Transform:
   m_GameObject: {fileID: 2679169394079414168}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.42, y: -0.61, z: -8.84}
+  m_LocalPosition: {x: 1.42, y: 1.2, z: -8.84}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -6814,3 +6904,4 @@ SceneRoots:
   - {fileID: 3343222278069677346}
   - {fileID: 36630440}
   - {fileID: 1368709979}
+  - {fileID: 2129518686}

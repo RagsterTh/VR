@@ -22,6 +22,15 @@ public class MedicalQuestions : MonoBehaviour
     {
         buttonPanel.SetActive(false);
         ChooseWound();
+
+        for (int i = 0; i < possibleWounds.Length; i++)
+        {
+            if (!possibleWounds[i].activeSelf)
+            {
+                Destroy(possibleWounds[i]);
+            }
+        }
+
     }
 
     public void ChooseWound() 
@@ -108,7 +117,34 @@ public class MedicalQuestions : MonoBehaviour
             currentWound.ClearLabel();
             currentWound = null;
         }
+
+        StartCoroutine(CheckIfAllWoundsTreatedNextFrame());
     }
+
+    private IEnumerator CheckIfAllWoundsTreatedNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+
+        bool hasWoundsLeft = false;
+        foreach (GameObject wound in possibleWounds)
+        {
+            if (wound != null && wound.activeInHierarchy)
+            {
+                hasWoundsLeft = true;
+                break;
+            }
+        }
+
+        if (!hasWoundsLeft)
+        {
+            AllWoundsTreated();
+        }
+        else
+        {
+            ChooseWound();
+        }
+    }
+
 
     private string FormatEnum(Enum value)
     {
@@ -116,5 +152,10 @@ public class MedicalQuestions : MonoBehaviour
         formatted = System.Text.RegularExpressions.Regex.Replace(formatted, "([a-z])([A-Z])", "$1 $2");
         formatted = formatted.Replace("E", " e ");
         return formatted;
+    }
+
+    void AllWoundsTreated()
+    {
+        Debug.Log("ACABOU");
     }
 }
