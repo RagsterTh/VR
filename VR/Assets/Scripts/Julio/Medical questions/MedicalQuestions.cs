@@ -150,9 +150,34 @@ public class MedicalQuestions : MonoBehaviour
     private string FormatEnum(Enum value)
     {
         string formatted = value.ToString();
-        formatted = System.Text.RegularExpressions.Regex.Replace(formatted, "([a-z])([A-Z])", "$1 $2");
-        formatted = formatted.Replace("E", " e ");
-        return formatted;
+
+        switch (formatted)
+        {
+            case "Escoriacao": return "Escoriação";
+            case "Corte": return "Corte";
+            case "Perfuracao": return "Perfuração";
+            case "QueimaduraTermica": return "Queimadura Térmica";
+            case "QueimaduraQuimica": return "Queimadura Química";
+            case "QueimaduraRadioativa": return "Queimadura Radioativa";
+
+            case "Leve": return "Leve";
+            case "Moderado": return "Moderado";
+            case "Grave": return "Grave";
+
+            case "LimpezaEAntissepsia": return "Limpeza e Antissepsia";
+            case "CurativoSimples": return "Curativo Simples";
+            case "CurativoCompressivo": return "Curativo Compressivo";
+            case "EstancarSangramento": return "Estancar Sangramento";
+            case "Imobilizacao": return "Imobilização";
+            case "IrrigacaoComSoro": return "Irrigação com Soro";
+            case "NeutralizacaoQuimica": return "Neutralização Química";
+            case "TratamentoComPomada": return "Tratamento com Pomada";
+            case "AtendimentoHospitalarImediato": return "Atendimento Hospitalar Imediato";
+
+            default:
+                return formatted;
+        }
+
     }
 
     void AllWoundsTreated()

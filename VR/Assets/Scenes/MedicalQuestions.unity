@@ -522,7 +522,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -1197,7 +1197,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -2761,7 +2761,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -4066,7 +4066,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -4325,7 +4325,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
@@ -5556,7 +5556,7 @@ MonoBehaviour:
   hoverScale: {x: 0.4, y: 0.4, z: 0.4}
   originalScale: {x: 0.16, y: 0.16, z: 0.16}
   scaleDuration: 0.2
-  woundName: Unknown wound
+  woundName: Ferimento
   woundDescription: No description provided.
   hoverLabel: {fileID: 1597149843}
   medicalSystem: {fileID: 1703198038}
