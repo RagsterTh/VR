@@ -1494,14 +1494,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Professores:\r\nAlexandre da Silva Thiesen : Dire\xE7\xE3o da Programa\xE7\xE3o
-    Back-end\r\nBruno Martins de Abreu : Dire\xE7\xE3o da Programa\xE7\xE3o Front-end\r\nClaudio
-    Roberto Martins : Dire\xE7\xE3o de Som e Game Design\r\nDaniel Pinho Campos :
-    Dire\xE7\xE3o Art\xEDstica\r\n\r\nAlunos:\r\nBeatriz Ramirez dos Santos : Modelador
-    3D\r\nGabriel William Alves da Veiga : Artista 3D\r\nGustavo Roncuni de Medeiros
-    : Programador Front-End\r\nHeitor Avila Fochesato : Sound Designer\r\nJulio Bernardo
-    Silveira : Programador Back-End\r\nLouise Scheibler Neckel : Modelador 3D\r\nRafael
-    da Silva Correa : Artista 3D\r\nRichard Bertan : Programador Back-End\r\n"
+  m_text: "<B>Professores:</b>\n\r\nAlexandre da Silva Thiesen : Dire\xE7\xE3o da
+    Programa\xE7\xE3o Back-end\n\r\nBruno Martins de Abreu : Dire\xE7\xE3o da Programa\xE7\xE3o
+    Front-end\r\n\nClaudio Roberto Martins : Dire\xE7\xE3o de Som e Game Design\r\n\nDaniel
+    Pinho Campos : Dire\xE7\xE3o Art\xEDstica\r\n\r\n<B>Alunos:</b>\r\n\nBeatriz
+    Ramirez dos Santos : Modelador 3D\r\n\nGabriel William Alves da Veiga : Artista
+    3D\r\n\nGustavo Roncuni de Medeiros : Programador Front-End\r\n\nHeitor Avila
+    Fochesato : Sound Designer\r\n\nJulio Bernardo Silveira : Programador Back-End\r\n\nLouise
+    Scheibler Neckel : Modelador 3D\r\n\nRafael da Silva Correa : Artista 3D\r\n\nRichard
+    Bertan : Programador Back-End\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1596,7 +1597,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 5372}
   m_SizeDelta: {x: 1600, y: 300}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &478075653
@@ -3553,6 +3554,7 @@ GameObject:
   - component: {fileID: 1134689521}
   - component: {fileID: 1134689520}
   - component: {fileID: 1134689524}
+  - component: {fileID: 1134689525}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3663,6 +3665,25 @@ MonoBehaviour:
   _creditsBtn: {fileID: 124469024}
   _backBtn: {fileID: 0}
   _connectionManager: {fileID: 0}
+--- !u!114 &1134689525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134689519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7be8321aace12640a7a363cf207a300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 1450854489}
+  hudObject: {fileID: 1134689523}
+  distanceAhead: 2
+  heightOffset: 0
+  positionSmooth: 5
+  rotationSmooth: 5
+  deadZoneAngle: 10
 --- !u!1 &1442562793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,6 +3721,11 @@ RectTransform:
   m_AnchoredPosition: {x: -580, y: -250}
   m_SizeDelta: {x: 600, y: 147}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1450854489 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4036442044083751428, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
+  m_PrefabInstance: {fileID: 7702782157429966735}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1493309482
 GameObject:
   m_ObjectHideFlags: 0
