@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnBattleBegin;
     public UnityEvent OnPlayerLeftBattle;
+    public UnityEvent OnSceneLoaded;
 
     private void Awake()
     {
@@ -53,6 +54,7 @@ public class GameController : MonoBehaviour
         {
             //playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         }
+        OnSceneLoaded?.Invoke();
 
     }
     public static GameObject GetResource(ResourceTypes resource)
