@@ -494,7 +494,7 @@ MonoBehaviour:
   - {fileID: 4655402677022880787}
   - {fileID: 6615086617073680527}
   - {fileID: 5897090797799416885}
-  sceneViewId: 3
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!143 &6165695049661154701
@@ -2846,6 +2846,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4937495742929108906, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6145061153470736369, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
       propertyPath: m_Volume
       value: 0.7
@@ -2873,6 +2877,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4150086691328712045, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6039518769061009843}
+    - targetCorrespondingSourceObject: {fileID: 4937495742929108906, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5707436543303294959}
   m_SourcePrefab: {fileID: 100100000, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
 --- !u!1 &39521147270986592 stripped
 GameObject:
@@ -3598,6 +3605,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4935437163531447134, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
   m_PrefabInstance: {fileID: 4113046077723813389}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9048289835986475431 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4937495742929108906, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
+  m_PrefabInstance: {fileID: 4113046077723813389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5707436543303294959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048289835986475431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d441f6c664868469ba58dec47822ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9146285892584561899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5186558057196419814, guid: 9ef18c397cae1f8418aecc54340ab4a9, type: 3}
@@ -4380,7 +4404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7073737776569377670, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8076964948959977597, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: m_Name
