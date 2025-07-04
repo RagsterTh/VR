@@ -1277,10 +1277,6 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4205449154132248441, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5134338699143869167, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_CameraType
       value: 1
