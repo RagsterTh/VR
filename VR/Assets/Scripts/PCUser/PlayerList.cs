@@ -1,10 +1,10 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Realtime;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class PlayerList : MonoBehaviourPunCallbacks
+public class PlayerList : MonoBehaviour
 {
     TMP_Text[] _txts;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -12,13 +12,16 @@ public class PlayerList : MonoBehaviourPunCallbacks
     {
         _txts = transform.GetComponentsInChildren<TMP_Text>();
     }
-
+    private void Start()
+    {
+        StartCoroutine(PlayersVerification());
+    }
     // Update is called once per frame
     void Update()
     {
         
     }
-    private void OnEnable()
+    IEnumerator PlayersVerification()
     {
         int playersVR = 0;
         foreach (var item in PhotonNetwork.PlayerList)
@@ -29,18 +32,8 @@ public class PlayerList : MonoBehaviourPunCallbacks
                 playersVR++;
             }
         }
-    }
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        int playersVR = 0;
-        foreach (var item in PhotonNetwork.PlayerList)
-        {
-            if ((bool)item.CustomProperties["IsVR"])
-            {
-                _txts[playersVR].text = $"Player{playersVR + 1}: On";
-                playersVR++;
-            }
-        }
+        yield return new WaitForSeconds(2);
+        StartCoroutine(PlayersVerification());
     }
 
 
