@@ -14,6 +14,7 @@ public class Balcony : MonoBehaviour
     [SerializeField] private string _merchantName;
     [SerializeField] private List<string> _dialogueLines;
     [SerializeField] private float _textSpeed = 0.05f;
+    [SerializeField] private Karen _karen;
 
     private int _currentLineIndex = 0;
     private Coroutine _typingCoroutine;
@@ -28,7 +29,7 @@ public class Balcony : MonoBehaviour
         _dialogueCanvas.gameObject.SetActive(false);
 
 
-        //Temporário
+        //Temporï¿½rio
         _playerInRange = true;
         _dialogueCanvas.gameObject.SetActive(true);
         StartDialogue();
@@ -84,6 +85,7 @@ public class Balcony : MonoBehaviour
             StopCoroutine(_typingCoroutine);
 
         _typingCoroutine = StartCoroutine(TypeLine(_dialogueLines[_currentLineIndex]));
+        _karen.ChangeSound(_currentLineIndex);
     }
 
     private IEnumerator TypeLine(string line)
@@ -96,7 +98,7 @@ public class Balcony : MonoBehaviour
             yield return new WaitForSeconds(_textSpeed);
         }
         _isTyping = false;
-        //Temporário
+        //Temporï¿½rio
         yield return new WaitForSeconds(2);
         AdvanceDialogue();
     }
