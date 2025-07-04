@@ -13,6 +13,7 @@ public class TitleFunctions : MonoBehaviour
     private void Awake()
     {
         _connectionManager = ConnectionManager.instance;
+        Credits();
     }
 
     public void StartGame()
@@ -40,10 +41,16 @@ public class TitleFunctions : MonoBehaviour
     }
     IEnumerator CreditsAnimation(){
         int y = -700;
-        while(true){
+        bool isRunning = true;
+        while (isRunning){
             _credits.transform.localPosition = new Vector3(0, y, 0);
-            y += 10;
+            y += 5;
             yield return new WaitForSeconds(0.01f);
+            if (y >= 5000)
+            {
+                isRunning = false;
+            }
         }
+        print("Acabo");
     }
 }
