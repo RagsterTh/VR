@@ -43,8 +43,5 @@ public class CamUser : MonoBehaviour
     public void RPC_LoadLevel(string scene)
     {
         PhotonNetwork.LoadLevel(scene);
-
-        if(scene.Equals("MedicalQuestions"))
-            PhotonNetwork.LeaveRoom();
     }
 }
