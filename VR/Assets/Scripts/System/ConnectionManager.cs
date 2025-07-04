@@ -42,6 +42,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel(1);
 #endif
         */
+        
     }
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
