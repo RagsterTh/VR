@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:VR/Assets/Scripts/Julio/Karen video.meta
 guid: 45af8e80178e75446ad06e52c34dee68
+========
+guid: 4ef543ec2da8b9545941c6199969b1b3
+>>>>>>>> PlayerRigMove:VR/Assets/VR Body.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
