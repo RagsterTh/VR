@@ -21,7 +21,7 @@ public class LobbiesController : MonoBehaviour
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
         if (ConnectionManager.isVR)
         {
-            PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView();
+            PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView();
         }
         PhotonNetwork.AutomaticallySyncScene = true;
     }

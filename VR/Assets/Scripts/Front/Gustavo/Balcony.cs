@@ -26,10 +26,19 @@ public class Balcony : MonoBehaviour
         _phView = GetComponent<PhotonView>();
         _merchantNameTMP.text = _merchantName;
         _dialogueCanvas.gameObject.SetActive(false);
+
+
+        //Temporário
+        _playerInRange = true;
+        _dialogueCanvas.gameObject.SetActive(true);
+        StartDialogue();
+        if (!_isInConstruction)
+            Debug.Log("Triggering animation (placeholder)");
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (other.CompareTag("Player"))
         {
             _playerInRange = true;
@@ -38,6 +47,7 @@ public class Balcony : MonoBehaviour
             if(!_isInConstruction)
                 Debug.Log("Triggering animation (placeholder)");
         }
+        */
     }
 
     private void OnTriggerExit(Collider other)
@@ -86,6 +96,9 @@ public class Balcony : MonoBehaviour
             yield return new WaitForSeconds(_textSpeed);
         }
         _isTyping = false;
+        //Temporário
+        yield return new WaitForSeconds(2);
+        AdvanceDialogue();
     }
 
     public void AdvanceDialogue()
