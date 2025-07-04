@@ -8,8 +8,7 @@ public class SoundEmitter : MonoBehaviour, ISoundable
 
     public void PlaySound()
     {
-        audioSource.PlayOneShot(audioSource.clip);
-        //phView.RPC("RPC_PlaySound", RpcTarget.All);
+        phView.RPC("RPC_PlaySound", RpcTarget.All);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

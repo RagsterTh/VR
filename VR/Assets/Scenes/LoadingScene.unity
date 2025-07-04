@@ -1714,8 +1714,8 @@ MonoBehaviour:
   hudObject: {fileID: 1654775892}
   distanceAhead: 2
   heightOffset: 1
-  positionSmooth: 5
-  rotationSmooth: 5
+  positionSmooth: 15
+  rotationSmooth: 15
   deadZoneAngle: 20
 --- !u!1 &1663385719
 GameObject:
