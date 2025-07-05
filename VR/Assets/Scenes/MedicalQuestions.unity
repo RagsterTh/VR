@@ -828,6 +828,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2948706498564467567, guid: 62a2c7f8446d619468ac7a27b01946b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127185864273585860, guid: 62a2c7f8446d619468ac7a27b01946b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3394116862736277438, guid: 62a2c7f8446d619468ac7a27b01946b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3394116862736277438, guid: 62a2c7f8446d619468ac7a27b01946b2, type: 3}
       propertyPath: sceneViewId
       value: 6
@@ -4623,6 +4635,9 @@ MonoBehaviour:
   - {fileID: 764954830}
   - {fileID: 701126080}
   numberToActivate: 2
+  OnSceneLoad:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1745642750
 GameObject:
   m_ObjectHideFlags: 0

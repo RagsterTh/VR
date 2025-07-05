@@ -44,13 +44,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         */
         
     }
-    public override void OnPlayerLeftRoom(Player otherPlayer)
+    public override void OnDisconnected(DisconnectCause cause)
     {
-        if(SceneManager.GetActiveScene().name.Equals("Game"))
-            foreach (var item in GameController.instance.GetPlayerList())
-            {
-                if (item.GetPhotonView().ControllerActorNr == otherPlayer.ActorNumber)
-                    GameController.instance.RemovePlayerAvatar(item.GetPhotonView().ViewID);
-            }
+        SceneManager.LoadScene("LoadingScene");
     }
 }

@@ -28,6 +28,11 @@ public class CamUser : MonoBehaviour
     {
         _phView.RPC("RPC_LoadLevel", RpcTarget.All, scene);
     }
+    public void ResetUsers()
+    {
+        _phView.RPC("RPC_ResetUsers", RpcTarget.Others);
+        PhotonNetwork.LoadLevel("LoadingScene");
+    }
 
     public void OnActive()
     {
@@ -38,7 +43,11 @@ public class CamUser : MonoBehaviour
         _controllerPanel.SetActive(!_controllerPanel.activeSelf);
         //GameController.instance.ActiveBattle();
     }
-
+    [PunRPC]
+    public void RPC_ResetUsers()
+    {
+        PhotonNetwork.Disconnect();
+    }
     [PunRPC]
     public void RPC_LoadLevel(string scene)
     {
