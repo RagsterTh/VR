@@ -16,11 +16,11 @@ public class MedicalEmergencyManager : MonoBehaviour
         ActivateRandomWounds();
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
-        OnSceneLoad?.Invoke();
     }
     [PunRPC]
     public void RPC_ActiveScene()
     {
+        print(PhotonNetwork.AutomaticallySyncScene);
         OnSceneLoad?.Invoke();
     }
 
