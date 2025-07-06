@@ -99,7 +99,7 @@ public class Balcony : MonoBehaviour
         }
         _isTyping = false;
         //Tempor�rio
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         AdvanceDialogue();
     }
 
@@ -123,7 +123,8 @@ public class Balcony : MonoBehaviour
             else
             {
                 EndDialogue();
-                _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
+                if(PhotonNetwork.IsMasterClient)
+                    _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
             }
         }
     }
