@@ -18,6 +18,7 @@ public class TitleFunctions : MonoBehaviour
 
     public void StartGame()
     {
+        PhotonNetwork.JoinRandomOrCreateRoom();
         SceneManager.LoadScene("LoadingScene");
     }
 

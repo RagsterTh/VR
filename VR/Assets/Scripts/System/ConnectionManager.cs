@@ -16,8 +16,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        if (!SceneManager.GetActiveScene().name.Equals("Title"))
             Connection();
     }
     private void Start()
@@ -33,7 +31,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        PhotonNetwork.JoinLobby();
+    }
+    public override void OnJoinedLobby()
+    {
+        if (!SceneManager.GetActiveScene().name.Equals("MedicalQuestions"))
+            PhotonNetwork.JoinRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {

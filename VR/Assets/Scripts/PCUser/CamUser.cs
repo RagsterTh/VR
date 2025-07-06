@@ -18,10 +18,7 @@ public class CamUser : MonoBehaviour
         _controllerPanel = GetComponentInChildren<Image>(true).gameObject;
         _cam.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
-        if (SceneManager.GetActiveScene().name.Equals("LoadingScene"))
-        {
-            PhotonNetwork.AutomaticallySyncScene = true;
-        }
+        
     }
 
     // Update is called once per frame

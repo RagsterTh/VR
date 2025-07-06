@@ -11,16 +11,17 @@ public class MedicalEmergencyManager : MonoBehaviour
     private void Start()
     {
         _phView = GetComponent<PhotonView>();
-        PhotonNetwork.AutomaticallySyncScene = false;
         //allWounds = GetComponentsInChildren<MedicalEmergency>();
         ActivateRandomWounds();
+        if(ConnectionManager.isVR)
+            PhotonNetwork.LeaveRoom();
+
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void RPC_ActiveScene()
     {
-        print(PhotonNetwork.AutomaticallySyncScene);
         OnSceneLoad?.Invoke();
     }
 
