@@ -1,11 +1,12 @@
 using Photon.Pun;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class ObjectPool : MonoBehaviourPunCallbacks
 {
-    [SerializeField]List<GameObject> _pooledObjects;
+    [SerializeField]List<int> _pooledObjects;
     [SerializeField]GameObject _objectToPool;
     [SerializeField]int _amountToPool;
     PhotonView _phView;
@@ -26,21 +27,23 @@ public class ObjectPool : MonoBehaviourPunCallbacks
             return;
 
         GameObject collection = new GameObject(_objectToPool.name + " Collection");
-        _pooledObjects = new List<GameObject>();
+        _pooledObjects = new List<int>();
         GameObject tmp;
         for (int i = 0; i < _amountToPool; i++)
         {
             tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
-            _pooledObjects.Add(tmp);
+            _pooledObjects.Add(tmp.GetPhotonView().ViewID);
         }
+        _phView.RPC("RPC_SetPool", RpcTarget.Others, _pooledObjects.ToArray());
     }
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < _amountToPool; i++)
         {
-            if (!_pooledObjects[i].activeInHierarchy)
+            GameObject temp = PhotonNetwork.GetPhotonView(_pooledObjects[i]).gameObject;
+            if (!temp.activeInHierarchy)
             {
-                return _pooledObjects[i];
+                return temp;
             }
         }
         return null;
@@ -56,7 +59,11 @@ public class ObjectPool : MonoBehaviourPunCallbacks
         GameObject bullet = GetPooledObject();
         _phView.RPC("RPC_CallObjectWithRotation", RpcTarget.AllBuffered, origin, rotation, bullet.GetPhotonView().ViewID);
     }
-
+    [PunRPC]
+    public void RPC_SetPool(int[] pool)
+    {
+        _pooledObjects = pool.ToList();
+    }
     [PunRPC]
     public void RPC_CallObject(Vector3 origin, int photonID)
     {

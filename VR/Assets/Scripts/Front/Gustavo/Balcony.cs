@@ -32,7 +32,7 @@ public class Balcony : MonoBehaviour
         //Tempor�rio
         _playerInRange = true;
         _dialogueCanvas.gameObject.SetActive(true);
-        StartDialogue();
+        //StartDialogue();
         if (!_isInConstruction)
             Debug.Log("Triggering animation (placeholder)");
     }
