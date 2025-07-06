@@ -26,11 +26,6 @@ public class PlayerBullet : MonoBehaviour
             target?.Hit();
             gameObject.SetActive(false);
         }
-        if(other.transform.parent.TryGetComponent(out IShootable target2))
-        {
-            target2?.Hit();
-            gameObject.SetActive(false);
-        }
     }
     private void OnTriggerExit(Collider other)
     {
