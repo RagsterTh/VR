@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] private MedicalQuestionsData medicalQuestionsData;
@@ -21,7 +20,7 @@ public class MedicalQuestions : MonoBehaviour
 
     private void Start()
     {
-        PhotonNetwork.AutomaticallySyncScene = false;
+
         buttonPanel.SetActive(false);
         ChooseWound();
 
