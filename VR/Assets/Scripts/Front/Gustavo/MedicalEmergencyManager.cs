@@ -11,6 +11,7 @@ public class MedicalEmergencyManager : MonoBehaviour
     private void Start()
     {
         _phView = GetComponent<PhotonView>();
+        PhotonNetwork.AutomaticallySyncScene = false;
         //allWounds = GetComponentsInChildren<MedicalEmergency>();
         ActivateRandomWounds();
         if (PhotonNetwork.IsMasterClient)
