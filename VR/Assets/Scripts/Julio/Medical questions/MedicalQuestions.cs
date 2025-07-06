@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using UnityEngine.SceneManagement;
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] private MedicalQuestionsData medicalQuestionsData;
@@ -183,7 +184,6 @@ public class MedicalQuestions : MonoBehaviour
     void AllWoundsTreated()
     {
         Debug.Log("ACABOU");
-        print(PhotonNetwork.AutomaticallySyncScene);
-        PhotonNetwork.LoadLevel("Credits");
+        SceneManager.LoadScene("Credits");
     }
 }

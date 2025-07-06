@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,14 +13,12 @@ public class TitleFunctions : MonoBehaviour
 
     private void Awake()
     {
-        _connectionManager = ConnectionManager.instance;
         Credits();
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene("LoadingScene");
-        _connectionManager.Connection();
     }
 
     public void Credits(){
