@@ -2942,6 +2942,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6417917393817473421, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7277234422113051516, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: m_Name
       value: Sala
@@ -2953,6 +2957,10 @@ PrefabInstance:
     - target: {fileID: 7869609510573933599, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7871369701019986927, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7929392399273757453, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: m_LocalScale.x
