@@ -60,7 +60,7 @@ public class Balcony : MonoBehaviour
         }
     }
 
-    private void StartDialogue()
+    public void StartDialogue()
     {
         _currentLineIndex = 0;
         DisplayCurrentLine();

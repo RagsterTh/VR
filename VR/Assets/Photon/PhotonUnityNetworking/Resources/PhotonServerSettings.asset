@@ -64,6 +64,11 @@ MonoBehaviour:
   - RPC_ResetUsers
   - AskGoToGame
   - RPC_AskGoToGame
+  - SetPool
+  - RPC_SetPool
+  - RPC_ActiveScene
+  - RPC_SceneLoaded
+  - RPC_AcetiveScene
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

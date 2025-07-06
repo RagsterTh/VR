@@ -16,6 +16,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
         if (!SceneManager.GetActiveScene().name.Equals("Title"))
             Connection();
     }
@@ -27,6 +28,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public void Connection()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }
     public override void OnConnectedToMaster()

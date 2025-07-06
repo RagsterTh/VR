@@ -54,7 +54,8 @@ public class GameController : MonoBehaviour
         {
             //playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
         }
-        OnSceneLoaded?.Invoke();
+        if (PhotonNetwork.IsMasterClient)
+            _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
 
     }
     public static GameObject GetResource(ResourceTypes resource)
@@ -105,6 +106,11 @@ public class GameController : MonoBehaviour
     public void RPC_BattleBegin()
     {
         OnBattleBegin.Invoke();
+    }
+    [PunRPC]
+    public void RPC_ActiveScene()
+    {
+        OnSceneLoaded.Invoke();
     }
 
     public void BattleEnd()
