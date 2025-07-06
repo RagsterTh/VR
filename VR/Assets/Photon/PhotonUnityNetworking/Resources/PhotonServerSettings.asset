@@ -62,6 +62,8 @@ MonoBehaviour:
   - RPC_Hands
   - RPC_CallObjectWithRotation
   - RPC_ResetUsers
+  - AskGoToGame
+  - RPC_AskGoToGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -11,7 +11,7 @@ public class Location : MonoBehaviour, IShootable
     [SerializeField] Vector3 _upperScale;
     [SerializeField] float _interpolateTime;
     PhotonView _phView;
-
+    bool isGameAsked;
     private void Start()
     {
         _phView = GetComponent<PhotonView>();
@@ -53,7 +53,19 @@ public class Location : MonoBehaviour, IShootable
     
     public void Hit()
     {
-        PhotonNetwork.LoadLevel(3);
+
+        _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
+
+    }
+    [PunRPC]
+    public void RPC_AskGoToGame()
+    {
+        if (isGameAsked)
+            return;
+
+        PhotonNetwork.LoadLevel("Game");
+        isGameAsked = true;
+
 
     }
     [PunRPC]

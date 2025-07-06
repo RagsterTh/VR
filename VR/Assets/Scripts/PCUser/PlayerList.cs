@@ -23,6 +23,10 @@ public class PlayerList : MonoBehaviour
     }
     IEnumerator PlayersVerification()
     {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+        }
         int playersVR = 0;
         foreach (var item in PhotonNetwork.PlayerList)
         {
