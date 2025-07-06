@@ -183,6 +183,7 @@ public class MedicalQuestions : MonoBehaviour
     void AllWoundsTreated()
     {
         Debug.Log("ACABOU");
+        print(PhotonNetwork.AutomaticallySyncScene);
         PhotonNetwork.LoadLevel("Credits");
     }
 }
