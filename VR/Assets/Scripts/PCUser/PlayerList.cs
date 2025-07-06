@@ -1,5 +1,6 @@
 using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -34,6 +35,13 @@ public class PlayerList : MonoBehaviour
             {
                 _txts[playersVR].text = $"Player{playersVR + 1}: On";
                 playersVR++;
+            }
+        }
+        if(playersVR < _txts.Length)
+        {
+            for (int i = playersVR; i < _txts.Length; i++)
+            {
+                _txts[i].text = $"Player{i + 1}: Off";
             }
         }
         yield return new WaitForSeconds(2);
