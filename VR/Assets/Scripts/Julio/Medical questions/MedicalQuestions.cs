@@ -21,6 +21,7 @@ public class MedicalQuestions : MonoBehaviour
 
     private void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = false;
         buttonPanel.SetActive(false);
         ChooseWound();
 

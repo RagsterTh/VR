@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 public class CamUser : MonoBehaviour
 {
     PhotonView _phView;
@@ -17,6 +18,10 @@ public class CamUser : MonoBehaviour
         _controllerPanel = GetComponentInChildren<Image>(true).gameObject;
         _cam.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
+        if (SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+        }
     }
 
     // Update is called once per frame
@@ -26,7 +31,7 @@ public class CamUser : MonoBehaviour
     }
     public void LoadLevel(string scene)
     {
-        _phView.RPC("RPC_LoadLevel", RpcTarget.All, scene);
+        PhotonNetwork.LoadLevel(scene);
     }
     public void ResetUsers()
     {
@@ -47,10 +52,5 @@ public class CamUser : MonoBehaviour
     public void RPC_ResetUsers()
     {
         PhotonNetwork.Disconnect();
-    }
-    [PunRPC]
-    public void RPC_LoadLevel(string scene)
-    {
-        PhotonNetwork.LoadLevel(scene);
     }
 }

@@ -116,12 +116,7 @@ public class GameController : MonoBehaviour
     public void BattleEnd()
     {
         if (PhotonNetwork.IsMasterClient)
-            _phView.RPC("RPC_LoadMedicalQuestions", RpcTarget.All);
+            PhotonNetwork.LoadLevel("MedicalQuestions");
 
     }
-    [PunRPC]
-    void RPC_LoadMedicalQuestions()
-    {
-        PhotonNetwork.LoadLevel("MedicalQuestions");
-    }    
 }
