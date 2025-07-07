@@ -1,10 +1,9 @@
-using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] private MedicalQuestionsData medicalQuestionsData;
@@ -18,6 +17,7 @@ public class MedicalQuestions : MonoBehaviour
 
     private TreatmentType correctTreatment;
     private MedicalEmergency currentWound;
+    [SerializeField] UnityEvent OnQuestionsDone;
 
     private void Start()
     {
@@ -184,6 +184,6 @@ public class MedicalQuestions : MonoBehaviour
     void AllWoundsTreated()
     {
         Debug.Log("ACABOU");
-        SceneManager.LoadScene("Credits");
+        OnQuestionsDone?.Invoke();
     }
 }

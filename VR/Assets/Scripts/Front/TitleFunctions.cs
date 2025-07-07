@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 public class TitleFunctions : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class TitleFunctions : MonoBehaviour
     [SerializeField]private GameObject _backBtn;
 
     [SerializeField] ConnectionManager _connectionManager;
-
+    [SerializeField] UnityEvent OnCreditsFinish;
     private void Awake()
     {
         Credits();
@@ -18,8 +19,8 @@ public class TitleFunctions : MonoBehaviour
 
     public void StartGame()
     {
-        PhotonNetwork.JoinRandomOrCreateRoom();
-        SceneManager.LoadScene("LoadingScene");
+        OnCreditsFinish?.Invoke();
+        //SceneManager.LoadScene("LoadingScene");
     }
 
     public void Credits(){

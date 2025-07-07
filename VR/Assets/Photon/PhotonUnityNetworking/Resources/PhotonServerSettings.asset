@@ -69,6 +69,7 @@ MonoBehaviour:
   - RPC_ActiveScene
   - RPC_SceneLoaded
   - RPC_AcetiveScene
+  - RPC_Finish
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

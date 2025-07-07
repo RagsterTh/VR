@@ -31,12 +31,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinLobby();
-    }
-    public override void OnJoinedLobby()
-    {
-        if (!SceneManager.GetActiveScene().name.Equals("MedicalQuestions"))
-            PhotonNetwork.JoinRandomOrCreateRoom();
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
     public override void OnJoinedRoom()
     {
@@ -49,6 +44,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         */
         
     }
+
     public override void OnDisconnected(DisconnectCause cause)
     {
         SceneManager.LoadScene("LoadingScene");
