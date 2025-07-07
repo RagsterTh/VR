@@ -65,9 +65,9 @@ public class MedicalQuestions : MonoBehaviour
         string damageType = FormatEnum(currentData.damageType);
         string intensity = FormatEnum(currentData.damageIntensity);
 
-        displayText.text = $"<b>RelatÛrio ClÌnico:</b>\n" +
-                           $"O paciente apresenta uma les„o <b>{intensity.ToLower()}</b> do tipo <b>{damageType.ToLower()}</b>.\n\n" +
-                           $"Selecione o tratamento mais adequado:";
+        displayText.text = "<b>Relat√≥rio Cl√≠nico:</b>\n" +
+                           $"O paciente apresenta uma les√£o <b>{intensity.ToLower()}</b> do tipo <b>{damageType.ToLower()}</b>.\n\n" +
+                           "Selecione o tratamento mais adequado:";
 
         SetupButtons();
         buttonPanel.SetActive(true);
@@ -154,11 +154,11 @@ public class MedicalQuestions : MonoBehaviour
 
         switch (formatted)
         {
-            case "Escoriacao": return "EscoriaÁ„o";
+            case "Escoriacao": return "Escoria√ß√£o";
             case "Corte": return "Corte";
-            case "Perfuracao": return "PerfuraÁ„o";
-            case "QueimaduraTermica": return "Queimadura TÈrmica";
-            case "QueimaduraQuimica": return "Queimadura QuÌmica";
+            case "Perfuracao": return "Perfura√ß√£o";
+            case "QueimaduraTermica": return "Queimadura T√©rmica";
+            case "QueimaduraQuimica": return "Queimadura Qu√≠mica";
             case "QueimaduraRadioativa": return "Queimadura Radioativa";
 
             case "Leve": return "Leve";
@@ -166,14 +166,14 @@ public class MedicalQuestions : MonoBehaviour
             case "Grave": return "Grave";
 
             case "LimpezaEAntissepsia": return "Limpeza e Antissepsia";
-            case "CurativoSimples": return "Curativo Simples";
             case "CurativoCompressivo": return "Curativo Compressivo";
-            case "EstancarSangramento": return "Estancar Sangramento";
-            case "Imobilizacao": return "ImobilizaÁ„o";
-            case "IrrigacaoComSoro": return "IrrigaÁ„o com Soro";
-            case "NeutralizacaoQuimica": return "NeutralizaÁ„o QuÌmica";
-            case "TratamentoComPomada": return "Tratamento com Pomada";
-            case "AtendimentoHospitalarImediato": return "Atendimento Hospitalar Imediato";
+            case "Imobilizacao": return "Imobiliza√ß√£o";
+            case "ResfriarComAguaCorrente": return "Resfriar com √Ågua Corrente";
+            case "IrrigacaoAbundanteComAgua": return "Irriga√ß√£o Abundante com √Ågua";
+            case "RemoverFonteRadiacao": return "Remover Fonte de Radia√ß√£o";
+            case "AplicarPomadaAntibiotica": return "Aplicar Pomada Antibi√≥tica";
+            case "UsoDeGeloLocal": return "Uso de Gelo Local";
+            case "CompressaQuente": return "Compressa Quente";
 
             default:
                 return formatted;

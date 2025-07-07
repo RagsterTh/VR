@@ -20,15 +20,16 @@ public enum DamageIntensity
 
 public enum TreatmentType
 {
-    LimpezaEAntissepsia,
-    CurativoSimples,
-    CurativoCompressivo,
-    EstancarSangramento,
-    Imobilizacao,
-    IrrigacaoComSoro,
-    NeutralizacaoQuimica,
-    TratamentoComPomada,
-    AtendimentoHospitalarImediato
+    LimpezaEAntissepsia,           // Para escoriação
+    CurativoCompressivo,           // Para corte
+    Imobilizacao,                  // Para perfuração
+    ResfriarComAguaCorrente,       // Para queimadura térmica
+    IrrigacaoAbundanteComAgua,     // Para queimadura química
+    RemoverFonteRadiacao,          // Para queimadura radioativa
+    // Distratores
+    AplicarPomadaAntibiotica,      // Distrator
+    UsoDeGeloLocal,                // Distrator
+    CompressaQuente                // Distrator
 }
 
 [CreateAssetMenu(fileName = "MedicalData", menuName = "Data/Medical Data")]
