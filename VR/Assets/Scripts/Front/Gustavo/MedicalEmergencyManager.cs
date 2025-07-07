@@ -13,8 +13,6 @@ public class MedicalEmergencyManager : MonoBehaviour
         _phView = GetComponent<PhotonView>();
         //allWounds = GetComponentsInChildren<MedicalEmergency>();
         ActivateRandomWounds();
-        if(ConnectionManager.isVR)
-            PhotonNetwork.LeaveRoom();
 
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
