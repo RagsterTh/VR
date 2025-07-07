@@ -54,7 +54,7 @@ public class Location : MonoBehaviour, IShootable
     public void Hit()
     {
 
-        _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
+       // _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
 
     }
     [PunRPC]
