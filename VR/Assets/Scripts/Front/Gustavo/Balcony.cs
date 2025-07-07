@@ -14,27 +14,28 @@ public class Balcony : MonoBehaviour
     [SerializeField] private string _merchantName;
     [SerializeField] private List<string> _dialogueLines;
     [SerializeField] private float _textSpeed = 0.05f;
-    [SerializeField] private Karen _karen;
 
     private int _currentLineIndex = 0;
     private Coroutine _typingCoroutine;
     private bool _isTyping = false;
     private bool _playerInRange = false;
     PhotonView _phView;
-    public UnityEvent OnDialogueEnd;
+    [SerializeField] UnityEvent OnDialogueBegin;
+    [SerializeField] UnityEvent OnDialogueEnd;
     private void Start()
     {
         _phView = GetComponent<PhotonView>();
         _merchantNameTMP.text = _merchantName;
-        _dialogueCanvas.gameObject.SetActive(false);
+        //_dialogueCanvas.gameObject.SetActive(false);
 
-
+        /*
         //Tempor�rio
         _playerInRange = true;
         _dialogueCanvas.gameObject.SetActive(true);
         //StartDialogue();
         if (!_isInConstruction)
             Debug.Log("Triggering animation (placeholder)");
+        */
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,15 +50,20 @@ public class Balcony : MonoBehaviour
                 Debug.Log("Triggering animation (placeholder)");
         }
         */
+        _phView.RPC("RPC_ServiceActive", RpcTarget.AllBuffered);
+
     }
 
     private void OnTriggerExit(Collider other)
     {
+        /*
         if (other.CompareTag("Player"))
         {
             _playerInRange = false;
             EndDialogue();
         }
+        */
+
     }
 
     public void StartDialogue()
@@ -85,7 +91,7 @@ public class Balcony : MonoBehaviour
             StopCoroutine(_typingCoroutine);
 
         _typingCoroutine = StartCoroutine(TypeLine(_dialogueLines[_currentLineIndex]));
-        _karen.ChangeSound(_currentLineIndex);
+        //_karen.ChangeSound(_currentLineIndex);
     }
 
     private IEnumerator TypeLine(string line)
@@ -127,5 +133,20 @@ public class Balcony : MonoBehaviour
                     _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
             }
         }
+    }
+    [PunRPC]
+    public void RPC_ServiceActive()
+    {
+        OnDialogueBegin?.Invoke();
+    }
+    public void ServiceDisable()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            _phView.RPC("RPC_ServiceDisable", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    public void RPC_ServiceDisable()
+    {
+        OnDialogueEnd.Invoke();
     }
 }
