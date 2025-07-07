@@ -5944,6 +5944,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7335644413455116226, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: ecf57a50e0deced49b882ab556d25a12, type: 2}
+    - target: {fileID: 7335644413455116226, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7335644413455116226, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
+      propertyPath: 'm_Animations.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7400000, guid: ecf57a50e0deced49b882ab556d25a12, type: 2}
     - target: {fileID: 8462558896037914388, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
       propertyPath: sceneViewId
       value: 2
