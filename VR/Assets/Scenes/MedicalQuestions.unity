@@ -3827,11 +3827,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3305217014372968175, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_text
-      value: "<b>Dire\xE7\xE3o da Programa\xE7\xE3o de Gameplay e de Rede</b>\nAlexandre
-        da Silva Thiesen\nJulio Bernardo Silveira\nRichard Bertan\n\n<b>Dire\xE7\xE3o
-        de Teste e Usabilidade, Programa\xE7\xE3o de UI e Assist\xEAncia</b>\nBruno
-        Martins de Abreu\nGustavo Roncuni de Medeiros\n\n<b>Dire\xE7\xE3o de Som,
-        Game Design e Gerenciamento do Projeto</b>\nCl\xE1udio Roberto Martins\n\n<b>Dire\xE7\xE3o
+      value: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n<b>Dire\xE7\xE3o da Programa\xE7\xE3o
+        de Gameplay e de Rede</b>\nAlexandre da Silva Thiesen\nJulio Bernardo Silveira\nRichard
+        Bertan\n\n<b>Dire\xE7\xE3o de Teste e Usabilidade, Programa\xE7\xE3o de UI
+        e Assist\xEAncia</b>\nBruno Martins de Abreu\nGustavo Roncuni de Medeiros\n\n<b>Dire\xE7\xE3o
+        de Som, Game Design e Gerenciamento do Projeto</b>\nCl\xE1udio Roberto Martins\n\n<b>Dire\xE7\xE3o
         Art\xEDstica</b>\nDaniel Pinho Campos\n\n<b>Modelagem 3D</b>\nBeatriz Ramirez
         dos Santos\nLouise Scheibler Neckel\nRafael da Silva Correa\n\n<b>Arte 3D</b>\nGabriel
         William Alves da Veiga\nRafael da Silva Correa\n\n<b>Sound Designer</b>\nHeitor
