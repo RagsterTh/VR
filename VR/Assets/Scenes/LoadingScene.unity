@@ -1288,6 +1288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UserView
       objectReference: {fileID: 0}
+    - target: {fileID: 3155788194060229584, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
