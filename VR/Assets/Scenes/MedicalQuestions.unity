@@ -3847,6 +3847,14 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 3305217014372968175, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305217014372968175, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4612981141988759473, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_Color.a
       value: 0.09803922
