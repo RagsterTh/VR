@@ -3,6 +3,8 @@ using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Management;
+using System.Collections.Generic;
+using UnityEngine.XR;
 public class CamUser : MonoBehaviour
 {
     PhotonView _phView;
@@ -48,10 +50,12 @@ public class CamUser : MonoBehaviour
     [PunRPC]
     public void RPC_ResetVRs()
     {
-        if (!XRGeneralSettings.Instance.Manager.isInitializationComplete)
+        List<InputDevice> devices = new List<InputDevice>();
+        InputDevices.GetDevices(devices);
+
+        foreach (var device in devices)
         {
-            XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
-            XRGeneralSettings.Instance.Manager.StartSubsystems();
+            Debug.Log("Device detected: " + device.name);
         }
     }
 

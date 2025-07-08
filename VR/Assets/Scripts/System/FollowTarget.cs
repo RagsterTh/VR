@@ -21,6 +21,12 @@ public class FollowTarget : MonoBehaviour
         if (!_phView.IsMine)
             return;
         transform.position = new Vector3(_target.position.x, transform.position.y, _target.position.z - 0.05f);
-        //transform.rotation = Quaternion.Euler(0, _target.rotation.y, 0);
+
+        Vector3 currentRotation = transform.eulerAngles;
+
+
+        float targetY = _target.eulerAngles.y;
+
+        transform.rotation = Quaternion.Euler(currentRotation.x, targetY, currentRotation.z);
     }
 }
