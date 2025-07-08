@@ -30,7 +30,7 @@ public class MedicalEmergencyManager : MonoBehaviour
             wound.gameObject.SetActive(false);
         }
 
-        int activated = 0;
+        int activated = 1;
         while (activated < numberToActivate)
         {
             int rand = Random.Range(0, allWounds.Length);

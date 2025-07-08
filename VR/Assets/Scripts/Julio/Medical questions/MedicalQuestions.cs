@@ -19,6 +19,9 @@ public class MedicalQuestions : MonoBehaviour
     private MedicalEmergency currentWound;
     [SerializeField] UnityEvent OnQuestionsDone;
 
+    [SerializeField] UnityEvent OnCorrectAnswer;
+    [SerializeField] UnityEvent OnWrongAnswer;
+
     private void Start()
     {
 
@@ -29,7 +32,7 @@ public class MedicalQuestions : MonoBehaviour
         {
             if (!possibleWounds[i].activeSelf)
             {
-                Destroy(possibleWounds[i]);
+                //Destroy(possibleWounds[i]);
             }
         }
 
@@ -101,6 +104,7 @@ public class MedicalQuestions : MonoBehaviour
         if ((int)correctTreatment == answerID)
         {
             Debug.Log("Tratamento correto!");
+            OnCorrectAnswer?.Invoke();
             if (currentWound != null)
             {
                 Destroy(currentWound.gameObject);
@@ -108,6 +112,7 @@ public class MedicalQuestions : MonoBehaviour
         }
         else
         {
+            OnWrongAnswer?.Invoke();
             Debug.Log("Tratamento incorreto!");
         }
 
@@ -143,7 +148,7 @@ public class MedicalQuestions : MonoBehaviour
         }
         else
         {
-            ChooseWound();
+            //ChooseWound();
         }
     }
 

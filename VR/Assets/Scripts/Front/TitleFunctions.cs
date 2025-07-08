@@ -34,9 +34,9 @@ public class TitleFunctions : MonoBehaviour
         bool isRunning = true;
         while (isRunning){
             _credits.transform.localPosition = new Vector3(0, y, 0);
-            y += 5;
+            y += 2;
             yield return new WaitForSeconds(0.01f);
-            if (y >= 5500)
+            if (y >= 3000)
             {
                 isRunning = false;
                 StartGame();
