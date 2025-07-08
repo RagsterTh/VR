@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Management;
 public class CamUser : MonoBehaviour
 {
     PhotonView _phView;
@@ -39,6 +40,19 @@ public class CamUser : MonoBehaviour
     {
         _phView.RPC("RPC_ResetUsers", RpcTarget.Others);
         PhotonNetwork.LoadLevel("LoadingScene");
+    }
+    public void ResetVRs()
+    {
+        _phView.RPC("RPC_ResetVRs", RpcTarget.All);
+    }
+    [PunRPC]
+    public void RPC_ResetVRs()
+    {
+        if (!XRGeneralSettings.Instance.Manager.isInitializationComplete)
+        {
+            XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+            XRGeneralSettings.Instance.Manager.StartSubsystems();
+        }
     }
 
     public void OnActive()

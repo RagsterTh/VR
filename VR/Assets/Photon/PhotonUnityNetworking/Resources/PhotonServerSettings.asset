@@ -74,6 +74,7 @@ MonoBehaviour:
   - RPC_ServiceActive
   - RPC_ServiceDisable
   - RPC_QuitAll
+  - RPC_ResetVRs
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
