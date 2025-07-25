@@ -1,0 +1,34 @@
+{
+    "name": "User",
+    "maps": [
+        {
+            "name": "PC",
+            "id": "02e6b8e8-6730-470e-82ab-91860d97ea77",
+            "actions": [
+                {
+                    "name": "Active",
+                    "type": "Button",
+                    "id": "42a254ec-ebd7-4caf-a7cf-1e337b6d6498",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "014da1a9-962b-40f8-a725-c05213ca048a",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Active",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

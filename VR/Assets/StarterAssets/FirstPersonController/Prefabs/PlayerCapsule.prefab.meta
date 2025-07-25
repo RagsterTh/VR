@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9f58f8a0269ec3048bb5bf59cfa0c404
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 196525
+  packageName: Starter Assets - FirstPerson | Updates in new CharacterController
+    package
+  packageVersion: 1.3
+  assetPath: Assets/StarterAssets/FirstPersonController/Prefabs/PlayerCapsule.prefab
+  uploadId: 691166

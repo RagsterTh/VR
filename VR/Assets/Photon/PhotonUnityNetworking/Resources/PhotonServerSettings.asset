@@ -40,6 +40,41 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_RegisterAvatar
+  - RPC_InitializePool
+  - RPC_CallObject
+  - RPC_RegistePlayerAvatar
+  - RPC_BattleBegin
+  - RPC_RegisterPlayerAvatar
+  - RPC_SwitchActivate
+  - RPC_Hit
+  - RPC_LoadingPools
+  - RPC_ExitLobby
+  - RPC_LoadMedicalQuestions
+  - RPC_PlaySound
+  - RPC_Interpolation
+  - RPC_Deselect
+  - RPC_Select
+  - RPC_RefreshEnemies
+  - RPC_RemovePlayerAvatar
+  - RPC_StartBattle
+  - RPC_RefreshPlayerList
+  - RPC_LoadLevel
+  - RPC_Hands
+  - RPC_CallObjectWithRotation
+  - RPC_ResetUsers
+  - AskGoToGame
+  - RPC_AskGoToGame
+  - SetPool
+  - RPC_SetPool
+  - RPC_ActiveScene
+  - RPC_SceneLoaded
+  - RPC_AcetiveScene
+  - RPC_Finish
+  - RPC_ServiceDuration
+  - RPC_ServiceActive
+  - RPC_ServiceDisable
+  - RPC_QuitAll
+  - RPC_ResetVRs
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
