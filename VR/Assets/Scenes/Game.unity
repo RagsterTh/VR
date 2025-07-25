@@ -880,7 +880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5772907420807406609, guid: 7443d00187b43c444a61ce25f3069fad, type: 3}
       propertyPath: startTime
-      value: 90
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5772907420807406609, guid: 7443d00187b43c444a61ce25f3069fad, type: 3}
       propertyPath: OnEndTime.m_PersistentCalls.m_Calls.Array.size
