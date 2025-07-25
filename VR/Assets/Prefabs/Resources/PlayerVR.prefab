@@ -2795,7 +2795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6145061153470736369, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
       propertyPath: m_Volume
-      value: 0.2
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6145061153470736369, guid: ab7fc4c449c9d3f40a958544c73b6efa, type: 3}
       propertyPath: m_PlayOnAwake
@@ -4560,7 +4560,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1107080957193396652, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: m_Volume
-      value: 0.2
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1107080957193396652, guid: 9186e0a0af8a95b40b62b74a2a8a7d6d, type: 3}
       propertyPath: m_PlayOnAwake
