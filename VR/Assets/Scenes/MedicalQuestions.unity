@@ -3715,15 +3715,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1603279849748037416, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.005
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 1603279849748037416, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.005
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 1603279849748037416, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.005
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 1603279849748037416, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3836,7 +3836,7 @@ PrefabInstance:
         dos Santos\nLouise Scheibler Neckel\nRafael da Silva Correa\n\n<b>Arte 3D</b>\nGabriel
         William Alves da Veiga\nRafael da Silva Correa\n\n<b>Sound Designer</b>\nHeitor
         Avila Fochesato\n\n<b>Planejamento Estrat\xE9gico</b>\nRegina Oliveira\nRenata
-        Scheidt\n\n<b>Produto Executivo</b>\nLuciano Caminha\n\n<b>Narra\xE7\xE3o</b>\nEvelyn
+        Scheidt\n\n<b>Produtor Executivo</b>\nLuciano Caminha\n\n<b>Narra\xE7\xE3o</b>\nEvelyn
         Bergold"
       objectReference: {fileID: 0}
     - target: {fileID: 3305217014372968175, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
