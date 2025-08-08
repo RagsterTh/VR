@@ -6843,6 +6843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8153392837035844274, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12511,13 +12515,13 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1368709979}
   - {fileID: 1836863634}
   - {fileID: 1703198037}
   - {fileID: 2093261484}
   - {fileID: 6653018351017611560}
   - {fileID: 1067429343}
   - {fileID: 36630440}
-  - {fileID: 1368709979}
   - {fileID: 1767610289}
   - {fileID: 1904282967}
   - {fileID: 1187869839}
