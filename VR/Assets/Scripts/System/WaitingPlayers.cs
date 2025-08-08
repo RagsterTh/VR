@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class WaitingPlayers : MonoBehaviour
 {
-    PhotonView _phView;
-    int _playersFinish;
-    int _vrPlayersAmount;
+    private PhotonView _phView;
+    private int _playersFinish;
+    private int _vrPlayersAmount;
+    [SerializeField] private GameObject _shooterGame;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,17 +25,19 @@ public class WaitingPlayers : MonoBehaviour
     {
         
     }
-    public void Finish(string scene)
+    public void Finish()
     {
-        _phView.RPC("RPC_Finish", RpcTarget.MasterClient, scene);
+        _phView.RPC("RPC_Finish", RpcTarget.AllBuffered);
     }
     [PunRPC]
-    public void RPC_Finish(string scene)
+    public void RPC_Finish()
     {
         _playersFinish++;
         if(_playersFinish >= _vrPlayersAmount)
         {
-            PhotonNetwork.LoadLevel(scene);
+            //PhotonNetwork.LoadLevel(scene);
+            gameObject.SetActive(false);
+            _shooterGame.SetActive(true);
         }
     }
 }

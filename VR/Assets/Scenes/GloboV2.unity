@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &42753491
 Transform:
   m_ObjectHideFlags: 0
@@ -153,7 +153,6 @@ Transform:
   m_Children:
   - {fileID: 1036971946}
   - {fileID: 1353674115}
-  - {fileID: 745086529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &42753492
@@ -168,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4e79aaf8858824a97d71e82c31adf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shooterGame: {fileID: 327998864}
 --- !u!82 &42753493
 AudioSource:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ MonoBehaviour:
       - m_Target: {fileID: 42753492}
         m_TargetAssemblyTypeName: WaitingPlayers, Assembly-CSharp
         m_MethodName: Finish
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -528,6 +528,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320025652}
   m_CullTransparentMesh: 1
+--- !u!1001 &327998863
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 198305371204122122, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 445369393818195756, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1166306426130286476, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2612875940012675850, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560234352470469585, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_Name
+      value: ShootGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6560234352470469585, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7133810274057343487, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063196519998589709, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 9022407224039722580, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044032716899050265, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: sceneViewId
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+--- !u!1 &327998864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6560234352470469585, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 327998863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &541593654
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,11 +929,11 @@ Transform:
   m_GameObject: {fileID: 745086528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.23, y: 0, z: -11.52}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 42753491}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &745086530
 MeshCollider:
@@ -997,7 +1095,7 @@ MonoBehaviour:
       - m_Target: {fileID: 42753492}
         m_TargetAssemblyTypeName: WaitingPlayers, Assembly-CSharp
         m_MethodName: Finish
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1531,7 +1629,7 @@ MonoBehaviour:
       - m_Target: {fileID: 42753492}
         m_TargetAssemblyTypeName: WaitingPlayers, Assembly-CSharp
         m_MethodName: Finish
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3913,7 +4011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3446846027600053729, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.08
+      value: -1.32
       objectReference: {fileID: 0}
     - target: {fileID: 3446846027600053729, guid: 0fdca48711ede024da5314aeac9d53c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7709,6 +7807,7 @@ SceneRoots:
   - {fileID: 1284131637}
   - {fileID: 1368499946}
   - {fileID: 852485702}
+  - {fileID: 745086529}
   - {fileID: 42753491}
   - {fileID: 1973416063}
   - {fileID: 737455704}
@@ -7719,3 +7818,4 @@ SceneRoots:
   - {fileID: 869694153}
   - {fileID: 1816298239}
   - {fileID: 883648844}
+  - {fileID: 327998863}
