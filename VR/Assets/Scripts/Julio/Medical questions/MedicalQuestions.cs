@@ -15,6 +15,8 @@ public class MedicalQuestions : MonoBehaviour
     [SerializeField] private Button[] answerButtons;
     [SerializeField] private GameObject buttonPanel;
 
+    private MedicalEmergencyManager emergencyManager;
+
     private TreatmentType correctTreatment;
     private MedicalEmergency currentWound;
     [SerializeField] UnityEvent OnQuestionsDone;
@@ -24,7 +26,7 @@ public class MedicalQuestions : MonoBehaviour
 
     private void Start()
     {
-
+        emergencyManager = GetComponent<MedicalEmergencyManager>();
         buttonPanel.SetActive(false);
         ChooseWound();
 
@@ -109,6 +111,9 @@ public class MedicalQuestions : MonoBehaviour
             {
                 Destroy(currentWound.gameObject);
             }
+            // ATIVA O PRÓXIMO FERIMENTO
+            if (emergencyManager != null)
+                emergencyManager.ActivateNextWound();
         }
         else
         {
