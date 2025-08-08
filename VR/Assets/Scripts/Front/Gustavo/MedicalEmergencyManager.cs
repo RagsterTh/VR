@@ -54,11 +54,6 @@ public class MedicalEmergencyManager : MonoBehaviour
 
     public void ActivateNextWound()
     {
-        if (currentWound != null)
-        {
-            currentWound.gameObject.SetActive(false);
-            currentWound = null;
-        }
 
         if (woundQueue.Count > 0)
         {
@@ -68,6 +63,7 @@ public class MedicalEmergencyManager : MonoBehaviour
         else
         {
             Debug.Log("Todos os ferimentos foram tratados!");
+            GetComponent<MedicalQuestions>().AllWoundsTreated();
         }
     }
 }

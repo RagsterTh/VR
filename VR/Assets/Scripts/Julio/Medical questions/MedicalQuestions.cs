@@ -4,12 +4,11 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 using UnityEngine.Events;
+
 public class MedicalQuestions : MonoBehaviour
 {
     [SerializeField] private MedicalQuestionsData medicalQuestionsData;
     private MedicalData currentData;
-
-    [SerializeField] private GameObject[] possibleWounds;
 
     [SerializeField] private TMP_Text displayText;
     [SerializeField] private Button[] answerButtons;
@@ -28,23 +27,6 @@ public class MedicalQuestions : MonoBehaviour
     {
         emergencyManager = GetComponent<MedicalEmergencyManager>();
         buttonPanel.SetActive(false);
-        ChooseWound();
-
-        for (int i = 0; i < possibleWounds.Length; i++)
-        {
-            if (!possibleWounds[i].activeSelf)
-            {
-                //Destroy(possibleWounds[i]);
-            }
-        }
-
-    }
-
-    public void ChooseWound() 
-    {
-        int randomNum = UnityEngine.Random.Range(0,possibleWounds.Length);
-        possibleWounds[randomNum].SetActive(true);
-        Debug.Log("AAAA");
     }
 
     public void ShowTreatmentOptions(MedicalEmergency wound)
@@ -80,24 +62,38 @@ public class MedicalQuestions : MonoBehaviour
 
     private void SetupButtons()
     {
+        // Obtenha todos os tratamentos possíveis
         TreatmentType[] allTreatments = (TreatmentType[])Enum.GetValues(typeof(TreatmentType));
+        int correctIndex = Array.IndexOf(allTreatments, correctTreatment);
+
+        // Escolha um tratamento aleatório diferente do correto
+        int distractorIndex;
+        do
+        {
+            distractorIndex = UnityEngine.Random.Range(0, allTreatments.Length);
+        } while (distractorIndex == correctIndex);
+
+        // Crie um array com os dois tratamentos
+        TreatmentType[] options = new TreatmentType[2];
+        int correctButton = UnityEngine.Random.Range(0, 2); // 0 ou 1
+
+        options[correctButton] = correctTreatment;
+        options[1 - correctButton] = allTreatments[distractorIndex];
 
         for (int i = 0; i < answerButtons.Length; i++)
         {
-            if (i < allTreatments.Length)
-            {
-                int id = i;
-                TreatmentType treatment = allTreatments[i];
-
-                answerButtons[i].gameObject.SetActive(true);
-                answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(treatment);
-                answerButtons[i].onClick.RemoveAllListeners();
-                answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
-            }
-            else
+            print(i);
+            if (i >= 2)
             {
                 answerButtons[i].gameObject.SetActive(false);
+                continue;
             }
+            int id = (options[i] == correctTreatment) ? (int)correctTreatment : (int)options[i];
+            answerButtons[i].gameObject.SetActive(true);
+            answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
+            answerButtons[i].onClick.RemoveAllListeners();
+            answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
+
         }
     }
 
@@ -113,7 +109,10 @@ public class MedicalQuestions : MonoBehaviour
             }
             // ATIVA O PRÓXIMO FERIMENTO
             if (emergencyManager != null)
+            {
+                print("AAAA");
                 emergencyManager.ActivateNextWound();
+            }
         }
         else
         {
@@ -129,34 +128,7 @@ public class MedicalQuestions : MonoBehaviour
             currentWound.ClearLabel();
             currentWound = null;
         }
-
-        StartCoroutine(CheckIfAllWoundsTreatedNextFrame());
     }
-
-    private IEnumerator CheckIfAllWoundsTreatedNextFrame()
-    {
-        yield return new WaitForEndOfFrame();
-
-        bool hasWoundsLeft = false;
-        foreach (GameObject wound in possibleWounds)
-        {
-            if (wound != null && wound.activeInHierarchy)
-            {
-                hasWoundsLeft = true;
-                break;
-            }
-        }
-
-        if (!hasWoundsLeft)
-        {
-            AllWoundsTreated();
-        }
-        else
-        {
-            //ChooseWound();
-        }
-    }
-
 
     private string FormatEnum(Enum value)
     {
@@ -191,7 +163,7 @@ public class MedicalQuestions : MonoBehaviour
 
     }
 
-    void AllWoundsTreated()
+    public void AllWoundsTreated()
     {
         Debug.Log("ACABOU");
         OnQuestionsDone?.Invoke();
