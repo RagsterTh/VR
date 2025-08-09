@@ -16,6 +16,10 @@ public class FollowTarget : MonoBehaviour
     {
         
     }
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
     private void LateUpdate()
     {
         if (!_phView.IsMine)
