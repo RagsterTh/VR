@@ -9,17 +9,17 @@ public class CamDisplay : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        _phView = GetComponentInParent<PhotonView>();
+        _phView = GetComponent<PhotonView>();
         _camera = GetComponentInChildren<Camera>(true);
         if (!_phView.IsMine)
             return;
 
-        _phView.RPC("RPC_SetCamera", RpcTarget.MasterClient, SimulationController.Instance.GetPlayerNumber(_phView.ControllerActorNr));
+        _phView.RPC("RPC_SetCamera", RpcTarget.MasterClient, _phView.ViewID);
     }
     [PunRPC]
-    void RPC_SetCamera(int playerIdentification)
+    void RPC_SetCamera(int ID)
     {
-        SimulationController.Instance.User.AddCamera(_camera);
+        SimulationController.Instance.User.AddCamera(PhotonNetwork.GetPhotonView(ID).GetComponent<Camera>());
     }
 
 }
