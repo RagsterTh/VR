@@ -11,7 +11,6 @@ public class LobbiesController : MonoBehaviour
     [SerializeField] Transform[] _spawnPoints;
     [SerializeField] SceneResources _sceneResources;
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
-
     [SerializeField] UnityEvent OnSceneLoaded;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
