@@ -19,7 +19,7 @@ public class CamDisplay : MonoBehaviour
     [PunRPC]
     void RPC_SetCamera(int ID)
     {
-        SimulationController.Instance.User.AddCamera(PhotonNetwork.GetPhotonView(ID).GetComponent<Camera>());
+        SimulationController.Instance.User.AddCamera(PhotonNetwork.GetPhotonView(ID).GetComponentInChildren<Camera>());
     }
 
 }

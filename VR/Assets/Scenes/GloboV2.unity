@@ -3057,6 +3057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea256fa0fe9e4994ca754f0aa98d4c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _user: {fileID: 869694154}
   _lobbies:
   - {fileID: 2099390566}
   - {fileID: 982758923}
