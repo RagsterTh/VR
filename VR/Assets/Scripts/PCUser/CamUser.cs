@@ -86,12 +86,6 @@ public class CamUser : MonoBehaviour
             return;
         }
         int camNumber = int.Parse(value.control.name);
-        print(camNumber + "/" + Display.displays.Length);
-        if (camNumber >= Display.displays.Length)
-        {
-            Display.displays[0].Activate();
-            return;
-        }
-        Display.displays[camNumber].Activate();
+        Display.displays[0].Activate();
     }
 }
