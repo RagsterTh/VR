@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 4507588648663665631}
   - component: {fileID: 3770621384627761730}
   - component: {fileID: 4292863309131410689}
+  - component: {fileID: 489775142261186735}
   m_Layer: 0
   m_Name: NeckCam
   m_TagString: Untagged
@@ -258,3 +259,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ac44831e7df9d4ca75191b5a75cb77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &489775142261186735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7966483953749654636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3770621384627761730}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
