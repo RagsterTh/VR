@@ -19,7 +19,7 @@ public class CamDisplay : MonoBehaviour
     [PunRPC]
     void RPC_SetCamera(int playerIdentification)
     {
-        _camera.targetDisplay = playerIdentification + 1;
+        SimulationController.Instance.User.AddCamera(_camera);
     }
 
 }

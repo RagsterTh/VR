@@ -7,6 +7,8 @@ using UnityEngine.Events;
 public class SimulationController : MonoBehaviour
 {
     public static SimulationController Instance { get; private set; }
+
+    [SerializeField] private CamUser _user;
     PhotonView _phView;
     [SerializeField] GameObject[] _lobbies;
     [SerializeField] Transform[] _spawnPoints;
@@ -15,6 +17,7 @@ public class SimulationController : MonoBehaviour
     [SerializeField] UnityEvent OnSceneLoaded;
     List<GameObject> _playerAvatar = new List<GameObject>();
 
+    public CamUser User { get => _user; }
 
     private void Awake()
     {

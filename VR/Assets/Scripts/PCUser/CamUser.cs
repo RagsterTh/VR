@@ -5,13 +5,17 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 public class CamUser : MonoBehaviour
 {
-    PhotonView _phView;
-    GameObject _cam;
-    GameObject _controllerPanel;
+    private PhotonView _phView;
+    private GameObject _cam;
+    private GameObject _controllerPanel;
+    private List<Camera> _camsManager = new List<Camera>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _cam = transform.GetChild(0).gameObject;
+        if (!ConnectionManager.isVR)
+            _camsManager.Add(_cam.GetComponentInChildren<Camera>());
+
         _phView = GetComponent<PhotonView>();
         if (ConnectionManager.isVR)
             return;
@@ -76,16 +80,30 @@ public class CamUser : MonoBehaviour
     {
         PhotonNetwork.Disconnect();
     }
+    public void AddCamera(Camera cam)
+    {
+        _camsManager.Add(cam);
+        cam.enabled = false;
+    }
     public void ChangeCam(InputAction.CallbackContext value)
     {
         if (!value.phase.Equals(InputActionPhase.Performed))
             return;
         if(value.control.name.Equals("backquote") || value.control.name.Equals("5"))
         {
-            Display.displays[0].Activate();
+            CamsManager(0);
             return;
         }
         int camNumber = int.Parse(value.control.name);
-        Display.displays[0].Activate();
+        CamsManager(camNumber);
+    }
+    void CamsManager(int activeCamID)
+    {
+        if (_camsManager.Count <= 1)
+            return;
+        for (int i = 0; i < _camsManager.Count; i++)
+        {
+            _camsManager[i].enabled = i == activeCamID;
+        }
     }
 }
