@@ -6,12 +6,20 @@ using UnityEngine.Events;
 
 public class SimulationController : MonoBehaviour
 {
+    public static SimulationController Instance { get; private set; }
     PhotonView _phView;
-    [SerializeField]GameObject[] _lobbies;
+    [SerializeField] GameObject[] _lobbies;
     [SerializeField] Transform[] _spawnPoints;
     [SerializeField] SceneResources _sceneResources;
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
     [SerializeField] UnityEvent OnSceneLoaded;
+    List<GameObject> _playerAvatar = new List<GameObject>();
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
@@ -24,8 +32,12 @@ public class SimulationController : MonoBehaviour
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
         if (ConnectionManager.isVR)
         {
-            int playerNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-            PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[playerNumber -1].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView();
+            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+            PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[0].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView();
+            if (PhotonNetwork.LocalPlayer.IsLocal)
+            {
+                _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
+            }
         }
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsMasterClient)
@@ -45,6 +57,25 @@ public class SimulationController : MonoBehaviour
     public void RPC_ActiveScene()
     {
         OnSceneLoaded?.Invoke();
+    }
+    [PunRPC]
+    public void RPC_RegisterPlayerAvatar(int playerID)
+    {
+
+        GameObject player = PhotonNetwork.GetPhotonView(playerID).gameObject;
+        _playerAvatar.Add(player);
+        player.transform.position = _spawnPoints[_playerAvatar.IndexOf(player)].position;
+    }
+    public int GetPlayerNumber(int playerController)
+    {
+        foreach (var player in _playerAvatar)
+        {
+            if(player.GetPhotonView().ControllerActorNr == playerController)
+            {
+                return _playerAvatar.IndexOf(player);
+            }
+        }
+        return 100;
     }
 
 }
