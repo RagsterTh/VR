@@ -80,13 +80,14 @@ public class CamUser : MonoBehaviour
     {
         if (!value.phase.Equals(InputActionPhase.Performed))
             return;
-        if(value.control.name.Equals("'") || value.control.name.Equals("5"))
+        if(value.control.name.Equals("backquote") || value.control.name.Equals("5"))
         {
             Display.displays[0].Activate();
             return;
         }
         int camNumber = int.Parse(value.control.name);
-        if(camNumber >= Display.displays.Length)
+        print(camNumber + "/" + Display.displays.Length);
+        if (camNumber >= Display.displays.Length)
         {
             Display.displays[0].Activate();
             return;
