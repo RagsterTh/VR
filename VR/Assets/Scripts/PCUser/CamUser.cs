@@ -99,7 +99,7 @@ public class CamUser : MonoBehaviour
     }
     void CamsManager(int activeCamID)
     {
-        if (_camsManager.Count <= 1)
+        if (_camsManager.Count <= 1 || activeCamID >= _camsManager.Count)
             return;
         for (int i = 0; i < _camsManager.Count; i++)
         {
