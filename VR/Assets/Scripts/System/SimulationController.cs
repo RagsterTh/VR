@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LobbiesController : MonoBehaviour
+public class SimulationController : MonoBehaviour
 {
     PhotonView _phView;
     [SerializeField]GameObject[] _lobbies;
