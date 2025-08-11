@@ -14,7 +14,7 @@ public class SimulationController : MonoBehaviour
     [SerializeField] Transform[] _spawnPoints;
     [SerializeField] SceneResources _sceneResources;
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
-    [SerializeField] UnityEvent OnSceneLoaded;
+    [SerializeField] UnityEvent OnExperienceBegin;
     List<GameObject> _playerAvatar = new List<GameObject>();
 
     public CamUser User { get => _user; }
@@ -42,8 +42,10 @@ public class SimulationController : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2);
+        /*
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+        */
     }
     public static GameObject GetResource(ResourceTypes resource)
     {
@@ -55,10 +57,14 @@ public class SimulationController : MonoBehaviour
     {
         
     }
+    public void ActiveScene()
+    {
+        _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+    }
     [PunRPC]
     public void RPC_ActiveScene()
     {
-        OnSceneLoaded?.Invoke();
+        OnExperienceBegin?.Invoke();
     }
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
