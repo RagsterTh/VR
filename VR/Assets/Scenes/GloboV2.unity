@@ -1270,6 +1270,78 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionId
+      value: 32eeedc7-bb91-4abb-a7d6-654edb66e663
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: 250ff870-5e0a-4675-8fe3-890cebea9a2d
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: da43460b-b5b1-453c-8745-b9ef00223683
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: 19be730d-af19-49f4-8f85-017e061e4ae4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: dc9d3b84-c80a-4686-8b80-66df433ade30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_ActionName
+      value: 'PC/ChangeCamBase[/Keyboard/backquote]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: 'PC/ChangeCam1[/Keyboard/1]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'PC/ChangeCam2[/Keyboard/2]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'PC/ChangeCam3[/Keyboard/3]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: 'PC/ChangeCam4[/Keyboard/4]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 869694154}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeCam
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CamUser, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920254994606538494, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7457359434423973946, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1

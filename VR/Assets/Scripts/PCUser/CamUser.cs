@@ -1,10 +1,8 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using UnityEngine.XR.Management;
 using System.Collections.Generic;
-using UnityEngine.XR;
+using UnityEngine.InputSystem;
 public class CamUser : MonoBehaviour
 {
     PhotonView _phView;
@@ -50,8 +48,8 @@ public class CamUser : MonoBehaviour
     [PunRPC]
     public void RPC_ResetVRs()
     {
-        List<InputDevice> devices = new List<InputDevice>();
-        InputDevices.GetDevices(devices);
+        List<UnityEngine.XR.InputDevice> devices = new List<UnityEngine.XR.InputDevice>();
+        UnityEngine.XR.InputDevices.GetDevices(devices);
 
         foreach (var device in devices)
         {
@@ -77,5 +75,22 @@ public class CamUser : MonoBehaviour
     public void RPC_ResetUsers()
     {
         PhotonNetwork.Disconnect();
+    }
+    public void ChangeCam(InputAction.CallbackContext value)
+    {
+        if (!value.phase.Equals(InputActionPhase.Performed))
+            return;
+        if(value.control.name.Equals("'") || value.control.name.Equals("5"))
+        {
+            Display.displays[0].Activate();
+            return;
+        }
+        int camNumber = int.Parse(value.control.name);
+        if(camNumber >= Display.displays.Length)
+        {
+            Display.displays[0].Activate();
+            return;
+        }
+        Display.displays[camNumber].Activate();
     }
 }
