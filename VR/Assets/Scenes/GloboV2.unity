@@ -553,6 +553,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 1674605794806212771, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2028549586388356461, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.55
@@ -597,6 +601,38 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 2712256674705155800, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463898223450650426, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5570896330757888112, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5584653458565436487, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5718619926598975058, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739158857637851978, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_Center.x
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739158857637851978, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_Center.z
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194851066317465752, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6560234352470469585, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: m_Name
       value: ShootGame
@@ -608,6 +644,10 @@ PrefabInstance:
     - target: {fileID: 7133810274057343487, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: sceneViewId
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7468672815421771131, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8063196519998589709, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: sceneViewId
@@ -631,6 +671,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6560234352470469585, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
   m_PrefabInstance: {fileID: 327998863}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &327998865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 327998863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9077ef6f1308754fa2502e246a6f692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &365318695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1583,7 +1634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -1596,7 +1647,7 @@ PrefabInstance:
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 869694154}
+      objectReference: {fileID: 327998865}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1607,7 +1658,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadLevel
+      value: ActiveBattle
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
@@ -1615,7 +1666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CamUser, Assembly-CSharp
+      value: GameController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3611312624733523246, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -1863,7 +1914,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &883648841
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2823,6 +2874,10 @@ PrefabInstance:
     - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: OnDialogueEnd.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3775706989003586248, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7277234422113051516, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: m_Name
