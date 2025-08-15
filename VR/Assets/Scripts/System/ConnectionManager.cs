@@ -44,7 +44,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if (isVR)
         {
-            _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, _phView.ControllerActorNr);
+            _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
         }
         /*
 #if UNITY_EDITOR 

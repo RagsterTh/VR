@@ -22,9 +22,4 @@ public class LocalVRNumberDisplay : MonoBehaviour
             
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
