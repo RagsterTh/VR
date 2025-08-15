@@ -38,6 +38,7 @@ public class WaitingPlayers : MonoBehaviour
             //PhotonNetwork.LoadLevel(scene);
             gameObject.SetActive(false);
             _shooterGame.SetActive(true);
+            SimulationController.Instance.ActiveShootGame();
         }
     }
 }
