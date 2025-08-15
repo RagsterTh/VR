@@ -77,6 +77,8 @@ MonoBehaviour:
   - RPC_ResetVRs
   - RPC_SetCamera
   - RPC_ActiveShootGame
+  - OnDisconnected
+  - RPC_RegisterVRNumber
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
