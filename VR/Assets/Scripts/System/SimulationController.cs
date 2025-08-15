@@ -61,7 +61,6 @@ public class SimulationController : MonoBehaviour
     }
     public void ActiveShootGame()
     {
-        print("ativou");
         _phView.RPC("RPC_ActiveShootGame", RpcTarget.AllBuffered);
     }
     public void ActiveScene()

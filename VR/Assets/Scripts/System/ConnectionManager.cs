@@ -6,6 +6,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
     public static bool isVR;
+    public static int localVRNumber;
     private void Awake()
     {
         if (instance)
@@ -35,6 +36,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
+
         /*
 #if UNITY_EDITOR 
         if(isVR)
