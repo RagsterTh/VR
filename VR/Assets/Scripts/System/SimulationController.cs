@@ -17,6 +17,7 @@ public class SimulationController : MonoBehaviour
     [SerializeField]public UnityEvent OnExperienceBegin;
     [SerializeField]public UnityEvent OnShootGameBegins;
     List<GameObject> _playerAvatar = new List<GameObject>();
+    public List<GameObject> PlayerAvatar { get => _playerAvatar; }
 
     public CamUser User { get => _user; }
 
