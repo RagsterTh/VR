@@ -36,6 +36,10 @@ public class PlayerPrefabNetwork : MonoBehaviour
                 break;
 
         }
+        SimulationController.Instance.OnShootGameBegins.AddListener(delegate
+        {
+            _phView.RPC("RPC_Hands", RpcTarget.AllBuffered, (int)PlayerTool.Gun);
+        });
         
     }
     [PunRPC]

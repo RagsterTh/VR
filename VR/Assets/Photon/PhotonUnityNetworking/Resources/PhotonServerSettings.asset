@@ -76,6 +76,7 @@ MonoBehaviour:
   - RPC_QuitAll
   - RPC_ResetVRs
   - RPC_SetCamera
+  - RPC_ActiveShootGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

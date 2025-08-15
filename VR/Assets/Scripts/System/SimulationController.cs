@@ -14,7 +14,8 @@ public class SimulationController : MonoBehaviour
     [SerializeField] Transform[] _spawnPoints;
     [SerializeField] SceneResources _sceneResources;
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
-    [SerializeField] UnityEvent OnExperienceBegin;
+    [SerializeField]public UnityEvent OnExperienceBegin;
+    [SerializeField]public UnityEvent OnShootGameBegins;
     List<GameObject> _playerAvatar = new List<GameObject>();
 
     public CamUser User { get => _user; }
@@ -57,9 +58,19 @@ public class SimulationController : MonoBehaviour
     {
         
     }
+    public void ActiveShootGame()
+    {
+        print("ativou");
+        _phView.RPC("RPC_ActiveShootGame", RpcTarget.AllBuffered);
+    }
     public void ActiveScene()
     {
         _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+    }
+    [PunRPC]
+    public void RPC_ActiveShootGame()
+    {
+        OnShootGameBegins.Invoke();
     }
     [PunRPC]
     public void RPC_ActiveScene()

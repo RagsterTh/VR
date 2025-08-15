@@ -37,6 +37,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        if (SceneManager.GetActiveScene().name.Equals("GloboV2"))
+        {
+
+        }
         foreach (var item in _sceneResources.resources)
         {
             _resourcesRegister.Add(item.type, item.resource);
