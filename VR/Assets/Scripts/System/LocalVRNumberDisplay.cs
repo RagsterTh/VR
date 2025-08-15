@@ -13,7 +13,7 @@ public class LocalVRNumberDisplay : MonoBehaviour
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
         if (ConnectionManager.isVR)
         {
-            int number = ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer.ActorNumber);
+            int number = ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer.ActorNumber) + 1;
             _VRnumber.text = "Informe o número: "+ number;
         } else
         {
