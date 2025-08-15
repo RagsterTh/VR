@@ -82,7 +82,7 @@ public class SimulationController : MonoBehaviour
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
 
-        GameObject player = PhotonNetwork.GetPhotonView(playerID).gameObject;
+        GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>(true).gameObject;
         _playerAvatar.Add(player);
         player.transform.position = _spawnPoints[_playerAvatar.IndexOf(player)].position;
     }
