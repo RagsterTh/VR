@@ -79,6 +79,7 @@ MonoBehaviour:
   - RPC_ActiveShootGame
   - OnDisconnected
   - RPC_RegisterVRNumber
+  - RPC_SetSimulationSector
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

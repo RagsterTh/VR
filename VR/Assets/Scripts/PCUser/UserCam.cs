@@ -3,8 +3,11 @@ using Photon.Pun;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
-public class CamUser : MonoBehaviour
+using UnityEngine.SceneManagement;
+
+public class UserCam : MonoBehaviour
 {
+    public static SimulationMode simulationMode;
     private PhotonView _phView;
     private GameObject _cam;
     private GameObject _controllerPanel;
@@ -23,7 +26,8 @@ public class CamUser : MonoBehaviour
         _controllerPanel = GetComponentInChildren<Image>(true).gameObject;
         _cam.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
-        
+        if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+            simulationMode = SimulationMode.Default;
     }
 
     // Update is called once per frame
@@ -105,5 +109,9 @@ public class CamUser : MonoBehaviour
         {
             _camsManager[i].enabled = i == activeCamID;
         }
+    }
+    public void SetExperience(int mode)
+    {
+        simulationMode = (SimulationMode)mode;
     }
 }

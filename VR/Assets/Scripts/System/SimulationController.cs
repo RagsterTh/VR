@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum SimulationMode
+{
+    Default, Shoot
+}
 public class SimulationController : MonoBehaviour
 {
     public static SimulationController Instance { get; private set; }
-
-    [SerializeField] private CamUser _user;
+    [SerializeField] private GameObject[] _simulationSectors;
+    [SerializeField] private UserCam _user;
     PhotonView _phView;
     [SerializeField] GameObject[] _lobbies;
     [SerializeField] Transform[] _spawnPoints;
@@ -19,16 +23,20 @@ public class SimulationController : MonoBehaviour
     List<GameObject> _playerAvatar = new List<GameObject>();
     public List<GameObject> PlayerAvatar { get => _playerAvatar; }
 
-    public CamUser User { get => _user; }
+    public UserCam User { get => _user; }
 
     private void Awake()
     {
         Instance = this;
+        _phView = GetComponent<PhotonView>();
+        if (!PhotonNetwork.IsMasterClient)
+            return;
+
+        SetSimulationSector((int)UserCam.simulationMode);
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
-        _phView = GetComponent<PhotonView>();
         _resourcesRegister.Clear();
         foreach (var item in _sceneResources.resources)
         {
@@ -99,5 +107,19 @@ public class SimulationController : MonoBehaviour
         }
         return 100;
     }
+    public void SetSimulationSector(int mode)
+    {
+        _phView.RPC("RPC_SetSimulationSector", RpcTarget.AllBuffered, mode);
+    }
+    [PunRPC]
+    public void RPC_SetSimulationSector(int mode)
+    {
+        if (mode.Equals(SimulationMode.Default))
+            return;
 
+        for (int i = 0; i < _simulationSectors.Length; i++)
+        {
+            _simulationSectors[i].SetActive(i == mode);
+        }
+    }
 }
