@@ -130,6 +130,9 @@ public class UserCam : MonoBehaviour
 
             foreach (var item in PhotonNetwork.PlayerList)
             {
+                if (!(bool)item.CustomProperties["IsVR"])
+                    continue;
+
                 ConnectionManager.instance.RegisterVRNumber(item);
                 ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
                 hash.Add("VRNumber", ConnectionManager.instance.GetVRNumber(item));
