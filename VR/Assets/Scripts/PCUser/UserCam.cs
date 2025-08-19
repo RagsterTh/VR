@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using ExitGames.Client.Photon;
 
 public class UserCam : MonoBehaviour
 {
@@ -26,8 +28,12 @@ public class UserCam : MonoBehaviour
         _controllerPanel = GetComponentInChildren<Image>(true).gameObject;
         _cam.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
-        if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+        if (SceneManager.GetActiveScene().name.Equals("LoadingScene"))
+        {
+            StartCoroutine(VerifyIsMaster());
             simulationMode = SimulationMode.Default;
+        }
+            
     }
 
     // Update is called once per frame
@@ -113,5 +119,25 @@ public class UserCam : MonoBehaviour
     public void SetExperience(int mode)
     {
         simulationMode = (SimulationMode)mode;
+    }
+    IEnumerator VerifyIsMaster()
+    {
+        yield return new WaitForSeconds(3);
+        if (PhotonNetwork.IsConnected)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+                PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
+
+            foreach (var item in PhotonNetwork.PlayerList)
+            {
+                ConnectionManager.instance.RegisterVRNumber(item);
+                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+                hash.Add("VRNumber", ConnectionManager.instance.GetVRNumber(item));
+                item.SetCustomProperties(hash);
+
+            }
+        }
+
+        StartCoroutine(VerifyIsMaster());
     }
 }

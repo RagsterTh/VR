@@ -28,6 +28,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         Hashtable hash = new Hashtable();
         hash.Add("IsVR", isVR);
+        if(isVR)
+            hash.Add("VRNumber", -1);
         PhotonNetwork.SetPlayerCustomProperties(hash);
     }
     public void Connection()
@@ -41,6 +43,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
+        /*
         if (isVR)
         {
             _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
@@ -69,8 +72,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         }
         return -1;
     }
-    [PunRPC]
-    public void RPC_RegisterVRNumber(Player player)
+
+    public void RegisterVRNumber(Player player)
     {
         _vrsNumber.Add(player); 
     }
@@ -78,5 +81,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         SceneManager.LoadScene("LoadingScene");
+        Connection();
     }
 }
