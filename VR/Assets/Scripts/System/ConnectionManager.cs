@@ -57,7 +57,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
-    {//Preciso verificar se funciona e melhorar
+    {//Não funcionou, preciso testar outro meio de identificação
         _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, newPlayer.ActorNumber);
     }
     public int GetVRNumber(int controller)
