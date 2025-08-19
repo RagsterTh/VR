@@ -7,7 +7,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
     public static bool isVR;
-    private List<int> _vrsNumber = new List<int>();
+    private List<Player> _vrsNumber = new List<Player>();
     private PhotonView _phView;
 
 
@@ -41,13 +41,11 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        /*
         if (isVR)
         {
-            _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+            _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
         }
-        */
-        /*
+                /*
 #if UNITY_EDITOR 
         if(isVR)
             if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
@@ -58,11 +56,10 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {//Não funcionou, preciso testar outro meio de identificação
-        _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, newPlayer.ActorNumber);
+        //_phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, newPlayer.ActorNumber);
     }
-    public int GetVRNumber(int controller)
+    public int GetVRNumber(Player controller)
     {
-        print(controller);
         for (int i = 0; i < _vrsNumber.Count; i++)
         {
             if (_vrsNumber[i] == controller)
@@ -73,9 +70,9 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         return -1;
     }
     [PunRPC]
-    public void RPC_RegisterVRNumber(int controllerNumber)
+    public void RPC_RegisterVRNumber(Player player)
     {
-        _vrsNumber.Add(controllerNumber); 
+        _vrsNumber.Add(player); 
     }
 
     public override void OnDisconnected(DisconnectCause cause)

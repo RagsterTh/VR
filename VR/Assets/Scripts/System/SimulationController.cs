@@ -45,7 +45,7 @@ public class SimulationController : MonoBehaviour
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
         if (ConnectionManager.isVR)
         {
-            int vrNumber = ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer.ActorNumber);
+            int vrNumber = ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer);
             vrNumber = vrNumber == -1 ? 0 : vrNumber;
             int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[vrNumber].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
             if (PhotonNetwork.LocalPlayer.IsLocal)
@@ -93,7 +93,7 @@ public class SimulationController : MonoBehaviour
 
         GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>(true).gameObject;
         _playerAvatar.Add(player);
-        if(ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer.ActorNumber) == -1)
+        if(ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer) == -1)
             player.transform.position = _spawnPoints[_playerAvatar.IndexOf(player)].position;
     }
     public int GetPlayerNumber(int playerController)
