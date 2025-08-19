@@ -65,8 +65,10 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < _vrsNumber.Count; i++)
         {
+            print(_vrsNumber[i].CustomProperties["VRNumber"]+"/");
             if (_vrsNumber[i] == controller)
             {
+                print(i);
                 return i;
             }
         }
