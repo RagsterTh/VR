@@ -7,7 +7,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
     public static bool isVR;
-    public static int localVRNumber;
     private List<int> _vrsNumber = new List<int>();
     private PhotonView _phView;
 
@@ -42,10 +41,12 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
+        /*
         if (isVR)
         {
             _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
         }
+        */
         /*
 #if UNITY_EDITOR 
         if(isVR)
@@ -55,8 +56,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         */
         
     }
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {//Preciso verificar se funciona e melhorar
+        _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, newPlayer.ActorNumber);
+    }
     public int GetVRNumber(int controller)
     {
+        print(controller);
         for (int i = 0; i < _vrsNumber.Count; i++)
         {
             if (_vrsNumber[i] == controller)
