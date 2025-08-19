@@ -5294,6 +5294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shooterGame: {fileID: 0}
+  isMedical: 1
 --- !u!1 &1745642750
 GameObject:
   m_ObjectHideFlags: 0

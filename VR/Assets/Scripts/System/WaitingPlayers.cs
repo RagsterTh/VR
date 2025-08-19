@@ -7,6 +7,8 @@ public class WaitingPlayers : MonoBehaviour
     private int _playersFinish;
     private int _vrPlayersAmount;
     [SerializeField] private GameObject _shooterGame;
+
+    [SerializeField] bool isMedical;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -35,10 +37,20 @@ public class WaitingPlayers : MonoBehaviour
         _playersFinish++;
         if(_playersFinish >= _vrPlayersAmount)
         {
-            PhotonNetwork.LoadLevel(0);
-            //gameObject.SetActive(false);
-            //_shooterGame.SetActive(true);
+            //PhotonNetwork.LoadLevel(scene);
+            gameObject.SetActive(false);
+            _shooterGame.SetActive(true);
             SimulationController.Instance.ActiveShootGame();
+            if (isMedical)
+            {
+                SendBackToMenu();
+            }
         }
     }
+
+    public void SendBackToMenu() 
+    {
+        PhotonNetwork.LoadLevel(0);
+    }
+
 }
