@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
 
     public void ActiveBattle()
     {
-        _switch.Active("RPC_SwitchActivate");
+        _switch.Active();
     }
     
     //RPC's

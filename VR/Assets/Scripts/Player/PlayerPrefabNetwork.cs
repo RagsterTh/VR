@@ -12,8 +12,10 @@ public class PlayerPrefabNetwork : MonoBehaviour
     [SerializeField] GameObject[] _elements;
     [SerializeField] GameObject _leftGun;
     [SerializeField] GameObject _rightGun;
-    [SerializeField] GameObject _leftHand;
-    [SerializeField] GameObject _rightHand;
+    [SerializeField] GameObject _leftHandMecanic;
+    [SerializeField] GameObject _leftHandVisual;
+    [SerializeField] GameObject _rightHandMecanic;
+    [SerializeField] GameObject _rightHandVisual;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -47,7 +49,9 @@ public class PlayerPrefabNetwork : MonoBehaviour
     {
         _leftGun.SetActive(tool != (int)PlayerTool.Hand);
         _rightGun.SetActive(tool != (int)PlayerTool.Hand);
-        _leftHand.SetActive(tool == (int)PlayerTool.Hand);
-        _rightHand.SetActive(tool == (int)PlayerTool.Hand);
+        _leftHandMecanic.SetActive(tool == (int)PlayerTool.Hand);
+        _leftHandVisual.SetActive(tool == (int)PlayerTool.Hand);
+        _rightHandMecanic.SetActive(tool == (int)PlayerTool.Hand);
+        _rightHandVisual.SetActive(tool == (int)PlayerTool.Hand);
     }
 }

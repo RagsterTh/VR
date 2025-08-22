@@ -72,7 +72,8 @@ public class SimulationController : MonoBehaviour
     }
     public void ActiveShootGame()
     {
-        _phView.RPC("RPC_ActiveShootGame", RpcTarget.AllBuffered);
+        OnShootGameBegins.Invoke();
+        //_phView.RPC("RPC_ActiveShootGame", RpcTarget.AllBuffered);
     }
     public void ActiveScene()
     {
@@ -94,8 +95,6 @@ public class SimulationController : MonoBehaviour
 
         GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>(true).gameObject;
         _playerAvatar.Add(player);
-        if(ConnectionManager.instance.GetVRNumber(PhotonNetwork.LocalPlayer) == -1)
-            player.transform.position = _spawnPoints[_playerAvatar.IndexOf(player)].position;
     }
     public int GetPlayerNumber(int playerController)
     {
