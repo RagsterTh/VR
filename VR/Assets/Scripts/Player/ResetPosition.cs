@@ -14,7 +14,7 @@ public class ResetPosition : MonoBehaviour
     }
     private void Start()
     {
-        _origin.MoveCameraToWorldLocation(Vector3.zero);
+        
         //_playerNetwork.RecenterPlayer();
     }
 
