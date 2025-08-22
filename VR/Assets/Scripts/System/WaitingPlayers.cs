@@ -37,13 +37,15 @@ public class WaitingPlayers : MonoBehaviour
         _playersFinish++;
         if(_playersFinish >= _vrPlayersAmount)
         {
-            //PhotonNetwork.LoadLevel(scene);
-            gameObject.SetActive(false);
-            _shooterGame.SetActive(true);
-            SimulationController.Instance.ActiveShootGame();
+            //PhotonNetwork.LoadLevel(scene);            
             if (isMedical)
             {
                 SendBackToMenu();
+            } else
+            {
+                gameObject.SetActive(false);
+                _shooterGame.SetActive(true);
+                SimulationController.Instance.ActiveShootGame();
             }
         }
     }

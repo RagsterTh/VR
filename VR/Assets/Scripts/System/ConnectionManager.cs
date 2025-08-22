@@ -75,6 +75,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if (_vrsNumber.Contains(player))
             return;
+        print(player.ToString()+_vrsNumber.Count);
         _vrsNumber.Add(player); 
     }
 
