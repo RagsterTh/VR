@@ -62,6 +62,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     }
     public int GetVRNumber(Player controller)
     {
+        print("VR's: " + _vrsNumber.Count);
         for (int i = 0; i < _vrsNumber.Count; i++)
         {
             if (_vrsNumber[i] == controller)
