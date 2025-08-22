@@ -139,7 +139,15 @@ public class UserCam : MonoBehaviour
 
                 ConnectionManager.instance.RegisterVRNumber(item);
                 ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-                hash.Add("VRNumber", ConnectionManager.instance.GetVRNumber(item));
+                if (hash.ContainsKey("VRNumber"))
+                {
+                    hash["VRNumber"] = ConnectionManager.instance.GetVRNumber(item);
+                }
+                else
+                {
+                    hash.Add("VRNumber", ConnectionManager.instance.GetVRNumber(item));
+                }
+                
                 item.SetCustomProperties(hash);
 
             }
