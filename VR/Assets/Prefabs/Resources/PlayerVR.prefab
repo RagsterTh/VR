@@ -475,6 +475,7 @@ MonoBehaviour:
   - {fileID: 2798677468785640432}
   - {fileID: 151250083572279973}
   - {fileID: 7521047199594845950}
+  - {fileID: 5264635723159334151}
   _leftGun: {fileID: 763025221778993997}
   _rightGun: {fileID: 1517954163591878292}
   _leftHandMecanic: {fileID: 3795559047295461352}
@@ -793,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8501675145457596762
 Transform:
   m_ObjectHideFlags: 0
