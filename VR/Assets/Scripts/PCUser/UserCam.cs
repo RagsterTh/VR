@@ -104,7 +104,6 @@ public class UserCam : MonoBehaviour
             CamsManager(0);
             return;
         }
-        print("trocou");
         int camNumber = int.Parse(value.control.name);
         CamsManager(camNumber);
     }
@@ -129,10 +128,6 @@ public class UserCam : MonoBehaviour
             if (!PhotonNetwork.IsMasterClient)
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
 
-            foreach (var item in ConnectionManager.instance.VrsNumber)
-            {
-                print(item);
-            }
             foreach (var item in PhotonNetwork.PlayerList)
             {
                 if (!(bool)item.CustomProperties["IsVR"])
