@@ -104,6 +104,7 @@ public class UserCam : MonoBehaviour
             CamsManager(0);
             return;
         }
+        print("trocou");
         int camNumber = int.Parse(value.control.name);
         CamsManager(camNumber);
     }
