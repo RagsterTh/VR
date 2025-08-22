@@ -787,7 +787,6 @@ GameObject:
   - component: {fileID: 1321810611937671031}
   - component: {fileID: 8429285845485587744}
   - component: {fileID: 503203118002877042}
-  - component: {fileID: 924877057062407902}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1050,18 +1049,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &924877057062407902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5264635723159334151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2985934b49b7c848a3dddebbb061ccd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5405239633495445865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,6 +1842,7 @@ GameObject:
   - component: {fileID: 8293237312231881973}
   - component: {fileID: 1170348248731191042}
   - component: {fileID: 6669148071792792818}
+  - component: {fileID: 5795271546888713690}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -2334,6 +2322,18 @@ MonoBehaviour:
   m_DefaultActionMap: XRI Right Interaction
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &5795271546888713690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7521047199594845950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2985934b49b7c848a3dddebbb061ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8694235190320483459
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public enum PlayerTool
 {
@@ -53,5 +54,10 @@ public class PlayerPrefabNetwork : MonoBehaviour
         _leftHandVisual.SetActive(tool == (int)PlayerTool.Hand);
         _rightHandMecanic.SetActive(tool == (int)PlayerTool.Hand);
         _rightHandVisual.SetActive(tool == (int)PlayerTool.Hand);
+    }
+    public void RecenterPlayer()
+    {
+            transform.position = SimulationController.Instance.SpawnPoints[(int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"]].position;
+
     }
 }

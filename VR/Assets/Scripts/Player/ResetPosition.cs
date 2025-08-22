@@ -1,19 +1,21 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
 public class ResetPosition : MonoBehaviour
 {
-    TrackedPoseDriver trackingVR;
+    XROrigin _origin;
+    PlayerPrefabNetwork _playerNetwork;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        trackingVR = GetComponent<TrackedPoseDriver>();
-        trackingVR.trackingType = TrackedPoseDriver.TrackingType.RotationOnly;
-        //transform.position = Vector3.zero;
+        _origin = GetComponent<XROrigin>();
+        _playerNetwork = GetComponentInParent<PlayerPrefabNetwork>();
     }
     private void Start()
     {
-        trackingVR.trackingType = TrackedPoseDriver.TrackingType.RotationAndPosition;
+        _origin.MoveCameraToWorldLocation(Vector3.zero);
+        _playerNetwork.RecenterPlayer();
     }
 
     // Update is called once per frame
