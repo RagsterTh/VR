@@ -15,7 +15,7 @@ public class ResetPosition : MonoBehaviour
     private void Start()
     {
         _origin.MoveCameraToWorldLocation(Vector3.zero);
-        _playerNetwork.RecenterPlayer();
+        //_playerNetwork.RecenterPlayer();
     }
 
     // Update is called once per frame
