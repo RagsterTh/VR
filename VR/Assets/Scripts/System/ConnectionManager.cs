@@ -9,6 +9,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public static bool isVR;
     private List<Player> _vrsNumber = new List<Player>();
 
+    public List<Player> VrsNumber { get => _vrsNumber;}
 
     private void Awake()
     {
@@ -75,7 +76,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         if (_vrsNumber.Contains(player))
             return;
-        print(player.ToString()+_vrsNumber.Count);
         _vrsNumber.Add(player); 
     }
 

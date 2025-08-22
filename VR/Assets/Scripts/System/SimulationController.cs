@@ -46,6 +46,7 @@ public class SimulationController : MonoBehaviour
         if (ConnectionManager.isVR)
         {
             int vrNumber = (int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"];
+            print("Number: " + vrNumber);
             vrNumber = vrNumber == -1 ? 0 : vrNumber;
             int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[vrNumber].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
             if (PhotonNetwork.LocalPlayer.IsLocal)

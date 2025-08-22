@@ -128,6 +128,10 @@ public class UserCam : MonoBehaviour
             if (!PhotonNetwork.IsMasterClient)
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
 
+            foreach (var item in ConnectionManager.instance.VrsNumber)
+            {
+                print(item);
+            }
             foreach (var item in PhotonNetwork.PlayerList)
             {
                 if (!(bool)item.CustomProperties["IsVR"])
