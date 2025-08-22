@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shooterGame: {fileID: 327998864}
+  isMedical: 0
 --- !u!82 &42753493
 AudioSource:
   m_ObjectHideFlags: 0
@@ -656,6 +657,38 @@ PrefabInstance:
     - target: {fileID: 8063196519998589709, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: sceneViewId
       value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1816298235}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      propertyPath: OnBattleBegin.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9022407224039722580, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       propertyPath: sceneViewId
