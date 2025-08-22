@@ -8,7 +8,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
      public static ConnectionManager instance;
     public static bool isVR;
     private List<Player> _vrsNumber = new List<Player>();
-    private PhotonView _phView;
 
 
     private void Awake()
@@ -21,7 +20,6 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        _phView = GetComponent<PhotonView>();
             Connection();
     }
     private void Start()
