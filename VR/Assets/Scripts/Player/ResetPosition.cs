@@ -1,3 +1,5 @@
+using Meta.XR.Editor.Id;
+using System.Collections;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
@@ -14,8 +16,8 @@ public class ResetPosition : MonoBehaviour
     }
     private void Start()
     {
-        
-        //_playerNetwork.RecenterPlayer();
+        _origin.MoveCameraToWorldLocation(Vector3.zero);
+        //_origin.Camera.transform.position = Vector3.zero;
     }
 
     // Update is called once per frame

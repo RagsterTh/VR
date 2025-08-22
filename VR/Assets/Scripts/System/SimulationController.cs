@@ -95,8 +95,6 @@ public class SimulationController : MonoBehaviour
     {
 
         GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>(true).gameObject;
-        XROrigin xrOrigin = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<XROrigin>(true);
-        xrOrigin.MoveCameraToWorldLocation(Vector3.zero);
         _playerAvatar.Add(player);
     }
     public int GetPlayerNumber(int playerController)
