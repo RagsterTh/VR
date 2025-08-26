@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 public abstract class Enemy : MonoBehaviour, IShootable
 {
 
@@ -19,10 +20,16 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     protected void OnEnable()
     {
-        foreach (var t in GameController.instance.PlayerAvatar)
-        {
-            _playersPos.Add(t.transform);
-        }
+        if(SceneManager.GetActiveScene().name.Equals("Game"))
+            foreach (var t in GameController.instance.PlayerAvatar)
+            {
+                _playersPos.Add(t.transform);
+            }
+        if(SceneManager.GetActiveScene().name.Equals("GloboV2"))
+            foreach (var t in SimulationController.Instance.PlayerAvatar)
+            {
+                _playersPos.Add(t.transform);
+            }
         StartCoroutine(FindClose(_playersPos.ToArray()));
     }
 

@@ -3,9 +3,12 @@ using UnityEngine;
 
 public class WaitingPlayers : MonoBehaviour
 {
-    PhotonView _phView;
-    int _playersFinish;
-    int _vrPlayersAmount;
+    private PhotonView _phView;
+    private int _playersFinish;
+    private int _vrPlayersAmount;
+    [SerializeField] private GameObject _shooterGame;
+
+    [SerializeField] bool isMedical;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,17 +27,32 @@ public class WaitingPlayers : MonoBehaviour
     {
         
     }
-    public void Finish(string scene)
+    public void Finish()
     {
-        _phView.RPC("RPC_Finish", RpcTarget.MasterClient, scene);
+        _phView.RPC("RPC_Finish", RpcTarget.AllBuffered);
     }
     [PunRPC]
-    public void RPC_Finish(string scene)
+    public void RPC_Finish()
     {
         _playersFinish++;
         if(_playersFinish >= _vrPlayersAmount)
         {
-            PhotonNetwork.LoadLevel(scene);
+            //PhotonNetwork.LoadLevel(scene);            
+            if (isMedical)
+            {
+                SendBackToMenu();
+            } else
+            {
+                gameObject.SetActive(false);
+                _shooterGame.SetActive(true);
+                SimulationController.Instance.ActiveShootGame();
+            }
         }
     }
+
+    public void SendBackToMenu() 
+    {
+        PhotonNetwork.LoadLevel(0);
+    }
+
 }

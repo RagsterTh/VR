@@ -37,23 +37,25 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        if (SceneManager.GetActiveScene().name.Equals("GloboV2"))
+        {
+
+        }
         foreach (var item in _sceneResources.resources)
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        if (ConnectionManager.isVR)
-        {
-            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
-            if (PhotonNetwork.LocalPlayer.IsLocal)
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+            if (ConnectionManager.isVR)
             {
-                _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
+                int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
+                if (PhotonNetwork.LocalPlayer.IsLocal)
+                {
+                    _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
+                }
             }
-        }
-        else
-        {
-            //playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.Player).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
-        }
+
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
 
@@ -79,7 +81,7 @@ public class GameController : MonoBehaviour
 
     public void ActiveBattle()
     {
-        _switch.Active("RPC_SwitchActivate");
+        _switch.Active();
     }
     
     //RPC's

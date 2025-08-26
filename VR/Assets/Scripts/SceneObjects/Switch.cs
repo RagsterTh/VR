@@ -7,9 +7,9 @@ public class Switch : MonoBehaviour, IShootable
     PhotonView _phView;
     public UnityEvent OnSwitchActivate;
 
-    public void Active(string rpc)
+    public void Active()
     {
-        _phView.RPC(rpc, RpcTarget.AllBuffered);
+        _phView.RPC("RPC_SwitchActivate", RpcTarget.AllBuffered);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -31,6 +31,6 @@ public class Switch : MonoBehaviour, IShootable
 
     public void Hit()
     {
-        Active("RPC_SwitchActivate");
+        Active();
     }
 }

@@ -10,11 +10,9 @@ public class FollowTarget : MonoBehaviour
     {
         _phView = GetComponentInParent<PhotonView>();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SetTarget(Transform target)
     {
-        
+        _target = target;
     }
     private void LateUpdate()
     {
