@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WaitingPlayers : MonoBehaviour
 {
+    [SerializeField] private GameObject _starBattleBtn;
     private PhotonView _phView;
     private int _playersFinish;
     private int _vrPlayersAmount;
@@ -43,6 +44,8 @@ public class WaitingPlayers : MonoBehaviour
                 SendBackToMenu();
             } else
             {
+                if(PhotonNetwork.IsMasterClient)
+                    _starBattleBtn.SetActive(true);
                 gameObject.SetActive(false);
                 _shooterGame.SetActive(true);
                 SimulationController.Instance.ActiveShootGame();
