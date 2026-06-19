@@ -12,7 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -51,6 +52,8 @@ Material:
     - _StripesOffset: 1.23
     - _StripesRotation: 90
     - _StripesThickness: -0.36
+    - _VertexMoveSpeed: 0.1
+    - _VertexMovementDir: 1
     - _alpha: -0.4
     - _fresnelPower: 1.75
     m_Colors:
@@ -69,4 +72,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10
