@@ -15,7 +15,7 @@ public class WaitingPlayers : MonoBehaviour
         _phView = GetComponent<PhotonView>();
         foreach (var item in PhotonNetwork.PlayerList)
         {
-            if ((bool)item.CustomProperties["IsVR"])
+            if (item.CustomProperties.TryGetValue("IsVR", out object isVR) && (bool)isVR)
             {
                 _vrPlayersAmount++;
             }
