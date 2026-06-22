@@ -9,11 +9,16 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     float currentLife;
 
+    void Awake()
+    {
+        ServiceLocator.Register(this);
+    }
+
     void Start()
     {
         currentLife = _maxLife;
         UpdateVisual();
-    } 
+    }
 
     public void TakeDamage(float amount)
     {
@@ -23,7 +28,7 @@ public class PlayersLifeBar : MonoBehaviourPun
     [PunRPC]
     void RPC_TakeDamage(float amount)
     {
-        currentLife -= amount;
+        currentLife = Mathf.Max(0, currentLife - amount);
         UpdateVisual();
     }
 

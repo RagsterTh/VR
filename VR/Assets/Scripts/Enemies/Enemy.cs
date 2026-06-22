@@ -21,6 +21,8 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     protected void OnEnable()
     {
+        _playersPos.Clear();
+        followingPlayer = null;
         if (SceneManager.GetActiveScene().name.Equals("Game"))
             foreach (var t in GameController.instance.PlayerAvatar)
             {
@@ -44,8 +46,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
     {
         if (followingPlayer)
         {
-            print("Player took damage");
-            ServiceLocator.Instance.GetService<PlayersLifeBar>().TakeDamage(damage);
+            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
         }
     }
 

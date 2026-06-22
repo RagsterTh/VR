@@ -20,7 +20,7 @@ public class Boss : MonoBehaviour, IShootable
     {
         if (other.CompareTag("Player"))
         {
-            ServiceLocator.Instance.GetService<PlayersLifeBar>().TakeDamage(damage);
+            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
         }
     }
 
