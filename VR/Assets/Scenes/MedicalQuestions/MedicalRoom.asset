@@ -40,7 +40,7 @@ MonoBehaviour:
     m_Value: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
   balance:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 37
 --- !u!114 &-4885946684536950889
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -195,10 +195,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: -0.55
+    m_Value: -0.09
   contrast:
     m_OverrideState: 1
-    m_Value: 23
+    m_Value: 41
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
