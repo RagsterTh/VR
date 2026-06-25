@@ -31,12 +31,12 @@ public class Location : MonoBehaviour, IShootable
 
     public void OnMouseEnter()
     {
-        //_phView.RPC("RPC_Select", RpcTarget.AllBuffered);
+        _phView.RPC("RPC_Select", RpcTarget.AllBuffered);
     }
 
     public void OnMouseExit()
     {
-        //_phView.RPC("RPC_Deselect", RpcTarget.AllBuffered);
+        _phView.RPC("RPC_Deselect", RpcTarget.AllBuffered);
     }
 
     IEnumerator InterpolateScale(Vector3 start, Vector3 end, float time)
@@ -53,9 +53,7 @@ public class Location : MonoBehaviour, IShootable
     
     public void Hit()
     {
-
-       // _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
-
+        _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
     }
     [PunRPC]
     public void RPC_AskGoToGame()

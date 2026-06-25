@@ -10,19 +10,16 @@ public class FollowGun : MonoBehaviour
     [SerializeField] bool isActive;
 
     [SerializeField] float offset;
-    private void Start()
-    {
-        if (gun.activeSelf)
-            target = gun.transform;
-        if(hand.activeSelf)
-            target = hand.transform;
-    }
     private void LateUpdate()
     {
-        if (target == null)
-            return;
+        if (target == null || !target.gameObject.activeSelf)
+        {
+            if (gun != null && gun.activeSelf) target = gun.transform;
+            else if (hand != null && hand.activeSelf) target = hand.transform;
+            if (target == null) return;
+        }
 
         follow.transform.position = target.position;
-        follow.transform.rotation = new Quaternion(target.rotation.x, target.rotation.y, target.rotation.z, target.rotation.w);
+        follow.transform.rotation = target.rotation;
     }
 }
