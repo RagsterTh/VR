@@ -3749,6 +3749,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1407303329514875045, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0987
+      objectReference: {fileID: 0}
     - target: {fileID: 1689785924501964688, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: OnDialogueEnd.m_PersistentCalls.m_Calls.Array.size
       value: 4
@@ -3864,6 +3868,10 @@ PrefabInstance:
     - target: {fileID: 8049690146934323654, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9175239698641539842, guid: 29344a655c5371a4bbe56c5a100f0de3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0987
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
