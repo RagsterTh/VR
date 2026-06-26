@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using Photon.Pun;
+using UnityEngine;
 
 [System.Serializable]
 public class VRMap
@@ -25,15 +26,27 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
-    // Update is called once per frame
+    PhotonView _phView;
+
+    void Start()
+    {
+        _phView = GetComponentInParent<PhotonView>();
+    }
+
     void LateUpdate()
     {
+        if (_phView != null && !_phView.IsMine)
+            return;
+
+        if (head.ikTarget == null || head.vrTarget == null)
+            return;
+
         transform.position = head.ikTarget.position + headBodyPositionOffset;
         float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation,Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z),turnSmoothness);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
 
         head.Map();
-        leftHand.Map();
-        rightHand.Map();
+        if (leftHand.ikTarget != null && leftHand.vrTarget != null) leftHand.Map();
+        if (rightHand.ikTarget != null && rightHand.vrTarget != null) rightHand.Map();
     }
 }

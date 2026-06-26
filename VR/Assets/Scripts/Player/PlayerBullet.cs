@@ -3,8 +3,10 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] float _speed;
+    [SerializeField] float _maxLifetime = 8f;
     Rigidbody _rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    float _spawnTime;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -13,11 +15,12 @@ public class PlayerBullet : MonoBehaviour
     private void OnEnable()
     {
         _rb.linearVelocity = -transform.up * _speed;
+        _spawnTime = Time.time;
     }
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Time.time - _spawnTime > _maxLifetime)
+            gameObject.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {

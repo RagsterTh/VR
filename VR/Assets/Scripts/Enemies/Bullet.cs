@@ -16,8 +16,12 @@ public class Bullet : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision collision)
-    { 
+    {
         hasCollided = true;
+        if (collision.collider.CompareTag("Player"))
+        {
+            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+        }
         Collision();
     }
     
