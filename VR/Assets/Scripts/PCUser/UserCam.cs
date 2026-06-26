@@ -130,7 +130,7 @@ public class UserCam : MonoBehaviour
 
             foreach (var item in PhotonNetwork.PlayerList)
             {
-                if (!(bool)item.CustomProperties["IsVR"])
+                if (!item.CustomProperties.TryGetValue("IsVR", out object isVR) || !(bool)isVR)
                     continue;
 
                 ConnectionManager.instance.RegisterVRNumber(item);

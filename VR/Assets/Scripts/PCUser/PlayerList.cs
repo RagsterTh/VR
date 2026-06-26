@@ -31,7 +31,7 @@ public class PlayerList : MonoBehaviour
         int playersVR = 0;
         foreach (var item in PhotonNetwork.PlayerList)
         {
-            if ((bool)item.CustomProperties["IsVR"])
+            if (item.CustomProperties.TryGetValue("IsVR", out object isVR) && (bool)isVR)
             {
                 _txts[playersVR].text = $"Player{playersVR + 1}: On";
                 playersVR++;
