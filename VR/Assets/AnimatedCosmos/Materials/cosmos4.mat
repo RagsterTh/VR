@@ -50,12 +50,12 @@ Material:
     - _AnimOn: 1
     - _Colorize: 0.59
     - _D1Distort: 0.1
-    - _D1I: 1.08
+    - _D1I: 0.77
     - _D1Scale: 2
     - _D1Size: 2
     - _D1Speed: 5
     - _D2Distort: 0.1
-    - _D2I: 0.8
+    - _D2I: 0.2
     - _D2Scale: 5
     - _D2Size: 3
     - _D2Speed: 3
@@ -69,7 +69,7 @@ Material:
     - _StarSpeed: 3
     - _StarsI: 0.69
     m_Colors:
-    - _Color: {r: 0.073669314, g: 0.40989137, b: 3.1235793, a: 3}
+    - _Color: {r: 0.7380903, g: 2.3110697, b: 0.826218, a: 3}
     - _Rotation: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
