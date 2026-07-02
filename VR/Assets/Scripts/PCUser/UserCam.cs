@@ -36,11 +36,6 @@ public class UserCam : MonoBehaviour
             
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void LoadLevel(string scene)
     {
         PhotonNetwork.LoadLevel(scene);
@@ -128,25 +123,6 @@ public class UserCam : MonoBehaviour
             if (!PhotonNetwork.IsMasterClient)
                 PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
 
-            foreach (var item in PhotonNetwork.PlayerList)
-            {
-                if (!(bool)item.CustomProperties["IsVR"])
-                    continue;
-
-                ConnectionManager.instance.RegisterVRNumber(item);
-                ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-                if (hash.ContainsKey("VRNumber"))
-                {
-                    hash["VRNumber"] = ConnectionManager.instance.GetVRNumber(item);
-                }
-                else
-                {
-                    hash.Add("VRNumber", ConnectionManager.instance.GetVRNumber(item));
-                }
-                
-                item.SetCustomProperties(hash);
-
-            }
         }
 
         StartCoroutine(VerifyIsMaster());
