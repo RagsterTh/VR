@@ -39,17 +39,19 @@ public class SimulationController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
+          //  Application.Quit();
         _resourcesRegister.Clear();
-        foreach (var item in _sceneResources.resources)
+        foreach (var item in _sceneResources.resources) 
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        if (ConnectionManager.isVR)
+       
+        if (!PhotonNetwork.IsMasterClient)
         {
-            int vrNumber = (int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"];
-            vrNumber = vrNumber == -1 ? 0 : vrNumber;
-            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[vrNumber].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
+            //int vrNumber = (int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"];
+            //vrNumber = vrNumber == -1 ? 0 : vrNumber;
+            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[1].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
             if (PhotonNetwork.LocalPlayer.IsLocal)
             {
                 _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);

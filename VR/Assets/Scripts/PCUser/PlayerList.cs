@@ -24,13 +24,17 @@ public class PlayerList : MonoBehaviour
     }
     IEnumerator PlayersVerification()
     {
+        yield return new WaitForSeconds(2);
         if (!PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             PhotonNetwork.SetMasterClient(PhotonNetwork.LocalPlayer);
         }
         int playersVR = 0;
+  
+        print(PhotonNetwork.PlayerList.Length);
         foreach (var item in PhotonNetwork.PlayerList)
         {
+           
             if ((bool)item.CustomProperties["IsVR"])
             {
                 _txts[playersVR].text = $"Player{playersVR + 1}: On";
@@ -44,7 +48,6 @@ public class PlayerList : MonoBehaviour
                 _txts[i].text = $"Player{i + 1}: Off";
             }
         }
-        yield return new WaitForSeconds(2);
         StartCoroutine(PlayersVerification());
     }
 

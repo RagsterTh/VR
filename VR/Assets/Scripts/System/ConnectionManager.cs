@@ -6,9 +6,9 @@ using System.Collections.Generic;
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
      public static ConnectionManager instance;
-    public static bool isVR;
+        public static bool isVR;
 
-    private void Awake()
+      private void Awake()
     {
         if (instance)
         {
@@ -19,6 +19,16 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(gameObject);
         }
             Connection();
+    }
+    private void Start()
+    {
+        Hashtable hash = new Hashtable();
+        hash.Add("IsVR", isVR);
+
+        if (!PhotonNetwork.IsMasterClient)
+            hash.Add("VRNumber", -1);
+
+        PhotonNetwork.SetPlayerCustomProperties(hash);
     }
     public void Connection()
     {
