@@ -129,7 +129,7 @@ public class Balcony : MonoBehaviour
             else
             {
                 EndDialogue();
-                if(PhotonNetwork.IsMasterClient)
+                if (PhotonNetwork.IsMasterClient)
                     _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
             }
         }
@@ -143,6 +143,10 @@ public class Balcony : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ServiceDisable", RpcTarget.AllBuffered);
+    }
+    public void GoToBattle()
+    {
+        _phView.RPC("RPC_StartBattle", RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void RPC_ServiceDisable()
