@@ -86,5 +86,8 @@ public abstract class Enemy : MonoBehaviour, IShootable
     public void RPC_Hit()
     {
         gameObject.SetActive(false);
+        ServiceLocator.Get<GameOverManager>().EnemiesKilled++;
+        print("Enemy Killed: " + ServiceLocator.Get<GameOverManager>().EnemiesKilled);
+        ServiceLocator.Get<GameOverManager>().VerifyWin();
     }
 }

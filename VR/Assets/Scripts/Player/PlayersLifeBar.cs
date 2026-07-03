@@ -9,6 +9,8 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     float currentLife;
 
+    public float CurrentLife { get => currentLife; set => currentLife = value; }
+
     void Awake()
     {
         ServiceLocator.Register(this);
@@ -16,24 +18,25 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     void Start()
     {
-        currentLife = _maxLife;
+        CurrentLife = _maxLife;
         UpdateVisual();
     }
 
     public void TakeDamage(float amount)
     {
         photonView.RPC(nameof(RPC_TakeDamage), RpcTarget.All, amount);
+        ServiceLocator.Get<GameOverManager>().VerifyLose();
     }
 
     [PunRPC]
     void RPC_TakeDamage(float amount)
     {
-        currentLife = Mathf.Max(0, currentLife - amount);
+        CurrentLife = Mathf.Max(0, CurrentLife - amount);
         UpdateVisual();
     }
 
     void UpdateVisual()
-    { 
-        _lifeBar.fillAmount = currentLife / _maxLife;
+    {
+        _lifeBar.fillAmount = CurrentLife / _maxLife;
     }
 }

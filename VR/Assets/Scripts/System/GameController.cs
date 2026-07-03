@@ -11,16 +11,16 @@ public class GameController : MonoBehaviour
 {
     PhotonView _phView;
     public static GameController instance;
-    [SerializeField]Transform[] _spawnPoints;
+    [SerializeField] Transform[] _spawnPoints;
     [SerializeField] ObjectPool[] _enemyPools;
     [SerializeField] ObjectPool _playersBullets;
-    [SerializeField]SceneResources _sceneResources;
-    [SerializeField]Switch _switch;
+    [SerializeField] SceneResources _sceneResources;
+    [SerializeField] Switch _switch;
     List<GameObject> _playerAvatar = new List<GameObject>();
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
-    public List<GameObject> PlayerAvatar { get => _playerAvatar;}
-    public ObjectPool PlayersBullets { get => _playersBullets;}
+    public List<GameObject> PlayerAvatar { get => _playerAvatar; }
+    public ObjectPool PlayersBullets { get => _playersBullets; }
 
     [Header("Events")]
     public UnityEvent OnBattleBegin;
@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
         instance = this;
         _phView = GetComponent<PhotonView>();
         _resourcesRegister.Clear();
-        
+        ServiceLocator.Register(this);
     }
     // Start is called before the first frame update
     IEnumerator Start()
@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
     {
         _switch.Active();
     }
-    
+
     //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour
     {
         foreach (var player in _playerAvatar)
         {
-            if(player.GetPhotonView().ViewID == playerID)
+            if (player.GetPhotonView().ViewID == playerID)
             {
                 PhotonNetwork.Destroy(player.transform.parent.gameObject);
                 _playerAvatar.Remove(player);
@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
     public void BattleEnd()
     {
         if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel("MedicalQuestions");
+            PhotonNetwork.LoadLevel("Credits");
 
     }
 }
