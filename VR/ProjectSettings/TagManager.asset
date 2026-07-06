@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - CinemachineTarget
   - Enemy
+  - Lifebar
   layers:
   - Default
   - TransparentFX

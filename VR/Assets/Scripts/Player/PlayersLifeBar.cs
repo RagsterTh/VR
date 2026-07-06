@@ -4,7 +4,7 @@ using Photon.Pun;
 
 public class PlayersLifeBar : MonoBehaviourPun
 {
-    [SerializeField] Image _lifeBar;
+    [SerializeField] GameObject _lifeBar;
     [SerializeField] float _maxLife;
 
     float currentLife;
@@ -14,6 +14,7 @@ public class PlayersLifeBar : MonoBehaviourPun
     void Awake()
     {
         ServiceLocator.Register(this);
+        _lifeBar = GameObject.FindWithTag("Lifebar");
     }
 
     void Start()
@@ -37,6 +38,7 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     void UpdateVisual()
     {
-        _lifeBar.fillAmount = CurrentLife / _maxLife;
+        Image _lifeBarImg = _lifeBar.GetComponent<Image>();
+        _lifeBarImg.fillAmount = CurrentLife / _maxLife;
     }
 }

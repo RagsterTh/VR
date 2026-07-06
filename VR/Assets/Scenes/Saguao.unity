@@ -453,6 +453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerVR 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2482331937586186014, guid: 6e5f97ea0e0516345bcbfb9986465390, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2664510506114714277, guid: 6e5f97ea0e0516345bcbfb9986465390, type: 3}
       propertyPath: m_ActionEvents.Array.data[24].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -473,6 +477,10 @@ PrefabInstance:
       propertyPath: m_CameraFloorOffsetObject
       value: 
       objectReference: {fileID: 766536687}
+    - target: {fileID: 5538590616614849261, guid: 6e5f97ea0e0516345bcbfb9986465390, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8355261996875506993, guid: 6e5f97ea0e0516345bcbfb9986465390, type: 3}
       propertyPath: m_RigLayers.Array.data[1].m_Rig
       value: 
