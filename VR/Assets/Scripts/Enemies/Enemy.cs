@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
     List<Transform> _playersPos = new List<Transform>();
     PhotonView _phView;
     [SerializeField] private float damage;
+    [SerializeField] private bool isTerrestrian;
     protected void Awake()
     {
         _phView = GetComponent<PhotonView>();
@@ -47,6 +48,10 @@ public abstract class Enemy : MonoBehaviour, IShootable
         if (followingPlayer)
         {
             ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+        }
+        if (isTerrestrian)
+        {
+            Destroy(this.gameObject);
         }
     }
 

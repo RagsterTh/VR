@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 2
+  isTerrestrian: 1
 --- !u!195 &5935597804522273069
 NavMeshAgent:
   m_ObjectHideFlags: 0
