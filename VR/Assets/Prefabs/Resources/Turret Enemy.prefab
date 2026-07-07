@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  isTerrestrian: 0
   muzzle: {fileID: 0}
   data: {fileID: 0}
   stopingDistance: 0
