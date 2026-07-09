@@ -65,14 +65,11 @@ public class FlyingEnemy : MovingEnemy
     IEnumerator Fire()
     {
         yield return new WaitForSeconds(fireRate);
-        if (isInRange)
+        if (isInRange && followingPlayer != null)
         {
-            Vector3 direction = new Vector3 (agent.destination.x, agent.destination.y + 1.5f, agent.destination.z) - muzzle.transform.position;
-            direction = direction.normalized;
-            Physics.Linecast(muzzle.position, agent.destination);
-            Debug.DrawLine(transform.position, agent.destination);
+            Vector3 targetPos = followingPlayer.position + Vector3.up * 1.5f;
+            Vector3 direction = (targetPos - muzzle.position).normalized;
             GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
-            print(projectile.gameObject.name);
             projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
         }
         StartCoroutine(Fire());
