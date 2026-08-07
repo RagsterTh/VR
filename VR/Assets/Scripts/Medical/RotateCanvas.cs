@@ -10,6 +10,13 @@ public class RotateCanvas : MonoBehaviour
     [SerializeField] float rotationSmooth = 5f;
     [SerializeField] float deadZoneAngle = 10f;
 
+ private void Start() {
+     Vector3 cameraForwardFlat = cameraTransform.forward;
+        cameraForwardFlat.y = 0f;
+        cameraForwardFlat.Normalize();
+    Vector3 targetPosition = cameraTransform.position + cameraForwardFlat * distanceAhead;
+       hudObject.position = targetPosition;
+}
     void Update()
     {
         if (cameraTransform == null || hudObject == null) return;
@@ -29,6 +36,7 @@ public class RotateCanvas : MonoBehaviour
             Vector3 targetPosition = cameraTransform.position + cameraForwardFlat * distanceAhead;
             targetPosition.y = heightOffset;
             hudObject.position = Vector3.Lerp(hudObject.position, targetPosition, Time.deltaTime * positionSmooth);
+            hudObject.position = targetPosition;
         }
 
         Vector3 direction = hudObject.position - cameraTransform.position;

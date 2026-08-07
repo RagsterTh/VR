@@ -2135,6 +2135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8080117996cd8004d8b5c94104d44a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onConectedText: "Informe que est\xE1 pronto"
 --- !u!1001 &935756005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5603,7 +5604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 2075182691}
   hudObject: {fileID: 1654775892}
-  distanceAhead: 2
+  distanceAhead: 11
   heightOffset: 1
   positionSmooth: 15
   rotationSmooth: 15
@@ -5948,7 +5949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4036442044084010848, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4036442044084246050, guid: 477ef72866df921469e3109b9cb1123a, type: 3}
       propertyPath: m_Name
