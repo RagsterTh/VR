@@ -1,0 +1,1 @@
+C:\Users\antonio.santos4\Documents\GitHub\VR\VR\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.VR\gradle-project\unityLibrary\build\intermediates\cxx\Debug\2yp3k224\obj\arm64-v8a

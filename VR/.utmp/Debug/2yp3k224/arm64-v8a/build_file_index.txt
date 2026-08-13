@@ -1,0 +1,3 @@
+C:\Users\antonio.santos4\Documents\GitHub\VR\VR\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.VR\gradle-project\unityLibrary\src\main\cpp\CMakeLists.txt
+C:\Users\antonio.santos4\Documents\GitHub\VR\VR\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.VR\gradle-project\unityLibrary\src\main\cpp\FramePacing\CMakeLists.txt
+C:\Users\antonio.santos4\Documents\GitHub\VR\VR\Library\PramData\AndroidApplicationController\Cache\com.DefaultCompany.VR\gradle-project\unityLibrary\src\main\cpp\GameActivity\CMakeLists.txt
