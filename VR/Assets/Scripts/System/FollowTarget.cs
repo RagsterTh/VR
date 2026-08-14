@@ -4,6 +4,7 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     [SerializeField] Transform _target;
+
     PhotonView _phView;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

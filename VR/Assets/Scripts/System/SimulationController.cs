@@ -47,7 +47,7 @@ public class SimulationController : MonoBehaviour
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
        
-        if (!PhotonNetwork.IsMasterClient)
+        if (ConnectionManager.isVR)
         {
             //int vrNumber = (int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"];
             //vrNumber = vrNumber == -1 ? 0 : vrNumber;
