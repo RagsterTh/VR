@@ -11,6 +11,7 @@
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.csproj" />
   <Project Path="AD_FimpoPropertyDraw.csproj" />
   <Project Path="PunDemos.DemoHubEditor.csproj" />
+  <Project Path="com.cqf.urpvolumetricfog.runtime.csproj" />
   <Project Path="PunDemos.DemoSlotcarEditor.csproj" />
   <Project Path="PhotonChat.csproj" />
   <Project Path="Unity.XR.Interaction.Toolkit.Samples.StarterAssets.Editor.csproj" />
@@ -18,7 +19,8 @@
   <Project Path="AD_FimpoPropertyAttr.csproj" />
   <Project Path="PhotonUnityNetworking.Utilities.PhotonPlayer.Editor.csproj" />
   <Project Path="AD_Fimpos.Editor.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="com.cqf.urpvolumetricfog.editor.csproj" />
   <Project Path="AD_FimpGeneratorsShared.csproj" />
   <Project Path="PhotonUnityNetworking.Utilities.Culling.Editor.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
 </Solution>
