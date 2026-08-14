@@ -208,6 +208,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759252316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+  m_PrefabInstance: {fileID: 4951700505529512152}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2e68ccbba98f97449032adbd0168589, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &813981371
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,10 +926,71 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 759252316}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToLoadingScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TitleFunctions, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305217014372968175, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_text
+      value: "<B>Professores:</b>\n\r\nAlexandre da Silva Thiesen : Dire\xE7\xE3o
+        da Programa\xE7\xE3o Back-end\n\r\nBruno Martins de Abreu : Dire\xE7\xE3o
+        da Programa\xE7\xE3o Front-end\r\n\nClaudio Roberto Martins : Dire\xE7\xE3o
+        de Som e Game Design\r\n\nDaniel Pinho Campos : Dire\xE7\xE3o Art\xEDstica\r\n\r\n<B>Alunos:</b>\r\n\n<B>Game
+        Designers:</b>\n\nArthur Veras Bonelli\n\nErick Lichtenfels Pudell\n\n<B>Programadores
+        Back-End:</b>\n\nAnt\xF4nio Francisco dos Santos \n\nGustavo Serafim Manzoni
+        \n\nRichard Bertan\n\nJulio Bernardo Silveira \n\n<B>Programadores Front-End:</b>\n\nPedro
+        Gabriel Vicente\n\nGustavo Roncuni de Medeiros\r\n\n<B>3D:</b>\n\nBeatriz
+        Ramirez dos Santos\n\nGabriel William Alves da Veiga\n\nRafael da Silva Correa\r\n\nLouise
+        Scheibler Neckel \n\n<B>Sound Designer:</b>\n\nHeitor Avila Fochesato \r\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 7375217030836451758, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 1450854489}
+    - target: {fileID: 7456909440997683560, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.1739824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456909440997683560, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1739824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456909440997683560, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.1739824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456909440997683560, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 346
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456909440997683560, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8326302661476982638, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_Name
       value: CanvasCredits
