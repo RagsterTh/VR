@@ -348,3 +348,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 100
   _maxLifetime: 8
+  _hitEffect: {fileID: 614527178778042251, guid: 684842ad0615e2f4ba34a85f6849a32a, type: 3}

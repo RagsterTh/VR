@@ -21,19 +21,38 @@ public class PlayersLifeBar : MonoBehaviourPun
     {
         CurrentLife = _maxLife;
         UpdateVisual();
+
+        var gameOverManager = ServiceLocator.Get<GameOverManager>();
+        if (gameOverManager != null)
+            gameOverManager.RegisterLifeBar(this);
+    }
+
+    void OnDestroy()
+    {
+        var gameOverManager = ServiceLocator.Get<GameOverManager>();
+        if (gameOverManager != null)
+            gameOverManager.UnregisterLifeBar(this);
     }
 
     public void TakeDamage(float amount)
     {
         photonView.RPC(nameof(RPC_TakeDamage), RpcTarget.All, amount);
-        ServiceLocator.Get<GameOverManager>().VerifyLose();
     }
 
     [PunRPC]
     void RPC_TakeDamage(float amount)
     {
-        CurrentLife = Mathf.Max(0, CurrentLife - amount);
-        UpdateVisual();
+        var gameOverManager = ServiceLocator.Get<GameOverManager>();
+        if (gameOverManager == null)
+            return;
+
+        foreach (var lifeBar in gameOverManager.PlayersLifeBars)
+        {
+            lifeBar.CurrentLife = Mathf.Max(0, lifeBar.CurrentLife - amount);
+            lifeBar.UpdateVisual();
+        }
+
+        gameOverManager.VerifyLose();
     }
 
     void UpdateVisual()

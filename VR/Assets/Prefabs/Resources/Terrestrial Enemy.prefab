@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d31f250528813429956c5024528f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 10
   isTerrestrian: 1
 --- !u!195 &5935597804522273069
 NavMeshAgent:

@@ -1,9 +1,11 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerBullet : MonoBehaviour
 {
     [SerializeField] float _speed;
     [SerializeField] float _maxLifetime = 8f;
+    [SerializeField] GameObject _hitEffect;
     Rigidbody _rb;
     float _spawnTime;
 
@@ -27,6 +29,10 @@ public class PlayerBullet : MonoBehaviour
         if(other.TryGetComponent(out IShootable target))
         {
             target?.Hit();
+
+            if (_hitEffect != null && PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Instantiate(_hitEffect.name, other.ClosestPoint(transform.position), transform.rotation);
+
             gameObject.SetActive(false);
         }
     }
