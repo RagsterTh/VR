@@ -4,17 +4,17 @@ using Photon.Pun;
 
 public class PlayersLifeBar : MonoBehaviourPun
 {
-    [SerializeField] GameObject _lifeBar;
+    [SerializeField] private GameObject[] _lifeBar;
     [SerializeField] float _maxLife;
 
     float currentLife;
 
     public float CurrentLife { get => currentLife; set => currentLife = value; }
+    public GameObject[] LifeBar { get => _lifeBar; set => _lifeBar = value; }
 
     void Awake()
     {
         ServiceLocator.Register(this);
-        _lifeBar = GameObject.FindWithTag("Lifebar");
     }
 
     void Start()
@@ -38,7 +38,16 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     void UpdateVisual()
     {
-        Image _lifeBarImg = _lifeBar.GetComponent<Image>();
-        _lifeBarImg.fillAmount = CurrentLife / _maxLife;
+        if (LifeBar == null || LifeBar.Length == 0)
+        {
+            Debug.LogWarning($"{nameof(PlayersLifeBar)}: LifeBar is not assigned on {name}.", this);
+            return;
+        }
+
+        foreach (GameObject lifeBar in LifeBar)
+        {
+            Image lifeBarImg = lifeBar.GetComponent<Image>();
+            lifeBarImg.fillAmount = CurrentLife / _maxLife;
+        }
     }
 }

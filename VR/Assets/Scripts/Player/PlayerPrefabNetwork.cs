@@ -9,6 +9,7 @@ public enum PlayerTool
 }
 public class PlayerPrefabNetwork : MonoBehaviour
 {
+    [SerializeField] GameObject _playerLifebar;
     PhotonView _phView;
     [SerializeField] GameObject[] _elements;
     [SerializeField] GameObject _leftGun;
@@ -28,7 +29,7 @@ public class PlayerPrefabNetwork : MonoBehaviour
         {
             item.SetActive(true);
         }
-        
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "Game":
@@ -43,7 +44,16 @@ public class PlayerPrefabNetwork : MonoBehaviour
         {
             _phView.RPC("RPC_Hands", RpcTarget.AllBuffered, (int)PlayerTool.Gun);
         });
-        
+
+    }
+    void Start()
+    {
+        var lifeBarService = ServiceLocator.Get<PlayersLifeBar>();
+        if (lifeBarService != null)
+        {
+            var list = new System.Collections.Generic.List<GameObject>(lifeBarService.LifeBar) { _playerLifebar };
+            lifeBarService.LifeBar = list.ToArray();
+        }
     }
     [PunRPC]
     void RPC_Hands(int tool)
@@ -57,7 +67,7 @@ public class PlayerPrefabNetwork : MonoBehaviour
     }
     public void RecenterPlayer()
     {
-            transform.position = SimulationController.Instance.SpawnPoints[(int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"]].position;
+        transform.position = SimulationController.Instance.SpawnPoints[(int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"]].position;
 
     }
 }

@@ -215,6 +215,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8337239344414749316, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5747645146381555489}
+    - targetCorrespondingSourceObject: {fileID: 8337239344414749316, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5747645146381555490}
   m_SourcePrefab: {fileID: 100100000, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
 --- !u!1 &5747645146381555488 stripped
 GameObject:
@@ -233,6 +236,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3968e9f0aacadee42acb16f1af0a28cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverManager
+--- !u!114 &5747645146381555490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747645146381555488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0030f117aaae94787408904dc08b8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayersLifeBar
+  _lifeBar: {fileID: 0}
+  _maxLife: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
