@@ -46,11 +46,14 @@ public class PlayersLifeBar : MonoBehaviourPun
     public void TakeDamage(float amount)
     {
         Debug.Log($"[PlayersLifeBar] {name} TakeDamage({amount}) called, dispatching RPC_TakeDamage to all clients.");
-        photonView.RPC(nameof(RPC_TakeDamage), RpcTarget.All, amount);
+        // The RPC lives on PlayerPrefabNetwork (on the prefab root, same GameObject as the PhotonView) because
+        // PUN only looks for [PunRPC] methods on components attached to the exact GameObject the PhotonView sits
+        // on - it does not search children. This script lives on a nested "Image" child, so its own RPCs would
+        // never be found.
+        photonView.RPC(nameof(PlayerPrefabNetwork.RPC_TakeDamage), RpcTarget.All, amount);
     }
 
-    [PunRPC]
-    void RPC_TakeDamage(float amount)
+    public void ApplyDamage(float amount)
     {
         var gameOverManager = ServiceLocator.Get<GameOverManager>();
         IReadOnlyList<PlayersLifeBar> targets;
@@ -60,7 +63,7 @@ public class PlayersLifeBar : MonoBehaviourPun
         }
         else
         {
-            Debug.LogWarning($"[PlayersLifeBar] {name} RPC_TakeDamage: no GameOverManager/registered life bars found, applying damage only to self.");
+            Debug.LogWarning($"[PlayersLifeBar] {name} ApplyDamage: no GameOverManager/registered life bars found, applying damage only to self.");
             targets = new List<PlayersLifeBar> { this };
         }
 

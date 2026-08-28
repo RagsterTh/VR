@@ -56,6 +56,18 @@ public class PlayerPrefabNetwork : MonoBehaviour
         }
     }
     [PunRPC]
+    public void RPC_TakeDamage(float amount)
+    {
+        var lifeBar = GetComponentInChildren<PlayersLifeBar>();
+        if (lifeBar == null)
+        {
+            Debug.LogWarning($"[PlayerPrefabNetwork] {name} RPC_TakeDamage: no PlayersLifeBar found in children.");
+            return;
+        }
+        lifeBar.ApplyDamage(amount);
+    }
+
+    [PunRPC]
     void RPC_Hands(int tool)
     {
         _leftGun.SetActive(tool != (int)PlayerTool.Hand);

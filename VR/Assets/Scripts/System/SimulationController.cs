@@ -58,10 +58,8 @@ public class SimulationController : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2);
-        /*
         if (PhotonNetwork.IsMasterClient)
             _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
-        */
     }
     public static GameObject GetResource(ResourceTypes resource)
     {

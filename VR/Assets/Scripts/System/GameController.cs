@@ -87,23 +87,65 @@ public class GameController : MonoBehaviour
 
     public void ActiveBattle()
     {
+        if (!AllVRPlayersReady())
+        {
+            Debug.LogWarning($"[GameController] ActiveBattle blocked: {GetReadyPlayerCount()}/{CountExpectedVRPlayers()} VR players connected and ready.");
+            return;
+        }
         _switch.Active();
+    }
+
+    private bool AllVRPlayersReady()
+    {
+        int expectedVRPlayers = CountExpectedVRPlayers();
+        return expectedVRPlayers > 0 && GetReadyPlayerCount() >= expectedVRPlayers;
+    }
+
+    private int GetReadyPlayerCount()
+    {
+        if (_playerAvatar.Count > 0)
+            return _playerAvatar.Count;
+
+        if (SimulationController.Instance != null)
+            return SimulationController.Instance.PlayerAvatar.Count;
+
+        return 0;
+    }
+
+    private int CountExpectedVRPlayers()
+    {
+        int expectedVRPlayers = 0;
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            if (player.CustomProperties.TryGetValue("IsVR", out object isVR) && (bool)isVR)
+                expectedVRPlayers++;
+        }
+        return expectedVRPlayers;
     }
 
     //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
-        _playerAvatar.Add(PhotonNetwork.GetPhotonView(playerID).transform.GetChild(1).gameObject);
+        PhotonView playerView = PhotonNetwork.GetPhotonView(playerID);
+        Camera playerCamera = playerView.GetComponentInChildren<Camera>(true);
+        if (playerCamera == null)
+        {
+            Debug.LogWarning($"[GameController] RPC_RegisterPlayerAvatar: no Camera found under player {playerID}, falling back to root transform.");
+            _playerAvatar.Add(playerView.gameObject);
+            return;
+        }
+        _playerAvatar.Add(playerCamera.gameObject);
     }
     [PunRPC]
     public void RPC_RemovePlayerAvatar(int playerID)
     {
         foreach (var player in _playerAvatar)
         {
-            if (player.GetPhotonView().ViewID == playerID)
+            PhotonView view = player.GetComponentInParent<PhotonView>();
+            if (view != null && view.ViewID == playerID)
             {
-                PhotonNetwork.Destroy(player.transform.parent.gameObject);
+                PhotonNetwork.Destroy(view.gameObject);
                 _playerAvatar.Remove(player);
                 break;
             }

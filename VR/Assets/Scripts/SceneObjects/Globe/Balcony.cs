@@ -24,6 +24,7 @@ public class Balcony : MonoBehaviour
     [SerializeField] UnityEvent OnDialogueEnd;
     private void Start()
     {
+        StartDialogue();
         _phView = GetComponent<PhotonView>();
         _merchantNameTMP.text = _merchantName;
         //_dialogueCanvas.gameObject.SetActive(false);

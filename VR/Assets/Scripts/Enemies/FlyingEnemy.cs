@@ -66,8 +66,7 @@ public class FlyingEnemy : MovingEnemy
         yield return new WaitForSeconds(fireRate);
         if (isInRange && followingPlayer != null)
         {
-            Vector3 targetPos = followingPlayer.position + Vector3.up * 1.5f;
-            Vector3 direction = (targetPos - muzzle.position).normalized;
+            Vector3 direction = (followingPlayer.position - muzzle.position).normalized;
             GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
         }
