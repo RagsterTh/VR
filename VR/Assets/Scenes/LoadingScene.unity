@@ -716,7 +716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &329435980
 RectTransform:
   m_ObjectHideFlags: 0
@@ -732,9 +732,9 @@ RectTransform:
   - {fileID: 814988629}
   m_Father: {fileID: 1245743446}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 66.04865, y: -42.576}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 132.0973, y: 15.944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &329435981
@@ -1903,7 +1903,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Combate
+  m_text: Jogo de Tiro
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -5967,7 +5967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Ir para o sagu\xE3o"
+  m_text: "Experi\xEAncia Completa"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
