@@ -1,24 +1,54 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameOverManager : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI[] _killsText;
+
     private int enemiesKilled;
     private int enemiesKilledCap = 15;
     private readonly List<PlayersLifeBar> _playersLifeBars = new();
 
-    public int EnemiesKilled { get => enemiesKilled; set => enemiesKilled = value; }
+    public int EnemiesKilled
+    {
+        get => enemiesKilled;
+        set
+        {
+            enemiesKilled = value;
+            UpdateKillsText();
+        }
+    }
     public IReadOnlyList<PlayersLifeBar> PlayersLifeBars => _playersLifeBars;
 
     void Awake()
     {
+        Debug.Log($"[GameOverManager] Awake() on {name}, registering in ServiceLocator.");
         ServiceLocator.Register(this);
+        UpdateKillsText();
+    }
+
+    void UpdateKillsText()
+    {
+        if (_killsText == null)
+            return;
+
+        string text = $"{enemiesKilled}/{enemiesKilledCap}";
+        foreach (var killsText in _killsText)
+        {
+            if (killsText != null)
+                killsText.text = text;
+        }
     }
 
     public void RegisterLifeBar(PlayersLifeBar lifeBar)
     {
         if (!_playersLifeBars.Contains(lifeBar))
+        {
             _playersLifeBars.Add(lifeBar);
+            Debug.Log($"[GameOverManager] RegisterLifeBar: {lifeBar.name} added (total: {_playersLifeBars.Count})");
+        }
     }
 
     public void UnregisterLifeBar(PlayersLifeBar lifeBar)

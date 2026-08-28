@@ -10,7 +10,7 @@ public class TurretEnemy : Enemy
     [SerializeField] float range;
     [SerializeField] float projectileForce;
 
-    new void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         StartCoroutine(Fire());

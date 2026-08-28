@@ -5040,7 +5040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a287512e18706f84f909bb53bed43e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 20
   isTerrestrian: 0
   muzzle: {fileID: 8405801597568876154}
   data: {fileID: 11400000, guid: 5f71a5596f88550449b2f3df65720056, type: 2}

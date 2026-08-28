@@ -10,34 +10,23 @@ public abstract class Enemy : MonoBehaviour, IShootable
 {
 
     protected Transform followingPlayer;
-    List<Transform> _playersPos = new List<Transform>();
     PhotonView _phView;
     [SerializeField] private float damage;
     [SerializeField] private bool isTerrestrian;
-    protected void Awake()
+    protected virtual void Awake()
     {
         _phView = GetComponent<PhotonView>();
         gameObject.SetActive(false);
     }
 
-    protected void OnEnable()
+    protected virtual void OnEnable()
     {
-        _playersPos.Clear();
         followingPlayer = null;
-        if (SceneManager.GetActiveScene().name.Equals("Game"))
-            foreach (var t in GameController.instance.PlayerAvatar)
-            {
-                _playersPos.Add(t.transform);
-            }
-        if (SceneManager.GetActiveScene().name.Equals("GloboV2"))
-            foreach (var t in SimulationController.Instance.PlayerAvatar)
-            {
-                _playersPos.Add(t.transform);
-            }
-        StartCoroutine(FindClose(_playersPos.ToArray()));
+        StartCoroutine(FindClose());
     }
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"[Enemy] {name} OnTriggerEnter with '{other.name}' (tag={other.tag})");
         if (other.CompareTag("Player"))
         {
             DealDamage();
@@ -45,30 +34,75 @@ public abstract class Enemy : MonoBehaviour, IShootable
     }
     private void DealDamage()
     {
+        Debug.Log($"[Enemy] {name} DealDamage() called. followingPlayer={(followingPlayer ? followingPlayer.name : "null")}, damage={damage}");
         if (followingPlayer)
         {
-            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+            var lifeBar = ServiceLocator.Get<PlayersLifeBar>();
+            if (lifeBar == null)
+            {
+                Debug.LogWarning($"[Enemy] {name} could not find a PlayersLifeBar via ServiceLocator. No damage applied.");
+            }
+            else
+            {
+                Debug.Log($"[Enemy] {name} calling TakeDamage({damage}) on {lifeBar.name}");
+                lifeBar.TakeDamage(damage);
+            }
         }
         if (isTerrestrian)
         {
-            Destroy(this.gameObject);
+            Debug.Log($"[Enemy] {name} is terrestrial, returning to pool.");
+            _phView.RPC(nameof(RPC_Despawn), RpcTarget.All);
         }
     }
 
-    IEnumerator FindClose(Transform[] players)
+    [PunRPC]
+    void RPC_Despawn()
     {
-        float distance = 50;
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (Vector3.Distance(players[i].position, transform.position) < distance)
-            {
-                distance = Vector3.Distance(players[i].position, transform.position);
-                followingPlayer = players[i];
-            }
+        gameObject.SetActive(false);
+    }
 
+    List<Transform> GetPlayerTransforms()
+    {
+        List<Transform> players = new List<Transform>();
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.Equals("Game") && GameController.instance != null)
+        {
+            foreach (var avatar in GameController.instance.PlayerAvatar)
+                players.Add(avatar.transform);
         }
-        yield return new WaitForSeconds(.2f);
-        StartCoroutine(FindClose(players));
+        else if (sceneName.Equals("GloboV2") && SimulationController.Instance != null)
+        {
+            foreach (var avatar in SimulationController.Instance.PlayerAvatar)
+                players.Add(avatar.transform);
+        }
+        return players;
+    }
+
+    IEnumerator FindClose()
+    {
+        WaitForSeconds wait = new WaitForSeconds(.2f);
+        while (true)
+        {
+            List<Transform> players = GetPlayerTransforms();
+            float distance = 50;
+            Transform closest = null;
+            for (int i = 0; i < players.Count; i++)
+            {
+                if (players[i] == null)
+                    continue;
+
+                float d = Vector3.Distance(players[i].position, transform.position);
+                if (d < distance)
+                {
+                    distance = d;
+                    closest = players[i];
+                }
+            }
+            if (closest != null)
+                followingPlayer = closest;
+
+            yield return wait;
+        }
     }
 
     protected virtual IEnumerator FollowPlayer(NavMeshAgent agent)
@@ -91,8 +125,16 @@ public abstract class Enemy : MonoBehaviour, IShootable
     public void RPC_Hit()
     {
         gameObject.SetActive(false);
-        ServiceLocator.Get<GameOverManager>().EnemiesKilled++;
-        print("Enemy Killed: " + ServiceLocator.Get<GameOverManager>().EnemiesKilled);
-        ServiceLocator.Get<GameOverManager>().VerifyWin();
+
+        var gameOverManager = ServiceLocator.Get<GameOverManager>();
+        if (gameOverManager == null)
+        {
+            Debug.LogWarning($"[Enemy] {name} RPC_Hit: no GameOverManager registered in ServiceLocator. Kill not counted.");
+            return;
+        }
+
+        gameOverManager.EnemiesKilled++;
+        Debug.Log("Enemy Killed: " + gameOverManager.EnemiesKilled);
+        gameOverManager.VerifyWin();
     }
 }

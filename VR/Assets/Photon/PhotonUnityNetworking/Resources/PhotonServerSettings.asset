@@ -81,6 +81,7 @@ MonoBehaviour:
   - RPC_RegisterVRNumber
   - RPC_SetSimulationSector
   - RPC_TakeDamage
+  - RPC_Despawn
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

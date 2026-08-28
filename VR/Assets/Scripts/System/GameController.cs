@@ -16,11 +16,17 @@ public class GameController : MonoBehaviour
     [SerializeField] ObjectPool _playersBullets;
     [SerializeField] SceneResources _sceneResources;
     [SerializeField] Switch _switch;
+
+    [Header("Difficulty")]
+    [Tooltip("How much each extra player speeds up enemy spawns. 0 = spawn rate ignores player count. 1 = spawn interval is halved with 2 players, thirds with 3, etc.")]
+    [SerializeField] float _difficultyFactor = 0.5f;
+
     List<GameObject> _playerAvatar = new List<GameObject>();
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
 
     public List<GameObject> PlayerAvatar { get => _playerAvatar; }
     public ObjectPool PlayersBullets { get => _playersBullets; }
+    public float DifficultyFactor { get => _difficultyFactor; set => _difficultyFactor = value; }
 
     [Header("Events")]
     public UnityEvent OnBattleBegin;

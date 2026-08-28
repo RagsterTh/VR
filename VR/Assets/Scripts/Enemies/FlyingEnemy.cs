@@ -32,7 +32,7 @@ public class FlyingEnemy : MovingEnemy
         StartCoroutine(Fire());
     }
 
-    new void OnEnable()
+    protected override void OnEnable()
     {
         base.OnEnable();
         if (hasDisable)
@@ -44,7 +44,7 @@ public class FlyingEnemy : MovingEnemy
             agent.baseOffset = value;
             StartCoroutine(IsInRange());
             StartCoroutine(Fire());
-        }        
+        }
     }
 
     IEnumerator IsInRange()
@@ -52,7 +52,7 @@ public class FlyingEnemy : MovingEnemy
         yield return new WaitForSeconds(0.2f);
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            isInRange = true;            
+            isInRange = true;
         }
         else
         {
@@ -60,7 +60,6 @@ public class FlyingEnemy : MovingEnemy
         }
         StartCoroutine(IsInRange());
     }
-
 
     IEnumerator Fire()
     {
