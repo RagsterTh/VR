@@ -56,8 +56,8 @@ public class MedicalQuestions : MonoBehaviour
                            $"O paciente apresenta uma lesão <b>{intensity.ToLower()}</b> do tipo <b>{damageType.ToLower()}</b>.\n\n" +
                            "Selecione o tratamento mais adequado:";
 
-        SetupButtons();
         buttonPanel.SetActive(true);
+        SetupButtons();
     }
 
     private void SetupButtons()
@@ -92,6 +92,7 @@ public class MedicalQuestions : MonoBehaviour
             }
             int id = (options[i] == correctTreatment) ? (int)correctTreatment : (int)options[i];
             answerButtons[i].gameObject.SetActive(true);
+            answerButtons[i].GetComponent<MoveTween>().Move();
             answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
             answerButtons[i].onClick.RemoveAllListeners();
             answerButtons[i].onClick.AddListener(() => CheckAnswer(id));

@@ -5,6 +5,7 @@ public class MoveTween : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] bool useRectTransform;
+    [SerializeField] bool useCurrentPosAsTarget = true;
     [SerializeField] Vector3 targetPos;
     [SerializeField] float duration;
 
@@ -26,6 +27,7 @@ public class MoveTween : MonoBehaviour
     [ContextMenu("Move")]
     public void Move()
     {
+        
         if (useRectTransform)
             StartCoroutine(MoveCoroutine(targetPos, (newPos) => rectTransform.anchoredPosition = newPos));
         else
@@ -34,7 +36,7 @@ public class MoveTween : MonoBehaviour
     IEnumerator MoveCoroutine(Vector2 targetPos, Action<Vector2> moveVariable)
     {
         float t = 0;
-        Vector3 startPos = useRectTransform ? rectTransform.anchoredPosition : transform.position;
+        Vector3 startPos = useRectTransform ? rectTransform.anchoredPosition * (Vector2.right * 15) : transform.position;
         while(t < duration)
         {
             t += Time.deltaTime;
@@ -56,5 +58,10 @@ public class MoveTween : MonoBehaviour
             rectTransform.anchoredPosition = originalPos;
         else
             transform.position = originalPos;
+    }
+    [ContextMenu("TestMoveTween")]
+    public void TestTween()
+    {
+        Move();
     }
 }
