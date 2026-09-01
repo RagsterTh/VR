@@ -96,6 +96,7 @@ public class MedicalQuestions : MonoBehaviour
             answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
             answerButtons[i].onClick.RemoveAllListeners();
             answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
+            answerButtons[i].onClick.AddListener(() => print("clicado"));
 
         }
     }

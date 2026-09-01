@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.42953286, b: 0.5377358, a: 0.84313726}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4985,7 +4985,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168774784}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.79}
+  m_LocalPosition: {x: 0, y: 0, z: 7.02}
   m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -4996,7 +4996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2.42, y: 5.18}
+  m_AnchoredPosition: {x: 1.99, y: 5.18}
   m_SizeDelta: {x: 1599.9999, y: 899.99994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168774786
@@ -6856,7 +6856,7 @@ Transform:
   m_GameObject: {fileID: 1703198036}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16.61}
+  m_LocalPosition: {x: -1.25, y: 0, z: -16.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7138,6 +7138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shooterGame: {fileID: 0}
+  _globe: {fileID: 0}
   isMedical: 1
 --- !u!1 &1745642750
 GameObject:
@@ -8968,6 +8969,30 @@ PrefabInstance:
       propertyPath: m_text
       value: "Isso \xE9 um machucado, ache eles no corpo, mire e atire neles para
         ver os possiveis tratamentos."
+      objectReference: {fileID: 0}
+    - target: {fileID: 1444033004699721319, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
+    - target: {fileID: 1444033004699721319, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
+    - target: {fileID: 1444033004699721319, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185548766708762803, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
+    - target: {fileID: 3185548766708762803, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
+    - target: {fileID: 3185548766708762803, guid: 3742d456194b92e41b226cd240357b78, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7687239536722838802, guid: 3742d456194b92e41b226cd240357b78, type: 3}
       propertyPath: m_Type
