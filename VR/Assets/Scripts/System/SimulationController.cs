@@ -19,13 +19,13 @@ public class SimulationController : MonoBehaviour
     [SerializeField] Transform[] _spawnPoints;
     [SerializeField] SceneResources _sceneResources;
     static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
-    [SerializeField]public UnityEvent OnExperienceBegin;
-    [SerializeField]public UnityEvent OnShootGameBegins;
+    [SerializeField] public UnityEvent OnExperienceBegin;
+    [SerializeField] public UnityEvent OnShootGameBegins;
     List<GameObject> _playerAvatar = new List<GameObject>();
     public List<GameObject> PlayerAvatar { get => _playerAvatar; }
 
     public UserCam User { get => _user; }
-    public Transform[] SpawnPoints { get => _spawnPoints;}
+    public Transform[] SpawnPoints { get => _spawnPoints; }
 
     private void Awake()
     {
@@ -39,19 +39,18 @@ public class SimulationController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     IEnumerator Start()
     {
-          //  Application.Quit();
+        //  Application.Quit();
         _resourcesRegister.Clear();
-        foreach (var item in _sceneResources.resources) 
+        foreach (var item in _sceneResources.resources)
         {
             _resourcesRegister.Add(item.type, item.resource);
         }
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-       
+
         if (ConnectionManager.isVR)
         {
-            //int vrNumber = (int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"];
-            //vrNumber = vrNumber == -1 ? 0 : vrNumber;
-            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[1].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
+            int spawnIndex = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % _spawnPoints.Length;
+            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[spawnIndex].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
             if (PhotonNetwork.LocalPlayer.IsLocal)
             {
                 _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
@@ -69,7 +68,7 @@ public class SimulationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void ActiveShootGame()
     {
@@ -94,14 +93,14 @@ public class SimulationController : MonoBehaviour
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
 
-        GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>(true).gameObject;
+        GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>().gameObject;
         _playerAvatar.Add(player);
     }
     public int GetPlayerNumber(int playerController)
     {
         foreach (var player in _playerAvatar)
         {
-            if(player.GetPhotonView().ControllerActorNr == playerController)
+            if (player.GetPhotonView().ControllerActorNr == playerController)
             {
                 return _playerAvatar.IndexOf(player);
             }

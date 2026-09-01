@@ -79,7 +79,8 @@ public class PlayerPrefabNetwork : MonoBehaviour
     }
     public void RecenterPlayer()
     {
-        transform.position = SimulationController.Instance.SpawnPoints[(int)PhotonNetwork.LocalPlayer.CustomProperties["VRNumber"]].position;
-
+        Transform[] spawnPoints = SimulationController.Instance.SpawnPoints;
+        int spawnIndex = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % spawnPoints.Length;
+        transform.position = spawnPoints[spawnIndex].position;
     }
 }
