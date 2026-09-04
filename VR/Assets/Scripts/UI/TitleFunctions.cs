@@ -42,7 +42,7 @@ public class TitleFunctions : MonoBehaviour
             _credits.transform.localPosition = new Vector3(0, y, 0);
             y += 2;
             yield return new WaitForSeconds(0.01f);
-            if (y >= 6100)
+            if (y >= 3050)
             {
                 isRunning = false;
                 StartGame();

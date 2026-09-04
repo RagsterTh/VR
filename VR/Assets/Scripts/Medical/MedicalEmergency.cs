@@ -85,7 +85,7 @@ public class MedicalEmergency : MonoBehaviour, IShootable
         }
         transform.localScale = end;
     }
-
+    [ContextMenu("Hit")]
     public void Hit()
     {
         isSelected = true;

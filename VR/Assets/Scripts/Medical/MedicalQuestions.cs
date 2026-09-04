@@ -22,7 +22,7 @@ public class MedicalQuestions : MonoBehaviour
 
     [SerializeField] UnityEvent OnCorrectAnswer;
     [SerializeField] UnityEvent OnWrongAnswer;
-
+    int correctId;
     private void Start()
     {
         emergencyManager = GetComponent<MedicalEmergencyManager>();
@@ -91,13 +91,20 @@ public class MedicalQuestions : MonoBehaviour
                 continue;
             }
             int id = (options[i] == correctTreatment) ? (int)correctTreatment : (int)options[i];
-            answerButtons[i].gameObject.SetActive(true);
-            answerButtons[i].GetComponent<MoveTween>().Move();
-            answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
-            answerButtons[i].onClick.RemoveAllListeners();
-            answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
-            answerButtons[i].onClick.AddListener(() => print("clicado"));
 
+            correctId = (int)correctTreatment;
+            print("ADD LISTENER");
+            answerButtons[i].gameObject.SetActive(true);
+            print("ADD LISTENER 2");
+            print("ADD LISTENER 3");
+            answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
+            print("ADD LISTENER3.6");
+            answerButtons[i].onClick.RemoveAllListeners();
+            print("ADD LISTENER 4");
+            answerButtons[i].onClick.AddListener(() => print("Clicado"));
+            print("ADD LISTENER 6");
+            answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
+            print("ADD LISTENER7");
         }
     }
 
@@ -159,7 +166,7 @@ public class MedicalQuestions : MonoBehaviour
             case "RemoverFonteRadiacao": return "Remover Fonte de Radiação";
             case "AplicarPomadaAntibiotica": return "Aplicar Pomada Antibiótica";
             case "UsoDeGeloLocal": return "Uso de Gelo Local";
-            case "CompressaQuente": return "Compressa Quente";
+           case "CompressaQuente": return "Compressa Quente";
 
             default:
                 return formatted;
