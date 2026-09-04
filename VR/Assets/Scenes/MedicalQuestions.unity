@@ -5185,6 +5185,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2251096815688800409, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -5263,6 +5267,14 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3826497187831534388, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516586379419863993, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4612981141988759473, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_Color.a
       value: 0.09803922
@@ -5282,6 +5294,54 @@ PrefabInstance:
     - target: {fileID: 4612981141988759473, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5410554861367746932, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -449.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593148972740503717, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5995454429712979970, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330769050358416713, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333622969687058629, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6362831002315524850, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6717031262441120185, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7375217030836451758, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: heightOffset
@@ -5311,6 +5371,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7909899828062965296, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8326302661476982638, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: m_Name
       value: CanvasCredits
@@ -5319,16 +5383,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8449178310680968247, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
---- !u!1 &1187869840 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8326302661476982638, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
-  m_PrefabInstance: {fileID: 1187869839}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1190857504
 GameObject:
   m_ObjectHideFlags: 0
@@ -6891,6 +6954,18 @@ MonoBehaviour:
   OnQuestionsDone:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1703198038}
+        m_TargetAssemblyTypeName: MedicalQuestions, Assembly-CSharp
+        m_MethodName: CreditsScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1067429342}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -6902,18 +6977,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1187869840}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 1557325389}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine

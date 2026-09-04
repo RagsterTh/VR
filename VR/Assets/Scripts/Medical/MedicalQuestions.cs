@@ -1,9 +1,10 @@
-using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
+using Photon.Pun;
 using System;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class MedicalQuestions : MonoBehaviour
 {
@@ -173,9 +174,15 @@ public class MedicalQuestions : MonoBehaviour
         }
 
     }
+    public void CreditsScene()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            PhotonNetwork.LoadLevel("Credits");
 
+    }
     public void AllWoundsTreated()
     {
+        CreditsScene(); 
         Debug.Log("ACABOU");
         OnQuestionsDone?.Invoke();
     }
