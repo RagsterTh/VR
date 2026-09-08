@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d31f250528813429956c5024528f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEffectPrefab: {fileID: 2123088048099951508, guid: 3b7710e616d64b64ea5072a063d81410, type: 3}
+  deathEffectLifetime: 10
 --- !u!114 &6832991175911202793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a785e4891cc81243b1948b62a9f325e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  maxHits: 5
+  deathEffectPrefab: {fileID: 2123088048099951508, guid: 3b7710e616d64b64ea5072a063d81410, type: 3}
+  deathEffectLifetime: 10
   OnDeath:
     m_PersistentCalls:
       m_Calls: []

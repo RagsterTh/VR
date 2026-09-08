@@ -53,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   isTerrestrian: 1
+  deathEffectPrefab: {fileID: 2123088048099951508, guid: 3b7710e616d64b64ea5072a063d81410, type: 3}
+  deathEffectLifetime: 10
 --- !u!195 &5935597804522273069
 NavMeshAgent:
   m_ObjectHideFlags: 0

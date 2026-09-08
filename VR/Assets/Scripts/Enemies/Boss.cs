@@ -6,6 +6,9 @@ public class Boss : MonoBehaviour, IShootable
 {
     [SerializeField] float damage;
     [SerializeField] int maxHits = 5;
+    [Header("Death Effect")]
+    [SerializeField] GameObject deathEffectPrefab;
+    [SerializeField] float deathEffectLifetime = 10f;
     int currentHits;
     PhotonView _phView;
 
@@ -35,6 +38,11 @@ public class Boss : MonoBehaviour, IShootable
         currentHits++;
         if (currentHits >= maxHits)
         {
+            if (deathEffectPrefab != null)
+            {
+                GameObject deathEffect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+                Destroy(deathEffect, deathEffectLifetime);
+            }
             OnDeath.Invoke();
             gameObject.SetActive(false);
         }

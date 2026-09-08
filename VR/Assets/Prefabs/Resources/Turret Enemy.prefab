@@ -221,6 +221,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   isTerrestrian: 0
+  deathEffectPrefab: {fileID: 2123088048099951508, guid: 3b7710e616d64b64ea5072a063d81410, type: 3}
+  deathEffectLifetime: 10
   muzzle: {fileID: 0}
   data: {fileID: 0}
   stopingDistance: 0

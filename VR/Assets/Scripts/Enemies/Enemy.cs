@@ -13,6 +13,9 @@ public abstract class Enemy : MonoBehaviour, IShootable
     PhotonView _phView;
     [SerializeField] private float damage;
     [SerializeField] private bool isTerrestrian;
+    [Header("Death Effect")]
+    [SerializeField] private GameObject deathEffectPrefab;
+    [SerializeField] private float deathEffectLifetime = 10f;
     protected virtual void Awake()
     {
         _phView = GetComponent<PhotonView>();
@@ -124,6 +127,12 @@ public abstract class Enemy : MonoBehaviour, IShootable
     [PunRPC]
     public void RPC_Hit()
     {
+        Die();
+    }
+
+    protected virtual void Die()
+    {
+        SpawnDeathEffect();
         gameObject.SetActive(false);
 
         var gameOverManager = ServiceLocator.Get<GameOverManager>();
@@ -136,5 +145,17 @@ public abstract class Enemy : MonoBehaviour, IShootable
         gameOverManager.EnemiesKilled++;
         Debug.Log("Enemy Killed: " + gameOverManager.EnemiesKilled);
         gameOverManager.VerifyWin();
+    }
+
+    private void SpawnDeathEffect()
+    {
+        if (deathEffectPrefab == null)
+        {
+            Debug.LogWarning($"[Enemy] {name}: death effect prefab is not assigned.", this);
+            return;
+        }
+
+        GameObject deathEffect = Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
+        Destroy(deathEffect, deathEffectLifetime);
     }
 }
