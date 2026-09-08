@@ -271,7 +271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 207.44876
+      value: 166.14778
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalScale.z
@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.307
+      value: -5.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -287,7 +287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.474
+      value: -6.158
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd1a68abcb52fc044861c36da2e3afa2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -919,15 +919,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5411765, g: 0.5411765, b: 0.5411765, a: 1}
+  m_Color: {r: 0.34509805, g: 0.54901963, b: 0.65882355, a: 0.42745098}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: ff11bd335e34ef545b6b6bdaed2835e4, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -935,7 +935,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 1.79
 --- !u!222 &229924682
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4890,7 +4890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6506e457bf312cd4f8563cfa027c0ba7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.64
+      value: -2.59
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6506e457bf312cd4f8563cfa027c0ba7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4898,7 +4898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6506e457bf312cd4f8563cfa027c0ba7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.886
+      value: -9.49
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6506e457bf312cd4f8563cfa027c0ba7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6589,17 +6589,19 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'Ferimento
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5dedd5eaf4b1f9841873607ac9eb6fdd, type: 2}
+  m_sharedMaterial: {fileID: 2019212167808718041, guid: 5dedd5eaf4b1f9841873607ac9eb6fdd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6815,7 +6817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5d95d0809e0c72459024f6658edb6e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.423
+      value: 7.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d5d95d0809e0c72459024f6658edb6e7, type: 3}
       propertyPath: m_LocalRotation.w
