@@ -167,7 +167,7 @@ public class MedicalQuestions : MonoBehaviour
             case "RemoverFonteRadiacao": return "Remover Fonte de Radiação";
             case "AplicarPomadaAntibiotica": return "Aplicar Pomada Antibiótica";
             case "UsoDeGeloLocal": return "Uso de Gelo Local";
-           case "CompressaQuente": return "Compressa Quente";
+            case "CompressaQuente": return "Compressa Quente";
 
             default:
                 return formatted;
@@ -176,13 +176,12 @@ public class MedicalQuestions : MonoBehaviour
     }
     public void CreditsScene()
     {
-        if (PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel("Credits");
+        PhotonNetwork.LoadLevel("Credits");
 
     }
     public void AllWoundsTreated()
     {
-        CreditsScene(); 
+        CreditsScene();
         Debug.Log("ACABOU");
         OnQuestionsDone?.Invoke();
     }
