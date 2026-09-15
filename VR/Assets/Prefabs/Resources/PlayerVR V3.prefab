@@ -1564,6 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 6357422154443924556}
+  positionOffset: {x: 0, y: 2, z: 0}
 --- !u!1 &5770348542102554453
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,6 +4110,10 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 3372246666668191492}
+    - target: {fileID: 4507588648663665631, guid: 81589153f0b0bb547b785c80ce63fafa, type: 3}
+      propertyPath: positionOffset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7203027435846927519, guid: 81589153f0b0bb547b785c80ce63fafa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.156
