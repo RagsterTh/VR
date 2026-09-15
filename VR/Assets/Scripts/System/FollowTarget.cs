@@ -4,7 +4,7 @@ using UnityEngine;
 public class FollowTarget : MonoBehaviour
 {
     [SerializeField] Transform _target;
-
+    [SerializeField] Vector3 positionOffset;
     PhotonView _phView;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +19,7 @@ public class FollowTarget : MonoBehaviour
     {
         if (!_phView.IsMine)
             return;
-        transform.position = new Vector3(_target.position.x, transform.position.y, _target.position.z - 0.05f);
+        transform.position = new Vector3(_target.position.x, transform.position.y , _target.position.z - 0.05f) + positionOffset;
 
         Vector3 currentRotation = transform.eulerAngles;
 
