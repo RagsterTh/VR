@@ -21,25 +21,30 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: leaves_apple_01a
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0f465929dfb2594408a217d30f4c714e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _WINDTYPE_WINDOFF
+  m_InvalidKeywords:
   - _ALPHATEST_ON
-  - _OCCLUSIONMAP
-  m_InvalidKeywords: []
+  - _BRANCHMASKR_ON
+  - _MASKROOTS_ON
+  - _SEASONVERTEXCOLORR_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
-  disabledShaderPasses:
-  - MOTIONVECTORS
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlbedoMap:
+        m_Texture: {fileID: 2800000, guid: abdb8ff2956728b4b832f0fe27544a7b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: abdb8ff2956728b4b832f0fe27544a7b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -68,7 +73,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: abdb8ff2956728b4b832f0fe27544a7b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaskMapRGBA:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseMapGrayscale:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -102,45 +119,96 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ADVANCEDSETTINGS: 0
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 1
+    - _AlphaClipping: 0.4
     - _AlphaToMask: 1
+    - _AmbientOcclusionIntensity: 1
+    - _BackfaceCulling: 2
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
+    - _BranchMaskR: 1
+    - _BranchMaskRadious: 0.5
+    - _BranchMaskScale: 0.1
+    - _BranchSwayPower: 1
+    - _BranchWindLarge: 1
+    - _BranchWindSmall: 1
     - _BumpScale: 1
+    - _CenterofMass: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _ColorVariation: 0.2
     - _CoreSize: 0.3
     - _Cull: 0
     - _Cutoff: 0.484
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DownwardStrength: -0.5
+    - _DryLeavesOffset: -0.5
+    - _DryLeavesScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _FACERENDERING: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _Hardness: 1
+    - _MaskRoots: 1
+    - _MaskRootsAuto: 0
     - _Metallic: 0
+    - _MobileShadingWorldUp: 0
     - _Mode: 1
+    - _MotionBendingGentleRandom: 0.1
+    - _NormalIntenisty: 1
     - _OcclusionStrength: 0.8
     - _Parallax: 0.02
+    - _PivotRandomness: 1
+    - _PivotRandomnessStrength: 0.5
+    - _QueueControl: 0
     - _QueueOffset: 0
+    - _Radius: 2
+    - _RandomColorScale: 1
     - _ReceiveShadows: 1
+    - _RootsHardness: 1
+    - _RootsPosition: 0
+    - _RootsRadius: 2
+    - _SEASONSETTINGS: 0
+    - _SHADINGSETTINGS: 0
+    - _SeasonVertexColorR: 1
+    - _SelfShadingVertexColor: 0
     - _Smoothness: 0
+    - _SmoothnessIntensity: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SquashAmount: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _TBCVMapIntenisty: 2
+    - _TBCVMapOffset: -0.35
+    - _TBCVOnUsesNoiseMap: 0
+    - _TEXTUREMAPS: 0
+    - _TEXTUREMAPS1: 0
+    - _TEXTURESETTINGS: 0
+    - _TTFETREEBILLBOARDSHADER: 0
+    - _TrunkHeightThickness: 0.01
     - _UVSec: 0
+    - _VertexAo: 0
+    - _VertexLighting: 3
+    - _VertexShadow: 0
+    - _WINDMASKSETTINGS1: 0
+    - _WindType: 1
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
+    - _ZaWorldoScale: 1
     m_Colors:
+    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 0}
     - _BaseColor: {r: 0.5107367, g: 0.5188679, b: 0.5017355, a: 1}
     - _Color: {r: 0.5107367, g: 0.51886785, b: 0.50173545, a: 1}
+    - _DryLeafColor: {r: 1, g: 1, b: 1, a: 0}
     - _EllipsoidCenter: {r: 0, g: 1.7, b: 0, a: 1}
     - _EllipsoidDef: {r: 1.8, g: 1.4, b: 1.8, a: 0.2}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
