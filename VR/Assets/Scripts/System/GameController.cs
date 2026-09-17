@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour
         return expectedVRPlayers > 0 && GetReadyPlayerCount() >= expectedVRPlayers;
     }
 
-    private int GetReadyPlayerCount()
+    public int GetReadyPlayerCount()
     {
         if (_playerAvatar.Count > 0)
             return _playerAvatar.Count;
