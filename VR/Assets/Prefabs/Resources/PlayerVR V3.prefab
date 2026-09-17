@@ -1564,7 +1564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 6357422154443924556}
-  positionOffset: {x: 0, y: 2, z: 0}
+  positionOffset: {x: 0, y: 0.3, z: 0}
 --- !u!1 &5770348542102554453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3221,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Test
       objectReference: {fileID: 0}
+    - target: {fileID: 1649364510773591687, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1668104536940645001, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
       propertyPath: gun
       value: 
@@ -3308,13 +3312,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1649364510773591687, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9174382186750038381}
   m_SourcePrefab: {fileID: 100100000, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
 --- !u!4 &1320298037580684584 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2393219601100903953, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
   m_PrefabInstance: {fileID: 3703305373574974265}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2704254163259291070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1649364510773591687, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
+  m_PrefabInstance: {fileID: 3703305373574974265}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9174382186750038381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704254163259291070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d441f6c664868469ba58dec47822ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DisableOnlineisMine
+  myPhView: {fileID: 5946933389546904703}
 --- !u!4 &3372246666668191492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2137073352512889917, guid: 35e66c846f576eb429de45a12a3dc43c, type: 3}
@@ -4111,6 +4136,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3372246666668191492}
     - target: {fileID: 4507588648663665631, guid: 81589153f0b0bb547b785c80ce63fafa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4507588648663665631, guid: 81589153f0b0bb547b785c80ce63fafa, type: 3}
       propertyPath: positionOffset.y
       value: 0
       objectReference: {fileID: 0}
@@ -4158,7 +4187,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeckCam
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4507588648663665631, guid: 81589153f0b0bb547b785c80ce63fafa, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

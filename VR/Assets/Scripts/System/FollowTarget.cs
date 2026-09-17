@@ -5,11 +5,13 @@ public class FollowTarget : MonoBehaviour
 {
     [SerializeField] Transform _target;
     [SerializeField] Vector3 positionOffset;
+    Vector3 starterPosition;
     PhotonView _phView;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _phView = GetComponentInParent<PhotonView>();
+        starterPosition = transform.position;
     }
     public void SetTarget(Transform target)
     {
@@ -19,7 +21,7 @@ public class FollowTarget : MonoBehaviour
     {
         if (!_phView.IsMine)
             return;
-        transform.position = new Vector3(_target.position.x, transform.position.y , _target.position.z - 0.05f) + positionOffset;
+        transform.position = new Vector3(_target.position.x, starterPosition.y , _target.position.z - 0.05f) + positionOffset;
 
         Vector3 currentRotation = transform.eulerAngles;
 
