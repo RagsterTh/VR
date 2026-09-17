@@ -5,48 +5,47 @@ public class MoveTween : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] bool useRectTransform;
-    [SerializeField] bool useCurrentPosAsTarget = true;
-    [SerializeField] Vector3 targetPos;
+
     [SerializeField] float duration;
 
     [Header("Extra")]
     [SerializeField] AnimationCurve easeType;
 
     RectTransform rectTransform;
-    Vector3 originalPos;
+    Vector3 targetScale;
     void Start()
     {
         if (useRectTransform)
         {
             rectTransform = transform.GetComponent<RectTransform>();
-            originalPos = rectTransform.anchoredPosition;
+            targetScale = rectTransform.localScale;
         }
         else
-            originalPos = transform.position;
+            targetScale = transform.localScale;
     }
     [ContextMenu("Move")]
     public void Move()
     {
         
         if (useRectTransform)
-            StartCoroutine(MoveCoroutine(targetPos, (newPos) => rectTransform.anchoredPosition = newPos));
+            StartCoroutine(MoveCoroutine(targetScale, (newScale) => rectTransform.localScale = newScale));
         else
-            StartCoroutine(MoveCoroutine(originalPos, (newPos) => transform.position = newPos));
+            StartCoroutine(MoveCoroutine(targetScale, (newScale) => transform.localScale = newScale));
     }
-    IEnumerator MoveCoroutine(Vector2 targetPos, Action<Vector2> moveVariable)
+    IEnumerator MoveCoroutine(Vector2 targetScale, Action<Vector2> moveVariable)
     {
         float t = 0;
-        Vector3 startPos = useRectTransform ? rectTransform.anchoredPosition * (Vector2.right * 15) : transform.position;
+        Vector3 startScale = useRectTransform ? rectTransform.localScale * 0.1f : transform.localScale;
+        print(easeType.Evaluate(0.75f));
         while(t < duration)
         {
             t += Time.deltaTime;
-            print("moving");
             float normalizedTime = Mathf.Clamp01(t / duration);
             float easedTime = easeType.Evaluate(normalizedTime);
 
-            Vector3 newPos = Vector3.Lerp(startPos, targetPos, easedTime);
+            Vector3 newScale = Vector3.LerpUnclamped(startScale, targetScale, easedTime);
 
-            moveVariable?.Invoke(newPos);
+            moveVariable?.Invoke(newScale);
 
             yield return null;
         }
@@ -55,9 +54,9 @@ public class MoveTween : MonoBehaviour
     public void ResetTween()
     {
         if (useRectTransform)
-            rectTransform.anchoredPosition = originalPos;
+            rectTransform.localScale = rectTransform.localScale * 0.1f;
         else
-            transform.position = originalPos;
+            transform.localScale = transform.localScale * 0.1f;
     }
     [ContextMenu("TestMoveTween")]
     public void TestTween()

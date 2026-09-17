@@ -94,18 +94,11 @@ public class MedicalQuestions : MonoBehaviour
             int id = (options[i] == correctTreatment) ? (int)correctTreatment : (int)options[i];
 
             correctId = (int)correctTreatment;
-            print("ADD LISTENER");
             answerButtons[i].gameObject.SetActive(true);
-            print("ADD LISTENER 2");
-            print("ADD LISTENER 3");
             answerButtons[i].GetComponentInChildren<TMP_Text>().text = FormatEnum(options[i]);
-            print("ADD LISTENER3.6");
             answerButtons[i].onClick.RemoveAllListeners();
-            print("ADD LISTENER 4");
             answerButtons[i].onClick.AddListener(() => print("Clicado"));
-            print("ADD LISTENER 6");
             answerButtons[i].onClick.AddListener(() => CheckAnswer(id));
-            print("ADD LISTENER7");
         }
     }
 
