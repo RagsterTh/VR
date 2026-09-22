@@ -56,7 +56,9 @@ public class PlayerPrefabNetwork : MonoBehaviour
         if (lifeBarService == null || _playerLifebar == null)
             return;
 
-        var lifeBars = new System.Collections.Generic.List<GameObject>(lifeBarService.LifeBar);
+        var lifeBars = lifeBarService.LifeBar != null
+            ? new System.Collections.Generic.List<GameObject>(lifeBarService.LifeBar)
+            : new System.Collections.Generic.List<GameObject>();
         if (!lifeBars.Contains(_playerLifebar))
             lifeBars.Add(_playerLifebar);
         lifeBarService.LifeBar = lifeBars.ToArray();

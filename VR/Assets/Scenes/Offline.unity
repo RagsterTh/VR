@@ -577,9 +577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Inicializando sistemas...                 OK\nVerificando conex\xE3o...                  
-    OK\nCarregando recursos...                  OK\nSincronizando dados...                 
-    OK"
+  m_text: "Inicializando sistemas... OK\nAtivando modo offline... OK\nCarregando recursos locais... OK\nPreparando o PlayerVR V3... OK"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -1867,7 +1865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Jogo de Tiro
+  m_text: COMBATE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
