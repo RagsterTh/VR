@@ -33,6 +33,9 @@ public class Bullet : MonoBehaviour
     IEnumerator DestroyBullet()
     {
         yield return new WaitUntil(Collision);
-        PhotonNetwork.Destroy(gameObject.GetComponent<PhotonView>());
+        if (OfflineSession.IsOffline)
+            Destroy(gameObject);
+        else
+            PhotonNetwork.Destroy(gameObject.GetComponent<PhotonView>());
     }
 }

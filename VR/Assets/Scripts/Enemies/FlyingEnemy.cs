@@ -67,7 +67,9 @@ public class FlyingEnemy : MovingEnemy
         if (isInRange && followingPlayer != null)
         {
             Vector3 direction = (followingPlayer.position - muzzle.position).normalized;
-            GameObject projectile = PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
+            GameObject projectile = OfflineSession.IsOffline
+                ? Instantiate(data.bullet, muzzle.position, Quaternion.identity)
+                : PhotonNetwork.Instantiate(data.bullet.name, muzzle.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileForce;
         }
         StartCoroutine(Fire());

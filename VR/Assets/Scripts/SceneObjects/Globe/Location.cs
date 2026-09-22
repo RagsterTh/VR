@@ -31,12 +31,18 @@ public class Location : MonoBehaviour, IShootable
 
     public void OnMouseEnter()
     {
-        _phView.RPC("RPC_Select", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_Select();
+        else
+            _phView.RPC(nameof(RPC_Select), RpcTarget.AllBuffered);
     }
 
     public void OnMouseExit()
     {
-        _phView.RPC("RPC_Deselect", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_Deselect();
+        else
+            _phView.RPC(nameof(RPC_Deselect), RpcTarget.AllBuffered);
     }
 
     IEnumerator InterpolateScale(Vector3 start, Vector3 end, float time)
@@ -53,7 +59,10 @@ public class Location : MonoBehaviour, IShootable
     
     public void Hit()
     {
-        _phView.RPC("RPC_AskGoToGame", RpcTarget.MasterClient);
+        if (OfflineSession.IsOffline)
+            RPC_AskGoToGame();
+        else
+            _phView.RPC(nameof(RPC_AskGoToGame), RpcTarget.MasterClient);
     }
     [PunRPC]
     public void RPC_AskGoToGame()
@@ -61,7 +70,10 @@ public class Location : MonoBehaviour, IShootable
         if (isGameAsked)
             return;
 
-        PhotonNetwork.LoadLevel("Game");
+        if (OfflineSession.IsOffline)
+            UnityEngine.SceneManagement.SceneManager.LoadScene(OfflineSession.CombatScene);
+        else
+            PhotonNetwork.LoadLevel(OfflineSession.CombatScene);
         isGameAsked = true;
 
 

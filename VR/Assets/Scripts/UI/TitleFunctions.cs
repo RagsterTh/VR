@@ -18,7 +18,10 @@ public class TitleFunctions : MonoBehaviour
     }
     public void BackToLoadingScene()
     {
-        SceneManager.LoadScene("LoadingScene");
+        if (OfflineSession.IsOffline)
+            OfflineSession.ReturnToEntry();
+        else
+            SceneManager.LoadScene("LoadingScene");
     }
     public void StartGame()
     {

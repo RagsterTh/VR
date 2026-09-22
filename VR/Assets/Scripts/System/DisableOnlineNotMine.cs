@@ -7,7 +7,7 @@ public class DisableOnlineNotMine : MonoBehaviour
     void Start()
     {
         _phView = GetComponentInParent<PhotonView>();
-        if (!_phView.IsMine)
+        if (!OfflineSession.IsOffline && !_phView.IsMine)
         {
             gameObject.SetActive(false);
         }

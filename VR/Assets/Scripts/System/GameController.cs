@@ -1,6 +1,4 @@
 using Photon.Pun;
-using Photon.Pun.Demo.PunBasics;
-using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,73 +7,145 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    PhotonView _phView;
+    private PhotonView _phView;
     public static GameController instance;
-    [SerializeField] Transform[] _spawnPoints;
-    [SerializeField] ObjectPool[] _enemyPools;
-    [SerializeField] ObjectPool _playersBullets;
-    [SerializeField] SceneResources _sceneResources;
-    [SerializeField] Switch _switch;
+
+    [Header("Scene setup")]
+    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private ObjectPool[] _enemyPools;
+    [SerializeField] private ObjectPool _playersBullets;
+    [SerializeField] private SceneResources _sceneResources;
+    [SerializeField] private Switch _switch;
 
     [Header("Difficulty")]
     [Tooltip("How much each extra player speeds up enemy spawns. 0 = spawn rate ignores player count. 1 = spawn interval is halved with 2 players, thirds with 3, etc.")]
-    [SerializeField] float _difficultyFactor = 0.5f;
-
-    List<GameObject> _playerAvatar = new List<GameObject>();
-    static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
-
-    public List<GameObject> PlayerAvatar { get => _playerAvatar; }
-    public ObjectPool PlayersBullets { get => _playersBullets; }
-    public float DifficultyFactor { get => _difficultyFactor; set => _difficultyFactor = value; }
+    [SerializeField] private float _difficultyFactor = 0.5f;
 
     [Header("Events")]
     public UnityEvent OnBattleBegin;
     public UnityEvent OnPlayerLeftBattle;
     public UnityEvent OnSceneLoaded;
 
+    private readonly List<GameObject> _playerAvatar = new();
+    private static readonly Dictionary<ResourceTypes, GameObject> ResourcesRegister = new();
+
+    public List<GameObject> PlayerAvatar => _playerAvatar;
+    public ObjectPool PlayersBullets => _playersBullets;
+    public float DifficultyFactor { get => _difficultyFactor; set => _difficultyFactor = value; }
+    public Transform[] SpawnPoints => _spawnPoints;
+
     private void Awake()
     {
         instance = this;
         _phView = GetComponent<PhotonView>();
-        _resourcesRegister.Clear();
+        ResourcesRegister.Clear();
         ServiceLocator.Register(this);
     }
-    // Start is called before the first frame update
-    IEnumerator Start()
+
+    private IEnumerator Start()
     {
-        foreach (var item in _sceneResources.resources)
+        RegisterResources();
+
+        if (OfflineSession.IsOffline)
         {
-            _resourcesRegister.Add(item.type, item.resource);
+            if (SceneManager.GetActiveScene().name == OfflineSession.CombatScene)
+                SpawnOfflinePlayer();
+
+            RPC_ActiveScene();
+            yield break;
         }
+
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        if (SceneManager.GetActiveScene().name.Equals("Game"))
-            if (ConnectionManager.isVR)
-            {
-                int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[Random.Range(1, _spawnPoints.Length)].position, transform.rotation).GetPhotonView().ViewID;
-                if (PhotonNetwork.LocalPlayer.IsLocal)
-                {
-                    _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
-                }
-            }
+
+        if (SceneManager.GetActiveScene().name == OfflineSession.CombatScene && ConnectionManager.isVR)
+        {
+            Transform spawnPoint = GetRandomCombatSpawn();
+            int playerID = PhotonNetwork.Instantiate(
+                GetResource(ResourceTypes.PlayerVR).name,
+                spawnPoint.position,
+                spawnPoint.rotation).GetPhotonView().ViewID;
+
+            if (PhotonNetwork.LocalPlayer.IsLocal)
+                _phView.RPC(nameof(RPC_RegisterPlayerAvatar), RpcTarget.AllBuffered, playerID);
+        }
 
         if (PhotonNetwork.IsMasterClient)
-            _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
-
+            _phView.RPC(nameof(RPC_ActiveScene), RpcTarget.AllBuffered);
     }
+
+    private void RegisterResources()
+    {
+        if (_sceneResources == null)
+            return;
+
+        foreach (var item in _sceneResources.resources)
+            ResourcesRegister[item.type] = item.resource;
+    }
+
+    private void SpawnOfflinePlayer()
+    {
+        GameObject playerPrefab = GetResource(ResourceTypes.PlayerVR);
+        if (playerPrefab == null)
+            return;
+
+        Transform spawnPoint = GetRandomCombatSpawn();
+        GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        RegisterLocalPlayerAvatar(player);
+    }
+
+    private Transform GetRandomCombatSpawn()
+    {
+        if (_spawnPoints == null || _spawnPoints.Length == 0)
+            return transform;
+
+        int firstPlayableIndex = _spawnPoints.Length > 1 ? 1 : 0;
+        return _spawnPoints[Random.Range(firstPlayableIndex, _spawnPoints.Length)];
+    }
+
     public static GameObject GetResource(ResourceTypes resource)
     {
-        return _resourcesRegister[resource];
+        if (ResourcesRegister.TryGetValue(resource, out GameObject registeredResource))
+            return registeredResource;
+
+        Debug.LogError($"[GameController] Resource {resource} is not registered.");
+        return null;
     }
+
+    public void RegisterLocalPlayerAvatar(GameObject playerRoot)
+    {
+        Camera playerCamera = playerRoot.GetComponentInChildren<Camera>(true);
+        GameObject avatar = playerCamera != null ? playerCamera.gameObject : playerRoot;
+
+        if (!_playerAvatar.Contains(avatar))
+            _playerAvatar.Add(avatar);
+    }
+
     public void BattleBegin()
     {
-        //OnBattleBegin.Invoke();
-        //PhotonNetwork.CurrentRoom.IsOpen = false;
-        _phView.RPC("RPC_BattleBegin", RpcTarget.All);
+        if (OfflineSession.IsOffline)
+            RPC_BattleBegin();
+        else
+            _phView.RPC(nameof(RPC_BattleBegin), RpcTarget.All);
     }
+
     public void RemovePlayerAvatar(int playerID)
     {
-        _phView.RPC("RPC_RemovePlayerAvatar", RpcTarget.All, playerID);
+        if (OfflineSession.IsOffline)
+        {
+            if (_playerAvatar.Count > 0)
+            {
+                GameObject avatar = _playerAvatar[0];
+                _playerAvatar.RemoveAt(0);
+                Destroy(avatar.transform.root.gameObject);
+            }
+
+            OnPlayerLeftBattle?.Invoke();
+            return;
+        }
+
+        _phView.RPC(nameof(RPC_RemovePlayerAvatar), RpcTarget.All, playerID);
     }
+
     public List<GameObject> GetPlayerList()
     {
         return _playerAvatar;
@@ -85,9 +155,10 @@ public class GameController : MonoBehaviour
     {
         if (!AllVRPlayersReady())
         {
-            Debug.LogWarning($"[GameController] ActiveBattle blocked: {GetReadyPlayerCount()}/{CountExpectedVRPlayers()} VR players connected and ready.");
+            Debug.LogWarning($"[GameController] ActiveBattle blocked: {GetReadyPlayerCount()}/{CountExpectedVRPlayers()} VR players ready.");
             return;
         }
+
         _switch.Active();
     }
 
@@ -110,61 +181,67 @@ public class GameController : MonoBehaviour
 
     private int CountExpectedVRPlayers()
     {
+        if (OfflineSession.IsOffline)
+            return 1;
+
         int expectedVRPlayers = 0;
         foreach (var player in PhotonNetwork.PlayerList)
         {
             if (player.CustomProperties.TryGetValue("IsVR", out object isVR) && (bool)isVR)
                 expectedVRPlayers++;
         }
+
         return expectedVRPlayers;
     }
 
-    //RPC's
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
         PhotonView playerView = PhotonNetwork.GetPhotonView(playerID);
-        Camera playerCamera = playerView.GetComponentInChildren<Camera>(true);
-        if (playerCamera == null)
-        {
-            Debug.LogWarning($"[GameController] RPC_RegisterPlayerAvatar: no Camera found under player {playerID}, falling back to root transform.");
-            _playerAvatar.Add(playerView.gameObject);
-            return;
-        }
-        _playerAvatar.Add(playerCamera.gameObject);
+        if (playerView != null)
+            RegisterLocalPlayerAvatar(playerView.gameObject);
     }
+
     [PunRPC]
     public void RPC_RemovePlayerAvatar(int playerID)
     {
-        foreach (var player in _playerAvatar)
+        for (int i = _playerAvatar.Count - 1; i >= 0; i--)
         {
-            PhotonView view = player.GetComponentInParent<PhotonView>();
-            if (view != null && view.ViewID == playerID)
-            {
-                PhotonNetwork.Destroy(view.gameObject);
-                _playerAvatar.Remove(player);
-                break;
-            }
+            PhotonView view = _playerAvatar[i].GetComponentInParent<PhotonView>();
+            if (view == null || view.ViewID != playerID)
+                continue;
+
+            _playerAvatar.RemoveAt(i);
+            PhotonNetwork.Destroy(view.gameObject);
+            break;
         }
-        OnPlayerLeftBattle.Invoke();
+
+        OnPlayerLeftBattle?.Invoke();
     }
+
     [PunRPC]
     public void RPC_BattleBegin()
     {
-        OnBattleBegin.Invoke();
+        OnBattleBegin?.Invoke();
     }
+
     [PunRPC]
     public void RPC_ActiveScene()
     {
-        OnSceneLoaded.Invoke();
+        OnSceneLoaded?.Invoke();
     }
 
     public void BattleEnd()
     {
-        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name.Equals("GloboV2"))
-            PhotonNetwork.LoadLevel("MedicalQuestions");
-        else
-            PhotonNetwork.LoadLevel("Credits");
+        if (OfflineSession.IsOffline)
+        {
+            OfflineSession.LoadAfterBattle();
+            return;
+        }
 
+        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name == OfflineSession.FullExperienceScene)
+            PhotonNetwork.LoadLevel(OfflineSession.MedicalScene);
+        else
+            PhotonNetwork.LoadLevel(OfflineSession.CreditsScene);
     }
 }

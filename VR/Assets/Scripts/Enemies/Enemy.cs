@@ -54,7 +54,10 @@ public abstract class Enemy : MonoBehaviour, IShootable
         if (isTerrestrian)
         {
             Debug.Log($"[Enemy] {name} is terrestrial, returning to pool.");
-            _phView.RPC(nameof(RPC_Despawn), RpcTarget.All);
+            if (OfflineSession.IsOffline)
+                RPC_Despawn();
+            else
+                _phView.RPC(nameof(RPC_Despawn), RpcTarget.All);
         }
     }
 
@@ -67,13 +70,12 @@ public abstract class Enemy : MonoBehaviour, IShootable
     List<Transform> GetPlayerTransforms()
     {
         List<Transform> players = new List<Transform>();
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (sceneName.Equals("Game") && GameController.instance != null)
+        if (GameController.instance != null && GameController.instance.PlayerAvatar.Count > 0)
         {
             foreach (var avatar in GameController.instance.PlayerAvatar)
                 players.Add(avatar.transform);
         }
-        else if (sceneName.Equals("GloboV2") && SimulationController.Instance != null)
+        else if (SimulationController.Instance != null)
         {
             foreach (var avatar in SimulationController.Instance.PlayerAvatar)
                 players.Add(avatar.transform);
@@ -121,7 +123,10 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     public virtual void Hit()
     {
-        _phView.RPC("RPC_Hit", RpcTarget.All);
+        if (OfflineSession.IsOffline)
+            RPC_Hit();
+        else
+            _phView.RPC(nameof(RPC_Hit), RpcTarget.All);
     }
 
     [PunRPC]

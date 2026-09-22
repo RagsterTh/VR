@@ -1,125 +1,187 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 
 public enum SimulationMode
 {
-    Default, Shoot
+    Default,
+    Shoot
 }
+
 public class SimulationController : MonoBehaviour
 {
     public static SimulationController Instance { get; private set; }
+
+    [Header("Scene setup")]
     [SerializeField] private GameObject[] _simulationSectors;
     [SerializeField] private UserCam _user;
-    PhotonView _phView;
-    [SerializeField] GameObject[] _lobbies;
-    [SerializeField] Transform[] _spawnPoints;
-    [SerializeField] SceneResources _sceneResources;
-    static Dictionary<ResourceTypes, GameObject> _resourcesRegister = new Dictionary<ResourceTypes, GameObject>();
+    [SerializeField] private GameObject[] _lobbies;
+    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private SceneResources _sceneResources;
+
+    [Header("Events")]
     [SerializeField] public UnityEvent OnExperienceBegin;
     [SerializeField] public UnityEvent OnShootGameBegins;
-    List<GameObject> _playerAvatar = new List<GameObject>();
-    public List<GameObject> PlayerAvatar { get => _playerAvatar; }
 
-    public UserCam User { get => _user; }
-    public Transform[] SpawnPoints { get => _spawnPoints; }
+    private PhotonView _phView;
+    private readonly List<GameObject> _playerAvatar = new();
+    private static readonly Dictionary<ResourceTypes, GameObject> ResourcesRegister = new();
+
+    public List<GameObject> PlayerAvatar => _playerAvatar;
+    public UserCam User => _user;
+    public Transform[] SpawnPoints => _spawnPoints;
 
     private void Awake()
     {
         Instance = this;
         _phView = GetComponent<PhotonView>();
-        if (!PhotonNetwork.IsMasterClient)
-            return;
 
-        SetSimulationSector((int)UserCam.simulationMode);
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    IEnumerator Start()
-    {
-        //  Application.Quit();
-        _resourcesRegister.Clear();
-        foreach (var item in _sceneResources.resources)
+        if (OfflineSession.IsOffline)
         {
-            _resourcesRegister.Add(item.type, item.resource);
+            RPC_SetSimulationSector((int)UserCam.simulationMode);
+            return;
         }
+
+        if (PhotonNetwork.IsMasterClient)
+            SetSimulationSector((int)UserCam.simulationMode);
+    }
+
+    private IEnumerator Start()
+    {
+        RegisterResources();
+
+        if (OfflineSession.IsOffline)
+        {
+            SpawnOfflinePlayer();
+            yield return new WaitForSeconds(2f);
+            RPC_ActiveScene();
+            yield break;
+        }
+
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
 
         if (ConnectionManager.isVR)
         {
             int spawnIndex = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % _spawnPoints.Length;
-            int playerID = PhotonNetwork.Instantiate(GetResource(ResourceTypes.PlayerVR).name, _spawnPoints[spawnIndex].position, Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
+            Transform spawnPoint = _spawnPoints[spawnIndex];
+            int playerID = PhotonNetwork.Instantiate(
+                GetResource(ResourceTypes.PlayerVR).name,
+                spawnPoint.position,
+                spawnPoint.rotation).GetPhotonView().ViewID;
+
             if (PhotonNetwork.LocalPlayer.IsLocal)
-            {
-                _phView.RPC("RPC_RegisterPlayerAvatar", RpcTarget.AllBuffered, playerID);
-            }
+                _phView.RPC(nameof(RPC_RegisterPlayerAvatar), RpcTarget.AllBuffered, playerID);
         }
-        yield return new WaitForSeconds(2);
+
+        yield return new WaitForSeconds(2f);
         if (PhotonNetwork.IsMasterClient)
-            _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+            _phView.RPC(nameof(RPC_ActiveScene), RpcTarget.AllBuffered);
     }
+
+    private void RegisterResources()
+    {
+        ResourcesRegister.Clear();
+        if (_sceneResources == null)
+            return;
+
+        foreach (var item in _sceneResources.resources)
+            ResourcesRegister[item.type] = item.resource;
+    }
+
+    private void SpawnOfflinePlayer()
+    {
+        GameObject playerPrefab = GetResource(ResourceTypes.PlayerVR);
+        if (playerPrefab == null)
+            return;
+
+        Transform spawnPoint = _spawnPoints != null && _spawnPoints.Length > 0 ? _spawnPoints[0] : transform;
+        GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        RegisterLocalPlayerAvatar(player);
+    }
+
     public static GameObject GetResource(ResourceTypes resource)
     {
-        return _resourcesRegister[resource];
+        if (ResourcesRegister.TryGetValue(resource, out GameObject registeredResource))
+            return registeredResource;
+
+        Debug.LogError($"[SimulationController] Resource {resource} is not registered.");
+        return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RegisterLocalPlayerAvatar(GameObject playerRoot)
     {
+        Camera playerCamera = playerRoot.GetComponentInChildren<Camera>(true);
+        GameObject avatar = playerCamera != null ? playerCamera.gameObject : playerRoot;
 
+        if (!_playerAvatar.Contains(avatar))
+            _playerAvatar.Add(avatar);
     }
+
     public void ActiveShootGame()
     {
-        OnShootGameBegins.Invoke();
-        //_phView.RPC("RPC_ActiveShootGame", RpcTarget.AllBuffered);
+        OnShootGameBegins?.Invoke();
     }
+
     public void ActiveScene()
     {
-        _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_ActiveScene();
+        else
+            _phView.RPC(nameof(RPC_ActiveScene), RpcTarget.AllBuffered);
     }
+
     [PunRPC]
     public void RPC_ActiveShootGame()
     {
-        OnShootGameBegins.Invoke();
+        OnShootGameBegins?.Invoke();
     }
+
     [PunRPC]
     public void RPC_ActiveScene()
     {
         OnExperienceBegin?.Invoke();
     }
+
     [PunRPC]
     public void RPC_RegisterPlayerAvatar(int playerID)
     {
-
-        GameObject player = PhotonNetwork.GetPhotonView(playerID).GetComponentInChildren<Camera>().gameObject;
-        _playerAvatar.Add(player);
+        PhotonView playerView = PhotonNetwork.GetPhotonView(playerID);
+        if (playerView != null)
+            RegisterLocalPlayerAvatar(playerView.gameObject);
     }
+
     public int GetPlayerNumber(int playerController)
     {
+        if (OfflineSession.IsOffline)
+            return _playerAvatar.Count > 0 ? 0 : 100;
+
         foreach (var player in _playerAvatar)
         {
-            if (player.GetPhotonView().ControllerActorNr == playerController)
-            {
+            PhotonView playerView = player.GetComponentInParent<PhotonView>();
+            if (playerView != null && playerView.ControllerActorNr == playerController)
                 return _playerAvatar.IndexOf(player);
-            }
         }
+
         return 100;
     }
+
     public void SetSimulationSector(int mode)
     {
-        _phView.RPC("RPC_SetSimulationSector", RpcTarget.AllBuffered, mode);
+        if (OfflineSession.IsOffline)
+            RPC_SetSimulationSector(mode);
+        else
+            _phView.RPC(nameof(RPC_SetSimulationSector), RpcTarget.AllBuffered, mode);
     }
+
     [PunRPC]
     public void RPC_SetSimulationSector(int mode)
     {
-        if (mode.Equals(SimulationMode.Default))
+        if ((SimulationMode)mode == SimulationMode.Default)
             return;
 
         for (int i = 0; i < _simulationSectors.Length; i++)
-        {
             _simulationSectors[i].SetActive(i == mode);
-        }
     }
 }

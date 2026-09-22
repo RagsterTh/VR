@@ -8,7 +8,7 @@ public class CameraNetwork : MonoBehaviour
     void Awake()
     {
         _phView = GetComponentInParent<PhotonView>();
-        if (!_phView.IsMine)
+        if (!OfflineSession.IsOffline && !_phView.IsMine)
         {
             gameObject.SetActive(false);
             return;

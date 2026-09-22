@@ -19,7 +19,9 @@ public class FollowTarget : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (!_phView.IsMine)
+        if (!OfflineSession.IsOffline && !_phView.IsMine)
+            return;
+        if (_target == null)
             return;
         transform.position = new Vector3(_target.position.x, starterPosition.y , _target.position.z - 0.05f) + positionOffset;
 

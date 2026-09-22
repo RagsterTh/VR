@@ -29,7 +29,10 @@ public class Boss : MonoBehaviour, IShootable
 
     public void Hit()
     {
-        _phView.RPC(nameof(RPC_Hit), RpcTarget.All);
+        if (OfflineSession.IsOffline)
+            RPC_Hit();
+        else
+            _phView.RPC(nameof(RPC_Hit), RpcTarget.All);
     }
 
     [PunRPC]

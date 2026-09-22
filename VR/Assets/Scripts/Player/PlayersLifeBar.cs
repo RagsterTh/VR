@@ -45,12 +45,20 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     public void TakeDamage(float amount)
     {
+        if (OfflineSession.IsOffline)
+        {
+            ApplyDamage(amount);
+            return;
+        }
+
         Debug.Log($"[PlayersLifeBar] {name} TakeDamage({amount}) called, dispatching RPC_TakeDamage to all clients.");
         // The RPC lives on PlayerPrefabNetwork (on the prefab root, same GameObject as the PhotonView) because
         // PUN only looks for [PunRPC] methods on components attached to the exact GameObject the PhotonView sits
         // on - it does not search children. This script lives on a nested "Image" child, so its own RPCs would
         // never be found.
-        photonView.RPC(nameof(PlayerPrefabNetwork.RPC_TakeDamage), RpcTarget.All, amount);
+        PlayerPrefabNetwork playerNetwork = GetComponentInParent<PlayerPrefabNetwork>();
+        if (playerNetwork != null)
+            playerNetwork.TakeDamage(amount);
     }
 
     public void ApplyDamage(float amount)

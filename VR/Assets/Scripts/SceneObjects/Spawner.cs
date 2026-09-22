@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviourPunCallbacks
     bool isTime;
     private void Start()
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (!OfflineSession.IsOffline && !PhotonNetwork.IsMasterClient)
         {
             gameObject.SetActive(false);
             return;
@@ -32,7 +32,9 @@ public class Spawner : MonoBehaviourPunCallbacks
         if (!isTime)
         {
             yield return new WaitForSeconds(GetScaledSpawnTime());
-            _enemyPool.CallObject(spawnRotation.RotateSpawn());
+            if (_enemyPool != null && spawnRotation != null)
+                _enemyPool.CallObject(spawnRotation.RotateSpawn());
+
             StartCoroutine(Spawn());
         }
     }

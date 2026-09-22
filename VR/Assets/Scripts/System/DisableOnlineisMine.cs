@@ -18,7 +18,7 @@ public class DisableOnlineisMine : MonoBehaviour
         return;
     }
 
-    if (_phView.IsMine)
+    if (OfflineSession.IsOffline || _phView.IsMine)
     {
         gameObject.SetActive(false);
     }

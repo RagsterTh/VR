@@ -22,7 +22,10 @@ public class Table_Interactable : MonoBehaviour, IShootable
     public void Hit()
     {
         print("ativo");
-        _phView.RPC("RPC_Hit", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_Hit();
+        else
+            _phView.RPC(nameof(RPC_Hit), RpcTarget.AllBuffered);
     }
 
     [PunRPC]

@@ -77,10 +77,14 @@ public class GameOverManager : MonoBehaviour
     }
     private void Win()
     {
-        ServiceLocator.Get<GameController>().BattleEnd();
+        GameController controller = ServiceLocator.Get<GameController>();
+        if (controller != null)
+            controller.BattleEnd();
     }
     private void Lose()
     {
-        ServiceLocator.Get<GameController>().RPC_BattleBegin();
+        GameController controller = ServiceLocator.Get<GameController>();
+        if (controller != null)
+            controller.RPC_BattleBegin();
     }
 }

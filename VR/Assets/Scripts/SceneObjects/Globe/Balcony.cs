@@ -51,7 +51,10 @@ public class Balcony : MonoBehaviour
                 Debug.Log("Triggering animation (placeholder)");
         }
         */
-        _phView.RPC("RPC_ServiceActive", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_ServiceActive();
+        else
+            _phView.RPC(nameof(RPC_ServiceActive), RpcTarget.AllBuffered);
 
     }
 
@@ -130,8 +133,10 @@ public class Balcony : MonoBehaviour
             else
             {
                 EndDialogue();
-                if (PhotonNetwork.IsMasterClient)
-                    _phView.RPC("RPC_ExitLobby", RpcTarget.AllBuffered);
+                if (OfflineSession.IsOffline)
+                    RPC_ExitLobby();
+                else if (PhotonNetwork.IsMasterClient)
+                    _phView.RPC(nameof(RPC_ExitLobby), RpcTarget.AllBuffered);
             }
         }
     }
@@ -142,12 +147,20 @@ public class Balcony : MonoBehaviour
     }
     public void ServiceDisable()
     {
-        if (PhotonNetwork.IsMasterClient)
-            _phView.RPC("RPC_ServiceDisable", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_ServiceDisable();
+        else if (PhotonNetwork.IsMasterClient)
+            _phView.RPC(nameof(RPC_ServiceDisable), RpcTarget.AllBuffered);
     }
     public void GoToBattle()
     {
-        _phView.RPC("RPC_StartBattle", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+        {
+            SimulationController.Instance?.ActiveShootGame();
+            GameController.instance?.ActiveBattle();
+        }
+        else
+            _phView.RPC("RPC_StartBattle", RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void RPC_ServiceDisable()

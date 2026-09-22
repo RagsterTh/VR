@@ -16,7 +16,10 @@ public class CheckWounds : MonoBehaviour
     {
         if (woundsPrefab == null || woundsPrefab.All(w=>w==null))
         {
-            SceneManager.LoadScene("LoadingScene");    
+            if (OfflineSession.IsOffline)
+                OfflineSession.LoadCredits();
+            else
+                SceneManager.LoadScene("LoadingScene");
         }
         
     }

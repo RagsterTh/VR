@@ -12,7 +12,7 @@ public class HandInteraction : MonoBehaviour
     void Awake()
     {
         _phView = GetComponentInParent<PhotonView>();
-        if (!_phView.IsMine)
+        if (!OfflineSession.IsOffline && !_phView.IsMine)
         {
             this.enabled = false;
         }

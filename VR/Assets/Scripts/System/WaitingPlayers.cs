@@ -15,6 +15,12 @@ public class WaitingPlayers : MonoBehaviour
     void Start()
     {
         _phView = GetComponent<PhotonView>();
+        if (OfflineSession.IsOffline)
+        {
+            _vrPlayersAmount = 1;
+            return;
+        }
+
         foreach (var item in PhotonNetwork.PlayerList)
         {
             if (item.CustomProperties.TryGetValue("IsVR", out object isVR) && (bool)isVR)
@@ -31,7 +37,10 @@ public class WaitingPlayers : MonoBehaviour
     }
     public void Finish()
     {
-        _phView.RPC("RPC_Finish", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_Finish();
+        else
+            _phView.RPC(nameof(RPC_Finish), RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void RPC_Finish()
@@ -53,7 +62,10 @@ public class WaitingPlayers : MonoBehaviour
     }
     public void ActiveShooterGame()
     {
-        _phView.RPC("RPC_ActiveShooterGame", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_ActiveShooterGame();
+        else
+            _phView.RPC(nameof(RPC_ActiveShooterGame), RpcTarget.AllBuffered);
     }
     [PunRPC]
     private void RPC_ActiveShooterGame()
@@ -63,7 +75,10 @@ public class WaitingPlayers : MonoBehaviour
     }
     public void SendBackToMenu()
     {
-        PhotonNetwork.LoadLevel(0);
+        if (OfflineSession.IsOffline)
+            OfflineSession.ReturnToEntry();
+        else
+            PhotonNetwork.LoadLevel(0);
     }
 
 }

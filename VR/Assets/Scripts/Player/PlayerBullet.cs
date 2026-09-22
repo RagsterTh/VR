@@ -30,8 +30,13 @@ public class PlayerBullet : MonoBehaviour
         {
             target?.Hit();
 
-            if (_hitEffect != null && PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Instantiate(_hitEffect.name, other.ClosestPoint(transform.position), transform.rotation);
+            if (_hitEffect != null)
+            {
+                if (OfflineSession.IsOffline)
+                    Instantiate(_hitEffect, other.ClosestPoint(transform.position), transform.rotation);
+                else if (PhotonNetwork.IsMasterClient)
+                    PhotonNetwork.Instantiate(_hitEffect.name, other.ClosestPoint(transform.position), transform.rotation);
+            }
 
             gameObject.SetActive(false);
         }

@@ -19,8 +19,10 @@ public class MedicalEmergencyManager : MonoBehaviour
         _phView = GetComponent<PhotonView>();
         PrepareRandomWounds();
 
-        if (PhotonNetwork.IsMasterClient)
-            _phView.RPC("RPC_ActiveScene", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_ActiveScene();
+        else if (PhotonNetwork.IsMasterClient)
+            _phView.RPC(nameof(RPC_ActiveScene), RpcTarget.AllBuffered);
 
         ActivateNextWound();
     }

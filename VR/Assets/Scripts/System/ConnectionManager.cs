@@ -1,67 +1,76 @@
-using Photon.Pun;
-using UnityEngine.SceneManagement;
-using Photon.Realtime;
 using ExitGames.Client.Photon;
-using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.SceneManagement;
+
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
-     public static ConnectionManager instance;
-        public static bool isVR;
+    public static ConnectionManager instance;
+    public static bool isVR;
 
-      private void Awake()
+    private void Awake()
     {
-        if (instance)
+        if (OfflineSession.IsOffline)
         {
             Destroy(gameObject);
-        } else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            return;
         }
-            Connection();
+
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        Connection();
     }
+
     private void Start()
     {
-        Hashtable hash = new Hashtable();
-        hash.Add("IsVR", isVR);
+        if (OfflineSession.IsOffline)
+            return;
+
+        Hashtable properties = new Hashtable
+        {
+            { "IsVR", isVR }
+        };
 
         if (!PhotonNetwork.IsMasterClient)
-            hash.Add("VRNumber", -1);
+            properties.Add("VRNumber", -1);
 
-        PhotonNetwork.SetPlayerCustomProperties(hash);
+        PhotonNetwork.SetPlayerCustomProperties(properties);
     }
+
     public void Connection()
     {
+        if (OfflineSession.IsOffline)
+            return;
+
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }
+
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        if (!OfflineSession.IsOffline)
+            PhotonNetwork.JoinRandomOrCreateRoom();
     }
+
     public override void OnJoinedRoom()
     {
-        /*
-        if (isVR)
-        {
-            _phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer);
-        }
-                /*
-#if UNITY_EDITOR 
-        if(isVR)
-            if(SceneManager.GetActiveScene().name.Equals("LoadingScene"))
-                PhotonNetwork.LoadLevel(1);
-#endif
-        */
-        
     }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
-    {//Não funcionou, preciso testar outro meio de identificação
-        //_phView.RPC("RPC_RegisterVRNumber", RpcTarget.AllBuffered, newPlayer.ActorNumber);
+    {
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        if (OfflineSession.IsOffline)
+            return;
+
         SceneManager.LoadScene("LoadingScene");
         Connection();
     }

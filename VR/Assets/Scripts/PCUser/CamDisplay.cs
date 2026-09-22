@@ -11,6 +11,9 @@ public class CamDisplay : MonoBehaviour
     {
         _phView = GetComponentInParent<PhotonView>();
         _camera = GetComponentInChildren<Camera>(true);
+        if (OfflineSession.IsOffline)
+            return;
+
         if (!_phView.IsMine)
             return;
 

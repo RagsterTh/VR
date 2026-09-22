@@ -13,11 +13,15 @@ public class Gun : MonoBehaviour
     void Start()
     {
         _phView = GetComponentInParent<PhotonView>();
-        if (!_phView.IsMine)
+        if (!OfflineSession.IsOffline && !_phView.IsMine)
+        {
             enabled = false;
+            return;
+        }
 
         _gunPoint = transform.GetChild(0);
-        _playersBullets = GameController.instance.PlayersBullets;
+        if (GameController.instance != null)
+            _playersBullets = GameController.instance.PlayersBullets;
         _soundEmitter = GetComponent<ISoundable>();
     }
 
@@ -30,8 +34,11 @@ public class Gun : MonoBehaviour
     {
         if (value.performed)
         {
+            if (_playersBullets == null)
+                return;
+
             _playersBullets.CallObject(_gunPoint.position, _gunPoint.rotation);
-            _soundEmitter.PlaySound();
+            _soundEmitter?.PlaySound();
             //temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
         }
 

@@ -1,25 +1,27 @@
-using UnityEngine;
-using TMPro;
 using Photon.Pun;
 using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public class LocalVRNumberDisplay : MonoBehaviour
 {
-    private TMP_Text _VRnumber;
-    [SerializeField] string _onConectedText = "Informe que est· pronto";
-    IEnumerator Start()
+    [SerializeField] private string _onConectedText = "Informe que est√° pronto";
+    private TMP_Text _vrNumber;
+
+    private IEnumerator Start()
     {
-        _VRnumber = GetComponent<TMP_Text>();
+        _vrNumber = GetComponent<TMP_Text>();
+
+        if (OfflineSession.IsOffline)
+        {
+            _vrNumber.text = _onConectedText;
+            yield break;
+        }
+
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
         if (ConnectionManager.isVR)
-        {
-            _VRnumber.text = _onConectedText;
-        }
+            _vrNumber.text = _onConectedText;
         else
-        {
             gameObject.SetActive(false);
-        }
-
     }
-
 }

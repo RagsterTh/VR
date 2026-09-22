@@ -16,11 +16,17 @@ public class LocationConfirm : MonoBehaviour
     }
     public void Confirm()
     {
-        _phView.RPC("RPC_StartBattle", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_StartBattle();
+        else
+            _phView.RPC(nameof(RPC_StartBattle), RpcTarget.AllBuffered);
     }
     [PunRPC]
     public void RPC_StartBattle()
     {
-        PhotonNetwork.LoadLevel("Game");
+        if (OfflineSession.IsOffline)
+            UnityEngine.SceneManagement.SceneManager.LoadScene(OfflineSession.CombatScene);
+        else
+            PhotonNetwork.LoadLevel(OfflineSession.CombatScene);
     }
 }

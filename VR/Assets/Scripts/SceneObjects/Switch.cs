@@ -9,7 +9,10 @@ public class Switch : MonoBehaviour, IShootable
 
     public void Active()
     {
-        _phView.RPC("RPC_SwitchActivate", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_SwitchActivate();
+        else
+            _phView.RPC(nameof(RPC_SwitchActivate), RpcTarget.AllBuffered);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

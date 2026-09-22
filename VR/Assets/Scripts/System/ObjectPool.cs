@@ -2,87 +2,158 @@ using Photon.Pun;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class ObjectPool : MonoBehaviourPunCallbacks
 {
-    [SerializeField]List<int> _pooledObjects;
-    [SerializeField]GameObject _objectToPool;
-    [SerializeField]int _amountToPool;
-    PhotonView _phView;
+    [SerializeField] private List<int> _pooledObjects;
+    [SerializeField] private GameObject _objectToPool;
+    [SerializeField] private int _amountToPool;
 
-    void Awake()
+    private readonly List<GameObject> _offlinePooledObjects = new();
+    private PhotonView _phView;
+    private bool _initialized;
+
+    private void Awake()
     {
         _phView = GetComponent<PhotonView>();
         Initialize();
-
     }
+
     public override void OnJoinedRoom()
     {
         Initialize();
     }
-    void Initialize()
+
+    private void Initialize()
     {
+        if (_initialized || _objectToPool == null)
+            return;
+
+        if (OfflineSession.IsOffline)
+        {
+            InitializeOfflinePool();
+            _initialized = true;
+            return;
+        }
+
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        GameObject collection = new GameObject(_objectToPool.name + " Collection");
+        GameObject collection = new GameObject(_objectToPool.name + " Collection (Network)");
+        collection.transform.SetParent(transform, false);
         _pooledObjects = new List<int>();
-        GameObject tmp;
+
         for (int i = 0; i < _amountToPool; i++)
         {
-            tmp = PhotonNetwork.InstantiateRoomObject(_objectToPool.name, collection.transform.position, _objectToPool.transform.rotation);
-            _pooledObjects.Add(tmp.GetPhotonView().ViewID);
+            GameObject instance = PhotonNetwork.InstantiateRoomObject(
+                _objectToPool.name,
+                collection.transform.position,
+                _objectToPool.transform.rotation);
+            _pooledObjects.Add(instance.GetPhotonView().ViewID);
         }
-        _phView.RPC("RPC_SetPool", RpcTarget.Others, _pooledObjects.ToArray());
+
+        _phView.RPC(nameof(RPC_SetPool), RpcTarget.Others, _pooledObjects.ToArray());
+        _initialized = true;
     }
+
+    private void InitializeOfflinePool()
+    {
+        GameObject collection = new GameObject(_objectToPool.name + " Collection (Offline)");
+        collection.transform.SetParent(transform, false);
+
+        for (int i = 0; i < _amountToPool; i++)
+        {
+            GameObject instance = Instantiate(
+                _objectToPool,
+                collection.transform.position,
+                _objectToPool.transform.rotation,
+                collection.transform);
+            instance.SetActive(false);
+            _offlinePooledObjects.Add(instance);
+        }
+    }
+
     public GameObject GetPooledObject()
     {
-        for (int i = 0; i < _amountToPool; i++)
+        if (OfflineSession.IsOffline)
+            return _offlinePooledObjects.FirstOrDefault(item => item != null && !item.activeInHierarchy);
+
+        if (_pooledObjects == null)
+            return null;
+
+        foreach (int viewId in _pooledObjects)
         {
-            GameObject temp = PhotonNetwork.GetPhotonView(_pooledObjects[i]).gameObject;
-            if (!temp.activeInHierarchy)
-            {
-                return temp;
-            }
+            PhotonView pooledView = PhotonNetwork.GetPhotonView(viewId);
+            if (pooledView != null && !pooledView.gameObject.activeInHierarchy)
+                return pooledView.gameObject;
         }
+
         return null;
     }
+
     public GameObject CallObject(Vector3 origin)
     {
-        GameObject bullet = GetPooledObject();
-        _phView.RPC("RPC_CallObject", RpcTarget.AllBuffered, origin, bullet.GetPhotonView().ViewID);
-        return bullet;
+        GameObject pooledObject = GetPooledObject();
+        if (pooledObject == null)
+        {
+            Debug.LogWarning($"[ObjectPool] Pool '{name}' has no available object.", this);
+            return null;
+        }
+
+        if (OfflineSession.IsOffline)
+        {
+            ActivateObject(pooledObject, origin, pooledObject.transform.rotation);
+            return pooledObject;
+        }
+
+        _phView.RPC(nameof(RPC_CallObject), RpcTarget.AllBuffered, origin, pooledObject.GetPhotonView().ViewID);
+        return pooledObject;
     }
+
     public void CallObject(Vector3 origin, Quaternion rotation)
     {
-        GameObject bullet = GetPooledObject();
-        _phView.RPC("RPC_CallObjectWithRotation", RpcTarget.AllBuffered, origin, rotation, bullet.GetPhotonView().ViewID);
+        GameObject pooledObject = GetPooledObject();
+        if (pooledObject == null)
+        {
+            Debug.LogWarning($"[ObjectPool] Pool '{name}' has no available object.", this);
+            return;
+        }
+
+        if (OfflineSession.IsOffline)
+        {
+            ActivateObject(pooledObject, origin, rotation);
+            return;
+        }
+
+        _phView.RPC(nameof(RPC_CallObjectWithRotation), RpcTarget.AllBuffered, origin, rotation, pooledObject.GetPhotonView().ViewID);
     }
+
+    private static void ActivateObject(GameObject pooledObject, Vector3 origin, Quaternion rotation)
+    {
+        pooledObject.transform.SetPositionAndRotation(origin, rotation);
+        pooledObject.SetActive(true);
+    }
+
     [PunRPC]
     public void RPC_SetPool(int[] pool)
     {
         _pooledObjects = pool.ToList();
+        _initialized = true;
     }
+
     [PunRPC]
     public void RPC_CallObject(Vector3 origin, int photonID)
     {
-        GameObject bullet = PhotonNetwork.GetPhotonView(photonID).gameObject;
-        if (bullet != null)
-        {
-            bullet.transform.position = origin;
-            bullet.SetActive(true);
-        }
+        PhotonView pooledView = PhotonNetwork.GetPhotonView(photonID);
+        if (pooledView != null)
+            ActivateObject(pooledView.gameObject, origin, pooledView.transform.rotation);
     }
+
     [PunRPC]
     public void RPC_CallObjectWithRotation(Vector3 origin, Quaternion rotation, int photonID)
     {
-        GameObject bullet = PhotonNetwork.GetPhotonView(photonID).gameObject;
-        if (bullet != null)
-        {
-            bullet.transform.position = origin;
-            bullet.transform.rotation = rotation;
-            bullet.SetActive(true);
-        }
+        PhotonView pooledView = PhotonNetwork.GetPhotonView(photonID);
+        if (pooledView != null)
+            ActivateObject(pooledView.gameObject, origin, rotation);
     }
 }

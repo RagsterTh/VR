@@ -38,11 +38,17 @@ public class UserCam : MonoBehaviour
 
     public void LoadLevel(string scene)
     {
-        PhotonNetwork.LoadLevel(scene);
+        if (OfflineSession.IsOffline)
+            SceneManager.LoadScene(scene);
+        else
+            PhotonNetwork.LoadLevel(scene);
     }
     public void Quit()
     {
-        _phView.RPC("RPC_QuitAll", RpcTarget.AllBuffered);
+        if (OfflineSession.IsOffline)
+            RPC_QuitAll();
+        else
+            _phView.RPC(nameof(RPC_QuitAll), RpcTarget.AllBuffered);
     }
 
     public void ResetUsers()
