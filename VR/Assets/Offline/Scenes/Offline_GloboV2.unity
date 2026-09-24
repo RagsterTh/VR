@@ -1846,7 +1846,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
   m_PrefabInstance: {fileID: 327998863}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1346963803}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9077ef6f1308754fa2502e246a6f692, type: 3}
@@ -7038,6 +7038,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327377831}
   m_Mesh: {fileID: 2212009239438826721, guid: 6c89e483fa8a5444fac690009aa15caf, type: 3}
+--- !u!82 &1346963802 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6474152022768888090, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 327998863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1346963803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8337239344414749316, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 327998863}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1349593704
 GameObject:
   m_ObjectHideFlags: 0
@@ -9246,6 +9256,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 05765153b2cbb034db84939ba93cd5c5, type: 3}
   m_PrefabInstance: {fileID: 1615119754}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1616213407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1616213409}
+  - component: {fileID: 1616213408}
+  m_Layer: 0
+  m_Name: '[Offline] Auto Advance - Lobby'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1616213408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616213407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a715b9a146abbf84f9bb72636f76d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflineAutoAdvance
+  _waitUntilActive: {fileID: 0}
+  _waitForAudio: {fileID: 0}
+  _maxWaitForAudioStart: 10
+  _delayAfter: 3
+  _onAdvance:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 42753492}
+        m_TargetAssemblyTypeName: WaitingPlayers, Assembly-CSharp
+        m_MethodName: Finish
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1616213409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616213407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1620174412 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3937414143301550298, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
@@ -10030,6 +10103,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1767823658}
   m_CullTransparentMesh: 1
+--- !u!1 &1779680486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1779680488}
+  - component: {fileID: 1779680487}
+  m_Layer: 0
+  m_Name: '[Offline] Auto Advance - Battle'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1779680487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779680486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a715b9a146abbf84f9bb72636f76d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflineAutoAdvance
+  _waitUntilActive: {fileID: 1346963803}
+  _waitForAudio: {fileID: 1346963802}
+  _maxWaitForAudioStart: 10
+  _delayAfter: 1.5
+  _onAdvance:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 327998865}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: ActiveBattle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &1779680488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779680486}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1816298235
 GameObject:
   m_ObjectHideFlags: 0
@@ -13778,3 +13914,5 @@ SceneRoots:
   - {fileID: 327998863}
   - {fileID: 1816298239}
   - {fileID: 505981184}
+  - {fileID: 1616213409}
+  - {fileID: 1779680488}

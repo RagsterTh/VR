@@ -50,6 +50,9 @@ public static class OfflineSession
     public static bool IsOffline =>
         _mode != OfflineExperienceMode.None || IsOfflineScene(SceneManager.GetActiveScene());
 
+    /// <summary>True when the entry scene was reached from a finished/abandoned session (not a fresh launch).</summary>
+    public static bool ReturnedFromSession { get; private set; }
+
     public static bool IsFullExperience => Mode == OfflineExperienceMode.FullExperience;
 
     public static bool IsCombatScene => SceneManager.GetActiveScene().name == CombatScene;
@@ -98,6 +101,7 @@ public static class OfflineSession
 
     public static void ReturnToEntry()
     {
+        ReturnedFromSession = true;
         LoadScene(EntryScene);
     }
 

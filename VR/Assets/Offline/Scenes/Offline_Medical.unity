@@ -5293,7 +5293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5304,7 +5304,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1703198043}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 90170955}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
@@ -5312,8 +5320,16 @@ PrefabInstance:
       value: Finish
       objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ReturnToEntry
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: WaitingPlayers, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
+      propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: OfflineSceneBootstrap, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2501473400219633242, guid: 29e4361e3dbb64e41a79612b30761213, type: 3}
       propertyPath: OnCreditsFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

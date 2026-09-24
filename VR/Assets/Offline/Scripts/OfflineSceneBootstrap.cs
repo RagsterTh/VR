@@ -29,6 +29,12 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
         }
     }
 
+    /// <summary>Target for scene events that used to wait for the host (e.g. end of the credits).</summary>
+    public void ReturnToEntry()
+    {
+        OfflineSession.ReturnToEntry();
+    }
+
     private IEnumerator Start()
     {
         float waited = 0f;

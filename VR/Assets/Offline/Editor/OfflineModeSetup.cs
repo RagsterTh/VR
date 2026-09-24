@@ -4,8 +4,10 @@ using System.Linq;
 using TMPro;
 using Unity.XR.CoreUtils;
 using UnityEditor;
+using UnityEditor.Events;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -25,6 +27,7 @@ public static class OfflineModeSetup
     private const string BootstrapName = "[Offline] Bootstrap";
     private const string MenuPanelName = "[Offline] Menu Panel";
     private const string HealWidgetName = "HealAbility";
+    private const string AutoAdvancePrefix = "[Offline] Auto Advance";
 
     // Original scene -> offline copy.
     private static readonly (string original, string copy)[] SceneCopies =
@@ -133,6 +136,8 @@ public static class OfflineModeSetup
         OfflineSceneBootstrap bootstrap = GetOrAdd<OfflineSceneBootstrap>(FindOrCreateRoot(scene, BootstrapName));
         SetObjectArray(bootstrap, "_disableOnLoad", OnlineOnlyObjects(scene));
 
+        ConfigureAutoAdvance(scene, bootstrap);
+
         if (sceneRigIsPlayer)
         {
             foreach (GameObject rig in SceneRigs(scene))
@@ -177,6 +182,82 @@ public static class OfflineModeSetup
 
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
+    }
+
+    /// <summary>
+    /// Replaces the host's clicks: each step waits for the narration that preceded the click and then
+    /// calls the same method the host button called.
+    /// </summary>
+    private static void ConfigureAutoAdvance(Scene scene, OfflineSceneBootstrap bootstrap)
+    {
+        foreach (GameObject old in scene.GetRootGameObjects().Where(go => go.name.StartsWith(AutoAdvancePrefix)).ToList())
+            Object.DestroyImmediate(old);
+
+        // Lobby (GloboV2): after the narration of OnExperienceBegin the host pressed a "Finish" button,
+        // which opens the globe and the shooting area in the same scene.
+        SimulationController simulation = FindInScene<SimulationController>(scene).FirstOrDefault();
+        WaitingPlayers lobby = FindInScene<WaitingPlayers>(scene)
+            .FirstOrDefault(w => !new SerializedObject(w).FindProperty("isMedical").boolValue);
+        if (simulation != null && lobby != null)
+        {
+            OfflineAutoAdvance step = CreateStep(scene, AutoAdvancePrefix + " - Lobby", null,
+                PlayedAudio(simulation.OnExperienceBegin), 3f);
+            UnityEventTools.AddPersistentListener(step.OnAdvance, lobby.Finish);
+        }
+
+        // Battle: after "inimigos se aproximam..." (GameController.OnSceneLoaded) the host pressed StartBattle.
+        foreach (GameController controller in FindInScene<GameController>(scene))
+        {
+            AudioSource intro = PlayedAudio(controller.OnSceneLoaded);
+            bool hasSwitch = new SerializedObject(controller).FindProperty("_switch").objectReferenceValue != null;
+            if (intro == null || !hasSwitch)
+                continue;
+
+            OfflineAutoAdvance step = CreateStep(scene, AutoAdvancePrefix + " - Battle", controller.gameObject, intro, 1.5f);
+            UnityEventTools.AddPersistentListener(step.OnAdvance, controller.ActiveBattle);
+        }
+
+        // Credits: when the roll ends the host sent everyone back; offline returns to the Offline menu.
+        var creditsFinish = typeof(TitleFunctions).GetField("OnCreditsFinish",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        foreach (TitleFunctions credits in FindInScene<TitleFunctions>(scene))
+        {
+            var unityEvent = (UnityEvent)creditsFinish.GetValue(credits);
+            for (int i = unityEvent.GetPersistentEventCount() - 1; i >= 0; i--)
+            {
+                if (unityEvent.GetPersistentTarget(i) is OfflineSceneBootstrap)
+                    UnityEventTools.RemovePersistentListener(unityEvent, i);
+            }
+            UnityEventTools.AddPersistentListener(unityEvent, bootstrap.ReturnToEntry);
+            EditorUtility.SetDirty(credits);
+        }
+    }
+
+    private static OfflineAutoAdvance CreateStep(Scene scene, string name, GameObject waitUntilActive, AudioSource audio, float delay)
+    {
+        GameObject go = FindOrCreateRoot(scene, name);
+        var step = go.AddComponent<OfflineAutoAdvance>();
+        var serialized = new SerializedObject(step);
+        serialized.FindProperty("_waitUntilActive").objectReferenceValue = waitUntilActive;
+        serialized.FindProperty("_waitForAudio").objectReferenceValue = audio;
+        serialized.FindProperty("_delayAfter").floatValue = delay;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        if (audio == null)
+            Debug.LogWarning($"[Offline] {scene.name}: '{name}' sem narração encontrada; vai avançar só pelo tempo.", go);
+        return step;
+    }
+
+    private static AudioSource PlayedAudio(UnityEvent unityEvent)
+    {
+        if (unityEvent == null)
+            return null;
+
+        for (int i = 0; i < unityEvent.GetPersistentEventCount(); i++)
+        {
+            if (unityEvent.GetPersistentTarget(i) is AudioSource audio && unityEvent.GetPersistentMethodName(i) == "Play")
+                return audio;
+        }
+        return null;
     }
 
     private static List<GameObject> OnlineOnlyObjects(Scene scene)

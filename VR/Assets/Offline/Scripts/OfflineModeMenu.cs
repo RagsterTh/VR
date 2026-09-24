@@ -17,6 +17,8 @@ public sealed class OfflineModeMenu : MonoBehaviour
     [SerializeField] private bool _startAutomatically = true;
     [Min(0f)]
     [SerializeField] private float _autoStartDelay = 5f;
+    [Tooltip("Also auto start when coming back to this scene after the credits. Off = wait for a VR button.")]
+    [SerializeField] private bool _autoStartAfterReturn;
 
     [Header("VR panel (optional)")]
     [SerializeField] private Button _combatButton;
@@ -48,7 +50,8 @@ public sealed class OfflineModeMenu : MonoBehaviour
     {
         yield return PlacePanelInFrontOfPlayer();
 
-        if (!_startAutomatically || _mode == OfflineExperienceMode.None)
+        bool returned = OfflineSession.ReturnedFromSession;
+        if (!_startAutomatically || _mode == OfflineExperienceMode.None || (returned && !_autoStartAfterReturn))
         {
             SetStatus("Escolha a modalidade com o controle.");
             yield break;

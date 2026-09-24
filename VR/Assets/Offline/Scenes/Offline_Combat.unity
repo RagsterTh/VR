@@ -2173,6 +2173,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 877d439db4c2b1a4a99df0986097dc00, type: 3}
   m_PrefabInstance: {fileID: 265269175}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &271664847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 271664849}
+  - component: {fileID: 271664848}
+  m_Layer: 0
+  m_Name: '[Offline] Auto Advance - Battle'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &271664848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271664847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a715b9a146abbf84f9bb72636f76d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflineAutoAdvance
+  _waitUntilActive: {fileID: 2075321815}
+  _waitForAudio: {fileID: 2075321814}
+  _maxWaitForAudioStart: 10
+  _delayAfter: 1.5
+  _onAdvance:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2075321813}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: ActiveBattle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &271664849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271664847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &304676225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13450,6 +13513,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1588136293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2075321813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8337239344414749323, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 5747645146381555487}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075321815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9077ef6f1308754fa2502e246a6f692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!82 &2075321814 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6474152022768888090, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 5747645146381555487}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2075321815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8337239344414749316, guid: 23af121c0b091da43b8cd7f5c515b691, type: 3}
+  m_PrefabInstance: {fileID: 5747645146381555487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2075821999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14153,3 +14237,4 @@ SceneRoots:
   - {fileID: 1588136293}
   - {fileID: 329232046}
   - {fileID: 820140363}
+  - {fileID: 271664849}
