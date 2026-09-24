@@ -172,7 +172,7 @@ public class MedicalQuestions : MonoBehaviour
         if (OfflineSession.IsOffline)
             OfflineSession.LoadCredits();
         else
-            PhotonNetwork.LoadLevel(OfflineSession.CreditsScene);
+            PhotonNetwork.LoadLevel("Credits");
 
     }
     public void AllWoundsTreated()

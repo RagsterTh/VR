@@ -71,9 +71,9 @@ public class Location : MonoBehaviour, IShootable
             return;
 
         if (OfflineSession.IsOffline)
-            UnityEngine.SceneManagement.SceneManager.LoadScene(OfflineSession.CombatScene);
+            OfflineSession.LoadMappedScene("Game");
         else
-            PhotonNetwork.LoadLevel(OfflineSession.CombatScene);
+            PhotonNetwork.LoadLevel("Game");
         isGameAsked = true;
 
 

@@ -257,6 +257,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+--- !u!1 &36630441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6506511109278679661, guid: 8a126a078c068d14184ae40fba28e6ee, type: 3}
+  m_PrefabInstance: {fileID: 36630440}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &69875534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -442,6 +447,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74484014}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &90170954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 90170956}
+  - component: {fileID: 90170955}
+  m_Layer: 0
+  m_Name: '[Offline] Bootstrap'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &90170955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90170954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3ca20c564061a649ba3c9303cbd5f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflineSceneBootstrap
+  _disableOnLoad:
+  - {fileID: 1368709981}
+  - {fileID: 1368709980}
+  - {fileID: 36630441}
+  _fadeDuration: 0.6
+  _maxWaitForRig: 4
+--- !u!4 &90170956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90170954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &141555831
 GameObject:
   m_ObjectHideFlags: 0
@@ -5864,6 +5919,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c0accbd4195c6149a27b94fb5a4878e, type: 3}
+--- !u!1 &1368709980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7475655318043095064, guid: 4c0accbd4195c6149a27b94fb5a4878e, type: 3}
+  m_PrefabInstance: {fileID: 1368709979}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1368709981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5461786083140456163, guid: 4c0accbd4195c6149a27b94fb5a4878e, type: 3}
+  m_PrefabInstance: {fileID: 1368709979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1392182649
 GameObject:
   m_ObjectHideFlags: 0
@@ -13693,6 +13758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3d441f6c664868469ba58dec47822ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPhView: {fileID: 0}
 --- !u!4 &5480890579120146697
 Transform:
   m_ObjectHideFlags: 0
@@ -14887,6 +14953,7 @@ GameObject:
   - component: {fileID: 3127185863999096040}
   - component: {fileID: 4038342668220185500}
   - component: {fileID: 2948706498823211331}
+  - component: {fileID: 6964518943147563159}
   m_Layer: 0
   m_Name: PlayerMedicalScene
   m_TagString: Player
@@ -14894,6 +14961,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6964518943147563159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964518943147563158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d804f921e8b167c4889c53027044db49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflinePlayerRig
+  _startPoint: {fileID: 0}
+  _headTarget: 1
+  _alignHeading: 1
+  _trackingTimeout: 1.5
 --- !u!114 &6989677103163884892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17628,3 +17711,4 @@ SceneRoots:
   - {fileID: 543450653534721990}
   - {fileID: 543450651781792639}
   - {fileID: 17074526656305471}
+  - {fileID: 90170956}

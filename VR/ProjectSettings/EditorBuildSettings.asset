@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LoadingScene.unity
     guid: 2adc004ff4a3590489194d01f9cdc16d
   - enabled: 1
-    path: Assets/Scenes/Offline.unity
+    path: Assets/Offline/Scenes/Offline.unity
     guid: d7a87ad1aff23f04cb45bb9f2ddffd43
   - enabled: 1
     path: Assets/Scenes/GloboV2.unity

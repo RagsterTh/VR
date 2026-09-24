@@ -12,6 +12,8 @@ public class PlayersLifeBar : MonoBehaviourPun
 
     public float CurrentLife { get => currentLife; set => currentLife = value; }
     public GameObject[] LifeBar { get => _lifeBar; set => _lifeBar = value; }
+    public float MaxLife => _maxLife;
+    public bool IsFull => currentLife >= _maxLife;
 
     void Awake()
     {
@@ -85,6 +87,35 @@ public class PlayersLifeBar : MonoBehaviourPun
 
         if (gameOverManager != null)
             gameOverManager.VerifyLose();
+    }
+
+    public void Heal(float amount)
+    {
+        if (OfflineSession.IsOffline)
+        {
+            ApplyHeal(amount);
+            return;
+        }
+
+        // Same route as damage: the RPC lives on PlayerPrefabNetwork, next to the PhotonView.
+        PlayerPrefabNetwork playerNetwork = GetComponentInParent<PlayerPrefabNetwork>();
+        if (playerNetwork != null)
+            playerNetwork.Heal(amount);
+    }
+
+    public void ApplyHeal(float amount)
+    {
+        // Life is shared like damage: every registered life bar is healed, capped at its max life.
+        var gameOverManager = ServiceLocator.Get<GameOverManager>();
+        IReadOnlyList<PlayersLifeBar> targets = gameOverManager != null && gameOverManager.PlayersLifeBars.Count > 0
+            ? gameOverManager.PlayersLifeBars
+            : new List<PlayersLifeBar> { this };
+
+        foreach (var lifeBar in targets)
+        {
+            lifeBar.CurrentLife = Mathf.Min(lifeBar._maxLife, lifeBar.CurrentLife + amount);
+            lifeBar.UpdateVisual();
+        }
     }
 
     void UpdateVisual()

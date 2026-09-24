@@ -39,7 +39,7 @@ public class UserCam : MonoBehaviour
     public void LoadLevel(string scene)
     {
         if (OfflineSession.IsOffline)
-            SceneManager.LoadScene(scene);
+            OfflineSession.LoadMappedScene(scene);
         else
             PhotonNetwork.LoadLevel(scene);
     }

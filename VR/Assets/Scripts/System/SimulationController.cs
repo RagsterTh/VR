@@ -65,11 +65,10 @@ public class SimulationController : MonoBehaviour
         if (ConnectionManager.isVR)
         {
             int spawnIndex = (PhotonNetwork.LocalPlayer.ActorNumber - 1) % _spawnPoints.Length;
-            Transform spawnPoint = _spawnPoints[spawnIndex];
             int playerID = PhotonNetwork.Instantiate(
                 GetResource(ResourceTypes.PlayerVR).name,
-                spawnPoint.position,
-                spawnPoint.rotation).GetPhotonView().ViewID;
+                _spawnPoints[spawnIndex].position,
+                Quaternion.LookRotation(_spawnPoints[0].up)).GetPhotonView().ViewID;
 
             if (PhotonNetwork.LocalPlayer.IsLocal)
                 _phView.RPC(nameof(RPC_RegisterPlayerAvatar), RpcTarget.AllBuffered, playerID);
@@ -97,7 +96,10 @@ public class SimulationController : MonoBehaviour
             return;
 
         Transform spawnPoint = _spawnPoints != null && _spawnPoints.Length > 0 ? _spawnPoints[0] : transform;
-        GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        // Same facing as the online spawn (LookRotation of the first spawn point's up axis).
+        Quaternion rotation = Quaternion.LookRotation(spawnPoint.up);
+        GameObject player = Instantiate(playerPrefab, spawnPoint.position, rotation);
+        OfflinePlayerRig.Attach(player, spawnPoint.position, rotation * Vector3.forward);
         RegisterLocalPlayerAvatar(player);
     }
 
@@ -178,7 +180,7 @@ public class SimulationController : MonoBehaviour
     [PunRPC]
     public void RPC_SetSimulationSector(int mode)
     {
-        if ((SimulationMode)mode == SimulationMode.Default)
+        if (mode.Equals(SimulationMode.Default))
             return;
 
         for (int i = 0; i < _simulationSectors.Length; i++)

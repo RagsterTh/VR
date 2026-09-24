@@ -83,6 +83,7 @@ MonoBehaviour:
   - RPC_TakeDamage
   - RPC_Despawn
   - RPC_ActiveShooterGame
+  - RPC_Heal
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

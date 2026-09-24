@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
 
         if (OfflineSession.IsOffline)
         {
-            if (SceneManager.GetActiveScene().name == OfflineSession.CombatScene)
+            if (OfflineSession.IsCombatScene)
                 SpawnOfflinePlayer();
 
             RPC_ActiveScene();
@@ -57,13 +57,12 @@ public class GameController : MonoBehaviour
 
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
 
-        if (SceneManager.GetActiveScene().name == OfflineSession.CombatScene && ConnectionManager.isVR)
+        if (SceneManager.GetActiveScene().name.Equals("Game") && ConnectionManager.isVR)
         {
-            Transform spawnPoint = GetRandomCombatSpawn();
             int playerID = PhotonNetwork.Instantiate(
                 GetResource(ResourceTypes.PlayerVR).name,
-                spawnPoint.position,
-                spawnPoint.rotation).GetPhotonView().ViewID;
+                _spawnPoints[Random.Range(1, _spawnPoints.Length)].position,
+                transform.rotation).GetPhotonView().ViewID;
 
             if (PhotonNetwork.LocalPlayer.IsLocal)
                 _phView.RPC(nameof(RPC_RegisterPlayerAvatar), RpcTarget.AllBuffered, playerID);
@@ -89,7 +88,8 @@ public class GameController : MonoBehaviour
             return;
 
         Transform spawnPoint = GetRandomCombatSpawn();
-        GameObject player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        GameObject player = Instantiate(playerPrefab, spawnPoint.position, transform.rotation);
+        OfflinePlayerRig.Attach(player, spawnPoint.position, transform.forward);
         RegisterLocalPlayerAvatar(player);
     }
 
@@ -239,9 +239,9 @@ public class GameController : MonoBehaviour
             return;
         }
 
-        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name == OfflineSession.FullExperienceScene)
-            PhotonNetwork.LoadLevel(OfflineSession.MedicalScene);
+        if (PhotonNetwork.IsMasterClient && SceneManager.GetActiveScene().name.Equals("GloboV2"))
+            PhotonNetwork.LoadLevel("MedicalQuestions");
         else
-            PhotonNetwork.LoadLevel(OfflineSession.CreditsScene);
+            PhotonNetwork.LoadLevel("Credits");
     }
 }

@@ -39,8 +39,7 @@ public class ObjectPool : MonoBehaviourPunCallbacks
         if (!PhotonNetwork.IsMasterClient)
             return;
 
-        GameObject collection = new GameObject(_objectToPool.name + " Collection (Network)");
-        collection.transform.SetParent(transform, false);
+        GameObject collection = new GameObject(_objectToPool.name + " Collection");
         _pooledObjects = new List<int>();
 
         for (int i = 0; i < _amountToPool; i++)

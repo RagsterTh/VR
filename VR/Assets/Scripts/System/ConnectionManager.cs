@@ -16,14 +16,15 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (instance != null)
+        if (instance)
         {
             Destroy(gameObject);
-            return;
         }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         Connection();
     }
 

@@ -38,9 +38,10 @@ public class PlayerPrefabNetwork : MonoBehaviour
                 item.SetActive(true);
         }
 
-        PlayerTool startingTool = SceneManager.GetActiveScene().name == OfflineSession.CombatScene
-            ? PlayerTool.Gun
-            : PlayerTool.Hand;
+        bool isCombatScene = OfflineSession.IsOffline
+            ? OfflineSession.IsCombatScene
+            : SceneManager.GetActiveScene().name == "Game";
+        PlayerTool startingTool = isCombatScene ? PlayerTool.Gun : PlayerTool.Hand;
         SetHands(startingTool);
 
         if (SimulationController.Instance != null)
@@ -82,6 +83,24 @@ public class PlayerPrefabNetwork : MonoBehaviour
             Debug.LogWarning($"[PlayerPrefabNetwork] {name}: no PlayersLifeBar found in children.");
     }
 
+    public void Heal(float amount)
+    {
+        if (OfflineSession.IsOffline)
+            RPC_Heal(amount);
+        else
+            _phView.RPC(nameof(RPC_Heal), RpcTarget.All, amount);
+    }
+
+    [PunRPC]
+    public void RPC_Heal(float amount)
+    {
+        PlayersLifeBar lifeBar = GetComponentInChildren<PlayersLifeBar>();
+        if (lifeBar != null)
+            lifeBar.ApplyHeal(amount);
+        else
+            Debug.LogWarning($"[PlayerPrefabNetwork] {name}: no PlayersLifeBar found in children.");
+    }
+
     private void SetHands(PlayerTool tool)
     {
         if (OfflineSession.IsOffline)
@@ -94,18 +113,32 @@ public class PlayerPrefabNetwork : MonoBehaviour
     private void RPC_Hands(int tool)
     {
         bool useHands = tool == (int)PlayerTool.Hand;
-        _leftGun.SetActive(!useHands);
-        _rightGun.SetActive(!useHands);
-        _leftHandMecanic.SetActive(useHands);
-        _leftHandVisual.SetActive(useHands);
-        _rightHandMecanic.SetActive(useHands);
-        _rightHandVisual.SetActive(useHands);
+        SetActiveIfAssigned(_leftGun, !useHands);
+        SetActiveIfAssigned(_rightGun, !useHands);
+        SetActiveIfAssigned(_leftHandMecanic, useHands);
+        SetActiveIfAssigned(_leftHandVisual, useHands);
+        SetActiveIfAssigned(_rightHandMecanic, useHands);
+        SetActiveIfAssigned(_rightHandVisual, useHands);
+    }
+
+    // Rigs without tools (e.g. PlayerMedicalScene) leave these references empty.
+    private static void SetActiveIfAssigned(GameObject target, bool active)
+    {
+        if (target != null)
+            target.SetActive(active);
     }
 
     public void RecenterPlayer()
     {
         if (OfflineSession.IsOffline)
         {
+            OfflinePlayerRig offlineRig = GetComponent<OfflinePlayerRig>();
+            if (offlineRig != null)
+            {
+                offlineRig.Place();
+                return;
+            }
+
             Transform[] offlineSpawns = SimulationController.Instance != null
                 ? SimulationController.Instance.SpawnPoints
                 : GameController.instance != null ? GameController.instance.SpawnPoints : null;
