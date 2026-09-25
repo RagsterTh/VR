@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3720581560626872718}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8654299, y: 0.2521798, z: -3.853398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3720581560626872705
 MonoBehaviour:
@@ -49,4 +49,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _enemyPools: []
+  _playersBullets: {fileID: 0}
   _sceneResources: {fileID: 11400000, guid: 5094f2df84a0fe9408175f848a78c0dd, type: 2}
+  _switch: {fileID: 0}
+  _difficultyFactor: 1.7
+  OnBattleBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlayerLeftBattle:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSceneLoaded:
+    m_PersistentCalls:
+      m_Calls: []

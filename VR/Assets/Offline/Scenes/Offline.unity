@@ -208,7 +208,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -807,6 +807,7 @@ GameObject:
   - component: {fileID: 243920742}
   - component: {fileID: 243920741}
   - component: {fileID: 243920740}
+  - component: {fileID: 243920745}
   m_Layer: 0
   m_Name: '[Offline] Menu Panel'
   m_TagString: Untagged
@@ -872,7 +873,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 10
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &243920743
 Canvas:
   m_ObjectHideFlags: 0
@@ -891,7 +892,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -921,6 +922,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.4}
   m_SizeDelta: {x: 900, y: 640}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &243920745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243920739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7be8321aace12640a7a363cf207a300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RotateCanvas
+  cameraTransform: {fileID: 1089671909}
+  hudObject: {fileID: 243920744}
+  distanceAhead: 2
+  heightOffset: 2
+  positionSmooth: 5
+  rotationSmooth: 5
+  deadZoneAngle: 10
 --- !u!1 &289427862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2299,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3601,6 +3621,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1089671909 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6357422154443924556, guid: c12357e74537fc14f8d53edc00f109fa, type: 3}
+  m_PrefabInstance: {fileID: 910000000000000020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1112828095
 GameObject:
   m_ObjectHideFlags: 0
@@ -6595,7 +6620,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -7616,7 +7641,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2

@@ -46,8 +46,7 @@ public class Spawner : MonoBehaviourPunCallbacks
 
         if (GameController.instance != null)
         {
-            playerCount = Mathf.Max(1, GameController.instance.GetReadyPlayerCount());
-            difficultyFactor = GameController.instance.DifficultyFactor;
+            return _timeToSpawn / Mathf.Max(GameController.instance.GetSpawnRateScale(), 0.01f);
         }
         else if (SimulationController.Instance != null)
         {

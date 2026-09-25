@@ -18,7 +18,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private Switch _switch;
 
     [Header("Difficulty")]
-    [Tooltip("How much each extra player speeds up enemy spawns. 0 = spawn rate ignores player count. 1 = spawn interval is halved with 2 players, thirds with 3, etc.")]
+    [Tooltip("Online: how much each extra player speeds up enemy spawns (0 = ignores player count, 1 = interval halved with 2 players, thirds with 3...). " +
+             "Offline (always 1 player): applied directly, spawn interval / (1 + factor). 0 = original pace, 0.5 = 1.5x faster, 1 = 2x faster.")]
     [SerializeField] private float _difficultyFactor = 0.5f;
 
     [Header("Events")]
@@ -166,6 +167,19 @@ public class GameController : MonoBehaviour
     {
         int expectedVRPlayers = CountExpectedVRPlayers();
         return expectedVRPlayers > 0 && GetReadyPlayerCount() >= expectedVRPlayers;
+    }
+
+    /// <summary>
+    /// How much faster enemies spawn. Online it grows with the extra players; offline there is only one player,
+    /// so the factor is applied directly (otherwise it would always multiply zero and never change anything).
+    /// </summary>
+    public float GetSpawnRateScale()
+    {
+        if (OfflineSession.IsOffline)
+            return 1f + Mathf.Max(0f, _difficultyFactor);
+
+        int playerCount = Mathf.Max(1, GetReadyPlayerCount());
+        return 1f + (playerCount - 1) * _difficultyFactor;
     }
 
     public int GetReadyPlayerCount()
