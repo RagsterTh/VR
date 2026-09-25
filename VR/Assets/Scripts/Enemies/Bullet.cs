@@ -25,6 +25,16 @@ public class Bullet : MonoBehaviour
         Collision();
     }
     
+    // The player's damage collider is a trigger, so OnCollisionEnter never fires against it.
+    void OnTriggerEnter(Collider other)
+    {
+        if (hasCollided || !other.CompareTag("Player"))
+            return;
+
+        hasCollided = true;
+        ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+    }
+
     bool Collision()    
     {
         return hasCollided;

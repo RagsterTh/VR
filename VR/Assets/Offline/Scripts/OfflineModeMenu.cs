@@ -13,8 +13,8 @@ public sealed class OfflineModeMenu : MonoBehaviour
     [Header("Mode")]
     [Tooltip("Mode started by this scene.")]
     [SerializeField] private OfflineExperienceMode _mode = OfflineExperienceMode.CombatOnly;
-    [Tooltip("Start the selected mode automatically after the delay. Off = wait for a VR button.")]
-    [SerializeField] private bool _startAutomatically = true;
+    [Tooltip("Start the selected mode automatically after the delay. Off (default) = the player picks on the VR panel.")]
+    [SerializeField] private bool _startAutomatically;
     [Min(0f)]
     [SerializeField] private float _autoStartDelay = 5f;
     [Tooltip("Also auto start when coming back to this scene after the credits. Off = wait for a VR button.")]

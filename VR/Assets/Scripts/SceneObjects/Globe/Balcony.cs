@@ -20,6 +20,7 @@ public class Balcony : MonoBehaviour
     private bool _isTyping = false;
     private bool _playerInRange = false;
     PhotonView _phView;
+    public bool IsDialogueFinished { get; private set; }
     [SerializeField] UnityEvent OnDialogueBegin;
     [SerializeField] UnityEvent OnDialogueEnd;
     private void Start()
@@ -115,13 +116,18 @@ public class Balcony : MonoBehaviour
 
     public void AdvanceDialogue()
     {
-        if (!_playerInRange || _dialogueLines.Count == 0) return;
+        // Offline there is no host to skip the dialogue, so the lines advance on their own.
+        bool canAdvance = _playerInRange || OfflineSession.IsOffline;
+        if (!canAdvance || _dialogueLines.Count == 0 || IsDialogueFinished) return;
 
         if (_isTyping)
         {
             StopCoroutine(_typingCoroutine);
             _dialogueText.text = _dialogueLines[_currentLineIndex];
             _isTyping = false;
+            // The stopped coroutine was also the one that advanced by itself; keep that going offline.
+            if (OfflineSession.IsOffline)
+                _typingCoroutine = StartCoroutine(AdvanceAfterDelay());
         }
         else
         {
@@ -132,6 +138,7 @@ public class Balcony : MonoBehaviour
             }
             else
             {
+                IsDialogueFinished = true;
                 EndDialogue();
                 if (OfflineSession.IsOffline)
                     RPC_ExitLobby();
@@ -140,6 +147,12 @@ public class Balcony : MonoBehaviour
             }
         }
     }
+    private IEnumerator AdvanceAfterDelay()
+    {
+        yield return new WaitForSeconds(4);
+        AdvanceDialogue();
+    }
+
     [PunRPC]
     public void RPC_ServiceActive()
     {

@@ -21,6 +21,8 @@ public class PlayerPrefabNetwork : MonoBehaviour
     [SerializeField] private GameObject _leftHandVisual;
     [SerializeField] private GameObject _rightHandMecanic;
     [SerializeField] private GameObject _rightHandVisual;
+    [Tooltip("Life bar + heal HUD, shown only while the guns are out (combat).")]
+    [SerializeField] private GameObject _combatHud;
 
     private PhotonView _phView;
 
@@ -119,6 +121,7 @@ public class PlayerPrefabNetwork : MonoBehaviour
         SetActiveIfAssigned(_leftHandVisual, useHands);
         SetActiveIfAssigned(_rightHandMecanic, useHands);
         SetActiveIfAssigned(_rightHandVisual, useHands);
+        SetActiveIfAssigned(_combatHud, !useHands);
     }
 
     // Rigs without tools (e.g. PlayerMedicalScene) leave these references empty.

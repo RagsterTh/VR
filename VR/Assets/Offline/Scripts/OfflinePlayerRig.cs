@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement;
+using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
 /// <summary>
 /// Offline replacement for the rig start-up done by ResetPosition + Photon ownership:
@@ -28,6 +30,10 @@ public sealed class OfflinePlayerRig : MonoBehaviour
     [Tooltip("Turn the rig so the headset faces the start point's forward direction.")]
     [SerializeField] private bool _alignHeading = true;
 
+    [Header("Movement")]
+    [Tooltip("Offline the player stays on the start point: thumbstick movement and teleport are turned off (turning still works).")]
+    [SerializeField] private bool _blockMovement = true;
+
     [Header("Timing")]
     [Tooltip("Max seconds to wait for headset tracking before placing anyway.")]
     [SerializeField] private float _trackingTimeout = 1.5f;
@@ -46,6 +52,9 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         if (rig == null)
             rig = playerRoot.AddComponent<OfflinePlayerRig>();
         rig.SetStart(startPosition, startForward);
+        // The globe maps are real terrains: stand on the spawn point instead of the project's world-origin reset.
+        if (OfflineSession.IsMapScene)
+            rig._headTarget = HeadTarget.StartPointFloor;
         return rig;
     }
 
@@ -64,10 +73,25 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         // ResetPosition teleports the camera 3s after spawn; placement is handled here instead.
         foreach (ResetPosition reset in GetComponentsInChildren<ResetPosition>(true))
             reset.enabled = false;
+
+        if (_blockMovement)
+        {
+            foreach (ContinuousMoveProvider move in GetComponentsInChildren<ContinuousMoveProvider>(true))
+                move.enabled = false;
+            foreach (TeleportationProvider teleport in GetComponentsInChildren<TeleportationProvider>(true))
+                teleport.enabled = false;
+        }
     }
 
     private IEnumerator Start()
     {
+        OfflineSpawnPoint spawn = FindAnyObjectByType<OfflineSpawnPoint>();
+        if (spawn != null)
+        {
+            SetStart(spawn.transform.position, spawn.transform.forward);
+            _headTarget = HeadTarget.StartPointFloor;
+        }
+
         KeepSingleAudioListener();
 
         float waited = 0f;

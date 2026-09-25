@@ -55,8 +55,11 @@ public class WaitingPlayers : MonoBehaviour
             }
             else
             {
-                _globe.SetActive(true);
-                _shooterGame.SetActive(true);
+                // GloboV2 leaves _globe empty; without the check the exception stopped the combat area from opening.
+                if (_globe != null)
+                    _globe.SetActive(true);
+                if (_shooterGame != null)
+                    _shooterGame.SetActive(true);
             }
         }
     }

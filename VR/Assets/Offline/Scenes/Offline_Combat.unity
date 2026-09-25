@@ -1940,6 +1940,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f4dd52ec63b3a734985823598b2ac698, type: 3}
   m_PrefabInstance: {fileID: 227780116}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &235734459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 235734461}
+  - component: {fileID: 235734460}
+  m_Layer: 0
+  m_Name: '[Offline] Auto Advance - Battle'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &235734460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235734459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a715b9a146abbf84f9bb72636f76d7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OfflineAutoAdvance
+  _waitUntilActive: {fileID: 2075321815}
+  _skipIfActive: {fileID: 0}
+  _waitForDirector: {fileID: 0}
+  _waitForAudio: {fileID: 2075321814}
+  _maxWaitForAudioStart: 10
+  _delayAfter: 1.5
+  _onAdvance:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2075321813}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: ActiveBattle
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!4 &235734461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235734459}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &242950960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,69 +2238,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 877d439db4c2b1a4a99df0986097dc00, type: 3}
   m_PrefabInstance: {fileID: 265269175}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &271664847
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 271664849}
-  - component: {fileID: 271664848}
-  m_Layer: 0
-  m_Name: '[Offline] Auto Advance - Battle'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &271664848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271664847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a715b9a146abbf84f9bb72636f76d7c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OfflineAutoAdvance
-  _waitUntilActive: {fileID: 2075321815}
-  _waitForAudio: {fileID: 2075321814}
-  _maxWaitForAudioStart: 10
-  _delayAfter: 1.5
-  _onAdvance:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2075321813}
-        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: ActiveBattle
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!4 &271664849
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 271664847}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &304676225
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14237,4 +14239,4 @@ SceneRoots:
   - {fileID: 1588136293}
   - {fileID: 329232046}
   - {fileID: 820140363}
-  - {fileID: 271664849}
+  - {fileID: 235734461}

@@ -35,6 +35,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Offline/Scenes/Offline_Credits.unity
     guid: 12fd3dd847227314aa5ab12d3116fc41
+  - enabled: 1
+    path: Assets/Offline/Scenes/Offline_Cambirela.unity
+    guid: 0fdca4d11196b8846ad18a6aab45a630
+  - enabled: 1
+    path: Assets/Offline/Scenes/Offline_Guarda.unity
+    guid: ff5de527b4867c84e98b4c21c3b04dd5
+  - enabled: 1
+    path: Assets/Offline/Scenes/Offline_PedraBranca.unity
+    guid: 0a1f0128f5eed354ca16feeb26b7d283
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 54bc47963af8849488bb822bd7778da0, type: 2}

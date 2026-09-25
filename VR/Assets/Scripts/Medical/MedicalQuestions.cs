@@ -74,7 +74,7 @@ public class MedicalQuestions : MonoBehaviour
             distractorIndex = UnityEngine.Random.Range(0, allTreatments.Length);
         } while (distractorIndex == correctIndex);
 
-        buttonPanel.GetComponent<MoveTween>().Move();
+        //buttonPanel.GetComponent<MoveTween>().Move();J
 
         // Crie um array com os dois tratamentos
         TreatmentType[] options = new TreatmentType[2];

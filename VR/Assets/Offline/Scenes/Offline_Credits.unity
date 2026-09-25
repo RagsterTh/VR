@@ -1544,6 +1544,7 @@ MonoBehaviour:
   _startPoint: {fileID: 0}
   _headTarget: 1
   _alignHeading: 1
+  _blockMovement: 1
   _trackingTimeout: 1.5
 --- !u!1001 &7923110990739996820
 PrefabInstance:

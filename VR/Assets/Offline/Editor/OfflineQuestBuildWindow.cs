@@ -10,14 +10,7 @@ using UnityEngine;
 /// </summary>
 public sealed class OfflineQuestBuildWindow : EditorWindow
 {
-    private static readonly string[] OfflineScenes =
-    {
-        "Assets/Offline/Scenes/" + OfflineSession.EntryScene + ".unity",
-        "Assets/Offline/Scenes/" + OfflineSession.CombatScene + ".unity",
-        "Assets/Offline/Scenes/" + OfflineSession.FullExperienceScene + ".unity",
-        "Assets/Offline/Scenes/" + OfflineSession.MedicalScene + ".unity",
-        "Assets/Offline/Scenes/" + OfflineSession.CreditsScene + ".unity",
-    };
+    private static string[] OfflineScenes => OfflineModeSetup.AllOfflineScenePaths;
 
     private Vector2 _scroll;
 
@@ -159,8 +152,12 @@ public sealed class OfflineQuestBuildWindow : EditorWindow
             BuildSummary summary = report.summary;
             if (summary.result == BuildResult.Succeeded)
                 Debug.Log($"[Offline] Build {(patch ? "patch " : string.Empty)}ok: {output} ({summary.totalSize / (1024f * 1024f):0.0} MB, {summary.totalTime.TotalSeconds:0}s).");
+            else if (summary.result == BuildResult.Cancelled)
+                Debug.LogWarning("[Offline] Build cancelado (botão Cancel da barra de progresso ou o Quest desconectou/dormiu no fim). " +
+                                 "Obs.: \"Method 'Init' is in a generic class\" vem do Meta XR SDK (Immersive Debugger) e aparece em todo build; pode ignorar.");
             else
-                Debug.LogError($"[Offline] Build falhou ({summary.result}) com {summary.totalErrors} erro(s). Veja o Console.");
+                Debug.LogError($"[Offline] Build falhou ({summary.result}) com {summary.totalErrors} erro(s). Veja o Console. " +
+                               "Ignore \"Method 'Init' is in a generic class\" (aviso do Meta XR SDK); procure o outro erro.");
         }
         finally
         {

@@ -9,6 +9,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
+using UnityEngine.TextCore.LowLevel;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.UI;
@@ -28,6 +31,13 @@ public static class OfflineModeSetup
     private const string MenuPanelName = "[Offline] Menu Panel";
     private const string HealWidgetName = "HealAbility";
     private const string AutoAdvancePrefix = "[Offline] Auto Advance";
+    private const string SpawnPointName = "[Offline] Spawn Point";
+    private const string ReadableFontPath = "Assets/Offline/Fonts/Zekton-Regular Offline Static SDF.asset";
+    // First version (dynamic, cleared on build -> invisible text on the Quest). Replaced and deleted by the setup.
+    private const string OldDynamicFontPath = "Assets/Offline/Fonts/Zekton-Regular Offline SDF.asset";
+    private const string ReadableFontSource = "Assets/Fnt/Zekton-Regular.otf";
+    // Fonts of the medical panel: secrcode is a symbol font and Zekton SDF was baked with ASCII only (no accents).
+    private static readonly string[] UnreadableFonts = { "Assets/Fnt/secrcode SDF.asset", "Assets/Fnt/Zekton-Regular SDF.asset" };
 
     // Original scene -> offline copy.
     private static readonly (string original, string copy)[] SceneCopies =
@@ -37,6 +47,30 @@ public static class OfflineModeSetup
         ("Assets/Scenes/MedicalQuestions.unity", ScenesFolder + "/" + OfflineSession.MedicalScene + ".unity"),
         ("Assets/Scenes/Credits.unity", ScenesFolder + "/" + OfflineSession.CreditsScene + ".unity"),
     };
+
+    // Globe maps (scenery only) -> offline copies that receive the combat kit.
+    private static readonly (string original, string copy)[] MapCopies =
+    {
+        ("Assets/Scenes/ScenasGlobo/Cambirela.unity", ScenesFolder + "/" + OfflineSession.CambirelaScene + ".unity"),
+        ("Assets/Scenes/ScenasGlobo/Guarda.unity", ScenesFolder + "/" + OfflineSession.GuardaScene + ".unity"),
+        ("Assets/Scenes/ScenasGlobo/PedraBranca.unity", ScenesFolder + "/" + OfflineSession.PedraBrancaScene + ".unity"),
+    };
+
+    private const string ShootGamePrefabPath = "Assets/Prefabs/Map/ShootGame.prefab";
+    private const string CombatKitName = "[Offline] Combat (ShootGame)";
+    private const string MapSelectionName = "[Offline] Map Selection";
+
+    // Map buttons over the map picture in GloboV2 (named by their position on the picture).
+    private static readonly Dictionary<string, string> MapByButtonName = new()
+    {
+        { "Button", OfflineSession.PedraBrancaScene },
+        { "Button (1)", OfflineSession.CambirelaScene },
+        { "Button (2)", OfflineSession.GuardaScene },
+    };
+
+    /// <summary>Every scene of the offline build, entry scene first.</summary>
+    public static string[] AllOfflineScenePaths =>
+        new[] { EntryScenePath }.Concat(SceneCopies.Select(s => s.copy)).Concat(MapCopies.Select(m => m.copy)).ToArray();
 
     [MenuItem("Tools/Offline/Configurar modo offline e cura", priority = 0)]
     public static void SetupAll()
@@ -51,6 +85,12 @@ public static class OfflineModeSetup
         ConfigureGameplayScene(SceneCopies[1].copy, sceneRigIsPlayer: false);
         ConfigureGameplayScene(SceneCopies[2].copy, sceneRigIsPlayer: true);
         ConfigureGameplayScene(SceneCopies[3].copy, sceneRigIsPlayer: true);
+        ConfigureMapSelection(SceneCopies[1].copy);
+        ConfigureSpawnPoint(SceneCopies[1].copy, "Lobby/Globe");
+        ConfigureSpawnPoint(SceneCopies[2].copy, "MedicalRoom");
+        ConfigureMedicalFonts(SceneCopies[2].copy);
+        foreach (var (_, copy) in MapCopies)
+            ConfigureMapScene(copy);
         ConfigureEntryScene();
         UpdateBuildSettings();
 
@@ -102,6 +142,15 @@ public static class OfflineModeSetup
             serialized.FindProperty("_cooldownText").objectReferenceValue = widget.CooldownText;
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
+            // Life bar + heal only while holding the guns (combat); PlayerPrefabNetwork toggles this canvas.
+            var network = root.GetComponent<PlayerPrefabNetwork>();
+            var serializedNetwork = new SerializedObject(network);
+            serializedNetwork.FindProperty("_combatHud").objectReferenceValue = canvas.gameObject;
+            serializedNetwork.ApplyModifiedPropertiesWithoutUndo();
+
+            if (root.GetComponent<BoxCollider>() != null && root.GetComponent<PlayerDamageCollider>() == null)
+                root.AddComponent<PlayerDamageCollider>();
+
             PrefabUtility.SaveAsPrefabAsset(root, PlayerPrefabPath);
             Debug.Log("[Offline] Cura adicionada ao PlayerVR V3 (componente PlayerHeal + HUD HealAbility).");
         }
@@ -116,7 +165,7 @@ public static class OfflineModeSetup
     private static void CopyScenes(bool overwrite)
     {
         Directory.CreateDirectory(ScenesFolder);
-        foreach (var (original, copy) in SceneCopies)
+        foreach (var (original, copy) in SceneCopies.Concat(MapCopies))
         {
             bool exists = File.Exists(copy);
             if (exists && !overwrite)
@@ -193,17 +242,8 @@ public static class OfflineModeSetup
         foreach (GameObject old in scene.GetRootGameObjects().Where(go => go.name.StartsWith(AutoAdvancePrefix)).ToList())
             Object.DestroyImmediate(old);
 
-        // Lobby (GloboV2): after the narration of OnExperienceBegin the host pressed a "Finish" button,
-        // which opens the globe and the shooting area in the same scene.
-        SimulationController simulation = FindInScene<SimulationController>(scene).FirstOrDefault();
-        WaitingPlayers lobby = FindInScene<WaitingPlayers>(scene)
-            .FirstOrDefault(w => !new SerializedObject(w).FindProperty("isMedical").boolValue);
-        if (simulation != null && lobby != null)
-        {
-            OfflineAutoAdvance step = CreateStep(scene, AutoAdvancePrefix + " - Lobby", null,
-                PlayedAudio(simulation.OnExperienceBegin), 3f);
-            UnityEventTools.AddPersistentListener(step.OnAdvance, lobby.Finish);
-        }
+        // GloboV2 lobby: nothing to automate here any more. Eve's dialogue advances by itself (Balcony, offline)
+        // and ends by showing the globe; the map choice is the player's input (see ConfigureMapSelection).
 
         // Battle: after "inimigos se aproximam..." (GameController.OnSceneLoaded) the host pressed StartBattle.
         foreach (GameController controller in FindInScene<GameController>(scene))
@@ -247,6 +287,16 @@ public static class OfflineModeSetup
         return step;
     }
 
+    private static GameObject ActivatedObject(UnityEvent unityEvent)
+    {
+        for (int i = 0; i < unityEvent.GetPersistentEventCount(); i++)
+        {
+            if (unityEvent.GetPersistentTarget(i) is GameObject go && unityEvent.GetPersistentMethodName(i) == "SetActive" && !go.activeSelf)
+                return go;
+        }
+        return null;
+    }
+
     private static AudioSource PlayedAudio(UnityEvent unityEvent)
     {
         if (unityEvent == null)
@@ -258,6 +308,376 @@ public static class OfflineModeSetup
                 return audio;
         }
         return null;
+    }
+
+    /// <summary>GloboV2: the three buttons over the map picture load the map scenes instead of the local arena.</summary>
+    private static void ConfigureMapSelection(string path)
+    {
+        Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+
+        RelinkEveIntro(scene);
+        GameObject globeForEve = null;
+
+        GameObject old = scene.GetRootGameObjects().FirstOrDefault(go => go.name == MapSelectionName);
+        if (old != null)
+            Object.DestroyImmediate(old);
+
+        List<Button> buttons = FindInScene<Button>(scene)
+            .Where(b => MapByButtonName.ContainsKey(b.name) && CallsFinish(b))
+            .ToList();
+        if (buttons.Count == 0)
+        {
+            Debug.LogError($"[Offline] {scene.name}: não achei os botões de mapa (Button, Button (1), Button (2) chamando Finish) no globo.");
+            return;
+        }
+
+        Canvas panelCanvas = buttons[0].GetComponentInParent<Canvas>(true);
+        if (panelCanvas.GetComponent<TrackedDeviceGraphicRaycaster>() == null)
+            panelCanvas.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
+
+        var dialogueEnd = typeof(Balcony).GetField("OnDialogueEnd",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        GameObject globe = FindInScene<Balcony>(scene)
+            .Select(b => ActivatedObject((UnityEvent)dialogueEnd.GetValue(b)))
+            .FirstOrDefault(go => go != null);
+        if (globe == null)
+            Debug.LogWarning($"[Offline] {scene.name}: não achei o globo ativado no fim do diálogo; o painel de mapas abre já no início.");
+        globeForEve = globe;
+        AddEveEndStep(scene, globeForEve);
+
+        var selection = FindOrCreateRoot(scene, MapSelectionName).AddComponent<OfflineMapSelection>();
+        var serialized = new SerializedObject(selection);
+        serialized.FindProperty("_globe").objectReferenceValue = globe;
+        serialized.FindProperty("_mapPanel").objectReferenceValue = panelCanvas.gameObject;
+        SerializedProperty maps = serialized.FindProperty("_maps");
+        maps.arraySize = buttons.Count;
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            SerializedProperty entry = maps.GetArrayElementAtIndex(i);
+            entry.FindPropertyRelative("Button").objectReferenceValue = buttons[i];
+            entry.FindPropertyRelative("Scene").stringValue = MapByButtonName[buttons[i].name];
+        }
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    /// <summary>
+    /// SimulationController.OnExperienceBegin should Play Eve's intro timeline, but in GloboV2 the reference is
+    /// empty since the lobby was rebuilt (the director now lives on "Lobby"). Point the empty call at that director.
+    /// </summary>
+    private static void RelinkEveIntro(Scene scene)
+    {
+        SimulationController simulation = FindInScene<SimulationController>(scene).FirstOrDefault();
+        PlayableDirector[] directors = FindInScene<PlayableDirector>(scene).ToArray();
+        if (simulation == null || directors.Length == 0)
+            return;
+
+        PlayableDirector eve = directors.FirstOrDefault(d => d.playableAsset != null && d.playableAsset.name.Contains("EVE"))
+                               ?? directors[0];
+
+        var serialized = new SerializedObject(simulation);
+        SerializedProperty calls = serialized.FindProperty("OnExperienceBegin.m_PersistentCalls.m_Calls");
+        for (int i = 0; i < calls.arraySize; i++)
+        {
+            SerializedProperty call = calls.GetArrayElementAtIndex(i);
+            bool isDirectorPlay = call.FindPropertyRelative("m_MethodName").stringValue == "Play" &&
+                                  call.FindPropertyRelative("m_TargetAssemblyTypeName").stringValue.StartsWith("UnityEngine.Playables.PlayableDirector");
+            SerializedProperty target = call.FindPropertyRelative("m_Target");
+            if (isDirectorPlay && target.objectReferenceValue == null)
+            {
+                target.objectReferenceValue = eve;
+                Debug.Log($"[Offline] {scene.name}: fala inicial da Eve religada ao PlayableDirector '{eve.name}' ({eve.playableAsset?.name}).", eve);
+            }
+        }
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    /// <summary>
+    /// Eve's timeline ends with EveLobbySignal -> SignalReceiver -> Balcony.ServiceDisable (hide the hologram, show the
+    /// globe, play "Seleção de Fase"). The emitter sits on the timeline's last frame, which the director never evaluates,
+    /// so the signal never fires. Offline: when the timeline ends, call the same reaction.
+    /// </summary>
+    private static void AddEveEndStep(Scene scene, GameObject globe)
+    {
+        PlayableDirector director = FindInScene<PlayableDirector>(scene)
+            .FirstOrDefault(d => d.playableAsset != null && d.playableAsset.name.Contains("EVE"));
+        if (director == null)
+            return;
+
+        foreach (SignalReceiver receiver in FindInScene<SignalReceiver>(scene))
+        {
+            for (int r = 0; r < receiver.Count(); r++)
+            {
+                UnityEvent reaction = receiver.GetReactionAtIndex(r);
+                for (int i = 0; i < reaction.GetPersistentEventCount(); i++)
+                {
+                    if (reaction.GetPersistentTarget(i) is not Balcony balcony || reaction.GetPersistentMethodName(i) != "ServiceDisable")
+                        continue;
+
+                    OfflineAutoAdvance step = CreateStep(scene, AutoAdvancePrefix + " - Eve", null, null, 0.3f);
+                    var serialized = new SerializedObject(step);
+                    serialized.FindProperty("_waitForDirector").objectReferenceValue = director;
+                    // If the signal did fire, the globe is already up: do not run the reaction twice.
+                    serialized.FindProperty("_skipIfActive").objectReferenceValue = globe;
+                    serialized.ApplyModifiedPropertiesWithoutUndo();
+                    UnityEventTools.AddPersistentListener(step.OnAdvance, balcony.ServiceDisable);
+                    return;
+                }
+            }
+        }
+
+        Debug.LogWarning($"[Offline] {scene.name}: não achei o SignalReceiver da Eve (Balcony.ServiceDisable); o fim da timeline não vai avançar.");
+    }
+
+    /// <summary>
+    /// Offline start point in the middle of the room (bounds of the room's visible objects, standing on the floor).
+    /// If the centre is on furniture (e.g. the stretcher), it slides towards the original spawn until it finds floor.
+    /// An existing spawn point is kept, so it can be moved by hand.
+    /// </summary>
+    private static void ConfigureSpawnPoint(string path, string roomRootName)
+    {
+        Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+
+        Renderer[] sceneRenderers = FindInScene<Renderer>(scene)
+            .Where(r => r.enabled && r.gameObject.activeInHierarchy && r is MeshRenderer or SkinnedMeshRenderer)
+            .Where(r => r.GetComponentInParent<PlayerPrefabNetwork>(true) == null)
+            .ToArray();
+
+        GameObject existing = scene.GetRootGameObjects().FirstOrDefault(go => go.name == SpawnPointName);
+        if (existing != null)
+        {
+            // Keep a point that is on free floor (possibly moved by hand); redo one that landed on furniture.
+            if (!InsideFurniture(sceneRenderers, existing.transform.position, existing.transform.position.y))
+                return;
+            Object.DestroyImmediate(existing);
+        }
+
+        GameObject room = scene.GetRootGameObjects().FirstOrDefault(go => go.name == roomRootName);
+        Renderer[] renderers = room != null
+            ? room.GetComponentsInChildren<Renderer>().Where(r => r.enabled && r is MeshRenderer or SkinnedMeshRenderer).ToArray()
+            : new Renderer[0];
+        if (renderers.Length == 0)
+        {
+            Debug.LogWarning($"[Offline] {scene.name}: sala '{roomRootName}' não encontrada; spawn offline não criado.");
+            return;
+        }
+
+        Bounds bounds = renderers[0].bounds;
+        foreach (Renderer r in renderers)
+            bounds.Encapsulate(r.bounds);
+
+        // Original start and facing of this scene.
+        Vector3 originalPosition = bounds.center;
+        Vector3 facing = Vector3.forward;
+        PlayerPrefabNetwork sceneRig = FindInScene<PlayerPrefabNetwork>(scene).FirstOrDefault(p => p.gameObject.activeInHierarchy);
+        SimulationController simulation = FindInScene<SimulationController>(scene).FirstOrDefault();
+        if (sceneRig != null)
+        {
+            originalPosition = sceneRig.transform.position;
+            facing = sceneRig.transform.forward;
+        }
+        else if (simulation != null && simulation.SpawnPoints != null && simulation.SpawnPoints.Length > 0 && simulation.SpawnPoints[0] != null)
+        {
+            originalPosition = simulation.SpawnPoints[0].position;
+            facing = simulation.SpawnPoints[0].up; // same facing as the online spawn (LookRotation(up))
+        }
+
+        Physics.SyncTransforms();
+        // Floor = ground under the original spawn (where the game already puts the player).
+        float floor = bounds.min.y;
+        if (Physics.Raycast(originalPosition + Vector3.up * 0.5f, Vector3.down, out RaycastHit floorHit, 10f))
+            floor = floorHit.point.y;
+
+        Vector3 centre = new Vector3(bounds.center.x, floor, bounds.center.z);
+        Vector3 target = new Vector3(originalPosition.x, floor, originalPosition.z);
+        Vector3 spawn = centre;
+        for (int step = 0; step <= 40; step++)
+        {
+            Vector3 probe = Vector3.Lerp(centre, target, step / 40f);
+            if (!Physics.Raycast(probe + Vector3.up * (bounds.size.y + 1f), Vector3.down, out RaycastHit hit, bounds.size.y + 5f))
+            {
+                if (InsideFurniture(sceneRenderers, probe, floor))
+                    continue;
+                spawn = probe;
+                break;
+            }
+            if (hit.point.y <= floor + 0.3f && !InsideFurniture(sceneRenderers, probe, floor))
+            {
+                spawn = new Vector3(probe.x, hit.point.y, probe.z);
+                break;
+            }
+        }
+
+        // Face the middle of the room when the point had to move away from it.
+        Vector3 toCentre = Vector3.ProjectOnPlane(centre - spawn, Vector3.up);
+        if (toCentre.magnitude > 0.5f)
+            facing = toCentre;
+        facing = Vector3.ProjectOnPlane(facing, Vector3.up);
+        if (facing.sqrMagnitude < 0.0001f)
+            facing = Vector3.forward;
+
+        var point = new GameObject(SpawnPointName);
+        SceneManager.MoveGameObjectToScene(point, scene);
+        point.transform.SetPositionAndRotation(spawn, Quaternion.LookRotation(facing.normalized, Vector3.up));
+        point.AddComponent<OfflineSpawnPoint>();
+        Debug.Log($"[Offline] {scene.name}: spawn offline criado em {spawn} (centro da sala {centre}). Mova '{SpawnPointName}' se quiser ajustar.", point);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    // Furniture without colliders (e.g. the stretcher): a small object occupying body height at this point.
+    private static bool InsideFurniture(IEnumerable<Renderer> renderers, Vector3 point, float floor)
+    {
+        foreach (Renderer r in renderers)
+        {
+            Bounds b = r.bounds;
+            bool small = b.size.x < 4f && b.size.z < 4f;
+            bool bodyHeight = b.min.y < floor + 1.5f && b.max.y > floor + 0.3f;
+            bool overPoint = point.x > b.min.x - 0.3f && point.x < b.max.x + 0.3f && point.z > b.min.z - 0.3f && point.z < b.max.z + 0.3f;
+            if (small && bodyHeight && overPoint)
+                return true;
+        }
+        return false;
+    }
+
+    /// <summary>Medical panel: swap the symbol/ASCII-only fonts for a Zekton font asset that has the Portuguese accents.</summary>
+    private static void ConfigureMedicalFonts(string path)
+    {
+        TMP_FontAsset readable = GetOrCreateReadableFont();
+        if (readable == null)
+            return;
+
+        var unreadable = UnreadableFonts.Append(OldDynamicFontPath)
+            .Select(AssetDatabase.LoadAssetAtPath<TMP_FontAsset>).Where(f => f != null).ToList();
+        Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+        int changed = 0;
+        foreach (TMP_Text text in FindInScene<TMP_Text>(scene))
+        {
+            if (!unreadable.Contains(text.font))
+                continue;
+            text.font = readable;
+            text.fontSharedMaterial = readable.material;
+            EditorUtility.SetDirty(text);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(text);
+            changed++;
+        }
+        Debug.Log($"[Offline] {scene.name}: {changed} texto(s) passaram a usar '{readable.name}'.");
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+
+        if (AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(OldDynamicFontPath) != null)
+            AssetDatabase.DeleteAsset(OldDynamicFontPath);
+    }
+
+    private static TMP_FontAsset GetOrCreateReadableFont()
+    {
+        TMP_FontAsset existing = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(ReadableFontPath);
+        if (existing != null)
+            return existing;
+
+        var source = AssetDatabase.LoadAssetAtPath<Font>(ReadableFontSource);
+        if (source == null)
+        {
+            Debug.LogError($"[Offline] Fonte {ReadableFontSource} não encontrada.");
+            return null;
+        }
+
+        Directory.CreateDirectory(Path.GetDirectoryName(ReadableFontPath));
+        // One 2048 atlas is enough for the Latin set at 64pt; multi-atlas textures would not be saved as sub-assets.
+        TMP_FontAsset font = TMP_FontAsset.CreateFontAsset(source, 64, 6, GlyphRenderMode.SDFAA, 2048, 2048, AtlasPopulationMode.Dynamic, false);
+        font.name = Path.GetFileNameWithoutExtension(ReadableFontPath);
+        AssetDatabase.CreateAsset(font, ReadableFontPath);
+        font.material.name = font.name + " Material";
+        font.atlasTextures[0].name = font.name + " Atlas";
+        AssetDatabase.AddObjectToAsset(font.material, font);
+        AssetDatabase.AddObjectToAsset(font.atlasTextures[0], font);
+
+        // Bake the Latin characters in so the build never depends on runtime glyph generation.
+        const string latin = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~" +
+                             "ÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäçèéêëìíîïñòóôõöùúûüºª°–—“”‘’…•";
+        font.TryAddCharacters(latin, out string missing);
+        if (!string.IsNullOrEmpty(missing.Trim('`')))
+            Debug.LogWarning($"[Offline] Caracteres ausentes na Zekton: {missing}");
+
+        // Static + keep data on build: the glyphs above are baked into the atlas that ships in the APK.
+        font.atlasPopulationMode = AtlasPopulationMode.Static;
+        // Not exposed as a public property in this TMP version.
+        var serializedFont = new SerializedObject(font);
+        serializedFont.FindProperty("m_ClearDynamicDataOnBuild").boolValue = false;
+        serializedFont.ApplyModifiedPropertiesWithoutUndo();
+
+        EditorUtility.SetDirty(font.atlasTextures[0]);
+        EditorUtility.SetDirty(font.material);
+        EditorUtility.SetDirty(font);
+        AssetDatabase.SaveAssets();
+        Debug.Log($"[Offline] Fonte legível criada: {ReadableFontPath} ({font.characterTable.Count} caracteres, estática).");
+        return font;
+    }
+
+    private static bool CallsFinish(Button button)
+    {
+        for (int i = 0; i < button.onClick.GetPersistentEventCount(); i++)
+        {
+            if (button.onClick.GetPersistentTarget(i) is WaitingPlayers && button.onClick.GetPersistentMethodName(i) == "Finish")
+                return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Map scene (scenery only) + the combat kit (ShootGame prefab: spawners, pools, timer, player spawn, voice).
+    /// The kit goes where the map's own camera stands, dropped onto the ground; move "[Offline] Combat (ShootGame)"
+    /// in the scene to fine-tune the arena position (re-running the setup keeps it).
+    /// </summary>
+    private static void ConfigureMapScene(string path)
+    {
+        Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+
+        GameObject kit = scene.GetRootGameObjects().FirstOrDefault(go => go.name == CombatKitName);
+        if (kit == null)
+        {
+            Camera mapCamera = FindInScene<Camera>(scene).FirstOrDefault();
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ShootGamePrefabPath);
+            kit = (GameObject)PrefabUtility.InstantiatePrefab(prefab, scene);
+            kit.name = CombatKitName;
+
+            Vector3 anchor = Vector3.zero;
+            float yaw = 0f;
+            if (mapCamera != null)
+            {
+                anchor = mapCamera.transform.position;
+                yaw = mapCamera.transform.eulerAngles.y;
+                Physics.SyncTransforms();
+                if (Physics.Raycast(anchor + Vector3.up * 200f, Vector3.down, out RaycastHit hit, 2000f))
+                    anchor = hit.point;
+            }
+            kit.transform.SetPositionAndRotation(anchor, Quaternion.Euler(0f, yaw, 0f));
+            Debug.Log($"[Offline] {scene.name}: kit de combate colocado em {anchor}. Ajuste '{CombatKitName}' se a arena não estiver no lugar ideal.", kit);
+        }
+        kit.SetActive(true);
+
+        // The map keeps its own light, sky and post-processing.
+        foreach (Transform child in kit.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == "Lighting" || child.name == "Global Volume")
+                child.gameObject.SetActive(false);
+        }
+
+        OfflineSceneBootstrap bootstrap = GetOrAdd<OfflineSceneBootstrap>(FindOrCreateRoot(scene, BootstrapName));
+        List<GameObject> disable = OnlineOnlyObjects(scene);
+        // The map's preview camera would be a second camera/listener next to the VR rig.
+        foreach (Camera camera in FindInScene<Camera>(scene).Where(c => !c.transform.IsChildOf(kit.transform)))
+            disable.Add(camera.gameObject);
+        SetObjectArray(bootstrap, "_disableOnLoad", disable.Distinct().ToList());
+
+        ConfigureAutoAdvance(scene, bootstrap);
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
     }
 
     private static List<GameObject> OnlineOnlyObjects(Scene scene)
@@ -354,6 +774,7 @@ public static class OfflineModeSetup
         serialized.FindProperty("_quitButton").objectReferenceValue = quit;
         serialized.FindProperty("_statusText").objectReferenceValue = status;
         serialized.FindProperty("_panel").objectReferenceValue = panel.transform;
+        serialized.FindProperty("_startAutomatically").boolValue = false;
         serialized.ApplyModifiedPropertiesWithoutUndo();
     }
 
@@ -479,8 +900,7 @@ public static class OfflineModeSetup
 
     private static void UpdateBuildSettings()
     {
-        var offlinePaths = new List<string> { EntryScenePath };
-        offlinePaths.AddRange(SceneCopies.Select(s => s.copy));
+        var offlinePaths = AllOfflineScenePaths.ToList();
 
         List<EditorBuildSettingsScene> scenes = EditorBuildSettings.scenes
             .Where(s => s.path != "Assets/Scenes/Offline.unity" && !offlinePaths.Contains(s.path))

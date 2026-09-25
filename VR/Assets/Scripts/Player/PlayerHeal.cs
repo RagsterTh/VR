@@ -93,7 +93,8 @@ public class PlayerHeal : MonoBehaviour
 
     public bool TryHeal()
     {
-        if (!IsReady || _lifeBar == null)
+        // Hidden HUD = not in combat: the ability is not available.
+        if (!IsReady || _lifeBar == null || !_lifeBar.isActiveAndEnabled)
             return false;
 
         if (_blockWhenFull && _lifeBar.IsFull)

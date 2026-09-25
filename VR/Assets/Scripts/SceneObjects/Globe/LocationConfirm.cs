@@ -25,7 +25,7 @@ public class LocationConfirm : MonoBehaviour
     public void RPC_StartBattle()
     {
         if (OfflineSession.IsOffline)
-            OfflineSession.LoadMappedScene("Game");
+            OfflineSession.OpenCombat();
         else
             PhotonNetwork.LoadLevel("Game");
     }
