@@ -24,6 +24,7 @@ public static class OfflineModeSetup
 {
     private const string ScenesFolder = "Assets/Offline/Scenes";
     private const string EntryScenePath = ScenesFolder + "/Offline.unity";
+    private const string DefeatScenePath = ScenesFolder + "/" + OfflineSession.DefeatScene + ".unity";
     private const string PlayerPrefabPath = "Assets/Prefabs/Resources/PlayerVR V3.prefab";
     private const string FontGuid = "3b20ba306b276e448b2d4232006b7789";
 
@@ -70,7 +71,37 @@ public static class OfflineModeSetup
 
     /// <summary>Every scene of the offline build, entry scene first.</summary>
     public static string[] AllOfflineScenePaths =>
-        new[] { EntryScenePath }.Concat(SceneCopies.Select(s => s.copy)).Concat(MapCopies.Select(m => m.copy)).ToArray();
+        new[] { EntryScenePath, DefeatScenePath }.Concat(SceneCopies.Select(s => s.copy)).Concat(MapCopies.Select(m => m.copy)).ToArray();
+
+    [MenuItem("Tools/Offline/Aplicar polimento de feedback e derrota", priority = 5)]
+    public static void ApplyPolish()
+    {
+        SetupHealOnPlayerPrefab();
+        ConfigureEntryScene();
+        ConfigureDefeatScene();
+        foreach (string path in AllOfflineScenePaths)
+        {
+            if (!File.Exists(path))
+                continue;
+            Scene scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Single);
+            AudioClip click = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Scripts/System/687451__mtndewfan123__menu-selection-sfx.wav");
+            foreach (Button button in FindInScene<Button>(scene))
+            {
+                OfflineButtonFeedback feedback = button.GetComponent<OfflineButtonFeedback>();
+                if (feedback == null)
+                    feedback = button.gameObject.AddComponent<OfflineButtonFeedback>();
+                var serialized = new SerializedObject(feedback);
+                serialized.FindProperty("_clickClip").objectReferenceValue = click;
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+            }
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+        }
+        UpdateBuildSettings();
+        AssetDatabase.SaveAssets();
+        EditorSceneManager.OpenScene(EntryScenePath);
+        Debug.Log("[Offline] Polimento aplicado: instruções, feedback dos botões, HUD de vida e tela de derrota.");
+    }
 
     [MenuItem("Tools/Offline/Configurar modo offline e cura", priority = 0)]
     public static void SetupAll()
@@ -92,6 +123,7 @@ public static class OfflineModeSetup
         foreach (var (_, copy) in MapCopies)
             ConfigureMapScene(copy);
         ConfigureEntryScene();
+        ConfigureDefeatScene();
         UpdateBuildSettings();
 
         EditorSceneManager.OpenScene(EntryScenePath);
@@ -124,6 +156,7 @@ public static class OfflineModeSetup
             }
 
             var canvas = (RectTransform)lifeBar.transform.parent;
+            BuildLifeFeedback(canvas, (RectTransform)lifeBar.transform, lifeBar);
             Transform old = canvas.Find(HealWidgetName);
             if (old != null)
                 Object.DestroyImmediate(old.gameObject);
@@ -229,6 +262,64 @@ public static class OfflineModeSetup
             Object.DestroyImmediate(oldPanel);
         BuildMenuPanel(scene, menu);
 
+        RotateCanvas rotation = FindInScene<RotateCanvas>(scene).FirstOrDefault(r => r.gameObject.name == MenuPanelName);
+        if (rotation != null)
+            rotation.enabled = false;
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+    }
+
+    private static void ConfigureDefeatScene()
+    {
+        if (!File.Exists(DefeatScenePath))
+        {
+            if (!AssetDatabase.CopyAsset(EntryScenePath, DefeatScenePath))
+                throw new IOException("Não foi possível criar a cena de derrota offline.");
+            AssetDatabase.Refresh();
+        }
+
+        Scene scene = EditorSceneManager.OpenScene(DefeatScenePath, OpenSceneMode.Single);
+        OfflineModeMenu menu = FindInScene<OfflineModeMenu>(scene).FirstOrDefault();
+        OfflineDefeatScreen screen = FindInScene<OfflineDefeatScreen>(scene).FirstOrDefault();
+        if (menu != null)
+        {
+            Button retry = FindInScene<Button>(scene).FirstOrDefault(b => b.name == "Combat Button");
+            Button back = FindInScene<Button>(scene).FirstOrDefault(b => b.name == "Full Experience Button");
+            Button quit = FindInScene<Button>(scene).FirstOrDefault(b => b.name == "Quit Button");
+            Transform panel = scene.GetRootGameObjects().FirstOrDefault(go => go.name == MenuPanelName)?.transform;
+            TMP_Text status = panel != null ? panel.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.name == "Status") : null;
+
+            Object.DestroyImmediate(menu);
+            screen = GetOrAdd<OfflineDefeatScreen>(FindOrCreateRoot(scene, "[Offline] Defeat Screen"));
+            var serialized = new SerializedObject(screen);
+            serialized.FindProperty("_retryButton").objectReferenceValue = retry;
+            serialized.FindProperty("_menuButton").objectReferenceValue = back;
+            serialized.FindProperty("_statusText").objectReferenceValue = status;
+            serialized.FindProperty("_panel").objectReferenceValue = panel;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+
+            if (quit != null)
+                quit.gameObject.SetActive(false);
+            if (retry != null)
+                retry.GetComponentInChildren<TMP_Text>(true).text = "TENTAR NOVAMENTE";
+            if (back != null)
+                back.GetComponentInChildren<TMP_Text>(true).text = "VOLTAR AO MENU";
+            if (panel != null)
+            {
+                TMP_Text title = panel.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t => t.name == "Title");
+                if (title != null)
+                    title.text = "VOCÊ FOI DERROTADO";
+                UnityEngine.UI.Image background = panel.GetComponentsInChildren<UnityEngine.UI.Image>(true)
+                    .FirstOrDefault(i => i.name == "Background");
+                if (background != null)
+                    background.color = new Color(0.15f, 0.025f, 0.045f, 0.94f);
+            }
+        }
+
+        RotateCanvas rotation = FindInScene<RotateCanvas>(scene).FirstOrDefault(r => r.gameObject.name == MenuPanelName);
+        if (rotation != null)
+            rotation.enabled = false;
         EditorSceneManager.MarkSceneDirty(scene);
         EditorSceneManager.SaveScene(scene);
     }
@@ -762,7 +853,8 @@ public static class OfflineModeSetup
         Stretch(background.rectTransform);
 
         AddText(panel.transform, "Title", "MODO OFFLINE", new Vector2(0f, 250f), new Vector2(820f, 90f), 64f, FontStyles.Bold);
-        TMP_Text status = AddText(panel.transform, "Status", "Escolha a modalidade com o controle.", new Vector2(0f, 150f), new Vector2(820f, 110f), 34f, FontStyles.Normal);
+        TMP_Text status = AddText(panel.transform, "Status", "SELECIONE UM MODO DE JOGO", new Vector2(0f, 155f), new Vector2(820f, 70f), 38f, FontStyles.Bold);
+        AddText(panel.transform, "Instructions", "Aponte o raio do controle para uma opção e aperte o gatilho.", new Vector2(0f, 98f), new Vector2(820f, 45f), 27f, FontStyles.Normal);
 
         Button combat = AddButton(panel.transform, "Combat Button", "COMBATE", new Vector2(0f, 20f), new Color(0.85f, 0.25f, 0.2f, 1f));
         Button full = AddButton(panel.transform, "Full Experience Button", "EXPERIÊNCIA COMPLETA", new Vector2(0f, -110f), new Color(0.15f, 0.55f, 0.9f, 1f));
@@ -792,6 +884,39 @@ public static class OfflineModeSetup
             ButtonText = buttonText;
             CooldownText = cooldownText;
         }
+    }
+
+    private static void BuildLifeFeedback(RectTransform canvas, RectTransform bar, PlayersLifeBar lifeBar)
+    {
+        Transform oldFrame = canvas.Find("LifeFrame");
+        if (oldFrame == null)
+        {
+            UnityEngine.UI.Image frame = AddImage(canvas, "LifeFrame", bar.anchoredPosition,
+                bar.sizeDelta + new Vector2(24f, 24f), new Color(0.015f, 0.035f, 0.05f, 0.92f), UiSprite());
+            frame.rectTransform.localScale = bar.localScale;
+            frame.rectTransform.localRotation = bar.localRotation;
+            frame.rectTransform.SetSiblingIndex(bar.GetSiblingIndex());
+        }
+
+        TMP_Text value = bar.Find("LifeValue")?.GetComponent<TMP_Text>();
+        if (value == null)
+            value = AddText(bar, "LifeValue", "VIDA  100 / 100", new Vector2(0f, 89f),
+                new Vector2(980f, 86f), 45f, FontStyles.Bold);
+        value.rectTransform.localRotation = Quaternion.Inverse(canvas.localRotation);
+
+        UnityEngine.UI.Image flash = bar.Find("DamageFlash")?.GetComponent<UnityEngine.UI.Image>();
+        if (flash == null)
+        {
+            flash = AddImage(bar, "DamageFlash", Vector2.zero, bar.sizeDelta,
+                new Color(1f, 1f, 1f, 0f), UiSprite());
+            flash.type = UnityEngine.UI.Image.Type.Filled;
+            flash.fillMethod = UnityEngine.UI.Image.FillMethod.Horizontal;
+        }
+
+        var serialized = new SerializedObject(lifeBar);
+        serialized.FindProperty("_lifeText").objectReferenceValue = value;
+        serialized.FindProperty("_damageFlash").objectReferenceValue = flash;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
     }
 
     private static HealWidget BuildHealWidget(RectTransform canvas, RectTransform lifeBar)

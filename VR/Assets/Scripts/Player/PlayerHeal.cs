@@ -47,6 +47,7 @@ public class PlayerHeal : MonoBehaviour
 
     private float _cooldownEndTime;
     private HapticImpulsePlayer[] _haptics;
+    private static AudioClip _fallbackHealClip;
 
     public float CooldownRemaining => Mathf.Max(0f, _cooldownEndTime - Time.time);
     public bool IsReady => CooldownRemaining <= 0f;
@@ -64,6 +65,15 @@ public class PlayerHeal : MonoBehaviour
         if (_lifeBar == null)
             _lifeBar = GetComponentInChildren<PlayersLifeBar>(true);
         _haptics = GetComponentsInChildren<HapticImpulsePlayer>(true);
+        if (OfflineSession.IsOffline && _audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+            _audioSource.playOnAwake = false;
+            _audioSource.spatialBlend = 0f;
+            _audioSource.volume = 0.35f;
+        }
+        if (OfflineSession.IsOffline && _healClip == null)
+            _healClip = GetFallbackHealClip();
 
         if (_buttonText != null)
             _buttonText.text = _buttonLabel;
@@ -149,5 +159,24 @@ public class PlayerHeal : MonoBehaviour
         action.AddBinding("<XRController>{LeftHand}/primaryButton");
         action.AddBinding("<Keyboard>/h");
         return action;
+    }
+
+    private static AudioClip GetFallbackHealClip()
+    {
+        if (_fallbackHealClip != null)
+            return _fallbackHealClip;
+        const int sampleRate = 24000;
+        const int sampleCount = 6000;
+        float[] samples = new float[sampleCount];
+        for (int i = 0; i < sampleCount; i++)
+        {
+            float t = i / (float)sampleRate;
+            float fade = 1f - i / (float)sampleCount;
+            samples[i] = (Mathf.Sin(t * 523.25f * Mathf.PI * 2f) +
+                Mathf.Sin(t * 659.25f * Mathf.PI * 2f)) * fade * fade * 0.08f;
+        }
+        _fallbackHealClip = AudioClip.Create("Offline Heal", sampleCount, 1, sampleRate, false);
+        _fallbackHealClip.SetData(samples, 0);
+        return _fallbackHealClip;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// First thing that runs in every offline scene: forces the VR path (no PC operator view),
@@ -26,6 +27,16 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
         {
             if (item != null)
                 item.SetActive(false);
+        }
+
+        // Buttons created in the offline scene respond even when the editor setup has not been rerun.
+        foreach (GameObject root in gameObject.scene.GetRootGameObjects())
+        {
+            foreach (Button button in root.GetComponentsInChildren<Button>(true))
+            {
+                if (button.GetComponent<OfflineButtonFeedback>() == null)
+                    button.gameObject.AddComponent<OfflineButtonFeedback>();
+            }
         }
     }
 

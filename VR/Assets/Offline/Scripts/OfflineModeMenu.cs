@@ -37,6 +37,8 @@ public sealed class OfflineModeMenu : MonoBehaviour
     private void Awake()
     {
         OfflineSession.PrepareEntry();
+        if (_panel != null && _panel.TryGetComponent(out RotateCanvas rotation))
+            rotation.enabled = false;
 
         if (_combatButton != null)
             _combatButton.onClick.AddListener(StartCombat);
@@ -53,14 +55,14 @@ public sealed class OfflineModeMenu : MonoBehaviour
         bool returned = OfflineSession.ReturnedFromSession;
         if (!_startAutomatically || _mode == OfflineExperienceMode.None || (returned && !_autoStartAfterReturn))
         {
-            SetStatus("Escolha a modalidade com o controle.");
+            SetStatus("SELECIONE UM MODO DE JOGO");
             yield break;
         }
 
         float remaining = _autoStartDelay;
         while (remaining > 0f && !_started)
         {
-            SetStatus($"Iniciando {ModeLabel(_mode)} em {Mathf.CeilToInt(remaining)}...\nOu escolha outra modalidade.");
+            SetStatus($"Iniciando {ModeLabel(_mode)} em {Mathf.CeilToInt(remaining)}...\nVocê ainda pode selecionar outro modo.");
             remaining -= Time.unscaledDeltaTime;
             yield return null;
         }
@@ -126,7 +128,12 @@ public sealed class OfflineModeMenu : MonoBehaviour
     private void SetStatus(string text)
     {
         if (_statusText != null)
-            _statusText.text = text;
+        {
+            bool hasInstructions = _panel != null && _panel.Find("Instructions") != null;
+            _statusText.text = !hasInstructions && text == "SELECIONE UM MODO DE JOGO"
+                ? text + "\nAponte o raio do controle para uma opção e aperte o gatilho."
+                : text;
+        }
     }
 
     private static string ModeLabel(OfflineExperienceMode mode) =>

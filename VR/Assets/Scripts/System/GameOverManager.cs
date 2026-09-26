@@ -10,6 +10,7 @@ public class GameOverManager : MonoBehaviour
     private int enemiesKilled;
     private int enemiesKilledCap = 15;
     private readonly List<PlayersLifeBar> _playersLifeBars = new();
+    private bool _battleFinished;
 
     public int EnemiesKilled
     {
@@ -34,7 +35,9 @@ public class GameOverManager : MonoBehaviour
         if (_killsText == null)
             return;
 
-        string text = $"{enemiesKilled}/{enemiesKilledCap}";
+        string text = OfflineSession.IsOffline
+            ? $"ALVOS  {enemiesKilled} / {enemiesKilledCap}"
+            : $"{enemiesKilled}/{enemiesKilledCap}";
         foreach (var killsText in _killsText)
         {
             if (killsText != null)
@@ -58,6 +61,8 @@ public class GameOverManager : MonoBehaviour
 
     public void VerifyWin()
     {
+        if (_battleFinished)
+            return;
         Debug.Log("Enemies Killed: " + enemiesKilled + "Lasts: " + (enemiesKilledCap - enemiesKilled));
         if (enemiesKilled >= enemiesKilledCap)
         {
@@ -66,6 +71,8 @@ public class GameOverManager : MonoBehaviour
     }
     public void VerifyLose()
     {
+        if (_battleFinished)
+            return;
         if (_playersLifeBars.Count == 0)
             return;
 
@@ -77,12 +84,20 @@ public class GameOverManager : MonoBehaviour
     }
     private void Win()
     {
+        _battleFinished = true;
         GameController controller = ServiceLocator.Get<GameController>();
         if (controller != null)
             controller.BattleEnd();
     }
     private void Lose()
     {
+        _battleFinished = true;
+        if (OfflineSession.IsOffline)
+        {
+            OfflineSession.LoadDefeat();
+            return;
+        }
+
         GameController controller = ServiceLocator.Get<GameController>();
         if (controller != null)
             controller.RPC_BattleBegin();

@@ -186,7 +186,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MODO OFFLINE
+  m_text: VOCÊ FOI DERROTADO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -2277,7 +2277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: COMBATE
+  m_text: TENTAR NOVAMENTE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: COMBATE
+  m_text: TENTAR NOVAMENTE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -5198,7 +5198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.03, g: 0.06, b: 0.12, a: 0.92}
+  m_Color: {r: 0.15, g: 0.025, b: 0.045, a: 0.94}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6598,7 +6598,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "EXPERI\xCANCIA COMPLETA"
+  m_text: VOLTAR AO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -7619,7 +7619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "SELECIONE UM MODO DE JOGO\nAponte o raio do controle para uma opção e aperte o gatilho."
+  m_text: "Sua vida chegou a zero.\nSelecione uma opção com o raio do controle e aperte o gatilho."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
@@ -7840,7 +7840,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MODO OFFLINE
+  m_text: VOCÊ FOI DERROTADO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8f55d99a93505248a1f24b4bbf0788a, type: 2}
   m_sharedMaterial: {fileID: -6748598525161560420, guid: b8f55d99a93505248a1f24b4bbf0788a, type: 2}
@@ -7938,7 +7938,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2141262486
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8052,7 +8052,7 @@ GameObject:
   - component: {fileID: 910000000000000011}
   - component: {fileID: 910000000000000012}
   m_Layer: 0
-  m_Name: '[OFFLINE] Mode Selection'
+  m_Name: '[Offline] Defeat Screen'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8082,16 +8082,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 910000000000000010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71e01bb537ed4057b7ab8cfd87104921, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e02fc45f38642d19203a7099ad2d4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mode: 1
-  _startAutomatically: 0
-  _autoStartDelay: 5
-  _autoStartAfterReturn: 0
-  _combatButton: {fileID: 1572789882}
-  _fullExperienceButton: {fileID: 549134362}
-  _quitButton: {fileID: 2141262487}
+  _retryButton: {fileID: 1572789882}
+  _menuButton: {fileID: 549134362}
   _statusText: {fileID: 2103136677}
   _panel: {fileID: 243920744}
   _panelDistance: 1.3

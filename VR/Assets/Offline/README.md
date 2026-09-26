@@ -13,8 +13,10 @@ Qualquer cena de `Assets/Offline/Scenes` também pode receber Play direto: ela e
 
 ## Fluxos
 
-- **Combate:** `Offline` -> `Offline_Combat` (cópia de `Game`) -> `Offline_Credits`
-- **Experiência completa:** `Offline` -> `Offline_GloboV2` (saguão e depois combate na mesma cena) -> `Offline_Medical` -> `Offline_Credits`
+- **Combate:** `Offline` -> `Offline_Combat` (cópia de `Game`) -> vitória: `Offline_Credits`; derrota: `Offline_Defeat`.
+- **Experiência completa:** `Offline` -> `Offline_GloboV2` -> mapa escolhido -> vitória: `Offline_Medical` -> `Offline_Credits`; derrota no combate: `Offline_Defeat`.
+
+Na derrota, **TENTAR NOVAMENTE** recarrega a última arena sem perder o modo escolhido. **VOLTAR AO MENU** retorna à seleção. O painel inicial explica como apontar e confirmar com o controle.
 
 ## Peças
 
@@ -25,6 +27,8 @@ Qualquer cena de `Assets/Offline/Scenes` também pode receber Play direto: ela e
 | `Scripts/OfflineSceneBootstrap.cs` | Primeiro script de cada cena offline: força o caminho VR, desliga objetos só online (Photon, câmera do operador de PC, detector de VR) e faz o fade-in. |
 | `Scripts/OfflinePlayerRig.cs` | Substitui o `ResetPosition` no offline: um rig e um AudioListener, orientação do headset alinhada ao início e reaplicada ao recentralizar. |
 | `Scripts/OfflineScreenFade.cs` | Fade preto preso à câmera VR entre as cenas. |
+| `Scripts/OfflineDefeatScreen.cs` | Tela VR de derrota, reinício da última batalha e retorno ao menu. |
+| `Scripts/OfflineButtonFeedback.cs` | Resposta visual e tátil dos botões offline. |
 | `Editor/OfflineModeSetup.cs` | Ferramenta do menu Tools > Offline. |
 
 Os scripts de gameplay compartilhados (`Assets/Scripts`) têm um ramo `OfflineSession.IsOffline` que troca RPC/instanciação em rede/ownership pela chamada local equivalente.
@@ -32,3 +36,5 @@ Os scripts de gameplay compartilhados (`Assets/Scripts`) têm um ramo `OfflineSe
 ## Cura (online e offline)
 
 `PlayerHeal` no `PlayerVR V3`: botão **A** (controle direito) ou **X** (esquerdo), ou **H** no teclado para teste no Editor. O HUD `HealAbility` fica acima da barra de vida, com a letra do botão em cima e o cooldown radial com os segundos restantes. Os valores padrão (25 de vida e 20 s de cooldown) podem ser ajustados no Inspector. No online, a cura é sincronizada por RPC, como o dano.
+
+A barra de vida mostra o valor atual, muda de cor em vida baixa e pisca com dano no offline. Tiros e botões dão resposta tátil curta nos controles. Para reaplicar o polimento em cenas já existentes, use **Tools > Offline > Aplicar polimento de feedback e derrota**.

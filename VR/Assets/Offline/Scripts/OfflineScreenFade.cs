@@ -43,7 +43,7 @@ public sealed class OfflineScreenFade : MonoBehaviour
         get
         {
             if (_instance == null)
-                _instance = new GameObject("[Offline] Screen Fade").AddComponent<OfflineScreenFade>();
+                _instance = new GameObject("[Offline] Screen Fade", typeof(RectTransform)).AddComponent<OfflineScreenFade>();
             return _instance;
         }
     }
@@ -109,6 +109,11 @@ public sealed class OfflineScreenFade : MonoBehaviour
 
     private IEnumerator FadeTo(float target)
     {
+        if (Duration <= 0f)
+        {
+            SetAlpha(target);
+            yield break;
+        }
         float start = _alpha;
         float time = 0f;
         while (time < Duration)

@@ -24,6 +24,7 @@ public static class OfflineSession
     public const string FullExperienceScene = "Offline_GloboV2";
     public const string MedicalScene = "Offline_Medical";
     public const string CreditsScene = "Offline_Credits";
+    public const string DefeatScene = "Offline_Defeat";
 
     // Maps chosen on the globe (copies of Assets/Scenes/ScenasGlobo with the combat kit added).
     public const string CambirelaScene = "Offline_Cambirela";
@@ -42,6 +43,7 @@ public static class OfflineSession
     };
 
     private static OfflineExperienceMode _mode;
+    private static string _retryScene = CombatScene;
 
     public static OfflineExperienceMode Mode
     {
@@ -108,6 +110,19 @@ public static class OfflineSession
         LoadScene(CreditsScene);
     }
 
+    public static void LoadDefeat()
+    {
+        string current = SceneManager.GetActiveScene().name;
+        if (current == CombatScene || current == FullExperienceScene || System.Array.IndexOf(MapScenes, current) >= 0)
+            _retryScene = current;
+        LoadScene(DefeatScene);
+    }
+
+    public static void RetryBattle()
+    {
+        LoadScene(string.IsNullOrEmpty(_retryScene) ? CombatScene : _retryScene);
+    }
+
     public static void ReturnToEntry()
     {
         ReturnedFromSession = true;
@@ -135,6 +150,9 @@ public static class OfflineSession
 
     public static void LoadScene(string sceneName)
     {
+        if (sceneName == CombatScene || sceneName == FullExperienceScene ||
+            System.Array.IndexOf(MapScenes, sceneName) >= 0)
+            _retryScene = sceneName;
         ConnectionManager.isVR = true;
         OfflineScreenFade.FadeOutAndLoad(sceneName);
     }
