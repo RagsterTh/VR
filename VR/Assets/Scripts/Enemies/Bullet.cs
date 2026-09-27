@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         hasCollided = true;
         if (collision.collider.CompareTag("Player"))
         {
-            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+            DamagePlayer(collision.collider);
         }
         Collision();
     }
@@ -32,7 +32,16 @@ public class Bullet : MonoBehaviour
             return;
 
         hasCollided = true;
-        ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+        DamagePlayer(other);
+    }
+
+    private void DamagePlayer(Collider playerCollider)
+    {
+        PlayerPrefabNetwork player = playerCollider.GetComponentInParent<PlayerPrefabNetwork>();
+        PlayersLifeBar lifeBar = player != null
+            ? player.GetComponentInChildren<PlayersLifeBar>(true)
+            : ServiceLocator.Get<PlayersLifeBar>();
+        lifeBar?.TakeDamage(damage);
     }
 
     bool Collision()    

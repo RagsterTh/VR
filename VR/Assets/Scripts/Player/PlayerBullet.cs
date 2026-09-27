@@ -8,6 +8,9 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] GameObject _hitEffect;
     Rigidbody _rb;
     float _spawnTime;
+    Gun _shooter;
+
+    public void SetShooter(Gun shooter) => _shooter = shooter;
 
     void Awake()
     {
@@ -19,6 +22,11 @@ public class PlayerBullet : MonoBehaviour
         _rb.linearVelocity = -transform.up * _speed;
         _spawnTime = Time.time;
     }
+
+    private void OnDisable()
+    {
+        _shooter = null;
+    }
     void Update()
     {
         if (Time.time - _spawnTime > _maxLifetime)
@@ -29,6 +37,8 @@ public class PlayerBullet : MonoBehaviour
         if(other.TryGetComponent(out IShootable target))
         {
             target?.Hit();
+            if (OfflineSession.IsOffline && _shooter != null)
+                _shooter.ConfirmHit();
 
             if (_hitEffect != null)
             {

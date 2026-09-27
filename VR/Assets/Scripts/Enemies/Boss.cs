@@ -23,7 +23,11 @@ public class Boss : MonoBehaviour, IShootable
     {
         if (other.CompareTag("Player"))
         {
-            ServiceLocator.Get<PlayersLifeBar>()?.TakeDamage(damage);
+            PlayerPrefabNetwork player = other.GetComponentInParent<PlayerPrefabNetwork>();
+            PlayersLifeBar lifeBar = player != null
+                ? player.GetComponentInChildren<PlayersLifeBar>(true)
+                : ServiceLocator.Get<PlayersLifeBar>();
+            lifeBar?.TakeDamage(damage);
         }
     }
 

@@ -109,22 +109,23 @@ public class ObjectPool : MonoBehaviourPunCallbacks
         return pooledObject;
     }
 
-    public void CallObject(Vector3 origin, Quaternion rotation)
+    public GameObject CallObject(Vector3 origin, Quaternion rotation)
     {
         GameObject pooledObject = GetPooledObject();
         if (pooledObject == null)
         {
             Debug.LogWarning($"[ObjectPool] Pool '{name}' has no available object.", this);
-            return;
+            return null;
         }
 
         if (OfflineSession.IsOffline)
         {
             ActivateObject(pooledObject, origin, rotation);
-            return;
+            return pooledObject;
         }
 
         _phView.RPC(nameof(RPC_CallObjectWithRotation), RpcTarget.AllBuffered, origin, rotation, pooledObject.GetPhotonView().ViewID);
+        return pooledObject;
     }
 
     private static void ActivateObject(GameObject pooledObject, Vector3 origin, Quaternion rotation)

@@ -23,6 +23,20 @@ public class GameOverManager : MonoBehaviour
     }
     public IReadOnlyList<PlayersLifeBar> PlayersLifeBars => _playersLifeBars;
 
+    public static GameOverManager EnsureOffline()
+    {
+        GameOverManager manager = ServiceLocator.Get<GameOverManager>();
+        if (manager != null || !OfflineSession.IsOffline)
+            return manager;
+
+        manager = FindAnyObjectByType<GameOverManager>();
+        if (manager == null)
+            manager = new GameObject("[Offline] Game Over Manager").AddComponent<GameOverManager>();
+        else
+            ServiceLocator.Register(manager);
+        return manager;
+    }
+
     void Awake()
     {
         Debug.Log($"[GameOverManager] Awake() on {name}, registering in ServiceLocator.");
@@ -47,6 +61,9 @@ public class GameOverManager : MonoBehaviour
 
     public void RegisterLifeBar(PlayersLifeBar lifeBar)
     {
+        if (lifeBar == null)
+            return;
+        _playersLifeBars.RemoveAll(item => item == null);
         if (!_playersLifeBars.Contains(lifeBar))
         {
             _playersLifeBars.Add(lifeBar);
@@ -73,13 +90,13 @@ public class GameOverManager : MonoBehaviour
     {
         if (_battleFinished)
             return;
-        if (_playersLifeBars.Count == 0)
-            return;
-
-        Debug.Log("Current Life: " + _playersLifeBars[0].CurrentLife);
-        if (_playersLifeBars[0].CurrentLife <= 0)
+        _playersLifeBars.RemoveAll(item => item == null);
+        foreach (PlayersLifeBar lifeBar in _playersLifeBars)
         {
+            if (lifeBar.CurrentLife > 0f)
+                continue;
             Lose();
+            break;
         }
     }
     private void Win()

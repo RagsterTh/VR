@@ -32,25 +32,22 @@ public abstract class Enemy : MonoBehaviour, IShootable
         Debug.Log($"[Enemy] {name} OnTriggerEnter with '{other.name}' (tag={other.tag})");
         if (other.CompareTag("Player"))
         {
-            DealDamage();
+            DealDamage(other);
         }
     }
-    private void DealDamage()
+    private void DealDamage(Collider other)
     {
-        Debug.Log($"[Enemy] {name} DealDamage() called. followingPlayer={(followingPlayer ? followingPlayer.name : "null")}, damage={damage}");
-        if (followingPlayer)
+        // Contact damage must not depend on the pursuit coroutine finding a target first.
+        PlayerPrefabNetwork player = other.GetComponentInParent<PlayerPrefabNetwork>();
+        PlayersLifeBar lifeBar = player != null
+            ? player.GetComponentInChildren<PlayersLifeBar>(true)
+            : ServiceLocator.Get<PlayersLifeBar>();
+        if (lifeBar != null)
         {
-            var lifeBar = ServiceLocator.Get<PlayersLifeBar>();
-            if (lifeBar == null)
-            {
-                Debug.LogWarning($"[Enemy] {name} could not find a PlayersLifeBar via ServiceLocator. No damage applied.");
-            }
-            else
-            {
-                Debug.Log($"[Enemy] {name} calling TakeDamage({damage}) on {lifeBar.name}");
-                lifeBar.TakeDamage(damage);
-            }
+            lifeBar.TakeDamage(damage);
         }
+        else
+            Debug.LogWarning($"[Enemy] {name} touched a player with no PlayersLifeBar.", this);
         if (isTerrestrian)
         {
             Debug.Log($"[Enemy] {name} is terrestrial, returning to pool.");
@@ -89,7 +86,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
         while (true)
         {
             List<Transform> players = GetPlayerTransforms();
-            float distance = 50;
+            float distance = OfflineSession.IsOffline ? float.PositiveInfinity : 50f;
             Transform closest = null;
             for (int i = 0; i < players.Count; i++)
             {
@@ -103,8 +100,7 @@ public abstract class Enemy : MonoBehaviour, IShootable
                     closest = players[i];
                 }
             }
-            if (closest != null)
-                followingPlayer = closest;
+            followingPlayer = closest;
 
             yield return wait;
         }

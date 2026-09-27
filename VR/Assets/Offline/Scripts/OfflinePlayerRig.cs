@@ -52,8 +52,8 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         if (rig == null)
             rig = playerRoot.AddComponent<OfflinePlayerRig>();
         rig.SetStart(startPosition, startForward);
-        // The globe maps are real terrains: stand on the spawn point instead of the project's world-origin reset.
-        if (OfflineSession.IsMapScene)
+        // Combat collision and enemy pursuit must use the same start area, with or without XR tracking.
+        if (OfflineSession.IsCombatScene)
             rig._headTarget = HeadTarget.StartPointFloor;
         return rig;
     }

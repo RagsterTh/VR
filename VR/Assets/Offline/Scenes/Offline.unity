@@ -929,7 +929,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243920739}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7be8321aace12640a7a363cf207a300, type: 3}
   m_Name: 
@@ -7619,7 +7619,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "SELECIONE UM MODO DE JOGO\nAponte o raio do controle para uma opção e aperte o gatilho."
+  m_text: "SELECIONE UM MODO DE JOGO\nAponte o raio do controle para uma op\xE7\xE3o
+    e aperte o gatilho."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
   m_sharedMaterial: {fileID: -5879413112205761651, guid: 3b20ba306b276e448b2d4232006b7789, type: 2}
