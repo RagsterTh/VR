@@ -88,6 +88,11 @@ public class MedicalEmergency : MonoBehaviour, IShootable
     [ContextMenu("Hit")]
     public void Hit()
     {
+        // Offline: once chosen, clicking the wound again must not reroll the question/answers.
+        // It becomes clickable again only if the answer was wrong (ClearLabel resets isSelected).
+        if (OfflineSession.IsOffline && isSelected)
+            return;
+
         isSelected = true;
         if (medicalSystem != null)
         {

@@ -39,7 +39,8 @@ public sealed class OfflineMapSelection : MonoBehaviour
                 map.Button.onClick.SetPersistentListenerState(i, UnityEventCallState.Off);
 
             string scene = map.Scene;
-            map.Button.onClick.AddListener(() => Choose(scene));
+            Button button = map.Button;
+            map.Button.onClick.AddListener(() => Choose(scene, button));
         }
     }
 
@@ -54,13 +55,22 @@ public sealed class OfflineMapSelection : MonoBehaviour
         _mapPanel.SetActive(true);
     }
 
-    public void Choose(string scene)
+    public void Choose(string scene) => Choose(scene, null);
+
+    public void Choose(string scene, Button button)
     {
         if (_chosen || string.IsNullOrEmpty(scene))
             return;
 
         _chosen = true;
         Debug.Log($"[Offline] Mapa escolhido: {scene}");
+        StartCoroutine(ChooseRoutine(scene, button));
+    }
+
+    private IEnumerator ChooseRoutine(string scene, Button button)
+    {
+        // Spot bursts into light and the view "warps" before the fade.
+        yield return OfflineLobbyFeedback.MapChosen(button);
         OfflineSession.LoadScene(scene);
     }
 }

@@ -24,6 +24,8 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     protected virtual void OnEnable()
     {
+        if (OfflineSession.IsOffline)
+            OfflineCombatFeedback.EnemySpawned(transform);
         followingPlayer = null;
         StartCoroutine(FindClose());
     }
@@ -133,6 +135,8 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     protected virtual void Die()
     {
+        if (OfflineSession.IsOffline)
+            OfflineCombatFeedback.EnemyKilled(this);
         SpawnDeathEffect();
         gameObject.SetActive(false);
 

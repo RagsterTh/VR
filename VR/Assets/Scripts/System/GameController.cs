@@ -245,11 +245,18 @@ public class GameController : MonoBehaviour
         OnSceneLoaded?.Invoke();
     }
 
+    private bool _offlineBattleEnding;
+
     public void BattleEnd()
     {
         if (OfflineSession.IsOffline)
         {
-            OfflineSession.LoadAfterBattle();
+            // Time is up: stop the waves, then leave only when every enemy still alive is defeated.
+            if (!_offlineBattleEnding)
+            {
+                _offlineBattleEnding = true;
+                StartCoroutine(OfflineFinishBattle());
+            }
             return;
         }
 
@@ -257,5 +264,31 @@ public class GameController : MonoBehaviour
             PhotonNetwork.LoadLevel("MedicalQuestions");
         else
             PhotonNetwork.LoadLevel("Credits");
+    }
+
+    private IEnumerator OfflineFinishBattle()
+    {
+        foreach (Spawner spawner in FindObjectsByType<Spawner>(FindObjectsSortMode.None))
+        {
+            spawner.SetBool(true);
+            spawner.StopAllCoroutines();
+        }
+
+        OfflineCombatFeedback.BattleTimeUp();
+
+        // Safety net: an enemy stuck out of reach must not lock the player in the arena forever.
+        const float maxWait = 90f;
+        float waited = 0f;
+        int remaining;
+        while ((remaining = OfflineCombatFeedback.AliveEnemies()) > 0 && waited < maxWait)
+        {
+            OfflineCombatFeedback.RemainingEnemies(remaining);
+            waited += 0.25f;
+            yield return new WaitForSeconds(0.25f);
+        }
+
+        OfflineCombatFeedback.AreaCleared();
+        yield return new WaitForSecondsRealtime(2f);
+        OfflineSession.LoadAfterBattle();
     }
 }

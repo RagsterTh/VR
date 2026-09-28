@@ -30,7 +30,14 @@ public sealed class OfflineModeMenu : MonoBehaviour
     [SerializeField] private float _panelDistance = 1.3f;
     [SerializeField] private float _panelHeightOffset = -0.15f;
 
+    [Tooltip("The panel follows the head smoothly when the player looks away (outside the dead zone).")]
+    [SerializeField] private bool _followHead = true;
+    [SerializeField] private float _followDeadZone = 25f;
+    [SerializeField] private float _followSpeed = 3f;
+
     private bool _started;
+    private bool _panelPlaced;
+    private bool _following;
 
     public OfflineExperienceMode Mode => _mode;
 
@@ -50,6 +57,11 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
     private IEnumerator Start()
     {
+        // Menu backdrop: the parked ship floats instead of sitting still.
+        GameObject ship = GameObject.Find("SpaceShuttle_01");
+        if (ship != null && ship.GetComponent<OfflineShipIdle>() == null)
+            ship.AddComponent<OfflineShipIdle>();
+
         yield return PlacePanelInFrontOfPlayer();
 
         bool returned = OfflineSession.ReturnedFromSession;
@@ -94,6 +106,40 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
         _panel.position = head.transform.position + forward * _panelDistance + Vector3.up * _panelHeightOffset;
         _panel.rotation = Quaternion.LookRotation(forward, Vector3.up);
+        _panelPlaced = true;
+    }
+
+    private void LateUpdate()
+    {
+        if (!_followHead || !_panelPlaced || _panel == null)
+            return;
+
+        Camera head = Camera.main;
+        if (head == null)
+            return;
+
+        Vector3 forward = Vector3.ProjectOnPlane(head.transform.forward, Vector3.up);
+        if (forward.sqrMagnitude < 0.0001f)
+            return;
+        forward.Normalize();
+
+        Vector3 toPanel = Vector3.ProjectOnPlane(_panel.position - head.transform.position, Vector3.up);
+        float angle = Vector3.Angle(forward, toPanel);
+        // Start following past the dead zone, keep going until the panel is centered again.
+        if (angle > _followDeadZone)
+            _following = true;
+        else if (angle < 3f)
+            _following = false;
+
+        Vector3 target = head.transform.position + forward * _panelDistance + Vector3.up * _panelHeightOffset;
+        if (!_following)
+            target = new Vector3(_panel.position.x, target.y, _panel.position.z);
+
+        float k = 1f - Mathf.Exp(-_followSpeed * Time.unscaledDeltaTime);
+        _panel.position = Vector3.Lerp(_panel.position, target, k);
+        Vector3 look = Vector3.ProjectOnPlane(_panel.position - head.transform.position, Vector3.up);
+        if (look.sqrMagnitude > 0.0001f)
+            _panel.rotation = Quaternion.Slerp(_panel.rotation, Quaternion.LookRotation(look, Vector3.up), k);
     }
 
     public void StartCombat()

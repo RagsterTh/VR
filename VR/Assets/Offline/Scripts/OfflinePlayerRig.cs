@@ -93,6 +93,8 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         }
 
         KeepSingleAudioListener();
+        if (GetComponent<OfflinePlayerFeedback>() == null)
+            gameObject.AddComponent<OfflinePlayerFeedback>();
 
         float waited = 0f;
         while (!IsHeadTracked() && waited < _trackingTimeout)

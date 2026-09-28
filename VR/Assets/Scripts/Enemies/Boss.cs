@@ -43,6 +43,8 @@ public class Boss : MonoBehaviour, IShootable
     void RPC_Hit()
     {
         currentHits++;
+        if (OfflineSession.IsOffline)
+            OfflineCombatFeedback.BossHit(this, currentHits >= maxHits);
         if (currentHits >= maxHits)
         {
             if (deathEffectPrefab != null)

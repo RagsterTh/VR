@@ -66,6 +66,7 @@ public class Gun : MonoBehaviour
                 _muzzleParticles?.Play(true);
                 if (_haptic != null && _haptic.isActiveAndEnabled)
                     _haptic.SendHapticImpulse(0.28f, 0.055f);
+                OfflineCombatFeedback.Shot(this, bullet);
             }
             //temp.GetComponent<Rigidbody>().linearVelocity = -transform.up * _bulletSpeed;
         }
@@ -91,6 +92,10 @@ public class Gun : MonoBehaviour
         flash.transform.SetParent(_gunPoint, false);
         flash.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
         _muzzleParticles = flash.AddComponent<ParticleSystem>();
+        // Configure while stopped, and give it the URP additive material: without one the renderer falls back to the
+        // built-in Default-ParticleSystem, which renders pink in URP.
+        _muzzleParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        flash.GetComponent<ParticleSystemRenderer>().sharedMaterial = OfflineFx.ParticleMaterial;
         var main = _muzzleParticles.main;
         main.duration = 0.08f;
         main.loop = false;

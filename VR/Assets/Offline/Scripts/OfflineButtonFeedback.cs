@@ -33,7 +33,7 @@ public sealed class OfflineButtonFeedback : MonoBehaviour, IPointerEnterHandler,
         if (_button == null || !_button.IsInteractable())
             return;
         if (_rect != null)
-            _rect.localScale = _baseScale * 1.035f;
+            _rect.localScale = _baseScale * 1.07f;
         Pulse(0.16f, 0.045f);
     }
 

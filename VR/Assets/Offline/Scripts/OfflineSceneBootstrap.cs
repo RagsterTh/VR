@@ -48,6 +48,16 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
 
     private IEnumerator Start()
     {
+        // Visual/haptic feedback (offline only): medical scene and combat scenes.
+        if (FindAnyObjectByType<MedicalQuestions>() != null && FindAnyObjectByType<OfflineMedicalFeedback>() == null)
+            gameObject.AddComponent<OfflineMedicalFeedback>();
+        if (FindAnyObjectByType<GameController>() != null && FindAnyObjectByType<OfflineCombatFeedback>() == null)
+            gameObject.AddComponent<OfflineCombatFeedback>();
+        if (FindAnyObjectByType<TitleFunctions>() != null && GetComponent<OfflineCreditsSkip>() == null)
+            gameObject.AddComponent<OfflineCreditsSkip>();
+        if (FindAnyObjectByType<OfflineMapSelection>() != null && GetComponent<OfflineLobbyFeedback>() == null)
+            gameObject.AddComponent<OfflineLobbyFeedback>();
+
         float waited = 0f;
         OfflinePlayerRig rig = null;
         while (waited < _maxWaitForRig)

@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System;
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -102,12 +103,46 @@ public class MedicalQuestions : MonoBehaviour
         }
     }
 
+    private bool _answerInProgress;
+
     public void CheckAnswer(int answerID)
+    {
+        // Offline: show the answer feedback first (colors, healing wound, sounds), then apply the result.
+        if (OfflineSession.IsOffline && OfflineMedicalFeedback.Instance != null)
+        {
+            if (_answerInProgress)
+                return;
+            _answerInProgress = true;
+
+            bool correct = (int)correctTreatment == answerID;
+            if (correct)
+                OnCorrectAnswer?.Invoke();
+            else
+                OnWrongAnswer?.Invoke();
+
+            Button clicked = FindAnswerButton(FormatEnum((TreatmentType)answerID));
+            Button right = FindAnswerButton(FormatEnum(correctTreatment));
+            OfflineMedicalFeedback.Instance.ShowAnswer(correct, clicked, right, currentWound, () =>
+            {
+                _answerInProgress = false;
+                ResolveAnswer(answerID, invokeEvents: false);
+            });
+            return;
+        }
+
+        ResolveAnswer(answerID, invokeEvents: true);
+    }
+
+    private Button FindAnswerButton(string label) =>
+        answerButtons.FirstOrDefault(b => b != null && b.gameObject.activeSelf && b.GetComponentInChildren<TMP_Text>()?.text == label);
+
+    private void ResolveAnswer(int answerID, bool invokeEvents)
     {
         if ((int)correctTreatment == answerID)
         {
             Debug.Log("Tratamento correto!");
-            OnCorrectAnswer?.Invoke();
+            if (invokeEvents)
+                OnCorrectAnswer?.Invoke();
             if (currentWound != null)
             {
                 Destroy(currentWound.gameObject);
@@ -121,7 +156,8 @@ public class MedicalQuestions : MonoBehaviour
         }
         else
         {
-            OnWrongAnswer?.Invoke();
+            if (invokeEvents)
+                OnWrongAnswer?.Invoke();
             Debug.Log("Tratamento incorreto!");
         }
 
@@ -177,6 +213,17 @@ public class MedicalQuestions : MonoBehaviour
     }
     public void AllWoundsTreated()
     {
+        // Offline: celebrate before going to the credits.
+        if (OfflineSession.IsOffline && OfflineMedicalFeedback.Instance != null)
+        {
+            OfflineMedicalFeedback.Instance.Celebrate(() =>
+            {
+                CreditsScene();
+                OnQuestionsDone?.Invoke();
+            });
+            return;
+        }
+
         CreditsScene();
         Debug.Log("ACABOU");
         OnQuestionsDone?.Invoke();
