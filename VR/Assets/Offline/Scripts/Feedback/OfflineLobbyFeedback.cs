@@ -7,7 +7,7 @@ using UnityEngine.Playables;
 using UnityEngine.UI;
 
 /// <summary>
-/// Offline "juice" for the GloboV2 lobby: living Eve hologram (sparkles, floor glow, glitches, typed subtitles),
+/// Offline "juice" for the GloboV2 lobby: living Eve hologram (sparkles, floor glow, typed subtitles),
 /// holographic sweep when the walls fall, an epic globe entrance with halo and orbit ring, glowing map spots,
 /// ambient dust and breathing lights. Created by OfflineSceneBootstrap when the map choice exists.
 /// </summary>
@@ -19,7 +19,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
 
     private PlayableDirector _eveDirector;
     private Transform _eve;
-    private Renderer[] _eveRenderers;
     private List<string> _lines;
     private float _voiceLength = 11.8f;
     private Transform _lobbyRoot;
@@ -33,7 +32,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
     private ParticleSystem _eveSparkles;
     private bool _wallsFell;
     private bool _globeShown;
-    private float _nextGlitch;
 
     private IEnumerator Start()
     {
@@ -52,7 +50,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         _eve = _lobbyRoot.Find("Lobby/Sala/Bancadas/Bancada1/TimelineEVE/EVE");
         if (_eve != null)
         {
-            _eveRenderers = _eve.GetComponentsInChildren<Renderer>(true);
             var voice = _eve.GetComponent<AudioSource>();
             if (voice != null && voice.clip != null)
                 _voiceLength = voice.clip.length;
@@ -102,6 +99,10 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
             return;
 
         Vector3 feet = _eve.position;
+
+        var animator = _eve.gameObject.AddComponent<OfflineEveAnimator>();
+        animator.Director = _eveDirector;
+
         _eveSparkles = OfflineFx.Emitter(_eve, feet + Vector3.up * 0.1f, new Vector3(0.9f, 0.1f, 0.9f),
             new Color(Holo.r, Holo.g, Holo.b, 0.9f), 18f, 2.5f, 0.035f, new Vector3(0f, 0.55f, 0f), 0.08f);
 
@@ -120,7 +121,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         _subtitleText.gameObject.AddComponent<OfflineTypewriter>();
         _subtitle.gameObject.SetActive(false);
 
-        _nextGlitch = Time.time + Random.Range(2f, 4f);
     }
 
     private void UpdateEve()
@@ -134,13 +134,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         {
             float pulse = 0.5f + 0.5f * Mathf.Sin(t * 2.5f);
             _eveGlow.localScale = Vector3.one * 0.001f * (0.9f + 0.15f * pulse);
-        }
-
-        // Holographic glitch: the model blinks off for a couple of frames now and then.
-        if (visible && _eveRenderers != null && t >= _nextGlitch)
-        {
-            _nextGlitch = t + Random.Range(2.5f, 5f);
-            StartCoroutine(Glitch());
         }
 
         // Subtitles follow the voice line by line, then fade away.
@@ -162,24 +155,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
                 _wallsFell = true;
                 StartCoroutine(WallsSweep());
             }
-        }
-    }
-
-    private IEnumerator Glitch()
-    {
-        // Remember which renderers were on: some start disabled on purpose.
-        var wasOn = new bool[_eveRenderers.Length];
-        for (int i = 0; i < _eveRenderers.Length; i++)
-            wasOn[i] = _eveRenderers[i] != null && _eveRenderers[i].enabled;
-
-        for (int blink = 0; blink < 3; blink++)
-        {
-            for (int i = 0; i < _eveRenderers.Length; i++)
-                if (wasOn[i] && _eveRenderers[i] != null) _eveRenderers[i].enabled = false;
-            yield return new WaitForSeconds(Random.Range(0.02f, 0.06f));
-            for (int i = 0; i < _eveRenderers.Length; i++)
-                if (wasOn[i] && _eveRenderers[i] != null) _eveRenderers[i].enabled = true;
-            yield return new WaitForSeconds(Random.Range(0.03f, 0.08f));
         }
     }
 

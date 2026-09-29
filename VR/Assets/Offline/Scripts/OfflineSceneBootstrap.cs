@@ -29,6 +29,8 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
                 item.SetActive(false);
         }
 
+        EnsurePointableCanvasModule();
+
         // Buttons created in the offline scene respond even when the editor setup has not been rerun.
         foreach (GameObject root in gameObject.scene.GetRootGameObjects())
         {
@@ -38,6 +40,28 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
                     button.gameObject.AddComponent<OfflineButtonFeedback>();
             }
         }
+    }
+
+    /// <summary>
+    /// Meta Interaction SDK canvases (globe panels, credits) assert when the EventSystem has no PointableCanvasModule.
+    /// Added here, before their Start runs, for any offline scene that uses them.
+    /// </summary>
+    private void EnsurePointableCanvasModule()
+    {
+        System.Type canvasType = null, moduleType = null;
+        foreach (var assembly in System.AppDomain.CurrentDomain.GetAssemblies())
+        {
+            canvasType ??= assembly.GetType("Oculus.Interaction.PointableCanvas");
+            moduleType ??= assembly.GetType("Oculus.Interaction.PointableCanvasModule");
+        }
+        if (canvasType == null || moduleType == null || FindAnyObjectByType(moduleType) != null)
+            return;
+        if (FindAnyObjectByType(canvasType, FindObjectsInactive.Include) == null)
+            return;
+
+        var eventSystem = FindAnyObjectByType<UnityEngine.EventSystems.EventSystem>();
+        GameObject host = eventSystem != null ? eventSystem.gameObject : new GameObject("EventSystem", typeof(UnityEngine.EventSystems.EventSystem));
+        host.AddComponent(moduleType);
     }
 
     /// <summary>Target for scene events that used to wait for the host (e.g. end of the credits).</summary>
