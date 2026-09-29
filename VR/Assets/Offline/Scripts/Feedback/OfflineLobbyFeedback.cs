@@ -9,13 +9,12 @@ using UnityEngine.UI;
 /// <summary>
 /// Offline "juice" for the GloboV2 lobby: living Eve hologram (sparkles, floor glow, glitches, typed subtitles),
 /// holographic sweep when the walls fall, an epic globe entrance with halo and orbit ring, glowing map spots,
-/// ambient dust, breathing lights and a welcome title. Created by OfflineSceneBootstrap when the map choice exists.
+/// ambient dust and breathing lights. Created by OfflineSceneBootstrap when the map choice exists.
 /// </summary>
 public sealed class OfflineLobbyFeedback : MonoBehaviour
 {
     private static readonly Color Holo = new(0.35f, 0.85f, 1f);
 
-    [SerializeField] private string _title = "SENAC PALHOÇA";
     [SerializeField] private float _wallsFallTime = 14.5f;
 
     private PlayableDirector _eveDirector;
@@ -30,7 +29,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
 
     private RectTransform _subtitle;
     private TextMeshProUGUI _subtitleText;
-    private RectTransform _titleCanvas;
     private RectTransform _eveGlow;
     private ParticleSystem _eveSparkles;
     private bool _wallsFell;
@@ -94,12 +92,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         Bounds bounds = RendererBounds(sala);
         OfflineFx.Emitter(transform, bounds.center, new Vector3(bounds.size.x * 0.8f, bounds.size.y * 0.8f, bounds.size.z * 0.8f),
             new Color(0.6f, 0.9f, 1f, 0.5f), 30f, 9f, 0.025f, new Vector3(0f, 0.03f, 0f), 0.04f);
-
-        _titleCanvas = OfflineFx.CreateCanvas("[Offline] Lobby Title", null, new Vector2(2400, 400), 0.002f, 90);
-        _titleCanvas.position = new Vector3(bounds.center.x, bounds.max.y - 0.5f, bounds.center.z);
-        _titleCanvas.gameObject.AddComponent<OfflineBillboard>();
-        OfflineFx.AddImage(_titleCanvas, "Glow", OfflineFx.Soft, new Color(Holo.r, Holo.g, Holo.b, 0.25f), new Vector2(2200, 500));
-        OfflineFx.AddText(_titleCanvas, "Title", _title, 200f, new Color(0.75f, 0.95f, 1f), new Vector2(2400, 300));
     }
 
     // ---------- Eve ----------
@@ -225,8 +217,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
 
     private IEnumerator GlobeEntrance()
     {
-        if (_titleCanvas != null)
-            StartCoroutine(FadeOut(_titleCanvas, 0.8f));
 
         Transform globe = _globe.transform;
         Vector3 baseScale = globe.localScale;
@@ -366,9 +356,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
             if (light != null)
                 light.intensity = baseIntensity * (1f + 0.15f * Mathf.Sin(time * 0.8f + i * 1.3f));
         }
-
-        if (_titleCanvas != null)
-            _titleCanvas.position += Vector3.up * (Mathf.Sin(time * 0.8f) * 0.0015f);
     }
 
     // ---------- Helpers ----------
