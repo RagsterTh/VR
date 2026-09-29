@@ -94,25 +94,23 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         var reportRect = _report.rectTransform;
         var holder = new GameObject("[Offline] Progress", typeof(RectTransform));
         var rect = (RectTransform)holder.transform;
-        rect.SetParent(reportRect.parent, false);
-        rect.anchorMin = rect.anchorMax = reportRect.anchorMin;
-        rect.pivot = new Vector2(0.5f, 0f);
+        // Child of the report text itself: its world scale is uniform (the parent's x 2.7 is undone by the text's
+        // x 0.37) and it shares the panel's rotation, so the label sits inside the panel, at the top, not stretched.
+        rect.SetParent(reportRect, false);
+        rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.localScale = Vector3.one;
+        rect.localRotation = Quaternion.identity;
 
-        // The report's parent is scaled unevenly (x 2.7) and the report compensates (x 0.37); do the same so the
-        // label is not stretched: make this holder's world scale uniform, based on the parent's Y scale.
-        Vector3 parentScale = reportRect.parent.lossyScale;
-        float uniform = Mathf.Max(0.0001f, Mathf.Abs(parentScale.y));
-        rect.localScale = new Vector3(uniform / Mathf.Max(0.0001f, Mathf.Abs(parentScale.x)), 1f, uniform / Mathf.Max(0.0001f, Mathf.Abs(parentScale.z)));
-
-        float width = Mathf.Max(300f, reportRect.rect.width * Mathf.Abs(reportRect.lossyScale.x) / uniform);
-        float reportHeight = reportRect.rect.height * Mathf.Abs(reportRect.lossyScale.y) / uniform;
+        float width = reportRect.rect.width * 0.9f;
         rect.sizeDelta = new Vector2(width, 90f);
-        rect.anchoredPosition = reportRect.anchoredPosition + new Vector2(0f, reportHeight * (1f - reportRect.pivot.y) + 10f);
+        rect.anchoredPosition = new Vector2(0f, -6f);
 
-        float fontSize = Mathf.Clamp(_report.fontSize * 0.8f, 10f, 60f);
-        _progressText = OfflineFx.AddText(rect, "Label", ProgressLabel(), fontSize, Color.white, new Vector2(width, 50f), new Vector2(0f, 60f));
-        OfflineFx.AddImage(rect, "Bar Back", OfflineFx.White, new Color(0f, 0f, 0f, 0.55f), new Vector2(width * 0.8f, 18f), new Vector2(0f, 20f));
-        _progressFill = OfflineFx.AddImage(rect, "Bar Fill", OfflineFx.White, Green, new Vector2(width * 0.8f, 18f), new Vector2(0f, 20f));
+        float fontSize = Mathf.Clamp(_report.fontSize * 0.75f, 10f, 40f);
+        _progressText = OfflineFx.AddText(rect, "Label", ProgressLabel(), fontSize, Color.white, new Vector2(width, 60f), new Vector2(0f, 12f));
+        _progressText.enableWordWrapping = true;
+        OfflineFx.AddImage(rect, "Bar Back", OfflineFx.White, new Color(0f, 0f, 0f, 0.55f), new Vector2(width * 0.8f, 10f), new Vector2(0f, -28f));
+        _progressFill = OfflineFx.AddImage(rect, "Bar Fill", OfflineFx.White, Green, new Vector2(width * 0.8f, 10f), new Vector2(0f, -28f));
         _progressFill.type = Image.Type.Filled;
         _progressFill.fillMethod = Image.FillMethod.Horizontal;
         _progressFill.fillAmount = 0f;

@@ -17,6 +17,16 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
 
     [SerializeField] private float _wallsFallTime = 14.5f;
 
+    [Tooltip("Subtitles of Eve's intro (\"Audio 01 - Hall de Entrada\"). Each line stays on screen for a share of the " +
+             "audio proportional to its length.")]
+    [TextArea]
+    [SerializeField] private string[] _eveLines =
+    {
+        "Olá, que bom te ver no Senac!",
+        "Meu nome é Eve e vou te apresentar os cursos que temos disponíveis no nosso portfólio,",
+        "para que você possa escolher de acordo com as suas necessidades.",
+    };
+
     private PlayableDirector _eveDirector;
     private Transform _eve;
     private List<string> _lines;
@@ -48,16 +58,24 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
                 _eveDirector = director;
 
         _eve = _lobbyRoot.Find("Lobby/Sala/Bancadas/Bancada1/TimelineEVE/EVE");
-        if (_eve != null)
+
+        // The voice is played by the timeline's audio track (the AudioSource has no clip of its own).
+        if (_eveDirector != null && _eveDirector.playableAsset is UnityEngine.Timeline.TimelineAsset timeline)
         {
-            var voice = _eve.GetComponent<AudioSource>();
-            if (voice != null && voice.clip != null)
-                _voiceLength = voice.clip.length;
+            foreach (var track in timeline.GetOutputTracks())
+            {
+                if (track is not UnityEngine.Timeline.AudioTrack)
+                    continue;
+                foreach (var clip in track.GetClips())
+                    _voiceLength = Mathf.Max(0.1f, (float)clip.end);
+            }
         }
 
-        Balcony balcony = _lobbyRoot.Find("Lobby/Sala/Bancadas/Bancada1")?.GetComponent<Balcony>();
-        if (balcony != null)
-            _lines = typeof(Balcony).GetField("_dialogueLines", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(balcony) as List<string>;
+        _lines = new List<string>();
+        if (_eveLines != null)
+            foreach (string line in _eveLines)
+                if (!string.IsNullOrWhiteSpace(line))
+                    _lines.Add(line.Trim());
 
         var selection = FindAnyObjectByType<OfflineMapSelection>();
         if (selection != null)
@@ -144,8 +162,7 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
             _subtitle.gameObject.SetActive(talking && visible);
             if (talking)
             {
-                int index = Mathf.Clamp((int)(time / (_voiceLength / _lines.Count)), 0, _lines.Count - 1);
-                string line = _lines[index];
+                string line = LineAt((float)time);
                 if (_subtitleText.text != line)
                     _subtitleText.text = line;
             }
@@ -156,6 +173,23 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
                 StartCoroutine(WallsSweep());
             }
         }
+    }
+
+    /// <summary>Line spoken at <paramref name="time"/>: each line gets a share of the voice proportional to its length.</summary>
+    private string LineAt(float time)
+    {
+        int totalChars = 0;
+        foreach (string line in _lines)
+            totalChars += line.Length;
+
+        float elapsed = 0f;
+        foreach (string line in _lines)
+        {
+            elapsed += _voiceLength * line.Length / Mathf.Max(1, totalChars);
+            if (time < elapsed)
+                return line;
+        }
+        return _lines[_lines.Count - 1];
     }
 
     private IEnumerator WallsSweep()
