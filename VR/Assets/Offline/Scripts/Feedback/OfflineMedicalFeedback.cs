@@ -97,10 +97,17 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         rect.SetParent(reportRect.parent, false);
         rect.anchorMin = rect.anchorMax = reportRect.anchorMin;
         rect.pivot = new Vector2(0.5f, 0f);
-        float width = Mathf.Max(300f, reportRect.rect.width);
+
+        // The report's parent is scaled unevenly (x 2.7) and the report compensates (x 0.37); do the same so the
+        // label is not stretched: make this holder's world scale uniform, based on the parent's Y scale.
+        Vector3 parentScale = reportRect.parent.lossyScale;
+        float uniform = Mathf.Max(0.0001f, Mathf.Abs(parentScale.y));
+        rect.localScale = new Vector3(uniform / Mathf.Max(0.0001f, Mathf.Abs(parentScale.x)), 1f, uniform / Mathf.Max(0.0001f, Mathf.Abs(parentScale.z)));
+
+        float width = Mathf.Max(300f, reportRect.rect.width * Mathf.Abs(reportRect.lossyScale.x) / uniform);
+        float reportHeight = reportRect.rect.height * Mathf.Abs(reportRect.lossyScale.y) / uniform;
         rect.sizeDelta = new Vector2(width, 90f);
-        rect.anchoredPosition = reportRect.anchoredPosition + new Vector2(0f, reportRect.rect.height * (1f - reportRect.pivot.y) + 10f);
-        rect.localScale = Vector3.one;
+        rect.anchoredPosition = reportRect.anchoredPosition + new Vector2(0f, reportHeight * (1f - reportRect.pivot.y) + 10f);
 
         float fontSize = Mathf.Clamp(_report.fontSize * 0.8f, 10f, 60f);
         _progressText = OfflineFx.AddText(rect, "Label", ProgressLabel(), fontSize, Color.white, new Vector2(width, 50f), new Vector2(0f, 60f));
