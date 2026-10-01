@@ -88,8 +88,34 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             recoil = gun.gameObject.AddComponent<OfflineRecoil>();
         recoil.Kick();
 
+        // Bullets leave along -up of the gun point (see PlayerBullet).
+        Transform gunPoint = gun.transform.childCount > 0 ? gun.transform.GetChild(0) : gun.transform;
+        OfflineShotFx.Muzzle(gunPoint.position, -gunPoint.up);
+
+        // Slight pitch change per shot so rapid fire does not sound like a loop.
+        var audio = gun.GetComponent<AudioSource>();
+        if (audio != null)
+            audio.pitch = Random.Range(0.93f, 1.08f);
+
+        // Sharp kick followed by a softer tail on the firing hand.
+        OfflineFx.HapticNear(gun.transform, 0.55f, 0.04f);
+        Instance.StartCoroutine(HapticTail(gun.transform));
+
         if (bullet != null && bullet.GetComponent<OfflineBulletTrail>() == null)
             bullet.AddComponent<OfflineBulletTrail>();
+    }
+
+    private static IEnumerator HapticTail(Transform gun)
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        if (gun != null)
+            OfflineFx.HapticNear(gun, 0.2f, 0.08f);
+    }
+
+    /// <summary>A player bullet hit something: sparks and flash at the point (bigger on enemies).</summary>
+    public static void BulletImpact(Vector3 point, Vector3 bulletDirection, bool enemy)
+    {
+        OfflineShotFx.Impact(point, -bulletDirection.normalized, enemy);
     }
 
     /// <summary>An enemy appeared: blink the edge of the view on its side and vibrate that hand.</summary>
@@ -292,6 +318,10 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
                 _enemies.Add(enemy.transform);
             foreach (Boss boss in FindObjectsByType<Boss>(FindObjectsSortMode.None))
                 _enemies.Add(boss.transform);
+
+            foreach (Gun gun in FindObjectsByType<Gun>(FindObjectsSortMode.None))
+                if (gun.enabled && gun.GetComponent<OfflineGunLaser>() == null)
+                    gun.gameObject.AddComponent<OfflineGunLaser>();
         }
 
         Transform head = _head.transform;
@@ -378,12 +408,12 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     }
 }
 
-/// <summary>Short visual kick of the gun when it fires (back along the barrel and slightly up).</summary>
+/// <summary>Visual kick of the gun when it fires: snaps back and up, then settles with a small spring overshoot.</summary>
 public sealed class OfflineRecoil : MonoBehaviour
 {
     private Vector3 _basePosition;
     private Quaternion _baseRotation;
-    private float _kick;
+    private float _time = 10f;
     private bool _captured;
 
     public void Kick()
@@ -394,7 +424,7 @@ public sealed class OfflineRecoil : MonoBehaviour
             _baseRotation = transform.localRotation;
             _captured = true;
         }
-        _kick = 1f;
+        _time = 0f;
     }
 
     private void LateUpdate()
@@ -402,38 +432,69 @@ public sealed class OfflineRecoil : MonoBehaviour
         if (!_captured)
             return;
 
-        _kick = Mathf.MoveTowards(_kick, 0f, Time.deltaTime * 9f);
-        float k = OfflineFx.EaseOut(_kick);
-        transform.localPosition = _basePosition + _baseRotation * (Vector3.back * 0.03f * k);
-        transform.localRotation = _baseRotation * Quaternion.Euler(-7f * k, 0f, 0f);
+        _time += Time.deltaTime;
+        // Damped spring: 1 at the shot, crosses zero and overshoots a little before resting.
+        float k = Mathf.Exp(-_time * 14f) * Mathf.Cos(_time * 26f);
+        if (_time > 0.6f)
+            k = 0f;
+
+        transform.localPosition = _basePosition + _baseRotation * (Vector3.back * 0.045f * k);
+        transform.localRotation = _baseRotation * Quaternion.Euler(-11f * k, 0f, 2.5f * k);
     }
 }
 
-/// <summary>Light trail on pooled player bullets; cleared on reuse so it never streaks across the scene.</summary>
+/// <summary>
+/// Energy look for pooled player bullets: a thin white core trail inside a wide blue one, plus a glowing head.
+/// Trails are cleared on reuse so they never streak across the scene.
+/// </summary>
 public sealed class OfflineBulletTrail : MonoBehaviour
 {
-    private TrailRenderer _trail;
+    [Tooltip("Hide the bullet's own mesh (red sphere) so the projectile is a pure energy bolt.")]
+    [SerializeField] private bool _hideBulletMesh = true;
+
+    private TrailRenderer _glow;
+    private TrailRenderer _core;
 
     private void Awake()
     {
-        _trail = gameObject.AddComponent<TrailRenderer>();
-        _trail.sharedMaterial = OfflineFx.ParticleMaterial;
-        _trail.time = 0.12f;
-        _trail.minVertexDistance = 0.02f;
-        _trail.widthCurve = AnimationCurve.EaseInOut(0f, 0.03f, 1f, 0f);
+        if (_hideBulletMesh)
+            foreach (MeshRenderer mesh in GetComponentsInChildren<MeshRenderer>())
+                mesh.enabled = false;
+
+        _glow = MakeTrail("Glow Trail", 0.09f, 0.16f, new Color(0.3f, 0.75f, 1f), new Color(0.1f, 0.3f, 1f), 0.75f);
+        _core = MakeTrail("Core Trail", 0.03f, 0.1f, Color.white, new Color(0.6f, 0.95f, 1f), 1f);
+    }
+
+    private TrailRenderer MakeTrail(string trailName, float width, float time, Color start, Color end, float alpha)
+    {
+        var go = new GameObject(trailName);
+        go.transform.SetParent(transform, false);
+        var trail = go.AddComponent<TrailRenderer>();
+        trail.sharedMaterial = OfflineFx.LineMaterial;
+        trail.time = time;
+        trail.minVertexDistance = 0.02f;
+        trail.widthCurve = AnimationCurve.EaseInOut(0f, width, 1f, 0f);
         var gradient = new Gradient();
         gradient.SetKeys(
-            new[] { new GradientColorKey(new Color(0.5f, 0.9f, 1f), 0f), new GradientColorKey(new Color(0.2f, 0.5f, 1f), 1f) },
-            new[] { new GradientAlphaKey(0.9f, 0f), new GradientAlphaKey(0f, 1f) });
-        _trail.colorGradient = gradient;
-        _trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        _trail.receiveShadows = false;
+            new[] { new GradientColorKey(start, 0f), new GradientColorKey(end, 1f) },
+            new[] { new GradientAlphaKey(alpha, 0f), new GradientAlphaKey(0f, 1f) });
+        trail.colorGradient = gradient;
+        trail.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        trail.receiveShadows = false;
+        return trail;
     }
 
     private void OnEnable()
     {
-        if (_trail != null)
-            _trail.Clear();
+        if (_glow != null) _glow.Clear();
+        if (_core != null) _core.Clear();
+    }
+
+    private void LateUpdate()
+    {
+        // Glowing head that travels with the bullet.
+        OfflineShotFx.Glow(transform.position, 0.22f, OfflineShotFx.Energy, 0.05f);
+        OfflineShotFx.Glow(transform.position, 0.1f, new Color(1f, 1f, 1f, 0.8f), 0.05f);
     }
 }
 

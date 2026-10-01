@@ -308,8 +308,7 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         {
             if (map.Button == null)
                 continue;
-            var spot = map.Button.gameObject.AddComponent<OfflineMapSpot>();
-            spot.Label = MapLabel(map.Scene);
+            map.Button.gameObject.AddComponent<OfflineMapSpot>();
         }
     }
 
@@ -400,39 +399,141 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
     }
 }
 
-/// <summary>A map hotspot on the globe panel: pulsing glow, ring and the place name; grows when pointed at.</summary>
+/// <summary>
+/// A map hotspot on the globe panel (the place name is already printed on the map picture).
+/// Idle: a soft glow breathes behind the name so it reads as clickable. While pointed at ("hold"): the glow
+/// lights up, the spot grows a little and the name gives off energy: sparks rising from it and expanding waves.
+/// </summary>
 public sealed class OfflineMapSpot : MonoBehaviour, UnityEngine.EventSystems.IPointerEnterHandler, UnityEngine.EventSystems.IPointerExitHandler
 {
-    public string Label;
+    private static readonly Color Energy = new(0.35f, 0.85f, 1f);
+    private const int SparkCount = 28;
+    private const int WaveCount = 3;
 
+    private RectTransform _rect;
     private Image _glow;
-    private Image _ring;
-    private TextMeshProUGUI _label;
+    private readonly Image[] _sparks = new Image[SparkCount];
+    private readonly Vector2[] _sparkStart = new Vector2[SparkCount];
+    private readonly Vector2[] _sparkVelocity = new Vector2[SparkCount];
+    private readonly float[] _sparkLife = new float[SparkCount];
+    private readonly float[] _sparkDuration = new float[SparkCount];
+    private readonly Image[] _waves = new Image[WaveCount];
+    private readonly float[] _waveLife = new float[WaveCount];
+    private Vector3 _baseScale;
+    private bool _pointed;
     private float _hover;
+    private float _nextSpark;
+    private float _nextWave;
+    private int _sparkIndex;
+    private int _waveIndex;
 
     private void Start()
     {
-        var rect = (RectTransform)transform;
-        float size = Mathf.Min(rect.rect.width, rect.rect.height);
-        _glow = OfflineFx.AddImage(transform, "Spot Glow", OfflineFx.Soft, new Color(0.35f, 0.85f, 1f, 0.4f), new Vector2(size * 1.6f, size * 1.6f));
+        _rect = (RectTransform)transform;
+        _baseScale = _rect.localScale;
+        Vector2 size = _rect.rect.size;
+
+        _glow = OfflineFx.AddImage(transform, "Spot Glow", OfflineFx.Soft, new Color(Energy.r, Energy.g, Energy.b, 0.2f), new Vector2(size.x * 1.25f, size.y * 1.5f));
         _glow.transform.SetAsFirstSibling();
-        _ring = OfflineFx.AddImage(transform, "Spot Ring", OfflineFx.Ring, new Color(0.35f, 0.85f, 1f, 0.9f), new Vector2(size, size));
-        _label = OfflineFx.AddText(transform, "Spot Label", Label, size * 0.28f, Color.white, new Vector2(rect.rect.width * 1.4f, size * 0.4f), new Vector2(0f, -size * 0.65f));
+
+        for (int i = 0; i < WaveCount; i++)
+        {
+            _waves[i] = OfflineFx.AddImage(transform, "Spot Wave", OfflineFx.Ring, Color.clear, new Vector2(size.y, size.y));
+            _waves[i].enabled = false;
+            _waveLife[i] = 1f;
+        }
+        for (int i = 0; i < SparkCount; i++)
+        {
+            _sparks[i] = OfflineFx.AddImage(transform, "Spot Spark", OfflineFx.Soft, Color.clear, Vector2.one * 16f);
+            _sparks[i].enabled = false;
+            _sparkLife[i] = 1f;
+            _sparkDuration[i] = 1f;
+        }
     }
 
-    public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData) => _hover = 1f;
-    public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData) => _hover = 0f;
+    public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData) => _pointed = true;
+    public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData) => _pointed = false;
+
+    private void OnDisable()
+    {
+        _pointed = false;
+    }
 
     private void Update()
     {
-        if (_ring == null)
+        if (_glow == null)
             return;
+
+        float dt = Time.unscaledDeltaTime;
         float t = Time.unscaledTime;
-        float cycle = Mathf.Repeat(t * 0.8f, 1f);
-        float boost = 1f + 0.35f * _hover;
-        _ring.rectTransform.localScale = Vector3.one * Mathf.Lerp(0.7f, 1.3f, cycle) * boost;
-        _ring.color = new Color(0.35f, 0.85f, 1f, (1f - cycle) * 0.9f);
-        _glow.color = new Color(0.35f, 0.85f, 1f, (0.25f + 0.2f * Mathf.Sin(t * 3f)) * boost);
-        _label.color = new Color(1f, 1f, 1f, 0.75f + 0.25f * _hover);
+        _hover = Mathf.MoveTowards(_hover, _pointed ? 1f : 0f, dt * 6f);
+        Vector2 size = _rect.rect.size;
+
+        // Glow: breathing when idle, bright while pointed at.
+        float breathe = 0.5f + 0.5f * Mathf.Sin(t * 2.2f);
+        _glow.color = new Color(Energy.r, Energy.g, Energy.b, Mathf.Lerp(0.12f + 0.12f * breathe, 0.65f, _hover));
+        _glow.rectTransform.localScale = Vector3.one * (1f + 0.06f * breathe + 0.15f * _hover);
+        _rect.localScale = _baseScale * (1f + 0.07f * OfflineFx.EaseOut(_hover));
+
+        if (_pointed)
+        {
+            if (t >= _nextSpark)
+            {
+                _nextSpark = t + 0.035f;
+                SpawnSpark(size);
+            }
+            if (t >= _nextWave)
+            {
+                _nextWave = t + 0.45f;
+                _waveLife[_waveIndex] = 0f;
+                _waveIndex = (_waveIndex + 1) % WaveCount;
+            }
+        }
+
+        for (int i = 0; i < SparkCount; i++)
+        {
+            if (_sparkLife[i] >= 1f)
+            {
+                _sparks[i].enabled = false;
+                continue;
+            }
+            _sparkLife[i] += dt / _sparkDuration[i];
+            float k = Mathf.Clamp01(_sparkLife[i]);
+            RectTransform spark = _sparks[i].rectTransform;
+            // Rise fast, slow down, sway a little.
+            spark.anchoredPosition = _sparkStart[i] + _sparkVelocity[i] * OfflineFx.EaseOut(k) + new Vector2(Mathf.Sin((t + i) * 9f) * 6f, 0f);
+            spark.localScale = Vector3.one * Mathf.Lerp(1.3f, 0.3f, k);
+            Color c = i % 3 == 0 ? Color.white : Energy;
+            c.a = (k < 0.15f ? k / 0.15f : 1f - (k - 0.15f) / 0.85f) * 0.95f;
+            _sparks[i].color = c;
+            _sparks[i].enabled = true;
+        }
+
+        for (int i = 0; i < WaveCount; i++)
+        {
+            if (_waveLife[i] >= 1f)
+            {
+                _waves[i].enabled = false;
+                continue;
+            }
+            _waveLife[i] += dt / 0.9f;
+            float k = Mathf.Clamp01(_waveLife[i]);
+            // Stretched ring: follows the wide shape of the name.
+            _waves[i].rectTransform.sizeDelta = new Vector2(size.x, size.y) * Mathf.Lerp(0.6f, 1.7f, OfflineFx.EaseOut(k));
+            _waves[i].color = new Color(Energy.r, Energy.g, Energy.b, (1f - k) * 0.7f);
+            _waves[i].enabled = true;
+        }
+    }
+
+    private void SpawnSpark(Vector2 size)
+    {
+        int i = _sparkIndex;
+        _sparkIndex = (_sparkIndex + 1) % SparkCount;
+        _sparkStart[i] = new Vector2(Random.Range(-0.45f, 0.45f) * size.x, Random.Range(-0.25f, 0.2f) * size.y);
+        _sparkVelocity[i] = new Vector2(Random.Range(-0.08f, 0.08f) * size.x, Random.Range(0.45f, 1.1f) * size.y);
+        _sparkDuration[i] = Random.Range(0.5f, 0.9f);
+        _sparkLife[i] = 0f;
+        float px = Mathf.Max(10f, size.y * Random.Range(0.06f, 0.13f));
+        _sparks[i].rectTransform.sizeDelta = new Vector2(px, px);
     }
 }

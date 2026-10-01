@@ -13,6 +13,7 @@ public sealed class OfflineFx : MonoBehaviour
 {
     private static OfflineFx _host;
     private static Material _particleMaterial;
+    private static Material _lineMaterial;
     private static Material _overlayMaterial;
     private static Sprite _circle;
     private static Sprite _ring;
@@ -44,9 +45,66 @@ public sealed class OfflineFx : MonoBehaviour
         get
         {
             if (_particleMaterial == null)
-                _particleMaterial = UnityEngine.Resources.Load<Material>("OfflineFxParticle");
+            {
+                Material source = UnityEngine.Resources.Load<Material>("OfflineFxParticle");
+                if (source == null)
+                    return null;
+
+                // The asset only provides the URP additive particle shader/keywords. Its texture is a lava sphere,
+                // so use a generated white soft glow instead: the color then comes only from each effect.
+                _particleMaterial = new Material(source) { name = "OfflineFxParticle (soft glow)" };
+                Texture2D glow = SoftGlowTexture();
+                if (_particleMaterial.HasProperty("_BaseMap")) _particleMaterial.SetTexture("_BaseMap", glow);
+                if (_particleMaterial.HasProperty("_MainTex")) _particleMaterial.SetTexture("_MainTex", glow);
+                if (_particleMaterial.HasProperty("_BaseColor")) _particleMaterial.SetColor("_BaseColor", Color.white);
+            }
             return _particleMaterial;
         }
+    }
+
+    /// <summary>
+    /// Additive material for LineRenderer/TrailRenderer: constant along the length, soft across the width.
+    /// (The round glow texture would fade the beam out at both ends when stretched along a line.)
+    /// </summary>
+    public static Material LineMaterial
+    {
+        get
+        {
+            if (_lineMaterial == null && ParticleMaterial != null)
+            {
+                _lineMaterial = new Material(ParticleMaterial) { name = "OfflineFxParticle (beam)" };
+                const int size = 32;
+                var texture = new Texture2D(4, size, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp };
+                for (int y = 0; y < size; y++)
+                {
+                    float d = Mathf.Abs((y / (size - 1f)) * 2f - 1f);
+                    float a = Mathf.Pow(Mathf.Clamp01(1f - d), 1.5f);
+                    for (int x = 0; x < 4; x++)
+                        texture.SetPixel(x, y, new Color(1f, 1f, 1f, a));
+                }
+                texture.Apply();
+                if (_lineMaterial.HasProperty("_BaseMap")) _lineMaterial.SetTexture("_BaseMap", texture);
+                if (_lineMaterial.HasProperty("_MainTex")) _lineMaterial.SetTexture("_MainTex", texture);
+            }
+            return _lineMaterial;
+        }
+    }
+
+    private static Texture2D SoftGlowTexture()
+    {
+        const int size = 64;
+        var texture = new Texture2D(size, size, TextureFormat.RGBA32, true) { wrapMode = TextureWrapMode.Clamp };
+        float half = (size - 1) * 0.5f;
+        for (int y = 0; y < size; y++)
+        for (int x = 0; x < size; x++)
+        {
+            float d = Mathf.Sqrt((x - half) * (x - half) + (y - half) * (y - half)) / half;
+            // Bright core with a soft falloff; fully transparent at the edge so quads never show.
+            float a = Mathf.Pow(Mathf.Clamp01(1f - d), 2.2f);
+            texture.SetPixel(x, y, new Color(1f, 1f, 1f, a));
+        }
+        texture.Apply(true);
+        return texture;
     }
 
     /// <summary>UI material drawn on top of everything (HUD elements attached to the head).</summary>

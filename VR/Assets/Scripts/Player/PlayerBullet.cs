@@ -39,6 +39,9 @@ public class PlayerBullet : MonoBehaviour
             target?.Hit();
             if (OfflineSession.IsOffline && _shooter != null)
                 _shooter.ConfirmHit();
+            if (OfflineSession.IsOffline)
+                OfflineCombatFeedback.BulletImpact(transform.position, _rb.linearVelocity,
+                    other.GetComponentInParent<Enemy>(true) != null || other.GetComponentInParent<Boss>(true) != null);
 
             if (_hitEffect != null)
             {
