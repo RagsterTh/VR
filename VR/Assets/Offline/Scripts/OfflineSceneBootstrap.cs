@@ -30,6 +30,10 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
         }
 
         EnsurePointableCanvasModule();
+        OfflineKiosk.Ensure();
+        // Before any Start: the automatic "start the battle" step must already see the practice as pending.
+        if (OfflineSession.IsCombatScene)
+            OfflineTutorial.Prepare(gameObject);
 
         // Buttons created in the offline scene respond even when the editor setup has not been rerun.
         foreach (GameObject root in gameObject.scene.GetRootGameObjects())

@@ -58,6 +58,9 @@ public static class OfflineSession
     public static bool IsOffline =>
         _mode != OfflineExperienceMode.None || IsOfflineScene(SceneManager.GetActiveScene());
 
+    /// <summary>Show score + ranking at the end of a session (set by OfflineModeMenu from the Inspector).</summary>
+    public static bool ShowResults = true;
+
     /// <summary>True when the entry scene was reached from a finished/abandoned session (not a fresh launch).</summary>
     public static bool ReturnedFromSession { get; private set; }
 
@@ -102,11 +105,36 @@ public static class OfflineSession
 
     public static void LoadAfterBattle()
     {
-        LoadScene(IsFullExperience ? MedicalScene : CreditsScene);
+        PlayersLifeBar life = Object.FindAnyObjectByType<PlayersLifeBar>();
+        if (life != null && life.MaxLife > 0f)
+            OfflineScore.SetLifeRatio(life.CurrentLife / life.MaxLife);
+
+        if (IsFullExperience)
+            LoadScene(MedicalScene);
+        else
+            LoadCredits();
     }
 
+    /// <summary>
+    /// End of the session. With the result screen on, the visitor first goes back to the entry scene to see
+    /// the score and the ranking (OfflineModeMenu shows it), and the credits come right after.
+    /// </summary>
     public static void LoadCredits()
     {
+        if (ShowResults && OfflineScore.Finish())
+        {
+            ReturnedFromSession = true;
+            LoadScene(EntryScene);
+            return;
+        }
+
+        LoadScene(CreditsScene);
+    }
+
+    /// <summary>Credits without the result screen (already shown, or skipped).</summary>
+    public static void LoadCreditsScene()
+    {
+        OfflineScore.Clear();
         LoadScene(CreditsScene);
     }
 
@@ -120,6 +148,9 @@ public static class OfflineSession
 
     public static void RetryBattle()
     {
+        // The failed attempt does not count: the score starts again with the new battle.
+        if (OfflineScore.Mode != OfflineExperienceMode.None)
+            OfflineScore.Begin(OfflineScore.Mode);
         LoadScene(string.IsNullOrEmpty(_retryScene) ? CombatScene : _retryScene);
     }
 
@@ -160,6 +191,8 @@ public static class OfflineSession
     private static void Begin(OfflineExperienceMode mode, SimulationMode simulationMode, string sceneName)
     {
         _mode = mode;
+        OfflineScore.Begin(mode);
+        OfflineTutorial.ResetForNewVisitor();
         UserCam.simulationMode = simulationMode;
         LoadScene(sceneName);
     }

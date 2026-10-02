@@ -35,6 +35,22 @@ public sealed class OfflineModeMenu : MonoBehaviour
     [SerializeField] private float _followDeadZone = 25f;
     [SerializeField] private float _followSpeed = 3f;
 
+    [Header("Event")]
+    [Tooltip("Short shooting practice (3 targets) before the battle, once per visitor.")]
+    [SerializeField] private bool _tutorial = true;
+    [Tooltip("Seconds until the practice gives up and the battle starts anyway.")]
+    [SerializeField] private float _tutorialTimeout = 25f;
+    [Tooltip("Score, grade and Top 10 of the mode at the end of the session, before the credits.")]
+    [SerializeField] private bool _resultsScreen = true;
+    [Tooltip("Go back to this menu by itself when the headset is left unattended in the middle of a session.")]
+    [SerializeField] private bool _kioskAutoReset = true;
+    [Tooltip("Also in the Editor (off by default: a headset resting on the desk while developing would keep resetting the game).")]
+    [SerializeField] private bool _kioskAutoResetInEditor;
+    [Tooltip("Seconds with the headset off the face before going back to the menu.")]
+    [SerializeField] private float _resetWhenUnworn = 15f;
+    [Tooltip("Seconds with the headset completely still (left on a table) before going back to the menu. 0 = off.")]
+    [SerializeField] private float _resetWhenStill = 60f;
+
     private bool _started;
     private bool _panelPlaced;
     private bool _following;
@@ -44,6 +60,12 @@ public sealed class OfflineModeMenu : MonoBehaviour
     private void Awake()
     {
         OfflineSession.PrepareEntry();
+        OfflineSession.ShowResults = _resultsScreen;
+        OfflineTutorial.Enabled = _tutorial;
+        OfflineTutorial.Timeout = _tutorialTimeout;
+        OfflineKiosk.AutoReset = _kioskAutoReset && (!Application.isEditor || _kioskAutoResetInEditor);
+        OfflineKiosk.ResetWhenUnworn = _resetWhenUnworn;
+        OfflineKiosk.ResetWhenStill = _resetWhenStill;
         if (_panel != null && _panel.TryGetComponent(out RotateCanvas rotation))
             rotation.enabled = false;
 
@@ -63,6 +85,15 @@ public sealed class OfflineModeMenu : MonoBehaviour
             ship.AddComponent<OfflineShipIdle>();
 
         yield return PlacePanelInFrontOfPlayer();
+
+        // A session just ended: score and ranking first (on this same panel), then the credits.
+        if (OfflineScore.HasResult && _panel != null)
+        {
+            _started = true;
+            yield return OfflineResultsScreen.Show(_panel);
+            OfflineSession.LoadCreditsScene();
+            yield break;
+        }
 
         bool returned = OfflineSession.ReturnedFromSession;
         if (!_startAutomatically || _mode == OfflineExperienceMode.None || (returned && !_autoStartAfterReturn))

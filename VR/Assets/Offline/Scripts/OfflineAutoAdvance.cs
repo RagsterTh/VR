@@ -67,6 +67,15 @@ public sealed class OfflineAutoAdvance : MonoBehaviour
 
         yield return new WaitForSeconds(_delayAfter);
 
+        // Shooting practice still running (combat scenes): the battle starts when it ends. It has its own
+        // timeout; the limit here only guarantees the flow never gets stuck.
+        float tutorialWait = 0f;
+        while (OfflineTutorial.Blocking && tutorialWait < 60f)
+        {
+            tutorialWait += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         if (_skipIfActive != null && _skipIfActive.activeInHierarchy)
             yield break;
 

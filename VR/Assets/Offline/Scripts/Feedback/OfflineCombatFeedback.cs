@@ -83,6 +83,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         if (gun == null)
             return;
 
+        OfflineScore.AddShot();
         OfflineRecoil recoil = gun.GetComponent<OfflineRecoil>();
         if (recoil == null)
             recoil = gun.gameObject.AddComponent<OfflineRecoil>();
@@ -115,6 +116,8 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     /// <summary>A player bullet hit something: sparks and flash at the point (bigger on enemies).</summary>
     public static void BulletImpact(Vector3 point, Vector3 bulletDirection, bool enemy)
     {
+        if (enemy)
+            OfflineScore.AddHit();
         OfflineShotFx.Impact(point, -bulletDirection.normalized, enemy);
     }
 
@@ -256,6 +259,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     private void AddKill()
     {
+        OfflineScore.AddKill();
         _kills++;
         EnsureHud();
         if (_counter == null)
@@ -309,6 +313,10 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         EnsureHud();
         if (_head == null || _hud == null)
             return;
+
+        // The practice panel sits in the same place: the kill counter shows up when the battle is about to start.
+        if (_counter != null)
+            _counter.enabled = !OfflineTutorial.Blocking;
 
         if (Time.unscaledTime >= _nextScan)
         {

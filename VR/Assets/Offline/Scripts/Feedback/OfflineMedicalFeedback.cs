@@ -123,6 +123,7 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
     /// <summary>Plays the answer feedback, then calls <paramref name="resolve"/> (the original answer logic).</summary>
     public void ShowAnswer(bool correct, Button clicked, Button rightButton, MedicalEmergency wound, Action resolve)
     {
+        OfflineScore.AddTreatment(correct);
         StartCoroutine(AnswerRoutine(correct, clicked, rightButton, wound, resolve));
     }
 
