@@ -13,15 +13,15 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 {
     private static OfflineCombatFeedback _instance;
 
-    [Header("Kill counter")]
-    [SerializeField] private Vector3 _counterOffset = new(0f, 0.3f, 1.3f);
+    [Tooltip("Distance of the head-locked HUD (same as OfflineHelmetHud).")]
+    [SerializeField] private float _hudDistance = 1.3f;
 
     [Header("Where enemies come from")]
     [SerializeField] private int _maxArrows = 6;
     [Tooltip("Enemies inside this angle from the view center get no arrow/edge glow.")]
     [SerializeField] private float _visibleAngle = 30f;
     [Tooltip("Arrow distance from the view center (canvas units, 1 = 1 mm at 1.3 m).")]
-    [SerializeField] private float _arrowRadius = 480f;
+    [SerializeField] private float _arrowRadius = 370f;
     [Tooltip("Red glow on the edge of the view, on the enemy's side.")]
     [SerializeField] private float _glowRadius = 620f;
     [Tooltip("Enemies closer than this glow at full strength; farther ones fade out.")]
@@ -36,7 +36,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     private readonly Dictionary<Transform, float> _spawnTimes = new();
     private Camera _head;
     private RectTransform _hud;
-    private TextMeshProUGUI _counter;
     private int _kills;
     private float _nextScan;
 
@@ -199,8 +198,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     // ---------- End of the battle ----------
 
-    private TextMeshProUGUI _objective;
-
     /// <summary>Enemies (and bosses) still alive in the scene.</summary>
     public static int AliveEnemies()
     {
@@ -218,7 +215,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         feedback.EnsureHud();
         Camera head = Camera.main;
         if (head != null)
-            OfflineFx.FloatingText(head.transform.position + head.transform.forward * 1.5f, "TEMPO ESGOTADO!", new Color(1f, 0.85f, 0.2f), 120f, 2f, 0.1f);
+            OfflineFx.FloatingText(head.transform.position + head.transform.forward * 1.5f, "ÚLTIMA ONDA!", new Color(1f, 0.85f, 0.2f), 120f, 2f, 0.1f);
         OfflineFx.HapticAll(0.5f, 0.2f);
         feedback.SetObjective("ELIMINE OS INIMIGOS RESTANTES", new Color(1f, 0.4f, 0.3f));
     }
@@ -232,8 +229,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     {
         OfflineCombatFeedback feedback = Instance;
         feedback.SetObjective("ÁREA LIMPA!", new Color(0.3f, 1f, 0.5f));
-        if (feedback._objective != null)
-            feedback.StartCoroutine(OfflineFx.Punch(feedback._objective.transform, 0.4f, 0.3f));
         Camera head = Camera.main;
         if (head != null)
             OfflineFx.Burst(head.transform.position + head.transform.forward * 1.5f, new Color(0.3f, 1f, 0.5f), 60, 2.5f, 0.06f, 1.2f, 0.3f, 0.3f);
@@ -242,17 +237,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     private void SetObjective(string text, Color color)
     {
-        EnsureHud();
-        if (_hud == null)
-            return;
-        if (_objective == null)
-            _objective = OfflineFx.AddText(_hud, "Objective", text, 40f, color, new Vector2(900, 70), new Vector2(0f, _counterOffset.y * 1000f - 70f));
-        if (_objective.text != text)
-        {
-            _objective.text = text;
-            StartCoroutine(OfflineFx.Punch(_objective.transform, 0.15f, 0.18f));
-        }
-        _objective.color = color;
+        OfflineHelmetHud.SetObjective(text, color);
     }
 
     // ---------- HUD ----------
@@ -261,11 +246,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     {
         OfflineScore.AddKill();
         _kills++;
-        EnsureHud();
-        if (_counter == null)
-            return;
-        _counter.text = $"ABATES  {_kills}";
-        StartCoroutine(OfflineFx.Punch(_counter.transform, 0.35f, 0.22f));
+        OfflineHelmetHud.SetKills(_kills);
     }
 
     private void EnsureHud()
@@ -278,15 +259,11 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
         if (_hud != null)
             Destroy(_hud.gameObject);
-        _objective = null;
 
         _head = head;
         _hud = OfflineFx.CreateCanvas("[Offline] Combat HUD", head.transform, new Vector2(1000, 1000), 0.001f, 150);
-        _hud.localPosition = new Vector3(0f, 0f, _counterOffset.z);
+        _hud.localPosition = new Vector3(0f, 0f, _hudDistance);
         _hud.localRotation = Quaternion.identity;
-
-        _counter = OfflineFx.AddText(_hud, "Kills", $"ABATES  {_kills}", 46f, new Color(1f, 0.9f, 0.4f), new Vector2(500, 80),
-            new Vector2(0f, _counterOffset.y * 1000f));
 
         _arrows.Clear();
         _glows.Clear();
@@ -314,9 +291,8 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         if (_head == null || _hud == null)
             return;
 
-        // The practice panel sits in the same place: the kill counter shows up when the battle is about to start.
-        if (_counter != null)
-            _counter.enabled = !OfflineTutorial.Blocking;
+        // Life, heal, mission and compass live on the helmet HUD; this canvas keeps only the enemy arrows.
+        OfflineHelmetHud.Ensure();
 
         if (Time.unscaledTime >= _nextScan)
         {

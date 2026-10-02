@@ -33,7 +33,7 @@ public static class OfflineModeSetup
     private const string HealWidgetName = "HealAbility";
     private const string AutoAdvancePrefix = "[Offline] Auto Advance";
     private const string SpawnPointName = "[Offline] Spawn Point";
-    private const string ReadableFontPath = "Assets/Offline/Fonts/Zekton-Regular Offline Static SDF.asset";
+    private const string ReadableFontPath = "Assets/Offline/Resources/Zekton-Regular Offline Static SDF.asset";
     // First version (dynamic, cleared on build -> invisible text on the Quest). Replaced and deleted by the setup.
     private const string OldDynamicFontPath = "Assets/Offline/Fonts/Zekton-Regular Offline SDF.asset";
     private const string ReadableFontSource = "Assets/Fnt/Zekton-Regular.otf";
