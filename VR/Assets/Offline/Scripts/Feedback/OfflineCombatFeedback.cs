@@ -172,7 +172,9 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         OfflineFx.FloatingText(center + Vector3.up * 0.35f, "+1", new Color(1f, 0.85f, 0.2f), 110f, 0.9f, 0.35f);
         OfflineFx.HitStop(0.045f);
         OfflineFx.HapticAll(0.3f, 0.07f);
-        Instance.AddKill();
+        OfflineCombatFeedback feedback = Instance;
+        float alive = feedback._spawnTimes.TryGetValue(enemy.transform, out float spawned) ? Time.unscaledTime - spawned : -1f;
+        feedback.AddKill(alive);
     }
 
     public static void BossHit(Boss boss, bool killed)
@@ -192,7 +194,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             OfflineFx.FloatingText(center + Vector3.up * 0.8f, "CHEFE DERROTADO!", new Color(1f, 0.8f, 0.2f), 120f, 1.8f, 0.4f);
             OfflineFx.HitStop(0.12f);
             OfflineFx.HapticAll(0.8f, 0.3f);
-            Instance.AddKill();
+            Instance.AddKill(-1f);
         }
     }
 
@@ -242,9 +244,9 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     // ---------- HUD ----------
 
-    private void AddKill()
+    private void AddKill(float secondsAlive)
     {
-        OfflineScore.AddKill();
+        OfflineScore.AddKill(secondsAlive);
         _kills++;
         OfflineHelmetHud.SetKills(_kills);
     }

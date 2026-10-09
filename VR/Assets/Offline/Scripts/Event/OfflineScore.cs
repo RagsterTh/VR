@@ -4,16 +4,36 @@ using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// What the visitor did in the current offline session (kills, accuracy, life left, medical answers)
-/// and the score/grade shown on the result screen. Reset when a mode starts.
+/// What the visitor did in the current offline session and the score/grade shown on the result screen.
+///
+/// Every mode is worth up to <see cref="MaxPoints"/>. The points only measure how well the visitor played
+/// (aim, how fast enemies go down, life kept, first-try treatments) - never how many enemies happened to spawn -
+/// and the grade comes straight from the points, so more points never means a lower grade.
 /// </summary>
 public static class OfflineScore
 {
-    public const int PointsPerKill = 100;
-    public const int AccuracyBonus = 500;
-    public const int LifeBonus = 300;
-    public const int PointsPerTreatment = 250;
-    public const int PenaltyPerWrongTreatment = 75;
+    public const int MaxPoints = 10000;
+
+    // Weight of each part (both modes add up to MaxPoints).
+    public const int CombatAccuracyPoints = 4000;
+    public const int CombatReactionPoints = 3000;
+    public const int CombatLifePoints = 3000;
+    public const int FullAccuracyPoints = 3000;
+    public const int FullReactionPoints = 2000;
+    public const int FullLifePoints = 2000;
+    public const int FullMedicalPoints = 3000;
+
+    /// <summary>Accuracy that already gives all the accuracy points (nobody hits 100% in VR).</summary>
+    public const float FullAccuracyAt = 0.75f;
+    /// <summary>Average seconds an enemy stays alive: at or below this, all the reaction points.</summary>
+    public const float FastKillSeconds = 4f;
+    /// <summary>At or above this, no reaction points.</summary>
+    public const float SlowKillSeconds = 15f;
+
+    // Grades as a share of MaxPoints.
+    public const int GradeS = 8500;
+    public const int GradeA = 7000;
+    public const int GradeB = 5000;
 
     /// <summary>False while shots must not count (tutorial).</summary>
     public static bool Counting = true;
@@ -24,13 +44,15 @@ public static class OfflineScore
     public static int Hits { get; private set; }
     public static int MedicalCorrect { get; private set; }
     public static int MedicalWrong { get; private set; }
-    /// <summary>Life left when the battle ended, 0..1.</summary>
+    /// <summary>Life left, 0..1 (kept up to date during the battle, final when it ends).</summary>
     public static float LifeRatio { get; private set; } = 1f;
     public static float Seconds { get; private set; }
     /// <summary>A finished session is waiting to be shown on the result screen.</summary>
     public static bool HasResult { get; private set; }
 
     private static float _startTime;
+    private static float _aliveSum;
+    private static int _aliveCount;
 
     public static void Begin(OfflineExperienceMode mode)
     {
@@ -40,12 +62,28 @@ public static class OfflineScore
         Seconds = 0f;
         HasResult = false;
         Counting = true;
+        _aliveSum = 0f;
+        _aliveCount = 0;
         _startTime = Time.realtimeSinceStartup;
     }
 
     public static void AddShot() { if (Counting) Shots++; }
     public static void AddHit() { if (Counting) Hits++; }
-    public static void AddKill() { if (Counting) Kills++; }
+
+    /// <summary>An enemy went down; <paramref name="secondsAlive"/> since it appeared (negative = unknown).</summary>
+    public static void AddKill(float secondsAlive = -1f)
+    {
+        if (!Counting)
+            return;
+        Kills++;
+        if (secondsAlive >= 0f)
+        {
+            // One enemy forgotten in a corner must not wipe out the whole average.
+            _aliveSum += Mathf.Min(secondsAlive, SlowKillSeconds * 2f);
+            _aliveCount++;
+        }
+    }
+
     public static void AddTreatment(bool correct) { if (correct) MedicalCorrect++; else MedicalWrong++; }
     public static void SetLifeRatio(float ratio) => LifeRatio = Mathf.Clamp01(ratio);
 
@@ -68,38 +106,92 @@ public static class OfflineScore
     /// <summary>Result shown or session abandoned: nothing pending any more.</summary>
     public static void Clear() => HasResult = false;
 
+    // ---------- Measures ----------
+
     public static float Accuracy => Shots > 0 ? Mathf.Clamp01((float)Hits / Shots) : 0f;
 
-    public static int Total
+    /// <summary>Average seconds between an enemy appearing and going down (-1 = no data).</summary>
+    public static float AverageSecondsAlive => _aliveCount > 0 ? _aliveSum / _aliveCount : -1f;
+
+    /// <summary>Treatments right on the first try, 0..1 (-1 = none answered).</summary>
+    public static float MedicalRatio
     {
         get
         {
-            int total = Kills * PointsPerKill
-                        + Mathf.RoundToInt(Accuracy * AccuracyBonus)
-                        + Mathf.RoundToInt(LifeRatio * LifeBonus)
-                        + MedicalCorrect * PointsPerTreatment
-                        - MedicalWrong * PenaltyPerWrongTreatment;
-            return Mathf.Max(0, total);
+            int answers = MedicalCorrect + MedicalWrong;
+            return answers > 0 ? (float)MedicalCorrect / answers : -1f;
         }
     }
 
-    /// <summary>S, A, B or C from how well the visitor played (accuracy, life kept, treatments), not from raw points.</summary>
-    public static string Grade
+    // ---------- Points ----------
+
+    public readonly struct Part
+    {
+        public readonly string Label;
+        public readonly string Value;
+        public readonly int Points;
+        public readonly int Max;
+
+        public Part(string label, string value, int points, int max)
+        {
+            Label = label;
+            Value = value;
+            Points = points;
+            Max = max;
+        }
+    }
+
+    private static bool Full => Mode == OfflineExperienceMode.FullExperience;
+
+    private static int MaxAccuracy => Full ? FullAccuracyPoints : CombatAccuracyPoints;
+    private static int MaxReaction => Full ? FullReactionPoints : CombatReactionPoints;
+    private static int MaxLife => Full ? FullLifePoints : CombatLifePoints;
+    private static int MaxMedical => Full ? FullMedicalPoints : 0;
+
+    public static int AccuracyPoints => Mathf.RoundToInt(Mathf.Clamp01(Accuracy / FullAccuracyAt) * MaxAccuracy);
+
+    public static int ReactionPoints
     {
         get
         {
-            float performance;
-            int answers = MedicalCorrect + MedicalWrong;
-            if (Mode == OfflineExperienceMode.FullExperience && answers > 0)
-                performance = 0.45f * Accuracy + 0.3f * LifeRatio + 0.25f * ((float)MedicalCorrect / answers);
-            else
-                performance = 0.6f * Accuracy + 0.4f * LifeRatio;
-
-            if (performance >= 0.8f) return "S";
-            if (performance >= 0.62f) return "A";
-            if (performance >= 0.42f) return "B";
-            return "C";
+            float alive = AverageSecondsAlive;
+            return alive < 0f ? 0 : Mathf.RoundToInt(Mathf.InverseLerp(SlowKillSeconds, FastKillSeconds, alive) * MaxReaction);
         }
+    }
+
+    public static int LifePoints => Mathf.RoundToInt(LifeRatio * MaxLife);
+    public static int MedicalPoints => Mathf.RoundToInt(Mathf.Max(0f, MedicalRatio) * MaxMedical);
+
+    /// <summary>Total points (cheap: the HUD reads it every frame).</summary>
+    public static int Total => Mathf.Clamp(AccuracyPoints + ReactionPoints + LifePoints + MedicalPoints, 0, MaxPoints);
+
+    /// <summary>The parts of the score, in the order the result screen shows them.</summary>
+    public static List<Part> Breakdown()
+    {
+        float alive = AverageSecondsAlive;
+        var parts = new List<Part>
+        {
+            new("PRECISÃO", Shots > 0 ? Mathf.RoundToInt(Accuracy * 100f) + "%" : "--", AccuracyPoints, MaxAccuracy),
+            new("TEMPO DE REAÇÃO", alive >= 0f ? alive.ToString("0.0") + "s" : "--", ReactionPoints, MaxReaction),
+            new("VIDA RESTANTE", Mathf.RoundToInt(LifeRatio * 100f) + "%", LifePoints, MaxLife),
+        };
+        if (Full)
+        {
+            string value = MedicalRatio >= 0f ? MedicalCorrect + "/" + (MedicalCorrect + MedicalWrong) : "--";
+            parts.Add(new Part("TRATAMENTOS DE 1ª", value, MedicalPoints, MaxMedical));
+        }
+        return parts;
+    }
+
+    public static string Grade => GradeFor(Total);
+
+    /// <summary>The grade only depends on the points: S 8500+, A 7000+, B 5000+, C below.</summary>
+    public static string GradeFor(int points)
+    {
+        if (points >= GradeS) return "S";
+        if (points >= GradeA) return "A";
+        if (points >= GradeB) return "B";
+        return "C";
     }
 }
 
@@ -107,6 +199,8 @@ public static class OfflineScore
 public static class OfflineLeaderboard
 {
     public const int MaxEntries = 10;
+    /// <summary>Bump when the score formula changes: older rankings are archived and a new one starts.</summary>
+    private const int ScoringVersion = 2;
 
     [Serializable]
     public class Entry
@@ -120,6 +214,8 @@ public static class OfflineLeaderboard
     [Serializable]
     private class Data
     {
+        /// <summary>Scoring version: entries from another version are not comparable (different scale).</summary>
+        public int version;
         public List<Entry> combat = new();
         public List<Entry> full = new();
     }
@@ -144,6 +240,12 @@ public static class OfflineLeaderboard
                 _data = new Data();
             }
             _data ??= new Data();
+            if (_data.version != ScoringVersion)
+            {
+                Archive("v" + _data.version);
+                _data = new Data();
+            }
+            _data.version = ScoringVersion;
             _data.combat ??= new List<Entry>();
             _data.full ??= new List<Entry>();
             return _data;
@@ -217,8 +319,22 @@ public static class OfflineLeaderboard
 
     public static void ClearAll()
     {
-        _data = new Data();
+        _data = new Data { version = ScoringVersion };
         Save();
+    }
+
+    /// <summary>Keeps a copy of the ranking file as offline_ranking_SUFFIX.json before it is replaced.</summary>
+    private static void Archive(string suffix)
+    {
+        try
+        {
+            if (File.Exists(FilePath))
+                File.Copy(FilePath, Path.Combine(Application.persistentDataPath, $"offline_ranking_{suffix}.json"), true);
+        }
+        catch (Exception e)
+        {
+            Debug.LogWarning($"[Offline] Não foi possível arquivar o ranking antigo: {e.Message}");
+        }
     }
 
     private static void Save()

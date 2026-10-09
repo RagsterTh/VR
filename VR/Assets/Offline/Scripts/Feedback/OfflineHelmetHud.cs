@@ -202,6 +202,7 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _glitch = 0.3f;
         }
         _lastFraction = fraction;
+        OfflineScore.SetLifeRatio(fraction);
         // Healing fills the gauge upwards instead of jumping.
         _shownFraction = Mathf.MoveTowards(_shownFraction, fraction, dt * 0.9f);
 
@@ -402,10 +403,11 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _accuracy.text = accuracy >= 0 ? $"PRECISÃO  {accuracy}%" : "PRECISÃO  --";
         }
 
-        int score = OfflineScore.Kills * OfflineScore.PointsPerKill + Mathf.RoundToInt(OfflineScore.Accuracy * OfflineScore.AccuracyBonus);
+        // Same formula as the result screen, live: it goes up with good shots and fast kills, down with misses and damage.
+        int score = OfflineScore.Total;
         if (score != _shownScore)
         {
-            if (_shownScore >= 0 && score > _shownScore + 50)
+            if (_shownScore >= 0 && Mathf.Abs(score - _shownScore) >= 100)
                 StartCoroutine(OfflineFx.Punch(_score.transform, 0.25f, 0.2f));
             _shownScore = score;
             _score.text = $"PONTOS  {score}";

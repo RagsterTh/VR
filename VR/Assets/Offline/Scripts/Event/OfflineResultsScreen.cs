@@ -118,28 +118,25 @@ public sealed class OfflineResultsScreen : MonoBehaviour
 
     private IEnumerator Reveal()
     {
-        var lines = new List<(string label, string value)>
+        // Each part: what was measured, and how many of its points it gave.
+        Text("Kills", "INIMIGOS ELIMINADOS  " + OfflineScore.Kills, 24f, new Color(0.7f, 0.75f, 0.8f), new Vector2(600, 34), new Vector2(-340, 190));
+        List<OfflineScore.Part> parts = OfflineScore.Breakdown();
+        for (int i = 0; i < parts.Count; i++)
         {
-            ("INIMIGOS ELIMINADOS", OfflineScore.Kills.ToString()),
-            ("PRECISÃO", Mathf.RoundToInt(OfflineScore.Accuracy * 100f) + "%"),
-            ("VIDA RESTANTE", Mathf.RoundToInt(OfflineScore.LifeRatio * 100f) + "%"),
-        };
-        if (OfflineScore.Mode == OfflineExperienceMode.FullExperience)
-            lines.Add(("TRATAMENTOS CORRETOS", OfflineScore.MedicalCorrect + "/" + (OfflineScore.MedicalCorrect + OfflineScore.MedicalWrong)));
-
-        for (int i = 0; i < lines.Count; i++)
-        {
-            TextMeshProUGUI label = Text("Stat " + i, lines[i].label, 28f, new Color(0.8f, 0.85f, 0.9f), new Vector2(420, 40), new Vector2(-420, 170 - i * 48));
+            float y = 146 - i * 44;
+            TextMeshProUGUI label = Text("Stat " + i, parts[i].Label, 26f, new Color(0.8f, 0.85f, 0.9f), new Vector2(330, 40), new Vector2(-510, y));
             label.alignment = TextAlignmentOptions.Left;
-            TextMeshProUGUI value = Text("Value " + i, lines[i].value, 34f, Color.white, new Vector2(200, 40), new Vector2(-160, 170 - i * 48));
+            TextMeshProUGUI value = Text("Value " + i, parts[i].Value, 30f, Color.white, new Vector2(130, 40), new Vector2(-265, y));
             value.alignment = TextAlignmentOptions.Right;
-            StartCoroutine(OfflineFx.Punch(value.transform, 0.3f, 0.2f));
+            TextMeshProUGUI points = Text("Points " + i, $"+{parts[i].Points}<size=65%><color=#FFFFFF66> /{parts[i].Max}</color></size>", 30f, Gold, new Vector2(250, 40), new Vector2(-105, y));
+            points.alignment = TextAlignmentOptions.Right;
+            StartCoroutine(OfflineFx.Punch(points.transform, 0.3f, 0.2f));
             OfflineFx.HapticAll(0.15f, 0.03f);
             yield return new WaitForSecondsRealtime(0.3f);
         }
 
-        Text("Score Label", "PONTUAÇÃO", 28f, Cyan, new Vector2(400, 40), new Vector2(-420, -30));
-        TextMeshProUGUI score = Text("Score", "0", 96f, Gold, new Vector2(460, 110), new Vector2(-420, -100));
+        Text("Score Label", $"PONTUAÇÃO  (MÁX {OfflineScore.MaxPoints})", 26f, Cyan, new Vector2(460, 40), new Vector2(-420, -50));
+        TextMeshProUGUI score = Text("Score", "0", 96f, Gold, new Vector2(460, 110), new Vector2(-420, -118));
         int total = OfflineScore.Total;
         float t = 0f;
         while (t < 1.2f)
@@ -155,8 +152,8 @@ public sealed class OfflineResultsScreen : MonoBehaviour
 
         string grade = OfflineScore.Grade;
         Color gradeColor = grade == "S" ? Gold : grade == "A" ? new Color(0.35f, 1f, 0.5f) : grade == "B" ? Cyan : new Color(0.8f, 0.8f, 0.8f);
-        Text("Grade Label", "NOTA", 26f, Cyan, new Vector2(160, 36), new Vector2(-150, -30));
-        TextMeshProUGUI gradeText = Text("Grade", grade, 110f, gradeColor, new Vector2(200, 130), new Vector2(-150, -105));
+        Text("Grade Label", "NOTA", 26f, Cyan, new Vector2(160, 36), new Vector2(-150, -50));
+        TextMeshProUGUI gradeText = Text("Grade", grade, 110f, gradeColor, new Vector2(200, 130), new Vector2(-150, -122));
         StartCoroutine(OfflineFx.Punch(gradeText.transform, 0.6f, 0.35f));
         OfflineFx.Burst(gradeText.transform.position, gradeColor, 50, 1.5f, 0.03f, 1f, 0.2f, 0.05f);
         OfflineFx.HapticAll(0.6f, 0.2f);
