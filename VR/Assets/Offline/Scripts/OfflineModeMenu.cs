@@ -53,6 +53,7 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
     private bool _started;
     private bool _panelPlaced;
+    private OfflineMenuFeedback _look;
     private bool _following;
 
     public OfflineExperienceMode Mode => _mode;
@@ -94,6 +95,10 @@ public sealed class OfflineModeMenu : MonoBehaviour
             OfflineSession.LoadCreditsScene();
             yield break;
         }
+
+        // Holographic panel, mission cards, side screens and space ambience (runtime only, the scene is untouched).
+        if (_panel is RectTransform panelRect)
+            _look = OfflineMenuFeedback.Attach(panelRect, _statusText, _combatButton, _fullExperienceButton);
 
         bool returned = OfflineSession.ReturnedFromSession;
         if (!_startAutomatically || _mode == OfflineExperienceMode.None || (returned && !_autoStartAfterReturn))
@@ -199,6 +204,15 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
         _started = true;
         SetStatus($"Carregando {ModeLabel(mode)}...");
+        if (_look != null)
+            StartCoroutine(LaunchAfterWarp(mode));
+        else
+            OfflineSession.Start(mode);
+    }
+
+    private IEnumerator LaunchAfterWarp(OfflineExperienceMode mode)
+    {
+        yield return _look.Launch(mode);
         OfflineSession.Start(mode);
     }
 
@@ -206,7 +220,9 @@ public sealed class OfflineModeMenu : MonoBehaviour
     {
         if (_statusText != null)
         {
-            bool hasInstructions = _panel != null && _panel.Find("Instructions") != null;
+            if (_look != null && text == "SELECIONE UM MODO DE JOGO")
+                text = "APONTE O LASER PARA UMA MISSÃO E APERTE O GATILHO";
+            bool hasInstructions = _look != null || (_panel != null && _panel.Find("Instructions") != null);
             _statusText.text = !hasInstructions && text == "SELECIONE UM MODO DE JOGO"
                 ? text + "\nAponte o raio do controle para uma opção e aperte o gatilho."
                 : text;
