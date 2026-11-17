@@ -100,6 +100,16 @@ public sealed class OfflineModeMenu : MonoBehaviour
         if (_panel is RectTransform panelRect)
             _look = OfflineMenuFeedback.Attach(panelRect, _statusText, _combatButton, _fullExperienceButton);
 
+        // Incomplete build (e.g. only this scene in the list): warn on the panel instead of a black screen later.
+        System.Collections.Generic.List<string> missing = OfflineSession.MissingScenes();
+        if (missing.Count > 0 && _statusText != null)
+        {
+            _statusText.text = $"<color=#FF5544>BUILD INCOMPLETA: FALTAM {missing.Count} CENAS</color>\n<size=60%>{string.Join(", ", missing)}</size>";
+            _statusText.textWrappingMode = TextWrappingModes.Normal;
+            Debug.LogError("[Offline] Cenas fora da build: " + string.Join(", ", missing));
+            yield break;
+        }
+
         bool returned = OfflineSession.ReturnedFromSession;
         if (!_startAutomatically || _mode == OfflineExperienceMode.None || (returned && !_autoStartAfterReturn))
         {

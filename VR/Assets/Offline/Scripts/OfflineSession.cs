@@ -185,7 +185,24 @@ public static class OfflineSession
             System.Array.IndexOf(MapScenes, sceneName) >= 0)
             _retryScene = sceneName;
         ConnectionManager.isVR = true;
+        // A scene left out of the build would fade to black and never load: stay where we are and say why.
+        if (!Application.CanStreamedLevelBeLoaded(sceneName))
+        {
+            Debug.LogError($"[Offline] A cena '{sceneName}' não está na build (File > Build Profiles > Scene List).");
+            return;
+        }
         OfflineScreenFade.FadeOutAndLoad(sceneName);
+    }
+
+    /// <summary>Offline scenes missing from the build (an APK built with only some of them).</summary>
+    public static List<string> MissingScenes()
+    {
+        var missing = new List<string>();
+        foreach (string scene in new[] { CombatScene, FullExperienceScene, MedicalScene, CreditsScene, DefeatScene })
+            if (!Application.CanStreamedLevelBeLoaded(scene)) missing.Add(scene);
+        foreach (string scene in MapScenes)
+            if (!Application.CanStreamedLevelBeLoaded(scene)) missing.Add(scene);
+        return missing;
     }
 
     private static void Begin(OfflineExperienceMode mode, SimulationMode simulationMode, string sceneName)
