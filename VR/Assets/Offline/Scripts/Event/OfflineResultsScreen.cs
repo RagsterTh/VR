@@ -86,7 +86,7 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         Text("Mode", mode, 30f, Cyan, new Vector2(600, 40), new Vector2(-340, 230));
 
         // Right: ranking of this mode.
-        Text("Rank Title", "TOP 10 DE HOJE", 30f, Cyan, new Vector2(600, 40), new Vector2(340, 230));
+        Text("Rank Title", "TOP 10 DE HOJE  -  " + OfflineDifficulty.Label(OfflineScore.Difficulty), 30f, Cyan, new Vector2(600, 40), new Vector2(340, 230));
         for (int i = 0; i < OfflineLeaderboard.MaxEntries; i++)
         {
             TextMeshProUGUI row = Text("Rank " + i, string.Empty, 26f, Color.white, new Vector2(560, 34), new Vector2(340, 185 - i * 36));
@@ -119,11 +119,11 @@ public sealed class OfflineResultsScreen : MonoBehaviour
     private IEnumerator Reveal()
     {
         // Each part: what was measured, and how many of its points it gave.
-        Text("Kills", "INIMIGOS ELIMINADOS  " + OfflineScore.Kills, 24f, new Color(0.7f, 0.75f, 0.8f), new Vector2(600, 34), new Vector2(-340, 190));
+        Text("Kills", "INIMIGOS ELIMINADOS  " + OfflineScore.Kills + "     CRÍTICOS  " + OfflineWeakPoint.Crits, 24f, new Color(0.7f, 0.75f, 0.8f), new Vector2(600, 34), new Vector2(-340, 190));
         List<OfflineScore.Part> parts = OfflineScore.Breakdown();
         for (int i = 0; i < parts.Count; i++)
         {
-            float y = 146 - i * 44;
+            float y = 150 - i * 40;
             TextMeshProUGUI label = Text("Stat " + i, parts[i].Label, 26f, new Color(0.8f, 0.85f, 0.9f), new Vector2(330, 40), new Vector2(-510, y));
             label.alignment = TextAlignmentOptions.Left;
             TextMeshProUGUI value = Text("Value " + i, parts[i].Value, 30f, Color.white, new Vector2(130, 40), new Vector2(-265, y));
@@ -169,7 +169,7 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         }
         else
         {
-            IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(OfflineScore.Mode);
+            IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(OfflineScore.Mode, OfflineScore.Difficulty);
             int missing = top.Count > 0 ? top[top.Count - 1].score - total + 1 : 0;
             _headline.text = missing > 0 ? $"FALTARAM {missing} PONTOS PARA O TOP 10" : string.Empty;
             _mainLabel.text = "CONTINUAR";
@@ -212,7 +212,7 @@ public sealed class OfflineResultsScreen : MonoBehaviour
 
     private void RefreshRanking(int highlight)
     {
-        IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(OfflineScore.Mode);
+        IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(OfflineScore.Mode, OfflineScore.Difficulty);
         for (int i = 0; i < _rankRows.Count; i++)
         {
             TextMeshProUGUI row = _rankRows[i];

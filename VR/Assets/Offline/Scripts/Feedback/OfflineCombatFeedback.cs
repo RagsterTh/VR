@@ -52,6 +52,8 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        if (OfflineSession.IsCombatScene && GetComponent<OfflineWaves>() == null)
+            gameObject.AddComponent<OfflineWaves>();
     }
 
     private IEnumerator Start()
@@ -83,6 +85,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             return;
 
         OfflineScore.AddShot();
+        OfflineCombo.Shot();
         OfflineRecoil recoil = gun.GetComponent<OfflineRecoil>();
         if (recoil == null)
             recoil = gun.gameObject.AddComponent<OfflineRecoil>();
@@ -116,7 +119,10 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     public static void BulletImpact(Vector3 point, Vector3 bulletDirection, bool enemy)
     {
         if (enemy)
+        {
             OfflineScore.AddHit();
+            OfflineCombo.Hit();
+        }
         OfflineShotFx.Impact(point, -bulletDirection.normalized, enemy);
     }
 
@@ -127,9 +133,13 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             return;
 
         OfflineCombatFeedback feedback = Instance;
+        OfflineWaves.BattleStarted();
         feedback._spawnTimes[enemy] = Time.unscaledTime;
         if (!feedback._enemies.Contains(enemy))
             feedback._enemies.Add(enemy);
+        // Glowing core visible from the moment the enemy appears.
+        if (enemy.GetComponent<Enemy>() != null && enemy.GetComponent<OfflineWeakPoint>() == null)
+            enemy.gameObject.AddComponent<OfflineWeakPoint>();
         if (enemy.GetComponent<OfflineEnemyMarker>() == null)
             enemy.gameObject.AddComponent<OfflineEnemyMarker>();
         enemy.GetComponent<OfflineEnemyMarker>().Alert();
@@ -247,6 +257,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     private void AddKill(float secondsAlive)
     {
         OfflineScore.AddKill(secondsAlive);
+        OfflineCombo.Kill();
         _kills++;
         OfflineHelmetHud.SetKills(_kills);
     }
@@ -289,6 +300,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     private void Update()
     {
+        OfflineCombo.Tick();
         EnsureHud();
         if (_head == null || _hud == null)
             return;

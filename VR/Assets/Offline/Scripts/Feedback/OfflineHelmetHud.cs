@@ -85,6 +85,13 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private int _shownScore = -1;
     private TextMeshProUGUI _bootText;
 
+    // Combo (under the line of sight)
+    private RectTransform _combo;
+    private CanvasGroup _comboGroup;
+    private TextMeshProUGUI _comboText;
+    private Image _comboTimer;
+    private int _shownMultiplier = -1;
+
     private float _boot;
     private float _glitch;
 
@@ -165,6 +172,7 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         UpdateMission();
         UpdateCompass();
         UpdateReadouts();
+        UpdateCombo(dt);
         UpdateBoot();
 
         // Taking damage shakes the whole visor for a moment.
@@ -200,6 +208,7 @@ public sealed class OfflineHelmetHud : MonoBehaviour
                 _lifeFlash[i] = 1f;
             _shownFraction = fraction;
             _glitch = 0.3f;
+            OfflineCombo.Damaged();
         }
         _lastFraction = fraction;
         OfflineScore.SetLifeRatio(fraction);
@@ -414,6 +423,55 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
     }
 
+    private void UpdateCombo(float dt)
+    {
+        if (_combo == null)
+            return;
+        int multiplier = OfflineCombo.Multiplier;
+        bool show = OfflineCombo.Streak >= 2;
+        _comboGroup.alpha = Mathf.MoveTowards(_comboGroup.alpha, show ? 1f : 0f, dt * 4f);
+        if (multiplier != _shownMultiplier)
+        {
+            if (_shownMultiplier > 0 && multiplier > _shownMultiplier)
+                StartCoroutine(OfflineFx.Punch(_combo, 0.35f, 0.25f));
+            _shownMultiplier = multiplier;
+        }
+        Color color = multiplier >= 4 ? new Color(1f, 0.35f, 0.85f) : multiplier == 3 ? new Color(1f, 0.55f, 0.2f) : multiplier == 2 ? Amber : Cyan;
+        _comboText.text = $"COMBO  x{multiplier}   <size=60%>{OfflineCombo.Streak} SEGUIDOS</size>";
+        _comboText.color = color;
+        _comboTimer.fillAmount = OfflineCombo.WindowLeft;
+        _comboTimer.color = new Color(color.r, color.g, color.b, 0.9f);
+    }
+
+    private void OnEnable()
+    {
+        OfflineCombo.Broken += OnComboBroken;
+        OfflineCombo.MultiplierUp += OnMultiplierUp;
+    }
+
+    private void OnDisable()
+    {
+        OfflineCombo.Broken -= OnComboBroken;
+        OfflineCombo.MultiplierUp -= OnMultiplierUp;
+    }
+
+    private void OnMultiplierUp(int multiplier)
+    {
+        if (_head == null)
+            return;
+        Vector3 front = _head.transform.position + _head.transform.forward * 1.5f - _head.transform.up * 0.25f;
+        OfflineFx.FloatingText(front, $"COMBO x{multiplier}!", new Color(1f, 0.6f, 0.2f), 110f, 0.9f, 0.15f);
+        OfflineFx.HapticAll(0.35f, 0.08f);
+    }
+
+    private void OnComboBroken(string reason)
+    {
+        if (_head == null || string.IsNullOrEmpty(reason))
+            return;
+        Vector3 front = _head.transform.position + _head.transform.forward * 1.5f - _head.transform.up * 0.3f;
+        OfflineFx.FloatingText(front, "COMBO PERDIDO  -  " + reason, new Color(1f, 0.4f, 0.35f), 60f, 1f, 0.1f);
+    }
+
     private void UpdateBoot()
     {
         if (_bootText == null)
@@ -505,6 +563,21 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         Rect(bottom, "Readout Split", new Vector2(0f, -6f), new Vector2(3f, 40f), Cyan, 0.4f);
         _accuracy = Text(bottom, "Accuracy", "PRECISÃO  --", 30f, Cyan, new Vector2(-170f, -6f), 0.85f);
         _score = Text(bottom, "Score", "PONTOS  0", 30f, Cyan, new Vector2(170f, -6f), 0.85f);
+
+        // Combo: appears from 2 kills in a row, with the time left to keep it.
+        var combo = new GameObject("Combo", typeof(RectTransform));
+        _combo = (RectTransform)combo.transform;
+        _combo.SetParent(bottom, false);
+        _combo.anchoredPosition = new Vector2(0f, 86f);
+        _comboGroup = combo.AddComponent<CanvasGroup>();
+        _comboGroup.alpha = 0f;
+        _comboText = Text(_combo, "Text", "COMBO  x1", 54f, Amber, new Vector2(0f, 14f));
+        Rect(_combo, "Timer Back", new Vector2(0f, -26f), new Vector2(340f, 8f), Cyan, 0.15f);
+        _comboTimer = Rect(_combo, "Timer", new Vector2(0f, -26f), new Vector2(340f, 8f), Amber, 0.9f);
+        _comboTimer.type = Image.Type.Filled;
+        _comboTimer.fillMethod = Image.FillMethod.Horizontal;
+        _comboTimer.fillOrigin = (int)Image.OriginHorizontal.Left;
+        _shownMultiplier = -1;
 
         // Rim of the visor: two faint lines running around the view, stronger towards the sides.
         const float rimStep = 4f;

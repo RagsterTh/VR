@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour
     public float GetSpawnRateScale()
     {
         if (OfflineSession.IsOffline)
-            return 1f + Mathf.Max(0f, _difficultyFactor);
+            return (1f + Mathf.Max(0f, _difficultyFactor)) * OfflineWaves.SpawnRateMultiplier;
 
         int playerCount = Mathf.Max(1, GetReadyPlayerCount());
         return 1f + (playerCount - 1) * _difficultyFactor;

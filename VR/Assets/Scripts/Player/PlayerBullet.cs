@@ -36,6 +36,9 @@ public class PlayerBullet : MonoBehaviour
     {
         if(other.TryGetComponent(out IShootable target))
         {
+            // Offline: the weak point needs to know where the shot came from.
+            if (OfflineSession.IsOffline)
+                OfflineWeakPoint.SetShot(transform.position, _rb.linearVelocity);
             target?.Hit();
             if (OfflineSession.IsOffline && _shooter != null)
                 _shooter.ConfirmHit();

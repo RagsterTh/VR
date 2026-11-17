@@ -15,13 +15,22 @@ public static class OfflineScore
     public const int MaxPoints = 10000;
 
     // Weight of each part (both modes add up to MaxPoints).
-    public const int CombatAccuracyPoints = 4000;
-    public const int CombatReactionPoints = 3000;
-    public const int CombatLifePoints = 3000;
-    public const int FullAccuracyPoints = 3000;
-    public const int FullReactionPoints = 2000;
-    public const int FullLifePoints = 2000;
+    public const int CombatAccuracyPoints = 3000;
+    public const int CombatReactionPoints = 2500;
+    public const int CombatLifePoints = 2500;
+    public const int CombatComboPoints = 2000;
+    public const int FullAccuracyPoints = 2500;
+    public const int FullReactionPoints = 1500;
+    public const int FullLifePoints = 1500;
+    public const int FullComboPoints = 1500;
     public const int FullMedicalPoints = 3000;
+
+    /// <summary>Best kill streak that gives all the combo points.</summary>
+    public const int FullComboAt = 8;
+    /// <summary>Answer within this many seconds: all the speed share of the medical points.</summary>
+    public const float FastAnswerSeconds = 6f;
+    /// <summary>At or above this, no speed share (the answer timer).</summary>
+    public const float SlowAnswerSeconds = 20f;
 
     /// <summary>Accuracy that already gives all the accuracy points (nobody hits 100% in VR).</summary>
     public const float FullAccuracyAt = 0.75f;
@@ -39,6 +48,8 @@ public static class OfflineScore
     public static bool Counting = true;
 
     public static OfflineExperienceMode Mode { get; private set; }
+    /// <summary>Difficulty the session was played on (its ranking).</summary>
+    public static OfflineDifficultyLevel Difficulty { get; private set; }
     public static int Kills { get; private set; }
     public static int Shots { get; private set; }
     public static int Hits { get; private set; }
@@ -53,10 +64,17 @@ public static class OfflineScore
     private static float _startTime;
     private static float _aliveSum;
     private static int _aliveCount;
+    private static float _answerSpeedSum;
+    private static int _answerCount;
 
     public static void Begin(OfflineExperienceMode mode)
     {
         Mode = mode;
+        Difficulty = OfflineDifficulty.Current;
+        OfflineCombo.Reset();
+        OfflineWeakPoint.ResetSession();
+        _answerSpeedSum = 0f;
+        _answerCount = 0;
         Kills = Shots = Hits = MedicalCorrect = MedicalWrong = 0;
         LifeRatio = 1f;
         Seconds = 0f;
@@ -84,7 +102,19 @@ public static class OfflineScore
         }
     }
 
-    public static void AddTreatment(bool correct) { if (correct) MedicalCorrect++; else MedicalWrong++; }
+    /// <summary>A treatment was chosen <paramref name="seconds"/> after the question appeared (negative = unknown).</summary>
+    public static void AddTreatment(bool correct, float seconds = -1f)
+    {
+        if (correct) MedicalCorrect++; else MedicalWrong++;
+        if (seconds < 0f)
+            return;
+        // A wrong or timed-out answer is as slow as it gets.
+        _answerSpeedSum += correct ? Mathf.InverseLerp(SlowAnswerSeconds, FastAnswerSeconds, seconds) : 0f;
+        _answerCount++;
+    }
+
+    /// <summary>0..1 how fast the treatments were chosen (-1 = no data).</summary>
+    public static float AnswerSpeed => _answerCount > 0 ? _answerSpeedSum / _answerCount : -1f;
     public static void SetLifeRatio(float ratio) => LifeRatio = Mathf.Clamp01(ratio);
 
     /// <summary>
@@ -147,6 +177,9 @@ public static class OfflineScore
     private static int MaxReaction => Full ? FullReactionPoints : CombatReactionPoints;
     private static int MaxLife => Full ? FullLifePoints : CombatLifePoints;
     private static int MaxMedical => Full ? FullMedicalPoints : 0;
+    private static int MaxCombo => Full ? FullComboPoints : CombatComboPoints;
+
+    public static int ComboPoints => Mathf.RoundToInt(Mathf.Clamp01((OfflineCombo.BestStreak - 1f) / (FullComboAt - 1f)) * MaxCombo);
 
     public static int AccuracyPoints => Mathf.RoundToInt(Mathf.Clamp01(Accuracy / FullAccuracyAt) * MaxAccuracy);
 
@@ -160,10 +193,19 @@ public static class OfflineScore
     }
 
     public static int LifePoints => Mathf.RoundToInt(LifeRatio * MaxLife);
-    public static int MedicalPoints => Mathf.RoundToInt(Mathf.Max(0f, MedicalRatio) * MaxMedical);
+    /// <summary>70% right on the first try, 30% how fast.</summary>
+    public static int MedicalPoints
+    {
+        get
+        {
+            float ratio = Mathf.Max(0f, MedicalRatio);
+            float speed = AnswerSpeed >= 0f ? AnswerSpeed : ratio;
+            return Mathf.RoundToInt((0.7f * ratio + 0.3f * speed) * MaxMedical);
+        }
+    }
 
     /// <summary>Total points (cheap: the HUD reads it every frame).</summary>
-    public static int Total => Mathf.Clamp(AccuracyPoints + ReactionPoints + LifePoints + MedicalPoints, 0, MaxPoints);
+    public static int Total => Mathf.Clamp(AccuracyPoints + ReactionPoints + LifePoints + ComboPoints + MedicalPoints, 0, MaxPoints);
 
     /// <summary>The parts of the score, in the order the result screen shows them.</summary>
     public static List<Part> Breakdown()
@@ -174,11 +216,12 @@ public static class OfflineScore
             new("PRECISÃO", Shots > 0 ? Mathf.RoundToInt(Accuracy * 100f) + "%" : "--", AccuracyPoints, MaxAccuracy),
             new("TEMPO DE REAÇÃO", alive >= 0f ? alive.ToString("0.0") + "s" : "--", ReactionPoints, MaxReaction),
             new("VIDA RESTANTE", Mathf.RoundToInt(LifeRatio * 100f) + "%", LifePoints, MaxLife),
+            new("MAIOR COMBO", OfflineCombo.BestStreak > 0 ? OfflineCombo.BestStreak + " SEGUIDOS" : "--", ComboPoints, MaxCombo),
         };
         if (Full)
         {
             string value = MedicalRatio >= 0f ? MedicalCorrect + "/" + (MedicalCorrect + MedicalWrong) : "--";
-            parts.Add(new Part("TRATAMENTOS DE 1ª", value, MedicalPoints, MaxMedical));
+            parts.Add(new Part("TRATAMENTOS", value, MedicalPoints, MaxMedical));
         }
         return parts;
     }
@@ -200,7 +243,7 @@ public static class OfflineLeaderboard
 {
     public const int MaxEntries = 10;
     /// <summary>Bump when the score formula changes: older rankings are archived and a new one starts.</summary>
-    private const int ScoringVersion = 2;
+    private const int ScoringVersion = 3;
 
     [Serializable]
     public class Entry
@@ -216,8 +259,14 @@ public static class OfflineLeaderboard
     {
         /// <summary>Scoring version: entries from another version are not comparable (different scale).</summary>
         public int version;
-        public List<Entry> combat = new();
-        public List<Entry> full = new();
+        public List<Board> boards = new();
+    }
+
+    [Serializable]
+    private class Board
+    {
+        public string key;
+        public List<Entry> entries = new();
     }
 
     private static Data _data;
@@ -246,20 +295,30 @@ public static class OfflineLeaderboard
                 _data = new Data();
             }
             _data.version = ScoringVersion;
-            _data.combat ??= new List<Entry>();
-            _data.full ??= new List<Entry>();
+            _data.boards ??= new List<Board>();
             return _data;
         }
     }
 
-    public static IReadOnlyList<Entry> Top(OfflineExperienceMode mode) => List(mode);
+    /// <summary>Today's board of the mode on the current difficulty.</summary>
+    public static IReadOnlyList<Entry> Top(OfflineExperienceMode mode) => List(mode, OfflineDifficulty.Current);
+
+    public static IReadOnlyList<Entry> Top(OfflineExperienceMode mode, OfflineDifficultyLevel difficulty) => List(mode, difficulty);
 
     private static string Today => DateTime.Now.ToString("yyyy-MM-dd");
 
-    private static List<Entry> List(OfflineExperienceMode mode)
+    private static List<Entry> List(OfflineExperienceMode mode, OfflineDifficultyLevel difficulty)
     {
         StartNewDayIfNeeded();
-        return mode == OfflineExperienceMode.FullExperience ? Loaded.full : Loaded.combat;
+        string key = (mode == OfflineExperienceMode.FullExperience ? "full_" : "combat_") + difficulty.ToString().ToLowerInvariant();
+        Board board = Loaded.boards.Find(b => b.key == key);
+        if (board == null)
+        {
+            board = new Board { key = key };
+            Loaded.boards.Add(board);
+        }
+        board.entries ??= new List<Entry>();
+        return board.entries;
     }
 
     /// <summary>
@@ -271,8 +330,8 @@ public static class OfflineLeaderboard
         Data data = Loaded;
         string today = Today;
         string oldDay = null;
-        foreach (List<Entry> list in new[] { data.combat, data.full })
-            foreach (Entry entry in list)
+        foreach (Board board in data.boards)
+            foreach (Entry entry in board.entries ?? new List<Entry>())
                 if (entry.date == null || !entry.date.StartsWith(today))
                     oldDay = entry.date != null && entry.date.Length >= 10 ? entry.date.Substring(0, 10) : "antigo";
         if (oldDay == null)
@@ -287,15 +346,15 @@ public static class OfflineLeaderboard
             Debug.LogWarning($"[Offline] Não foi possível arquivar o ranking de {oldDay}: {e.Message}");
         }
 
-        data.combat.RemoveAll(entry => entry.date == null || !entry.date.StartsWith(today));
-        data.full.RemoveAll(entry => entry.date == null || !entry.date.StartsWith(today));
+        foreach (Board board in data.boards)
+            board.entries?.RemoveAll(entry => entry.date == null || !entry.date.StartsWith(today));
         Save();
     }
 
     /// <summary>Position (0-based) this score would take, or -1 if it does not make the top.</summary>
     public static int RankFor(OfflineExperienceMode mode, int score)
     {
-        List<Entry> list = List(mode);
+        List<Entry> list = List(mode, OfflineScore.Difficulty);
         int rank = 0;
         while (rank < list.Count && list[rank].score >= score)
             rank++;
@@ -309,7 +368,7 @@ public static class OfflineLeaderboard
         if (rank < 0)
             return -1;
 
-        List<Entry> list = List(mode);
+        List<Entry> list = List(mode, OfflineScore.Difficulty);
         list.Insert(rank, new Entry { name = name, score = score, grade = grade, date = DateTime.Now.ToString("yyyy-MM-dd HH:mm") });
         if (list.Count > MaxEntries)
             list.RemoveRange(MaxEntries, list.Count - MaxEntries);

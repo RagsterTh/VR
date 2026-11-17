@@ -51,7 +51,14 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         public Color Color;
         public OfflineMenuHover Hover;
         public float Highlight;
+        public OfflineExperienceMode Mode;
+        public TMP_Text Record;
     }
+
+    private RectTransform _rankingWing;
+    private RectTransform _rankingRows;
+    private readonly List<(OfflineDifficultyLevel level, Image face, TMP_Text label)> _difficultyChips = new();
+    private TMP_Text _difficultyHint;
 
     // ---------- Entry points ----------
 
@@ -151,7 +158,7 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         if (status != null)
         {
             var statusRect = status.rectTransform;
-            statusRect.anchoredPosition = new Vector2(0f, -318f);
+            statusRect.anchoredPosition = new Vector2(0f, -334f);
             statusRect.sizeDelta = new Vector2(900f, 50f);
             Restyle(status, 24f, new Color(0.8f, 0.9f, 1f, 0.85f));
             status.characterSpacing = 6f;
@@ -162,6 +169,7 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         if (full != null)
             _cards.Add(BuildCard(full, FullColor, "EXPERIÊNCIA COMPLETA", "EVE  •  MAPA  •  COMBATE  •  RESGATE MÉDICO", OfflineExperienceMode.FullExperience, -115f));
 
+        BuildDifficulty(panel);
         BuildWing(panel, true);
         BuildWing(panel, false);
         BuildSpace();
@@ -221,9 +229,10 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         descText.alignment = TextAlignmentOptions.Left;
         descText.characterSpacing = 3f;
 
-        IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(mode);
-        string record = top.Count > 0 ? $"RECORDE DE HOJE   {top[0].name}  {top[0].score}" : "NENHUM RECORDE HOJE  -  SEJA O PRIMEIRO";
-        TMP_Text recordText = AddText(rect, "Record", record, 22f, top.Count > 0 ? Gold : new Color(1f, 1f, 1f, 0.5f), new Vector2(80f, -52f), new Vector2(620f, 34f));
+        card.Mode = mode;
+        TMP_Text recordText = AddText(rect, "Record", string.Empty, 22f, Gold, new Vector2(80f, -52f), new Vector2(620f, 34f));
+        card.Record = recordText;
+        RefreshRecord(card);
         recordText.alignment = TextAlignmentOptions.Left;
         recordText.characterSpacing = 3f;
 
@@ -234,6 +243,66 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         card.Hover = button.gameObject.AddComponent<OfflineMenuHover>();
         card.Hover.Entered += () => OnHover(card);
         return card;
+    }
+
+    /// <summary>Recruta / Soldado / Elite chips under the cards (kept on the headset for the next visitors).</summary>
+    private void BuildDifficulty(RectTransform panel)
+    {
+        TMP_Text title = AddText(panel, "Difficulty Title", "DIFICULDADE", 20f, new Color(Cyan.r, Cyan.g, Cyan.b, 0.8f), new Vector2(-330f, -240f), new Vector2(200f, 30f));
+        title.characterSpacing = 8f;
+        var levels = new[] { OfflineDifficultyLevel.Recruta, OfflineDifficultyLevel.Soldado, OfflineDifficultyLevel.Elite };
+        for (int i = 0; i < levels.Length; i++)
+        {
+            OfflineDifficultyLevel level = levels[i];
+            Vector2 position = new Vector2(-110f + i * 190f, -240f);
+            Image face = Image(panel, "Difficulty " + level, OfflineFx.White, Glass, new Vector2(176f, 52f), position);
+            face.raycastTarget = true;
+            var button = face.gameObject.AddComponent<Button>();
+            button.targetGraphic = face;
+            ColorBlock colors = button.colors;
+            colors.highlightedColor = new Color(1.3f, 1.3f, 1.3f, 1f);
+            button.colors = colors;
+            button.onClick.AddListener(() => SelectDifficulty(level));
+            face.gameObject.AddComponent<OfflineButtonFeedback>();
+            BuildFrame(face.rectTransform, new Vector2(176f, 52f), OfflineDifficulty.Color(level), false);
+            TMP_Text label = AddText(face.rectTransform, "Label", OfflineDifficulty.Label(level), 26f, Color.white, Vector2.zero, new Vector2(176f, 52f));
+            label.characterSpacing = 6f;
+            _difficultyChips.Add((level, face, label));
+        }
+        _difficultyHint = AddText(panel, "Difficulty Hint", string.Empty, 18f, new Color(1f, 1f, 1f, 0.6f), new Vector2(80f, -284f), new Vector2(700f, 26f));
+        _difficultyHint.characterSpacing = 4f;
+        PaintDifficulty();
+    }
+
+    private void SelectDifficulty(OfflineDifficultyLevel level)
+    {
+        if (_launching)
+            return;
+        OfflineDifficulty.Current = level;
+        PaintDifficulty();
+        foreach (var chip in _difficultyChips)
+            if (chip.level == level)
+                OfflineFx.Burst(chip.face.rectTransform.position, OfflineDifficulty.Color(level), 24, 0.8f, 0.02f, 0.5f, 0f, 0.05f);
+        foreach (MenuCard card in _cards)
+            RefreshRecord(card);
+        RefreshRanking();
+    }
+
+    private void PaintDifficulty()
+    {
+        OfflineDifficultyLevel current = OfflineDifficulty.Current;
+        foreach (var chip in _difficultyChips)
+        {
+            Color color = OfflineDifficulty.Color(chip.level);
+            bool on = chip.level == current;
+            chip.face.color = on ? new Color(color.r * 0.45f, color.g * 0.45f, color.b * 0.45f, 0.95f) : Glass;
+            chip.label.color = on ? Color.white : new Color(color.r, color.g, color.b, 0.75f);
+        }
+        if (_difficultyHint != null)
+        {
+            _difficultyHint.text = OfflineDifficulty.Description(current);
+            _difficultyHint.color = new Color(OfflineDifficulty.Color(current).r, OfflineDifficulty.Color(current).g, OfflineDifficulty.Color(current).b, 0.8f);
+        }
     }
 
     /// <summary>Curved side panel (a child of the menu panel, so it follows the head with it).</summary>
@@ -265,25 +334,52 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         else
         {
             Header(wing, "RANKING DE HOJE");
-            int row = 0;
+            _rankingWing = wing;
+            RefreshRanking();
+        }
+    }
+
+    private void RefreshRecord(MenuCard card)
+    {
+        if (card.Record == null)
+            return;
+        IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(card.Mode);
+        card.Record.text = top.Count > 0 ? $"RECORDE DE HOJE   {top[0].name}  {top[0].score}" : "NENHUM RECORDE HOJE  -  SEJA O PRIMEIRO";
+        card.Record.color = top.Count > 0 ? Gold : new Color(1f, 1f, 1f, 0.5f);
+    }
+
+    private void RefreshRanking()
+    {
+        if (_rankingWing == null)
+            return;
+        if (_rankingRows != null)
+            Destroy(_rankingRows.gameObject);
+        var go = new GameObject("Rows", typeof(RectTransform));
+        _rankingRows = (RectTransform)go.transform;
+        _rankingRows.SetParent(_rankingWing, false);
+        RectTransform wing = _rankingRows;
+        {
+            Color levelColor = OfflineDifficulty.Color(OfflineDifficulty.Current);
+            AddText(wing, "Level", OfflineDifficulty.Label(OfflineDifficulty.Current), 24f, levelColor, new Vector2(0f, 212f), new Vector2(460f, 34f)).characterSpacing = 10f;
+            int row = 1;
             foreach (OfflineExperienceMode mode in new[] { OfflineExperienceMode.CombatOnly, OfflineExperienceMode.FullExperience })
             {
                 Color color = mode == OfflineExperienceMode.CombatOnly ? CombatColor : FullColor;
                 TMP_Text label = AddText(wing, "Mode", mode == OfflineExperienceMode.CombatOnly ? "COMBATE" : "EXPERIÊNCIA COMPLETA",
-                    22f, color, new Vector2(0f, 200f - row * 46f), new Vector2(460f, 34f));
+                    22f, color, new Vector2(0f, 200f - row * 44f), new Vector2(460f, 34f));
                 label.characterSpacing = 6f;
                 row++;
                 IReadOnlyList<OfflineLeaderboard.Entry> top = OfflineLeaderboard.Top(mode);
                 if (top.Count == 0)
                 {
-                    AddText(wing, "Empty", "AINDA SEM PARTIDAS", 22f, new Color(1f, 1f, 1f, 0.45f), new Vector2(0f, 200f - row * 46f), new Vector2(460f, 34f));
+                    AddText(wing, "Empty", "AINDA SEM PARTIDAS", 22f, new Color(1f, 1f, 1f, 0.45f), new Vector2(0f, 200f - row * 44f), new Vector2(460f, 34f));
                     row++;
                 }
                 for (int i = 0; i < Mathf.Min(3, top.Count); i++)
                 {
                     TMP_Text entry = AddText(wing, "Entry",
                         $"{i + 1}.<pos=14%>{top[i].name}<pos=50%>{top[i].score}<pos=86%>{top[i].grade}",
-                        26f, i == 0 ? Gold : Color.white, new Vector2(0f, 200f - row * 46f), new Vector2(420f, 36f));
+                        26f, i == 0 ? Gold : Color.white, new Vector2(0f, 200f - row * 44f), new Vector2(420f, 36f));
                     entry.alignment = TextAlignmentOptions.Left;
                     row++;
                 }

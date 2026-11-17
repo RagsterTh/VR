@@ -121,8 +121,12 @@ public abstract class Enemy : MonoBehaviour, IShootable
 
     public virtual void Hit()
     {
+        // Offline: armoured body (shots per difficulty), the glowing weak point kills in one.
         if (OfflineSession.IsOffline)
-            RPC_Hit();
+        {
+            if (OfflineWeakPoint.ResolveHit(this))
+                RPC_Hit();
+        }
         else
             _phView.RPC(nameof(RPC_Hit), RpcTarget.All);
     }

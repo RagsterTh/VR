@@ -113,6 +113,8 @@ public class PlayersLifeBar : MonoBehaviourPun
     {
         if (amount <= 0f || (OfflineSession.IsOffline && CurrentLife <= 0f))
             return;
+        if (OfflineSession.IsOffline)
+            amount *= OfflineDifficulty.DamageScale;
         var gameOverManager = OfflineSession.IsOffline
             ? GameOverManager.EnsureOffline()
             : ServiceLocator.Get<GameOverManager>();

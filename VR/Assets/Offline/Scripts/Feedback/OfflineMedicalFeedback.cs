@@ -29,6 +29,20 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
     private Image _progressFill;
     private float _progressShown;
 
+    [Tooltip("Seconds to choose a treatment. Time out = counts as a wrong answer (the right one is explained).")]
+    [SerializeField] private float _answerTime = OfflineScore.SlowAnswerSeconds;
+
+    private GameObject _questionPanel;
+    private bool _panelWasOpen;
+    private bool _answering;
+    private bool _timedOut;
+    private float _questionStart = -1f;
+    private RectTransform _timer;
+    private Image _timerFill;
+    private TextMeshProUGUI _timerText;
+    private RectTransform _explanation;
+    private TextMeshProUGUI _explanationText;
+
     private void Awake()
     {
         Instance = this;
@@ -51,6 +65,7 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
 
         _report = Field<TMP_Text>(_questions, "displayText");
         var panel = Field<GameObject>(_questions, "buttonPanel");
+        _questionPanel = panel;
         var buttons = Field<Button[]>(_questions, "answerButtons");
 
         if (_report != null && _report.GetComponent<OfflineTypewriter>() == null)
@@ -72,10 +87,13 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         }
 
         BuildProgress();
+        BuildTimer();
+        BuildExplanation();
     }
 
     private void Update()
     {
+        UpdateTimer();
         if (_progressFill == null)
             return;
         float target = (float)_treated / _total;
@@ -118,12 +136,167 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
 
     private string ProgressLabel() => $"FERIMENTOS TRATADOS  {_treated}/{_total}";
 
+    // ---------- Answer timer ----------
+
+    private void BuildTimer()
+    {
+        if (_report == null)
+            return;
+        var go = new GameObject("[Offline] Answer Timer", typeof(RectTransform));
+        _timer = (RectTransform)go.transform;
+        _timer.SetParent(_report.rectTransform, false);
+        _timer.anchorMin = _timer.anchorMax = new Vector2(0.5f, 0f);
+        _timer.pivot = new Vector2(0.5f, 0f);
+        _timer.localScale = Vector3.one;
+        _timer.localRotation = Quaternion.identity;
+        float width = _report.rectTransform.rect.width * 0.8f;
+        _timer.sizeDelta = new Vector2(width, 60f);
+        _timer.anchoredPosition = new Vector2(0f, 4f);
+        OfflineFx.AddImage(_timer, "Back", OfflineFx.White, new Color(0f, 0f, 0f, 0.55f), new Vector2(width, 10f), new Vector2(0f, 8f));
+        _timerFill = OfflineFx.AddImage(_timer, "Fill", OfflineFx.White, Green, new Vector2(width, 10f), new Vector2(0f, 8f));
+        _timerFill.type = Image.Type.Filled;
+        _timerFill.fillMethod = Image.FillMethod.Horizontal;
+        float fontSize = Mathf.Clamp(_report.fontSize * 0.6f, 8f, 32f);
+        _timerText = OfflineFx.AddText(_timer, "Seconds", string.Empty, fontSize, Color.white, new Vector2(width, 40f), new Vector2(0f, 34f));
+        go.SetActive(false);
+    }
+
+    private void UpdateTimer()
+    {
+        if (_questionPanel == null)
+            return;
+
+        bool open = _questionPanel.activeInHierarchy;
+        if (open && !_panelWasOpen && !_answering)
+        {
+            // A new question is on screen: the clock starts.
+            _questionStart = Time.unscaledTime;
+            _timedOut = false;
+            if (_timer != null)
+                _timer.gameObject.SetActive(true);
+        }
+        _panelWasOpen = open;
+
+        if (!open || _answering || _questionStart < 0f)
+        {
+            if (_timer != null && !_answering)
+                _timer.gameObject.SetActive(false);
+            return;
+        }
+
+        float left = _answerTime - (Time.unscaledTime - _questionStart);
+        if (_timerFill != null)
+        {
+            float k = Mathf.Clamp01(left / _answerTime);
+            _timerFill.fillAmount = k;
+            bool hurry = left <= 5f;
+            _timerFill.color = hurry ? (Mathf.Repeat(Time.unscaledTime, 0.5f) < 0.25f ? Red : Color.white) : Color.Lerp(Red, Green, k * 1.5f);
+            _timerText.text = hurry ? $"DECIDA RÁPIDO!  {Mathf.CeilToInt(Mathf.Max(0f, left))}s" : $"{Mathf.CeilToInt(left)}s";
+            _timerText.color = hurry ? Red : Color.white;
+        }
+
+        if (left <= 0f)
+        {
+            _timedOut = true;
+            OfflineFx.HapticAll(0.6f, 0.2f);
+            // Any id that is not the right one: the original logic treats it as a wrong answer.
+            _questions.CheckAnswer(-1);
+        }
+    }
+
+    // ---------- Explanation ----------
+
+    private void BuildExplanation()
+    {
+        if (_report == null)
+            return;
+        var go = new GameObject("[Offline] Explanation", typeof(RectTransform));
+        _explanation = (RectTransform)go.transform;
+        _explanation.SetParent(_report.rectTransform, false);
+        _explanation.anchorMin = Vector2.zero;
+        _explanation.anchorMax = Vector2.one;
+        _explanation.offsetMin = new Vector2(-10f, -10f);
+        _explanation.offsetMax = new Vector2(10f, 10f);
+        _explanation.localScale = Vector3.one;
+        _explanation.localRotation = Quaternion.identity;
+        go.AddComponent<CanvasGroup>();
+
+        Image back = go.AddComponent<Image>();
+        back.sprite = OfflineFx.White;
+        back.color = new Color(0.02f, 0.05f, 0.08f, 0.96f);
+        back.raycastTarget = false;
+
+        var textGo = new GameObject("Text", typeof(RectTransform));
+        var textRect = (RectTransform)textGo.transform;
+        textRect.SetParent(_explanation, false);
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = new Vector2(18f, 12f);
+        textRect.offsetMax = new Vector2(-18f, -12f);
+        _explanationText = textGo.AddComponent<TextMeshProUGUI>();
+        _explanationText.fontSize = Mathf.Clamp(_report.fontSize * 0.8f, 8f, 48f);
+        _explanationText.enableAutoSizing = true;
+        _explanationText.fontSizeMin = 6f;
+        _explanationText.fontSizeMax = _explanationText.fontSize;
+        _explanationText.alignment = TextAlignmentOptions.Center;
+        _explanationText.textWrappingMode = TextWrappingModes.Normal;
+        _explanationText.raycastTarget = false;
+        go.SetActive(false);
+    }
+
+    private IEnumerator ShowExplanation(string text, float duration)
+    {
+        if (_explanation == null || string.IsNullOrEmpty(text))
+            yield break;
+        _explanation.gameObject.SetActive(true);
+        _explanationText.text = text;
+        var group = _explanation.GetComponent<CanvasGroup>();
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.unscaledDeltaTime;
+            group.alpha = Mathf.Clamp01(Mathf.Min(t / 0.25f, (duration - t) / 0.25f));
+            yield return null;
+        }
+        _explanation.gameObject.SetActive(false);
+    }
+
+    /// <summary>The text for this answer: the reason behind the right treatment (and why the chosen one is not).</summary>
+    private string ExplanationFor(bool correct, Button clicked, MedicalEmergency wound)
+    {
+        MedicalData data = wound != null ? wound.GetAssignedMedicalData() : null;
+        if (data == null)
+            return string.Empty;
+        TreatmentType right = data.treatmentType;
+        string why = OfflineMedicalGuide.Explain(right);
+        string rightLabel = OfflineMedicalGuide.Label(right).ToUpperInvariant();
+
+        if (correct)
+            return $"<color=#33E673><b>CORRETO: {rightLabel}</b></color>\n<size=85%>{why}</size>";
+
+        string header = _timedOut
+            ? $"<color=#F2C230><b>TEMPO ESGOTADO</b></color>\nO certo era <b>{rightLabel}</b>"
+            : $"<color=#F24033><b>O CERTO ERA: {rightLabel}</b></color>";
+        string chosenText = string.Empty;
+        TMP_Text label = clicked != null ? clicked.GetComponentInChildren<TMP_Text>() : null;
+        if (!_timedOut && label != null && OfflineMedicalGuide.TryParse(label.text, out TreatmentType chosen))
+            chosenText = $"\n\n<size=80%><color=#FFB3AA>{OfflineMedicalGuide.ExplainWrong(chosen)}</color></size>";
+        return $"{header}\n<size=85%>{why}</size>{chosenText}";
+    }
+
     // ---------- Answers ----------
 
     /// <summary>Plays the answer feedback, then calls <paramref name="resolve"/> (the original answer logic).</summary>
     public void ShowAnswer(bool correct, Button clicked, Button rightButton, MedicalEmergency wound, Action resolve)
     {
-        OfflineScore.AddTreatment(correct);
+        float seconds = _questionStart >= 0f ? Time.unscaledTime - _questionStart : -1f;
+        if (_timedOut)
+            seconds = _answerTime;
+        OfflineScore.AddTreatment(correct, seconds);
+        _answering = true;
+        _questionStart = -1f;
+        if (_timer != null)
+            _timer.gameObject.SetActive(false);
         StartCoroutine(AnswerRoutine(correct, clicked, rightButton, wound, resolve));
     }
 
@@ -166,13 +339,20 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
                 StartCoroutine(Blink(rightImage, Green, rightColor, _answerHold));
         }
 
-        yield return new WaitForSecondsRealtime(_answerHold);
+        // Read the reason: short when right, longer when wrong (that is when it teaches the most).
+        float hold = correct ? Mathf.Max(_answerHold, 3.5f) : Mathf.Max(_answerHold, 7f);
+        string explanation = ExplanationFor(correct, clicked, wound);
+        if (!string.IsNullOrEmpty(explanation))
+            StartCoroutine(ShowExplanation(explanation, hold));
+        yield return new WaitForSecondsRealtime(hold);
 
         if (clickedImage != null) clickedImage.color = clickedColor;
         if (rightImage != null) rightImage.color = rightColor;
         foreach (Button b in buttons)
             if (b != null) b.interactable = true;
 
+        _answering = false;
+        _timedOut = false;
         resolve?.Invoke();
     }
 
