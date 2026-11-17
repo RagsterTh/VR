@@ -6,13 +6,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-/// <summary>
-/// Look and feel of the offline entry menu, built at runtime around the existing panel (its buttons keep working):
-/// - the panel boots like a hologram and the two buttons become mission cards (what each mode is, today's record);
-/// - two side wings curve around the visitor: today's Top 5 and how to play;
-/// - space around: drifting star dust, shooting stars, a soft engine hum, the scene light tinted by the hovered mode;
-/// - choosing a mode jumps to warp before the scene fades out.
-/// </summary>
 public sealed class OfflineMenuFeedback : MonoBehaviour
 {
     private static readonly Color Cyan = new(0.35f, 0.9f, 1f);
@@ -60,9 +53,7 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
     private readonly List<(OfflineDifficultyLevel level, Image face, TMP_Text label)> _difficultyChips = new();
     private TMP_Text _difficultyHint;
 
-    // ---------- Entry points ----------
 
-    /// <summary>Restyles <paramref name="panel"/>; <paramref name="status"/> stays the line the menu writes to.</summary>
     public static OfflineMenuFeedback Attach(RectTransform panel, TMP_Text status, Button combat, Button full)
     {
         var feedback = panel.gameObject.AddComponent<OfflineMenuFeedback>();
@@ -70,7 +61,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         return feedback;
     }
 
-    /// <summary>Warp jump played between the click and the scene change.</summary>
     public IEnumerator Launch(OfflineExperienceMode mode)
     {
         _launching = true;
@@ -79,7 +69,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         foreach (MenuCard card in _cards)
             card.Button.interactable = false;
 
-        // The chosen card flashes, the others dim.
         if (chosen != null)
         {
             StartCoroutine(OfflineFx.Punch(chosen.Rect, 0.12f, 0.25f));
@@ -96,7 +85,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         ParticleSystem warp = head != null ? WarpTunnel(head.transform, color) : null;
         PlayWhoosh();
 
-        // Panel folds into a line, stars stretch and rush past, the hum rises.
         Vector3 scale = _panel.localScale;
         float t = 0f;
         const float duration = 1.6f;
@@ -125,7 +113,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         OfflineFx.HapticAll(0.8f, 0.2f);
     }
 
-    // ---------- Construction ----------
 
     private void Build(RectTransform panel, TMP_Text status, Button combat, Button full)
     {
@@ -141,7 +128,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
 
         BuildFrame(panel, new Vector2(PanelWidth, PanelHeight), Cyan, true);
 
-        // Header.
         Transform title = panel.Find("Title");
         if (title != null)
         {
@@ -195,7 +181,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         colors.disabledColor = Color.white;
         button.colors = colors;
 
-        // Old label replaced by a title + description + record.
         Transform label = rect.Find("Label");
         if (label != null)
             label.gameObject.SetActive(false);
@@ -205,18 +190,15 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         card.Accent = Image(rect, "Accent", OfflineFx.White, color, new Vector2(10f, 190f), new Vector2(-425f, 0f));
         BuildFrame(rect, new Vector2(860f, 190f), color, false);
 
-        // Mode icon: ring + mark.
         Image(rect, "Icon Ring", OfflineFx.Ring, color, new Vector2(120f, 120f), new Vector2(-330f, 0f));
         if (mode == OfflineExperienceMode.CombatOnly)
         {
-            // Crosshair.
             Image(rect, "Icon H", OfflineFx.White, color, new Vector2(70f, 6f), new Vector2(-330f, 0f));
             Image(rect, "Icon V", OfflineFx.White, color, new Vector2(6f, 70f), new Vector2(-330f, 0f));
             Image(rect, "Icon Dot", OfflineFx.Circle, Color.white, new Vector2(14f, 14f), new Vector2(-330f, 0f));
         }
         else
         {
-            // Small globe.
             Image(rect, "Icon Core", OfflineFx.Circle, new Color(color.r, color.g, color.b, 0.35f), new Vector2(76f, 76f), new Vector2(-330f, 0f));
             Image(rect, "Icon Eq", OfflineFx.White, color, new Vector2(76f, 4f), new Vector2(-330f, 0f));
             Image(rect, "Icon Mer", OfflineFx.Ring, color, new Vector2(40f, 88f), new Vector2(-330f, 0f));
@@ -245,7 +227,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         return card;
     }
 
-    /// <summary>Recruta / Soldado / Elite chips under the cards (kept on the headset for the next visitors).</summary>
     private void BuildDifficulty(RectTransform panel)
     {
         TMP_Text title = AddText(panel, "Difficulty Title", "DIFICULDADE", 20f, new Color(Cyan.r, Cyan.g, Cyan.b, 0.8f), new Vector2(-330f, -240f), new Vector2(200f, 30f));
@@ -305,7 +286,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         }
     }
 
-    /// <summary>Curved side panel (a child of the menu panel, so it follows the head with it).</summary>
     private void BuildWing(RectTransform panel, bool left)
     {
         var go = new GameObject(left ? "[Offline] Wing Controls" : "[Offline] Wing Ranking", typeof(RectTransform));
@@ -314,7 +294,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         float side = left ? -1f : 1f;
         wing.sizeDelta = new Vector2(520f, 640f);
         wing.anchoredPosition = new Vector2(side * 790f, -20f);
-        // Turned toward the visitor, like the side screens of a cockpit.
         wing.localPosition += new Vector3(0f, 0f, -150f);
         wing.localRotation = Quaternion.Euler(0f, side * 32f, 0f);
 
@@ -407,7 +386,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         label.textWrappingMode = TextWrappingModes.Normal;
     }
 
-    /// <summary>Corner brackets around a rectangle (the menu panel ones pulse).</summary>
     private void BuildFrame(RectTransform parent, Vector2 size, Color color, bool track)
     {
         float hx = size.x * 0.5f, hy = size.y * 0.5f;
@@ -426,26 +404,22 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         }
         if (track)
         {
-            // Scanline sweeping down the glass.
             _scan = Image(parent, "Scanline", OfflineFx.White, new Color(color.r, color.g, color.b, 0.05f), new Vector2(size.x - 20f, 12f), Vector2.zero);
             _scan.transform.SetSiblingIndex(1);
         }
     }
 
-    // ---------- Space around ----------
 
     private void BuildSpace()
     {
         Camera head = Camera.main;
         Vector3 center = head != null ? head.transform.position : Vector3.up * 1.5f;
 
-        // Star dust drifting slowly past the visitor: gives depth and motion to the empty space.
         _dust = OfflineFx.Emitter(null, center, new Vector3(16f, 8f, 16f), new Color(0.75f, 0.9f, 1f, 0.9f), 70f, 9f, 0.025f,
             new Vector3(0.05f, 0.02f, -0.25f), 0.05f);
         if (_dust != null)
             _dust.gameObject.name = "[Offline] Star Dust";
 
-        // Warm glow behind the panel, slowly breathing.
         _light = FindAnyObjectByType<Light>();
         foreach (Light light in FindObjectsByType<Light>(FindObjectsSortMode.None))
             if (light.type == LightType.Directional) _light = light;
@@ -473,14 +447,12 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         if (_hum != null && !_launching)
             _hum.volume = Mathf.MoveTowards(_hum.volume, 0.12f, dt * 0.05f);
 
-        // Frame breathing + scanline.
         float pulse = 0.6f + 0.4f * Mathf.Sin(time * 2.2f);
         foreach (Image corner in _corners)
             corner.color = new Color(Cyan.r, Cyan.g, Cyan.b, 0.55f + 0.45f * pulse);
         if (_scan != null)
             _scan.rectTransform.anchoredPosition = new Vector2(0f, Mathf.Lerp(PanelHeight * 0.5f - 20f, -PanelHeight * 0.5f + 20f, Mathf.Repeat(time * 0.25f, 1f)));
 
-        // Cards: hovered one glows, its color tints the scene light.
         MenuCard hovered = null;
         foreach (MenuCard card in _cards)
         {
@@ -529,7 +501,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         if (head == null || OfflineFx.LineMaterial == null)
             yield break;
 
-        // Somewhere far in front/above, crossing the sky diagonally.
         Vector3 forward = Vector3.ProjectOnPlane(head.transform.forward, Vector3.up).normalized;
         if (forward.sqrMagnitude < 0.01f)
             forward = Vector3.forward;
@@ -560,7 +531,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
             Destroy(go, 0.5f);
     }
 
-    /// <summary>Stars streaking toward the visitor (stretched particles in a tunnel ahead of the head).</summary>
     private static ParticleSystem WarpTunnel(Transform head, Color color)
     {
         if (OfflineFx.ParticleMaterial == null)
@@ -600,11 +570,9 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         return particles;
     }
 
-    // ---------- Boot ----------
 
     private IEnumerator Boot()
     {
-        // Hologram unfolding: thin line -> full height, with a couple of flickers.
         Vector3 scale = _panel.localScale;
         _panel.localScale = new Vector3(scale.x, scale.y * 0.01f, scale.z);
         yield return new WaitForSecondsRealtime(0.4f);
@@ -627,7 +595,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.05f);
         }
 
-        // Cards slide in one after the other.
         for (int i = 0; i < _cards.Count; i++)
         {
             StartCoroutine(SlideIn(_cards[i].Rect, i * 0.12f));
@@ -670,9 +637,7 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Audio ----------
 
-    /// <summary>Low engine hum loop (two detuned tones + slow wobble), seamless at 4 s.</summary>
     private static AudioClip HumClip()
     {
         const int rate = 22050;
@@ -702,7 +667,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             float k = i / (float)count;
-            // Filtered noise opening up + a rising tone.
             float cutoff = Mathf.Lerp(0.02f, 0.35f, k * k);
             low += cutoff * ((float)random.NextDouble() * 2f - 1f - low);
             float t = i / (float)rate;
@@ -718,7 +682,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
         source.PlayOneShot(clip);
     }
 
-    // ---------- UI helpers ----------
 
     private static void Restyle(TMP_Text text, float size, Color color)
     {
@@ -736,8 +699,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
 
     private static TMP_Text AddText(Transform parent, string name, string text, float size, Color color, Vector2 position, Vector2 box)
     {
-        // Built from scratch with the font set first: switching the font of an existing text (with an outline
-        // material instance already made for the default font) leaves the old atlas material and scrambles glyphs.
         var go = new GameObject(name, typeof(RectTransform));
         var rect = (RectTransform)go.transform;
         rect.SetParent(parent, false);
@@ -777,7 +738,6 @@ public sealed class OfflineMenuFeedback : MonoBehaviour
     }
 }
 
-/// <summary>Tells whether the controller ray is on a menu card.</summary>
 public sealed class OfflineMenuHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool IsOver { get; private set; }

@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Idle "parked in space" animation for a ship: soft hover, wing roll, small yaw sway and, every few
-/// seconds, a quick thruster correction nudge. Purely visual; animates around the start pose.
-/// </summary>
 public sealed class OfflineShipIdle : MonoBehaviour
 {
     [SerializeField] private float _hoverHeight = 0.12f;
@@ -39,7 +35,6 @@ public sealed class OfflineShipIdle : MonoBehaviour
             _nudgeDirection = new Vector3(Random.Range(-1f, 1f), Random.Range(-0.3f, 0.3f), Random.Range(-1f, 1f)).normalized;
         }
         _nudge = Mathf.MoveTowards(_nudge, 0f, Time.deltaTime * 0.8f);
-        // Quick push out, slow settle back.
         float push = Mathf.Sin(Mathf.Clamp01(1f - _nudge) * Mathf.PI) * _nudgeDistance;
 
         Vector3 hover = new Vector3(

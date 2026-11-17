@@ -3,10 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 
-/// <summary>
-/// Offline replacement for a click the host (PC operator) used to make: waits for a moment of the
-/// experience (an object becoming active and/or a narration finishing) and then runs the same action.
-/// </summary>
 public sealed class OfflineAutoAdvance : MonoBehaviour
 {
     [Tooltip("Wait until this object is active (e.g. the combat area that opens later). Empty = start right away.")]
@@ -47,7 +43,6 @@ public sealed class OfflineAutoAdvance : MonoBehaviour
                 yield return null;
             }
 
-            // WrapMode None stops the director at the end; Hold keeps it "playing" on the last frame.
             while (_waitForDirector.state == PlayState.Playing && _waitForDirector.time < _waitForDirector.duration - 0.05)
                 yield return null;
         }
@@ -67,8 +62,6 @@ public sealed class OfflineAutoAdvance : MonoBehaviour
 
         yield return new WaitForSeconds(_delayAfter);
 
-        // Shooting practice still running (combat scenes): the battle starts when it ends. It has its own
-        // timeout; the limit here only guarantees the flow never gets stuck.
         float tutorialWait = 0f;
         while (OfflineTutorial.Blocking && tutorialWait < 60f)
         {

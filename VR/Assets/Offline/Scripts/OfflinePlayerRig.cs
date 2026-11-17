@@ -6,12 +6,6 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement;
 using UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation;
 
-/// <summary>
-/// Offline replacement for the rig start-up done by ResetPosition + Photon ownership:
-/// keeps a single local XR rig (one camera, one AudioListener), then places the headset
-/// on the start point, turning the rig so the player's current physical heading matches
-/// the start direction. Re-applied when the user recenters.
-/// </summary>
 [DisallowMultipleComponent]
 public sealed class OfflinePlayerRig : MonoBehaviour
 {
@@ -45,14 +39,12 @@ public sealed class OfflinePlayerRig : MonoBehaviour
 
     public bool IsPlaced { get; private set; }
 
-    /// <summary>Adds the rig setup to a player spawned by offline code. Call right after Instantiate.</summary>
     public static OfflinePlayerRig Attach(GameObject playerRoot, Vector3 startPosition, Vector3 startForward)
     {
         OfflinePlayerRig rig = playerRoot.GetComponent<OfflinePlayerRig>();
         if (rig == null)
             rig = playerRoot.AddComponent<OfflinePlayerRig>();
         rig.SetStart(startPosition, startForward);
-        // Combat collision and enemy pursuit must use the same start area, with or without XR tracking.
         if (OfflineSession.IsCombatScene)
             rig._headTarget = HeadTarget.StartPointFloor;
         return rig;
@@ -70,7 +62,6 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         Transform start = _startPoint != null ? _startPoint : transform;
         SetStart(start.position, start.forward);
 
-        // ResetPosition teleports the camera 3s after spawn; placement is handled here instead.
         foreach (ResetPosition reset in GetComponentsInChildren<ResetPosition>(true))
             reset.enabled = false;
 
@@ -102,7 +93,6 @@ public sealed class OfflinePlayerRig : MonoBehaviour
             waited += Time.unscaledDeltaTime;
             yield return null;
         }
-        // One extra frame so the tracked pose is applied to the camera transform.
         yield return null;
 
         Place();
@@ -151,7 +141,6 @@ public sealed class OfflinePlayerRig : MonoBehaviour
         }
         else
         {
-            // Keep the physical offset of the head: only the horizontal position is snapped.
             Vector3 cameraOnFloor = Vector3.ProjectOnPlane(_origin.Camera.transform.position - _origin.transform.position, up);
             _origin.transform.position = _startPosition - cameraOnFloor;
         }

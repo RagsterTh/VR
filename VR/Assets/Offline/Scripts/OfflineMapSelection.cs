@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Map choice on the GloboV2 globe (offline). The buttons over the map picture used to call
-/// WaitingPlayers.Finish (arena inside GloboV2); offline they load the chosen map scene instead,
-/// where the combat kit runs. The choice is the only thing that waits for the player.
-/// </summary>
 public sealed class OfflineMapSelection : MonoBehaviour
 {
     [Serializable]
@@ -34,7 +29,6 @@ public sealed class OfflineMapSelection : MonoBehaviour
             if (map.Button == null)
                 continue;
 
-            // Offline the original action (open the GloboV2 arena) must not run.
             for (int i = 0; i < map.Button.onClick.GetPersistentEventCount(); i++)
                 map.Button.onClick.SetPersistentListenerState(i, UnityEventCallState.Off);
 
@@ -69,7 +63,6 @@ public sealed class OfflineMapSelection : MonoBehaviour
 
     private IEnumerator ChooseRoutine(string scene, Button button)
     {
-        // Spot bursts into light and the view "warps" before the fade.
         yield return OfflineLobbyFeedback.MapChosen(button);
         OfflineSession.LoadScene(scene);
     }

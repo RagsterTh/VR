@@ -6,11 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-/// <summary>
-/// Offline "juice" for the medical scene: living wounds (pulse + marker + hover haptic), typed report,
-/// popping answer panel, rich correct/wrong answers (healing wound, colors, shake, flashes), a progress bar
-/// and a celebration before the credits. MedicalQuestions calls ShowAnswer/Celebrate in its offline branch.
-/// </summary>
 public sealed class OfflineMedicalFeedback : MonoBehaviour
 {
     public static OfflineMedicalFeedback Instance { get; private set; }
@@ -56,7 +51,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // Let the scene's own Start methods (MedicalQuestions / MedicalEmergencyManager) run first.
         yield return null;
 
         _questions = FindAnyObjectByType<MedicalQuestions>();
@@ -101,19 +95,15 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         _progressFill.fillAmount = _progressShown;
     }
 
-    // ---------- Progress ----------
 
     private void BuildProgress()
     {
         if (_report == null)
             return;
 
-        // Placed right above the clinical report, on the same canvas.
         var reportRect = _report.rectTransform;
         var holder = new GameObject("[Offline] Progress", typeof(RectTransform));
         var rect = (RectTransform)holder.transform;
-        // Child of the report text itself: its world scale is uniform (the parent's x 2.7 is undone by the text's
-        // x 0.37) and it shares the panel's rotation, so the label sits inside the panel, at the top, not stretched.
         rect.SetParent(reportRect, false);
         rect.anchorMin = rect.anchorMax = new Vector2(0.5f, 1f);
         rect.pivot = new Vector2(0.5f, 1f);
@@ -136,7 +126,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
 
     private string ProgressLabel() => $"FERIMENTOS TRATADOS  {_treated}/{_total}";
 
-    // ---------- Answer timer ----------
 
     private void BuildTimer()
     {
@@ -169,7 +158,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         bool open = _questionPanel.activeInHierarchy;
         if (open && !_panelWasOpen && !_answering)
         {
-            // A new question is on screen: the clock starts.
             _questionStart = Time.unscaledTime;
             _timedOut = false;
             if (_timer != null)
@@ -199,12 +187,10 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         {
             _timedOut = true;
             OfflineFx.HapticAll(0.6f, 0.2f);
-            // Any id that is not the right one: the original logic treats it as a wrong answer.
             _questions.CheckAnswer(-1);
         }
     }
 
-    // ---------- Explanation ----------
 
     private void BuildExplanation()
     {
@@ -261,7 +247,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         _explanation.gameObject.SetActive(false);
     }
 
-    /// <summary>The text for this answer: the reason behind the right treatment (and why the chosen one is not).</summary>
     private string ExplanationFor(bool correct, Button clicked, MedicalEmergency wound)
     {
         MedicalData data = wound != null ? wound.GetAssignedMedicalData() : null;
@@ -284,9 +269,7 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         return $"{header}\n<size=85%>{why}</size>{chosenText}";
     }
 
-    // ---------- Answers ----------
 
-    /// <summary>Plays the answer feedback, then calls <paramref name="resolve"/> (the original answer logic).</summary>
     public void ShowAnswer(bool correct, Button clicked, Button rightButton, MedicalEmergency wound, Action resolve)
     {
         float seconds = _questionStart >= 0f ? Time.unscaledTime - _questionStart : -1f;
@@ -339,7 +322,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
                 StartCoroutine(Blink(rightImage, Green, rightColor, _answerHold));
         }
 
-        // Read the reason: short when right, longer when wrong (that is when it teaches the most).
         float hold = correct ? Mathf.Max(_answerHold, 3.5f) : Mathf.Max(_answerHold, 7f);
         string explanation = ExplanationFor(correct, clicked, wound);
         if (!string.IsNullOrEmpty(explanation))
@@ -383,7 +365,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Final ----------
 
     public void Celebrate(Action done)
     {
@@ -410,7 +391,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         done?.Invoke();
     }
 
-    // ---------- Reflection helper ----------
 
     private static T Field<T>(object target, string name)
     {
@@ -419,7 +399,6 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
     }
 }
 
-/// <summary>Reveals the text letter by letter every time it changes.</summary>
 public sealed class OfflineTypewriter : MonoBehaviour
 {
     [SerializeField] private float _charactersPerSecond = 70f;
@@ -443,7 +422,6 @@ public sealed class OfflineTypewriter : MonoBehaviour
     }
 }
 
-/// <summary>Fades a label in whenever its text changes to something non-empty.</summary>
 public sealed class OfflineTextFade : MonoBehaviour
 {
     private TMP_Text _text;
@@ -467,7 +445,6 @@ public sealed class OfflineTextFade : MonoBehaviour
     }
 }
 
-/// <summary>Answer panel: pops in (scale + fade) and brings the buttons in one after the other.</summary>
 public sealed class OfflinePanelPop : MonoBehaviour
 {
     public Button[] Buttons;
@@ -520,7 +497,6 @@ public sealed class OfflinePanelPop : MonoBehaviour
     }
 }
 
-/// <summary>Active wound: pulsing glow ring + bobbing marker above it; hover gives a light haptic tick.</summary>
 public sealed class OfflineWoundMarker : MonoBehaviour
 {
     private RectTransform _canvas;
@@ -538,7 +514,6 @@ public sealed class OfflineWoundMarker : MonoBehaviour
 
         _canvas = OfflineFx.CreateCanvas("[Offline] Wound Marker", transform, new Vector2(1000, 1000), 0.001f, 120);
         _canvas.localPosition = Vector3.zero;
-        // Keep the marker a constant size in the world even if the wound is scaled.
         Vector3 lossy = transform.lossyScale;
         float parentScale = Mathf.Max(0.0001f, (Mathf.Abs(lossy.x) + Mathf.Abs(lossy.y) + Mathf.Abs(lossy.z)) / 3f);
         _canvas.localScale = Vector3.one * (0.001f / parentScale);

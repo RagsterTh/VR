@@ -10,11 +10,6 @@ public enum OfflineExperienceMode
     FullExperience
 }
 
-/// <summary>
-/// Keeps the selected offline flow alive while Unity changes scenes.
-/// A session is offline when a mode was chosen in the Offline scene or when the
-/// active scene lives in Assets/Offline (so any offline scene can be played directly).
-/// </summary>
 public static class OfflineSession
 {
     public const string OfflineScenesFolder = "Assets/Offline/";
@@ -26,13 +21,11 @@ public static class OfflineSession
     public const string CreditsScene = "Offline_Credits";
     public const string DefeatScene = "Offline_Defeat";
 
-    // Maps chosen on the globe (copies of Assets/Scenes/ScenasGlobo with the combat kit added).
     public const string CambirelaScene = "Offline_Cambirela";
     public const string GuardaScene = "Offline_Guarda";
     public const string PedraBrancaScene = "Offline_PedraBranca";
     public static readonly string[] MapScenes = { CambirelaScene, GuardaScene, PedraBrancaScene };
 
-    // Original scene name -> offline copy. Used when shared gameplay code asks for an original scene.
     private static readonly Dictionary<string, string> OfflineSceneByOriginal = new()
     {
         { "LoadingScene", EntryScene },
@@ -58,15 +51,12 @@ public static class OfflineSession
     public static bool IsOffline =>
         _mode != OfflineExperienceMode.None || IsOfflineScene(SceneManager.GetActiveScene());
 
-    /// <summary>Show score + ranking at the end of a session (set by OfflineModeMenu from the Inspector).</summary>
     public static bool ShowResults = true;
 
-    /// <summary>True when the entry scene was reached from a finished/abandoned session (not a fresh launch).</summary>
     public static bool ReturnedFromSession { get; private set; }
 
     public static bool IsFullExperience => Mode == OfflineExperienceMode.FullExperience;
 
-    /// <summary>Scenes where the player spawns with guns and the battle runs (combat mode and the globe maps).</summary>
     public static bool IsCombatScene => SceneManager.GetActiveScene().name == CombatScene || IsMapScene;
 
     public static bool IsMapScene => System.Array.IndexOf(MapScenes, SceneManager.GetActiveScene().name) >= 0;
@@ -74,7 +64,6 @@ public static class OfflineSession
     public static bool IsOfflineScene(Scene scene) =>
         scene.IsValid() && scene.path.StartsWith(OfflineScenesFolder);
 
-    /// <summary>Called by the entry scene: leaves any online session and clears the previous choice.</summary>
     public static void PrepareEntry()
     {
         _mode = OfflineExperienceMode.None;
@@ -115,10 +104,6 @@ public static class OfflineSession
             LoadCredits();
     }
 
-    /// <summary>
-    /// End of the session. With the result screen on, the visitor first goes back to the entry scene to see
-    /// the score and the ranking (OfflineModeMenu shows it), and the credits come right after.
-    /// </summary>
     public static void LoadCredits()
     {
         if (ShowResults && OfflineScore.Finish())
@@ -131,7 +116,6 @@ public static class OfflineSession
         LoadScene(CreditsScene);
     }
 
-    /// <summary>Credits without the result screen (already shown, or skipped).</summary>
     public static void LoadCreditsScene()
     {
         OfflineScore.Clear();
@@ -148,7 +132,6 @@ public static class OfflineSession
 
     public static void RetryBattle()
     {
-        // The failed attempt does not count: the score starts again with the new battle.
         if (OfflineScore.Mode != OfflineExperienceMode.None)
             OfflineScore.Begin(OfflineScore.Mode);
         LoadScene(string.IsNullOrEmpty(_retryScene) ? CombatScene : _retryScene);
@@ -160,10 +143,6 @@ public static class OfflineSession
         LoadScene(EntryScene);
     }
 
-    /// <summary>
-    /// Choosing a place on the globe: opens the combat area of the current scene (same thing the host's
-    /// "Finish" did in GloboV2), or loads the combat scene when the current scene has none.
-    /// </summary>
     public static void OpenCombat()
     {
         WaitingPlayers lobby = Object.FindAnyObjectByType<WaitingPlayers>();
@@ -173,7 +152,6 @@ public static class OfflineSession
             LoadMappedScene("Game");
     }
 
-    /// <summary>Loads the offline copy of an original scene name (or the name itself if it is already offline).</summary>
     public static void LoadMappedScene(string sceneName)
     {
         LoadScene(OfflineSceneByOriginal.TryGetValue(sceneName, out string offlineScene) ? offlineScene : sceneName);
@@ -185,7 +163,6 @@ public static class OfflineSession
             System.Array.IndexOf(MapScenes, sceneName) >= 0)
             _retryScene = sceneName;
         ConnectionManager.isVR = true;
-        // A scene left out of the build would fade to black and never load: stay where we are and say why.
         if (!Application.CanStreamedLevelBeLoaded(sceneName))
         {
             Debug.LogError($"[Offline] A cena '{sceneName}' não está na build (File > Build Profiles > Scene List).");
@@ -194,7 +171,6 @@ public static class OfflineSession
         OfflineScreenFade.FadeOutAndLoad(sceneName);
     }
 
-    /// <summary>Offline scenes missing from the build (an APK built with only some of them).</summary>
     public static List<string> MissingScenes()
     {
         var missing = new List<string>();

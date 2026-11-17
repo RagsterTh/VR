@@ -1,9 +1,5 @@
 using System.Collections.Generic;
 
-/// <summary>
-/// First-aid explanations shown after each answer in the offline medical scene: why the right treatment is
-/// right for that wound, and why the chosen one is not. Labels match MedicalQuestions' button texts.
-/// </summary>
 public static class OfflineMedicalGuide
 {
     private static readonly Dictionary<TreatmentType, string> Labels = new()
@@ -19,7 +15,6 @@ public static class OfflineMedicalGuide
         { TreatmentType.CompressaQuente, "Compressa Quente" },
     };
 
-    /// <summary>Why this treatment is the right one (for the wound it belongs to).</summary>
     private static readonly Dictionary<TreatmentType, string> Why = new()
     {
         { TreatmentType.LimpezaEAntissepsia,
@@ -36,7 +31,6 @@ public static class OfflineMedicalGuide
             "Enquanto a exposição continua, a lesão aumenta. Primeiro afaste a vítima da fonte e retire as roupas contaminadas." },
     };
 
-    /// <summary>Why a treatment that only looks right is wrong here.</summary>
     private static readonly Dictionary<TreatmentType, string> WhyNot = new()
     {
         { TreatmentType.AplicarPomadaAntibiotica,
@@ -75,7 +69,6 @@ public static class OfflineMedicalGuide
 
     public static string Explain(TreatmentType right) => Why.TryGetValue(right, out string text) ? text : string.Empty;
 
-    /// <summary>Why <paramref name="chosen"/> was not the answer.</summary>
     public static string ExplainWrong(TreatmentType chosen)
     {
         if (WhyNot.TryGetValue(chosen, out string text))

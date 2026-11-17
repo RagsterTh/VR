@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Energy-weapon look for the offline shots: muzzle flash + sparks, glowing projectile head, impact sparks/embers.
-/// Uses a few shared particle systems driven by Emit() (no per-shot GameObjects, no extra lights) to stay cheap on Quest.
-/// </summary>
 public sealed class OfflineShotFx : MonoBehaviour
 {
     public static readonly Color Energy = new(0.35f, 0.85f, 1f);
@@ -11,9 +7,9 @@ public sealed class OfflineShotFx : MonoBehaviour
 
     private static OfflineShotFx _instance;
 
-    private ParticleSystem _flash;   // soft round glows (muzzle, impact, projectile head, laser dot)
-    private ParticleSystem _sparks;  // stretched streaks
-    private ParticleSystem _embers;  // sparks that fall with gravity
+    private ParticleSystem _flash;
+    private ParticleSystem _sparks;
+    private ParticleSystem _embers;
 
     private static OfflineShotFx Instance
     {
@@ -100,13 +96,11 @@ public sealed class OfflineShotFx : MonoBehaviour
         system.Emit(p, 1);
     }
 
-    /// <summary>Single soft glow (projectile head, laser dot).</summary>
     public static void Glow(Vector3 position, float size, Color color, float lifetime)
     {
         Emit(Instance._flash, position, Vector3.zero, size, lifetime, color);
     }
 
-    /// <summary>Flash at the barrel plus streaks flying forward.</summary>
     public static void Muzzle(Vector3 position, Vector3 direction)
     {
         OfflineShotFx fx = Instance;
@@ -122,7 +116,6 @@ public sealed class OfflineShotFx : MonoBehaviour
         }
     }
 
-    /// <summary>Hit point: flash, sparks bouncing back along <paramref name="normal"/> and falling embers.</summary>
     public static void Impact(Vector3 position, Vector3 normal, bool enemy)
     {
         OfflineShotFx fx = Instance;
@@ -147,10 +140,6 @@ public sealed class OfflineShotFx : MonoBehaviour
     }
 }
 
-/// <summary>
-/// Laser sight on a gun: thin beam along the barrel that ends where it hits, with a glowing dot.
-/// Turns red when it is on something shootable, so the player feels the aim "lock".
-/// </summary>
 public sealed class OfflineGunLaser : MonoBehaviour
 {
     private const float MaxDistance = 40f;
@@ -183,7 +172,6 @@ public sealed class OfflineGunLaser : MonoBehaviour
         if (_line == null || _gunPoint == null)
             return;
 
-        // Bullets leave along -up of the gun point (see PlayerBullet).
         Vector3 origin = _gunPoint.position;
         Vector3 direction = -_gunPoint.up;
 
@@ -196,7 +184,6 @@ public sealed class OfflineGunLaser : MonoBehaviour
             if (c == null || c.transform.IsChildOf(_playerRoot))
                 continue;
             bool shootable = c.GetComponentInParent<IShootable>() != null;
-            // Trigger volumes that are not targets (zones, limits) do not stop the beam.
             if (c.isTrigger && !shootable)
                 continue;
             if (Hits[i].distance < distance)

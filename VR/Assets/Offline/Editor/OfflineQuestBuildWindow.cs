@@ -4,10 +4,6 @@ using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
-/// <summary>
-/// Builds the offline mode straight to the Quest with its own scene list (Offline first),
-/// without touching the Build Settings used by the online build (LoadingScene must stay index 0).
-/// </summary>
 public sealed class OfflineQuestBuildWindow : EditorWindow
 {
     private static string[] OfflineScenes => OfflineModeSetup.AllOfflineScenePaths;
@@ -98,7 +94,6 @@ public sealed class OfflineQuestBuildWindow : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-    // Building from inside OnGUI breaks the IMGUI layout; run it after this GUI pass.
     private static void Schedule(bool run, bool patch)
     {
         EditorApplication.delayCall += () => Build(OfflineQuestBuildSettings.instance, run, patch);
@@ -132,7 +127,6 @@ public sealed class OfflineQuestBuildWindow : EditorWindow
         if (settings.CleanBuild && !patch)
             options |= BuildOptions.CleanBuildCache;
 
-        // An .aab cannot be installed/patched directly; build a plain APK and restore the user's choice afterwards.
         bool wasAppBundle = EditorUserBuildSettings.buildAppBundle;
         bool wasExport = EditorUserBuildSettings.exportAsGoogleAndroidProject;
         EditorUserBuildSettings.buildAppBundle = false;
@@ -182,7 +176,6 @@ public sealed class OfflineQuestBuildWindow : EditorWindow
     private static string ProjectRoot => Path.GetDirectoryName(Application.dataPath);
 }
 
-/// <summary>Per-user build options (UserSettings/ is not versioned).</summary>
 [FilePath("UserSettings/OfflineQuestBuild.asset", FilePathAttribute.Location.ProjectFolder)]
 public sealed class OfflineQuestBuildSettings : ScriptableSingleton<OfflineQuestBuildSettings>
 {

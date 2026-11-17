@@ -3,11 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Entry point of the offline mode (scene "Offline").
-/// Pick the mode in the Inspector and press Play; the in-headset panel can also change or start it
-/// with the VR controllers (ray or poke).
-/// </summary>
 public sealed class OfflineModeMenu : MonoBehaviour
 {
     [Header("Mode")]
@@ -80,14 +75,12 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // Menu backdrop: the parked ship floats instead of sitting still.
         GameObject ship = GameObject.Find("SpaceShuttle_01");
         if (ship != null && ship.GetComponent<OfflineShipIdle>() == null)
             ship.AddComponent<OfflineShipIdle>();
 
         yield return PlacePanelInFrontOfPlayer();
 
-        // A session just ended: score and ranking first (on this same panel), then the credits.
         if (OfflineScore.HasResult && _panel != null)
         {
             _started = true;
@@ -96,11 +89,9 @@ public sealed class OfflineModeMenu : MonoBehaviour
             yield break;
         }
 
-        // Holographic panel, mission cards, side screens and space ambience (runtime only, the scene is untouched).
         if (_panel is RectTransform panelRect)
             _look = OfflineMenuFeedback.Attach(panelRect, _statusText, _combatButton, _fullExperienceButton);
 
-        // Incomplete build (e.g. only this scene in the list): warn on the panel instead of a black screen later.
         System.Collections.Generic.List<string> missing = OfflineSession.MissingScenes();
         if (missing.Count > 0 && _statusText != null)
         {
@@ -171,7 +162,6 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
         Vector3 toPanel = Vector3.ProjectOnPlane(_panel.position - head.transform.position, Vector3.up);
         float angle = Vector3.Angle(forward, toPanel);
-        // Start following past the dead zone, keep going until the panel is centered again.
         if (angle > _followDeadZone)
             _following = true;
         else if (angle < 3f)

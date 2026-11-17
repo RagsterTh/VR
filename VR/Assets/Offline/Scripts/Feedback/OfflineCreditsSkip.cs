@@ -3,11 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-/// <summary>
-/// Skip the credits (offline): hold A / X or a trigger for a moment. A floating prompt with a filling ring
-/// stays in front of the player. Uses controller buttons because the credits rig (Meta) does not click
-/// world-space canvases like the XRI rig does. Skipping does what the end of the credits does.
-/// </summary>
 public sealed class OfflineCreditsSkip : MonoBehaviour
 {
     [SerializeField] private float _holdTime = 1f;
@@ -44,7 +39,6 @@ public sealed class OfflineCreditsSkip : MonoBehaviour
 
     private void Start()
     {
-        // Big enough to read at arm's length, below the credits text.
         _prompt = OfflineFx.CreateCanvas("[Offline] Skip Credits", null, new Vector2(900, 200), 0.0016f, 180);
         Image back = OfflineFx.AddImage(_prompt, "Back", OfflineFx.White, new Color(0.08f, 0.1f, 0.14f, 0.85f), new Vector2(900, 170));
         back.material = OfflineFx.OverlayMaterial;
@@ -106,7 +100,6 @@ public sealed class OfflineCreditsSkip : MonoBehaviour
         forward.Normalize();
 
         Vector3 target = head.transform.position + forward * _distance + Vector3.up * _heightOffset;
-        // Lazy follow: stays readable without being glued to the face.
         _prompt.position = Vector3.Lerp(_prompt.position == Vector3.zero ? target : _prompt.position, target, Time.unscaledDeltaTime * 3f);
         _prompt.rotation = Quaternion.LookRotation(_prompt.position - head.transform.position, Vector3.up);
     }

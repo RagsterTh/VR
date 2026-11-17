@@ -5,23 +5,17 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-/// <summary>
-/// Offline combat HUD drawn like a helmet visor: life as a curved vertical gauge on the left of the view,
-/// the heal ability on the right, the mission (targets) and objective on top, a compass and small readouts.
-/// Built at runtime and locked to the head; it replaces the life bar/heal widget of the player prefab
-/// (their canvas is only hidden, the gameplay scripts keep running). Online keeps the original HUD.
-/// </summary>
 public sealed class OfflineHelmetHud : MonoBehaviour
 {
     private const int Segments = 24;
-    private const float ArcRadius = 700f;   // canvas units: 1 = 1 mm at the HUD distance
-    private const float ArcSpan = 30f;      // degrees of the arc above/below its middle
-    private const float SideAngle = 34f;    // how far to each side of the view the gauges sit (degrees)
-    private const float TopAngle = 19f;     // mission block, above the line of sight
-    private const float BottomAngle = -25f; // readouts, below the line of sight
-    private const float RimAngle = 34f;     // visor rim lines
+    private const float ArcRadius = 700f;
+    private const float ArcSpan = 30f;
+    private const float SideAngle = 34f;
+    private const float TopAngle = 19f;
+    private const float BottomAngle = -25f;
+    private const float RimAngle = 34f;
     private const float Distance = 1.3f;
-    private const float CompassY = 175f;     // inside the top block
+    private const float CompassY = 175f;
     private const float CompassHalfWidth = 340f;
     private const float CompassUnitsPerDegree = 8f;
     private const float CompassStep = 15f;
@@ -45,7 +39,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private GameOverManager _gameOver;
     private int _killCap = -1;
 
-    // Life (left)
     private readonly Image[] _lifeSegments = new Image[Segments];
     private readonly float[] _lifeFlash = new float[Segments];
     private readonly List<Graphic> _lifeFrame = new();
@@ -55,7 +48,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private float _shownFraction;
     private int _shownLife = -1;
 
-    // Heal (right)
     private readonly Image[] _healSegments = new Image[Segments];
     private readonly List<Graphic> _healFrame = new();
     private TextMeshProUGUI _healValue;
@@ -65,7 +57,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private bool _wasReady = true;
     private string _shownHeal;
 
-    // Mission (top)
     private RectTransform _mission;
     private TextMeshProUGUI _missionText;
     private TextMeshProUGUI _objective;
@@ -75,7 +66,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private string _objectiveText = string.Empty;
     private Color _objectiveColor = Color.white;
 
-    // Compass + readouts
     private Image[] _compassTicks;
     private TextMeshProUGUI[] _compassLabels;
     private int[] _compassShown;
@@ -85,7 +75,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private int _shownScore = -1;
     private TextMeshProUGUI _bootText;
 
-    // Combo (under the line of sight)
     private RectTransform _combo;
     private CanvasGroup _comboGroup;
     private TextMeshProUGUI _comboText;
@@ -95,7 +84,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private float _boot;
     private float _glitch;
 
-    /// <summary>Creates the HUD (once per scene). It only shows up while the player has an active life bar.</summary>
     public static void Ensure()
     {
         if (_instance == null)
@@ -175,7 +163,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         UpdateCombo(dt);
         UpdateBoot();
 
-        // Taking damage shakes the whole visor for a moment.
         _glitch = Mathf.Max(0f, _glitch - dt);
         Vector3 jitter = _glitch > 0f
             ? new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f) * (0.012f * _glitch / 0.3f)
@@ -183,7 +170,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _root.localPosition = new Vector3(0f, 0f, Distance) + jitter;
     }
 
-    /// <summary>The prefab's own life bar + heal widget: hidden, not disabled (PlayerHeal needs the life bar active).</summary>
     private void HidePrefabHud()
     {
         Canvas canvas = _life.GetComponentInParent<Canvas>();
@@ -191,7 +177,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             canvas.enabled = false;
     }
 
-    // ---------- Life ----------
 
     private void UpdateLife(float dt)
     {
@@ -203,7 +188,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
         else if (fraction < _lastFraction - 0.001f)
         {
-            // The segments just lost flash white before going dark.
             for (int i = LitCount(fraction); i < LitCount(_lastFraction) && i < Segments; i++)
                 _lifeFlash[i] = 1f;
             _shownFraction = fraction;
@@ -212,7 +196,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
         _lastFraction = fraction;
         OfflineScore.SetLifeRatio(fraction);
-        // Healing fills the gauge upwards instead of jumping.
         _shownFraction = Mathf.MoveTowards(_shownFraction, fraction, dt * 0.9f);
 
         bool critical = fraction <= 0.25f;
@@ -254,7 +237,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
     private static int LitCount(float fraction) =>
         fraction <= 0f ? 0 : Mathf.Clamp(Mathf.CeilToInt(fraction * Segments - 0.001f), 1, Segments);
 
-    // ---------- Heal ----------
 
     private void UpdateHeal(float dt)
     {
@@ -310,11 +292,9 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _healStatus.color = new Color(color.r, color.g, color.b, statusAlpha);
     }
 
-    // ---------- Mission ----------
 
     private void UpdateMission()
     {
-        // The shooting practice panel uses the same spot: the mission shows up when the battle is about to start.
         bool visible = !OfflineTutorial.Blocking;
         if (_mission.gameObject.activeSelf != visible)
             _mission.gameObject.SetActive(visible);
@@ -326,7 +306,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _gameOver = FindAnyObjectByType<GameOverManager>();
             if (_gameOver != null && _killCap < 0)
             {
-                // The number of targets that ends the battle (private in GameOverManager).
                 FieldInfo cap = typeof(GameOverManager).GetField("enemiesKilledCap", BindingFlags.NonPublic | BindingFlags.Instance);
                 _killCap = cap != null ? (int)cap.GetValue(_gameOver) : 0;
                 BuildPips(_killCap);
@@ -364,7 +343,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
     }
 
-    // ---------- Compass, readouts, boot ----------
 
     private void UpdateCompass()
     {
@@ -412,7 +390,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _accuracy.text = accuracy >= 0 ? $"PRECISÃO  {accuracy}%" : "PRECISÃO  --";
         }
 
-        // Same formula as the result screen, live: it goes up with good shots and fast kills, down with misses and damage.
         int score = OfflineScore.Total;
         if (score != _shownScore)
         {
@@ -482,12 +459,10 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _bootText = null;
             return;
         }
-        // Blinks in, holds, fades out while the gauges fill up.
         float alpha = _boot < 0.7f ? (Mathf.Repeat(_boot * 12f, 1f) < 0.7f ? 1f : 0.35f) : 1f - (_boot - 0.7f) / 0.3f;
         _bootText.color = new Color(Cyan.r, Cyan.g, Cyan.b, alpha * 0.9f);
     }
 
-    // ---------- Construction ----------
 
     private void Build(Camera head)
     {
@@ -512,14 +487,11 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _group.blocksRaycasts = false;
         _group.interactable = false;
 
-        // The visor wraps around the head: every block sits on a sphere centered on the eyes and faces them,
-        // so the gauges live in the periphery of the view (like a helmet) instead of floating in the middle.
         RectTransform left = Panel("Life Wing", -SideAngle, 0f);
         RectTransform right = Panel("Heal Wing", SideAngle, 0f);
         BuildGauge(left, true, _lifeSegments, _lifeFrame);
         BuildGauge(right, false, _healSegments, _healFrame);
 
-        // Texts sit just beyond the ends of each arc, on the inner side.
         _lifeFrame.Add(Text(left, "Life Label", "VIDA", 44f, Cyan, new Vector2(110f, 445f), 0.9f));
         _lifeValue = Text(left, "Life Value", "100", 100f, Cyan, new Vector2(115f, -460f));
         _lifeStatus = Text(left, "Life Status", "ESTÁVEL", 30f, Cyan, new Vector2(115f, -545f));
@@ -527,7 +499,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _healValue = Text(right, "Heal Value", _healButton, 84f, Green, new Vector2(-115f, -460f));
         _healStatus = Text(right, "Heal Status", "PRONTO", 30f, Green, new Vector2(-115f, -545f));
 
-        // Mission: targets + objective, between two brackets, above the line of sight.
         RectTransform top = Panel("Top", 0f, TopAngle);
         var mission = new GameObject("Mission", typeof(RectTransform));
         _mission = (RectTransform)mission.transform;
@@ -542,7 +513,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             Rect(_mission, "Bracket Bottom", new Vector2(side * 374f, -52f), new Vector2(28f, 5f), Cyan, 0.8f);
         }
 
-        // Compass tape.
         Rect(top, "Compass Line", new Vector2(0f, CompassY), new Vector2(CompassHalfWidth * 2f, 3f), Cyan, 0.3f);
         Image caret = Rect(top, "Compass Caret", new Vector2(0f, CompassY - 16f), new Vector2(13f, 13f), Cyan, 0.9f);
         caret.rectTransform.localRotation = Quaternion.Euler(0f, 0f, 45f);
@@ -557,14 +527,12 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             _compassShown[i] = -1;
         }
 
-        // Readouts below the line of sight.
         RectTransform bottom = Panel("Bottom", 0f, BottomAngle);
         Rect(bottom, "Readout Line", new Vector2(0f, 28f), new Vector2(640f, 3f), Cyan, 0.3f);
         Rect(bottom, "Readout Split", new Vector2(0f, -6f), new Vector2(3f, 40f), Cyan, 0.4f);
         _accuracy = Text(bottom, "Accuracy", "PRECISÃO  --", 30f, Cyan, new Vector2(-170f, -6f), 0.85f);
         _score = Text(bottom, "Score", "PONTOS  0", 30f, Cyan, new Vector2(170f, -6f), 0.85f);
 
-        // Combo: appears from 2 kills in a row, with the time left to keep it.
         var combo = new GameObject("Combo", typeof(RectTransform));
         _combo = (RectTransform)combo.transform;
         _combo.SetParent(bottom, false);
@@ -579,7 +547,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _comboTimer.fillOrigin = (int)Image.OriginHorizontal.Left;
         _shownMultiplier = -1;
 
-        // Rim of the visor: two faint lines running around the view, stronger towards the sides.
         const float rimStep = 4f;
         float rimLength = Distance * 1000f * rimStep * Mathf.Deg2Rad + 2f;
         for (float yaw = -44f; yaw <= 44f; yaw += rimStep)
@@ -592,10 +559,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         _bootText = Text(_root, "Boot", "SISTEMAS ONLINE", 46f, Cyan, new Vector2(0f, 120f));
     }
 
-    /// <summary>
-    /// Container on the sphere around the eyes, at the given direction and facing them.
-    /// Its children are laid out in its own plane (1 unit = 1 mm).
-    /// </summary>
     private RectTransform Panel(string name, float yaw, float pitch)
     {
         var go = new GameObject(name, typeof(RectTransform));
@@ -604,19 +567,15 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         rect.sizeDelta = Vector2.zero;
         Quaternion rotation = Quaternion.Euler(-pitch, yaw, 0f);
         float radius = Distance * 1000f;
-        // The canvas origin is straight ahead at the HUD distance; the eyes are "radius" behind it.
         rect.localPosition = rotation * Vector3.forward * radius - Vector3.forward * radius;
         rect.localRotation = rotation;
         return rect;
     }
 
-    /// <summary>One curved vertical gauge: left (life) or right (heal). Segment 0 is at the bottom.</summary>
     private void BuildGauge(RectTransform wing, bool left, Image[] segments, List<Graphic> frame)
     {
-        // The arc bulges outwards and touches the wing's origin at mid height.
         Vector2 pivot = new Vector2(left ? ArcRadius : -ArcRadius, 0f);
         float center = left ? 180f : 0f;
-        // Angles grow counter-clockwise: on the left side "up" means a smaller angle.
         float up = left ? -1f : 1f;
         float step = ArcSpan * 2f / (Segments - 1);
         string side = left ? "Life" : "Heal";
@@ -627,7 +586,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             segments[i] = Polar(wing, pivot, side + " Segment", ArcRadius, angle, new Vector2(66f, 23f), Cyan, 0.13f);
         }
 
-        // Thin lines following the arc, outside and inside the segments.
         const int pieces = 36;
         float frameSpan = ArcSpan + 3.5f;
         float pieceStep = frameSpan * 2f / pieces;
@@ -639,7 +597,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
             frame.Add(Polar(wing, pivot, side + " Inner", ArcRadius - 48f, angle, new Vector2(2.5f, (ArcRadius - 48f) * length + 1.5f), Cyan, 0.25f));
         }
 
-        // Scale marks every quarter and a cap at each end.
         for (int i = 0; i <= 4; i++)
         {
             float angle = center + up * (-ArcSpan + i * ArcSpan * 0.5f);
@@ -658,7 +615,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
     }
 
-    /// <summary>Rectangle placed on a circle around <paramref name="pivot"/>; its first size is along the radius.</summary>
     private static Image Polar(Transform parent, Vector2 pivot, string name, float radius, float angle, Vector2 size, Color color, float alpha)
     {
         float radians = angle * Mathf.Deg2Rad;
@@ -699,7 +655,6 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         return tmp;
     }
 
-    /// <summary>The sci-fi font of the offline menus (static atlas, safe in builds); TMP's default when missing.</summary>
     private static TMP_FontAsset Font
     {
         get
@@ -715,14 +670,12 @@ public sealed class OfflineHelmetHud : MonoBehaviour
         }
     }
 
-    /// <summary>Same font material, drawn on top of the scene like the rest of the visor.</summary>
     private static Material TextMaterial(TMP_FontAsset font)
     {
         if (_textMaterial == null)
         {
             _textMaterial = new Material(font.material) { name = font.name + " (HUD overlay)" };
             _textMaterial.SetInt("unity_GUIZTestMode", (int)CompareFunction.Always);
-            // Dark rim so the readouts stay legible over a bright sky or an explosion.
             _textMaterial.EnableKeyword("OUTLINE_ON");
             _textMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, 0.16f);
             _textMaterial.SetColor(ShaderUtilities.ID_OutlineColor, new Color(0f, 0.04f, 0.08f, 0.9f));

@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Offline player feedback: red vignette + both controllers vibrating when taking damage, green flash when
-/// healing, and a pulsing red edge while life is low. Reads the shared life bar, no gameplay change.
-/// </summary>
 public sealed class OfflinePlayerFeedback : MonoBehaviour
 {
     [Range(0f, 1f)]

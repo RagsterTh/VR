@@ -5,10 +5,6 @@ using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 
-/// <summary>
-/// Shared "juice" helpers for the offline mode: particle bursts, haptics, hit-stop, floating texts,
-/// procedurally generated sprites and small tweens. Everything is created at runtime so no scene setup is needed.
-/// </summary>
 public sealed class OfflineFx : MonoBehaviour
 {
     private static OfflineFx _host;
@@ -37,9 +33,7 @@ public sealed class OfflineFx : MonoBehaviour
 
     public static Coroutine Run(IEnumerator routine) => Host.StartCoroutine(routine);
 
-    // ---------- Materials & sprites ----------
 
-    /// <summary>Additive URP particle material (Assets/Offline/Resources/OfflineFxParticle.mat).</summary>
     public static Material ParticleMaterial
     {
         get
@@ -50,8 +44,6 @@ public sealed class OfflineFx : MonoBehaviour
                 if (source == null)
                     return null;
 
-                // The asset only provides the URP additive particle shader/keywords. Its texture is a lava sphere,
-                // so use a generated white soft glow instead: the color then comes only from each effect.
                 _particleMaterial = new Material(source) { name = "OfflineFxParticle (soft glow)" };
                 Texture2D glow = SoftGlowTexture();
                 if (_particleMaterial.HasProperty("_BaseMap")) _particleMaterial.SetTexture("_BaseMap", glow);
@@ -62,10 +54,6 @@ public sealed class OfflineFx : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Additive material for LineRenderer/TrailRenderer: constant along the length, soft across the width.
-    /// (The round glow texture would fade the beam out at both ends when stretched along a line.)
-    /// </summary>
     public static Material LineMaterial
     {
         get
@@ -99,7 +87,6 @@ public sealed class OfflineFx : MonoBehaviour
         for (int x = 0; x < size; x++)
         {
             float d = Mathf.Sqrt((x - half) * (x - half) + (y - half) * (y - half)) / half;
-            // Bright core with a soft falloff; fully transparent at the edge so quads never show.
             float a = Mathf.Pow(Mathf.Clamp01(1f - d), 2.2f);
             texture.SetPixel(x, y, new Color(1f, 1f, 1f, a));
         }
@@ -107,7 +94,6 @@ public sealed class OfflineFx : MonoBehaviour
         return texture;
     }
 
-    /// <summary>UI material drawn on top of everything (HUD elements attached to the head).</summary>
     public static Material OverlayMaterial
     {
         get
@@ -140,7 +126,6 @@ public sealed class OfflineFx : MonoBehaviour
         return Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
     }
 
-    // ---------- Particles ----------
 
     public static ParticleSystem Burst(Vector3 position, Color color, int count = 24, float speed = 2f, float size = 0.05f,
         float lifetime = 0.6f, float gravity = 0f, float radius = 0.05f)
@@ -193,7 +178,6 @@ public sealed class OfflineFx : MonoBehaviour
         return particles;
     }
 
-    /// <summary>Looping emitter in a box (ambient dust, hologram sparkles). <paramref name="drift"/> = constant velocity.</summary>
     public static ParticleSystem Emitter(Transform parent, Vector3 position, Vector3 boxSize, Color color, float rate,
         float lifetime, float size, Vector3 drift, float randomSpeed = 0.05f)
     {
@@ -245,7 +229,6 @@ public sealed class OfflineFx : MonoBehaviour
         return particles;
     }
 
-    // ---------- Haptics ----------
 
     public static void HapticAll(float amplitude, float duration)
     {
@@ -253,7 +236,6 @@ public sealed class OfflineFx : MonoBehaviour
             haptic.SendHapticImpulse(amplitude, duration);
     }
 
-    /// <summary>Vibrates the controller that holds <paramref name="near"/> (e.g. the gun), or both if unknown.</summary>
     public static void HapticNear(Transform near, float amplitude, float duration)
     {
         HapticImpulsePlayer haptic = near != null ? near.GetComponentInParent<HapticImpulsePlayer>() : null;
@@ -263,9 +245,7 @@ public sealed class OfflineFx : MonoBehaviour
             HapticAll(amplitude, duration);
     }
 
-    // ---------- Time ----------
 
-    /// <summary>Tiny freeze that gives weight to a hit.</summary>
     public static void HitStop(float seconds = 0.05f)
     {
         if (_hitStop != null)
@@ -281,9 +261,7 @@ public sealed class OfflineFx : MonoBehaviour
         _hitStop = null;
     }
 
-    // ---------- UI in the world ----------
 
-    /// <summary>World-space canvas; 1 canvas unit = <paramref name="metersPerUnit"/> meters.</summary>
     public static RectTransform CreateCanvas(string name, Transform parent, Vector2 size, float metersPerUnit = 0.001f, int sortingOrder = 100)
     {
         var go = new GameObject(name, typeof(RectTransform));
@@ -331,7 +309,6 @@ public sealed class OfflineFx : MonoBehaviour
         return tmp;
     }
 
-    /// <summary>Text that pops, rises and fades out, always facing the player.</summary>
     public static void FloatingText(Vector3 position, string text, Color color, float fontSize = 90f, float lifetime = 1.1f, float rise = 0.25f)
     {
         RectTransform canvas = CreateCanvas("[Offline] Floating Text", null, new Vector2(900, 200), 0.001f, 200);
@@ -361,7 +338,6 @@ public sealed class OfflineFx : MonoBehaviour
             Destroy(canvas.gameObject);
     }
 
-    // ---------- Tweens ----------
 
     public static float EaseOut(float k) => 1f - Mathf.Pow(1f - Mathf.Clamp01(k), 3f);
 
@@ -407,7 +383,6 @@ public sealed class OfflineFx : MonoBehaviour
     }
 }
 
-/// <summary>Keeps a world-space UI facing the player's head.</summary>
 public sealed class OfflineBillboard : MonoBehaviour
 {
     private void LateUpdate()

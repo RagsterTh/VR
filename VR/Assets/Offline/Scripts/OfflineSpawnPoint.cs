@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Where the player starts in this offline scene (floor position + facing). Overrides the scene/prefab spawn
-/// for the local rig; move it in the scene to adjust. Only exists in the offline copies.
-/// </summary>
 public sealed class OfflineSpawnPoint : MonoBehaviour
 {
     private void OnDrawGizmos()

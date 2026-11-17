@@ -4,11 +4,6 @@ using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Comfort fade for the offline mode. A black world-space quad follows the active camera
-/// (screen-space overlays do not render inside the headset) and survives scene loads,
-/// so every transition is: fade to black -> load -> fade back in.
-/// </summary>
 public sealed class OfflineScreenFade : MonoBehaviour
 {
     private const float DefaultDuration = 0.6f;
@@ -69,7 +64,6 @@ public sealed class OfflineScreenFade : MonoBehaviour
 
         _image = imageObject.AddComponent<Image>();
         _image.raycastTarget = false;
-        // Draw on top of everything, including hands and weapons close to the face.
         var material = new Material(Shader.Find("UI/Default"));
         material.SetInt("unity_GUIZTestMode", (int)CompareFunction.Always);
         _image.material = material;
@@ -89,7 +83,6 @@ public sealed class OfflineScreenFade : MonoBehaviour
         transform.SetPositionAndRotation(
             _target.transform.position + _target.transform.forward * distance,
             _target.transform.rotation);
-        // 100 units wide at 1cm scale = 1m square, far wider than the view at this distance.
         transform.localScale = Vector3.one * 0.01f * Mathf.Max(1f, distance * 10f);
     }
 
@@ -104,7 +97,6 @@ public sealed class OfflineScreenFade : MonoBehaviour
         while (load != null && !load.isDone)
             yield return null;
         _loading = false;
-        // The new scene's OfflineSceneBootstrap fades back in once the rig is placed.
     }
 
     private IEnumerator FadeTo(float target)

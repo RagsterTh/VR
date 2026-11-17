@@ -4,20 +4,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Quick shooting practice before the battle (offline combat scenes): three holographic targets in front of the
-/// visitor and a panel telling which button shoots. Ends when the targets are down or after a timeout, so the
-/// queue of an event never waits for someone who did not get it. While it runs the battle does not start
-/// (OfflineAutoAdvance waits for <see cref="Blocking"/>) and shots do not count for the score.
-/// </summary>
 public sealed class OfflineTutorial : MonoBehaviour
 {
-    /// <summary>Set by OfflineModeMenu from the Inspector.</summary>
     public static bool Enabled = true;
-    /// <summary>Seconds before the practice gives up and the battle starts anyway.</summary>
     public static float Timeout = 25f;
 
-    /// <summary>True while the practice is pending or running in the current scene.</summary>
     public static bool Blocking { get; private set; }
 
     private static bool _doneThisVisit;
@@ -35,13 +26,10 @@ public sealed class OfflineTutorial : MonoBehaviour
     private TextMeshProUGUI _progress;
     private int _hits;
 
-    /// <summary>New visitor (a mode was chosen on the menu): the practice is shown again.</summary>
     public static void ResetForNewVisitor() => _doneThisVisit = false;
 
-    /// <summary>Called by the scene bootstrap, in Awake, for combat scenes.</summary>
     public static void Prepare(GameObject host)
     {
-        // Once per visitor: a retry after a defeat goes straight to the battle.
         if (!Enabled || _doneThisVisit || host.GetComponent<OfflineTutorial>() != null)
             return;
         Blocking = true;
@@ -51,7 +39,6 @@ public sealed class OfflineTutorial : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // The player (and the guns) are spawned by GameController; wait until the rig is in place.
         float waited = 0f;
         while (waited < 8f && !PlayerReady())
         {
@@ -66,7 +53,6 @@ public sealed class OfflineTutorial : MonoBehaviour
             yield break;
         }
 
-        // Let the fade-in finish before anything appears.
         yield return new WaitForSecondsRealtime(1.2f);
         Build(head.transform);
 
@@ -74,7 +60,6 @@ public sealed class OfflineTutorial : MonoBehaviour
         while (_hits < TargetCount && elapsed < Timeout)
         {
             elapsed += Time.unscaledDeltaTime;
-            // Last seconds: tell the visitor the battle is about to start anyway.
             float left = Timeout - elapsed;
             if (left < 5f && _hint != null)
                 _hint.text = $"O COMBATE COMEÇA EM {Mathf.CeilToInt(left)}...";
@@ -131,7 +116,6 @@ public sealed class OfflineTutorial : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Scene left in the middle of the practice (operator skip, kiosk reset).
         Blocking = false;
         OfflineScore.Counting = true;
         foreach (OfflineTutorialTarget target in _targets)
@@ -140,7 +124,6 @@ public sealed class OfflineTutorial : MonoBehaviour
             Destroy(_panel.gameObject);
     }
 
-    // ---------- Scene ----------
 
     private void Build(Transform head)
     {
@@ -165,7 +148,6 @@ public sealed class OfflineTutorial : MonoBehaviour
             text.enableWordWrapping = false;
         StartCoroutine(PopIn(_panel));
 
-        // Three targets spread in front, the middle one a little higher.
         float[] side = { -1.6f, 0f, 1.6f };
         float[] height = { -0.15f, 0.3f, -0.15f };
         for (int i = 0; i < TargetCount; i++)
@@ -178,7 +160,6 @@ public sealed class OfflineTutorial : MonoBehaviour
         OfflineFx.HapticAll(0.3f, 0.1f);
     }
 
-    /// <summary>Scenery between the player and the target: bring the target in front of it.</summary>
     private static Vector3 PullInFrontOfWalls(Vector3 eye, Vector3 target, Transform playerRoot)
     {
         Vector3 direction = target - eye;
@@ -236,7 +217,6 @@ public sealed class OfflineTutorial : MonoBehaviour
     }
 }
 
-/// <summary>Holographic practice target. Hit by the player's bullets like any other IShootable.</summary>
 public sealed class OfflineTutorialTarget : MonoBehaviour, IShootable
 {
     private static readonly Color Orange = new(1f, 0.5f, 0.15f);
@@ -254,7 +234,6 @@ public sealed class OfflineTutorialTarget : MonoBehaviour, IShootable
     {
         var go = new GameObject("[Offline] Tutorial Target");
         go.transform.position = position;
-        // +Z away from the player: the face is seen from the front and the hit volume extends behind it.
         go.transform.rotation = Quaternion.LookRotation(position - eye, Vector3.up);
 
         var target = go.AddComponent<OfflineTutorialTarget>();
@@ -271,7 +250,6 @@ public sealed class OfflineTutorialTarget : MonoBehaviour, IShootable
         OfflineFx.AddImage(target._face, "Center", OfflineFx.Circle, Color.white, new Vector2(120, 120));
         target._face.localScale = Vector3.zero;
 
-        // Bullets are fast: a deep volume behind the face so none of them skips over it between physics steps.
         var box = go.AddComponent<BoxCollider>();
         box.isTrigger = true;
         box.size = new Vector3(0.75f, 0.75f, 3f);
@@ -318,7 +296,6 @@ public sealed class OfflineTutorialTarget : MonoBehaviour, IShootable
         Destroy(gameObject);
     }
 
-    /// <summary>Practice over without this target being hit: just disappear.</summary>
     public void Dismiss()
     {
         if (_down)

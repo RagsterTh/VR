@@ -7,11 +7,6 @@ public enum OfflineDifficultyLevel
     Elite
 }
 
-/// <summary>
-/// Difficulty chosen on the offline menu. Changes how fast enemies come, how much they hurt and how many body
-/// shots they take (the glowing weak point always kills in one). Each difficulty has its own ranking.
-/// Remembered on the headset, so the operator sets it once for the event.
-/// </summary>
 public static class OfflineDifficulty
 {
     private const string PrefKey = "offline_difficulty";
@@ -59,7 +54,6 @@ public static class OfflineDifficulty
         _ => new Color(1f, 0.75f, 0.25f)
     };
 
-    /// <summary>Multiplies how often enemies spawn.</summary>
     public static float SpawnScale => Current switch
     {
         OfflineDifficultyLevel.Recruta => 0.65f,
@@ -67,7 +61,6 @@ public static class OfflineDifficulty
         _ => 1f
     };
 
-    /// <summary>Multiplies the damage the player takes.</summary>
     public static float DamageScale => Current switch
     {
         OfflineDifficultyLevel.Recruta => 0.6f,
@@ -75,7 +68,6 @@ public static class OfflineDifficulty
         _ => 1f
     };
 
-    /// <summary>Hits on the body to take an enemy down (the weak point always takes one).</summary>
     public static int BodyHits => Current switch
     {
         OfflineDifficultyLevel.Recruta => 1,

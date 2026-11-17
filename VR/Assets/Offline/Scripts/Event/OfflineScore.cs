@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-/// <summary>
-/// What the visitor did in the current offline session and the score/grade shown on the result screen.
-///
-/// Every mode is worth up to <see cref="MaxPoints"/>. The points only measure how well the visitor played
-/// (aim, how fast enemies go down, life kept, first-try treatments) - never how many enemies happened to spawn -
-/// and the grade comes straight from the points, so more points never means a lower grade.
-/// </summary>
 public static class OfflineScore
 {
     public const int MaxPoints = 10000;
 
-    // Weight of each part (both modes add up to MaxPoints).
     public const int CombatAccuracyPoints = 3000;
     public const int CombatReactionPoints = 2500;
     public const int CombatLifePoints = 2500;
@@ -25,40 +17,29 @@ public static class OfflineScore
     public const int FullComboPoints = 1500;
     public const int FullMedicalPoints = 3000;
 
-    /// <summary>Best kill streak that gives all the combo points.</summary>
     public const int FullComboAt = 8;
-    /// <summary>Answer within this many seconds: all the speed share of the medical points.</summary>
     public const float FastAnswerSeconds = 6f;
-    /// <summary>At or above this, no speed share (the answer timer).</summary>
     public const float SlowAnswerSeconds = 20f;
 
-    /// <summary>Accuracy that already gives all the accuracy points (nobody hits 100% in VR).</summary>
     public const float FullAccuracyAt = 0.75f;
-    /// <summary>Average seconds an enemy stays alive: at or below this, all the reaction points.</summary>
     public const float FastKillSeconds = 4f;
-    /// <summary>At or above this, no reaction points.</summary>
     public const float SlowKillSeconds = 15f;
 
-    // Grades as a share of MaxPoints.
     public const int GradeS = 8500;
     public const int GradeA = 7000;
     public const int GradeB = 5000;
 
-    /// <summary>False while shots must not count (tutorial).</summary>
     public static bool Counting = true;
 
     public static OfflineExperienceMode Mode { get; private set; }
-    /// <summary>Difficulty the session was played on (its ranking).</summary>
     public static OfflineDifficultyLevel Difficulty { get; private set; }
     public static int Kills { get; private set; }
     public static int Shots { get; private set; }
     public static int Hits { get; private set; }
     public static int MedicalCorrect { get; private set; }
     public static int MedicalWrong { get; private set; }
-    /// <summary>Life left, 0..1 (kept up to date during the battle, final when it ends).</summary>
     public static float LifeRatio { get; private set; } = 1f;
     public static float Seconds { get; private set; }
-    /// <summary>A finished session is waiting to be shown on the result screen.</summary>
     public static bool HasResult { get; private set; }
 
     private static float _startTime;
@@ -88,7 +69,6 @@ public static class OfflineScore
     public static void AddShot() { if (Counting) Shots++; }
     public static void AddHit() { if (Counting) Hits++; }
 
-    /// <summary>An enemy went down; <paramref name="secondsAlive"/> since it appeared (negative = unknown).</summary>
     public static void AddKill(float secondsAlive = -1f)
     {
         if (!Counting)
@@ -96,34 +76,25 @@ public static class OfflineScore
         Kills++;
         if (secondsAlive >= 0f)
         {
-            // One enemy forgotten in a corner must not wipe out the whole average.
             _aliveSum += Mathf.Min(secondsAlive, SlowKillSeconds * 2f);
             _aliveCount++;
         }
     }
 
-    /// <summary>A treatment was chosen <paramref name="seconds"/> after the question appeared (negative = unknown).</summary>
     public static void AddTreatment(bool correct, float seconds = -1f)
     {
         if (correct) MedicalCorrect++; else MedicalWrong++;
         if (seconds < 0f)
             return;
-        // A wrong or timed-out answer is as slow as it gets.
         _answerSpeedSum += correct ? Mathf.InverseLerp(SlowAnswerSeconds, FastAnswerSeconds, seconds) : 0f;
         _answerCount++;
     }
 
-    /// <summary>0..1 how fast the treatments were chosen (-1 = no data).</summary>
     public static float AnswerSpeed => _answerCount > 0 ? _answerSpeedSum / _answerCount : -1f;
     public static void SetLifeRatio(float ratio) => LifeRatio = Mathf.Clamp01(ratio);
 
-    /// <summary>
-    /// The session reached its end (credits): keep the numbers for the result screen.
-    /// Returns false when there is nothing to show (no mode was being played).
-    /// </summary>
     public static bool Finish()
     {
-        // A scene played directly in the Editor never went through Begin: use the mode inferred from it.
         if (Mode == OfflineExperienceMode.None)
             Mode = OfflineSession.Mode;
         if (Mode == OfflineExperienceMode.None)
@@ -133,17 +104,13 @@ public static class OfflineScore
         return true;
     }
 
-    /// <summary>Result shown or session abandoned: nothing pending any more.</summary>
     public static void Clear() => HasResult = false;
 
-    // ---------- Measures ----------
 
     public static float Accuracy => Shots > 0 ? Mathf.Clamp01((float)Hits / Shots) : 0f;
 
-    /// <summary>Average seconds between an enemy appearing and going down (-1 = no data).</summary>
     public static float AverageSecondsAlive => _aliveCount > 0 ? _aliveSum / _aliveCount : -1f;
 
-    /// <summary>Treatments right on the first try, 0..1 (-1 = none answered).</summary>
     public static float MedicalRatio
     {
         get
@@ -153,7 +120,6 @@ public static class OfflineScore
         }
     }
 
-    // ---------- Points ----------
 
     public readonly struct Part
     {
@@ -193,7 +159,6 @@ public static class OfflineScore
     }
 
     public static int LifePoints => Mathf.RoundToInt(LifeRatio * MaxLife);
-    /// <summary>70% right on the first try, 30% how fast.</summary>
     public static int MedicalPoints
     {
         get
@@ -204,10 +169,8 @@ public static class OfflineScore
         }
     }
 
-    /// <summary>Total points (cheap: the HUD reads it every frame).</summary>
     public static int Total => Mathf.Clamp(AccuracyPoints + ReactionPoints + LifePoints + ComboPoints + MedicalPoints, 0, MaxPoints);
 
-    /// <summary>The parts of the score, in the order the result screen shows them.</summary>
     public static List<Part> Breakdown()
     {
         float alive = AverageSecondsAlive;
@@ -228,7 +191,6 @@ public static class OfflineScore
 
     public static string Grade => GradeFor(Total);
 
-    /// <summary>The grade only depends on the points: S 8500+, A 7000+, B 5000+, C below.</summary>
     public static string GradeFor(int points)
     {
         if (points >= GradeS) return "S";
@@ -238,11 +200,9 @@ public static class OfflineScore
     }
 }
 
-/// <summary>Top 10 of the day per mode, saved on the headset (Application.persistentDataPath/offline_ranking.json).</summary>
 public static class OfflineLeaderboard
 {
     public const int MaxEntries = 10;
-    /// <summary>Bump when the score formula changes: older rankings are archived and a new one starts.</summary>
     private const int ScoringVersion = 3;
 
     [Serializable]
@@ -257,7 +217,6 @@ public static class OfflineLeaderboard
     [Serializable]
     private class Data
     {
-        /// <summary>Scoring version: entries from another version are not comparable (different scale).</summary>
         public int version;
         public List<Board> boards = new();
     }
@@ -300,7 +259,6 @@ public static class OfflineLeaderboard
         }
     }
 
-    /// <summary>Today's board of the mode on the current difficulty.</summary>
     public static IReadOnlyList<Entry> Top(OfflineExperienceMode mode) => List(mode, OfflineDifficulty.Current);
 
     public static IReadOnlyList<Entry> Top(OfflineExperienceMode mode, OfflineDifficultyLevel difficulty) => List(mode, difficulty);
@@ -321,10 +279,6 @@ public static class OfflineLeaderboard
         return board.entries;
     }
 
-    /// <summary>
-    /// The ranking is per day (each day of the event has its own winners). Scores from another day are moved
-    /// to offline_ranking_YYYY-MM-DD.json, next to the current file, so nothing is lost.
-    /// </summary>
     private static void StartNewDayIfNeeded()
     {
         Data data = Loaded;
@@ -351,7 +305,6 @@ public static class OfflineLeaderboard
         Save();
     }
 
-    /// <summary>Position (0-based) this score would take, or -1 if it does not make the top.</summary>
     public static int RankFor(OfflineExperienceMode mode, int score)
     {
         List<Entry> list = List(mode, OfflineScore.Difficulty);
@@ -361,7 +314,6 @@ public static class OfflineLeaderboard
         return rank < MaxEntries ? rank : -1;
     }
 
-    /// <summary>Adds the score and returns its position (0-based), or -1 if it did not make the top.</summary>
     public static int Add(OfflineExperienceMode mode, string name, int score, string grade)
     {
         int rank = RankFor(mode, score);
@@ -382,7 +334,6 @@ public static class OfflineLeaderboard
         Save();
     }
 
-    /// <summary>Keeps a copy of the ranking file as offline_ranking_SUFFIX.json before it is replaced.</summary>
     private static void Archive(string suffix)
     {
         try

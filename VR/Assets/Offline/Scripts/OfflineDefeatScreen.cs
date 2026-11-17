@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>VR defeat screen. Keeps the chosen session so retry returns to the same battle.</summary>
 public sealed class OfflineDefeatScreen : MonoBehaviour
 {
     [SerializeField] private Button _retryButton;

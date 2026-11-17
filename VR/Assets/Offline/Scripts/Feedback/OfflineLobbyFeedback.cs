@@ -6,11 +6,6 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
 
-/// <summary>
-/// Offline "juice" for the GloboV2 lobby: living Eve hologram (sparkles, floor glow, typed subtitles),
-/// holographic sweep when the walls fall, an epic globe entrance with halo and orbit ring, glowing map spots,
-/// ambient dust and breathing lights. Created by OfflineSceneBootstrap when the map choice exists.
-/// </summary>
 public sealed class OfflineLobbyFeedback : MonoBehaviour
 {
     private static readonly Color Holo = new(0.35f, 0.85f, 1f);
@@ -59,7 +54,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
 
         _eve = _lobbyRoot.Find("Lobby/Sala/Bancadas/Bancada1/TimelineEVE/EVE");
 
-        // The voice is played by the timeline's audio track (the AudioSource has no clip of its own).
         if (_eveDirector != null && _eveDirector.playableAsset is UnityEngine.Timeline.TimelineAsset timeline)
         {
             foreach (var track in timeline.GetOutputTracks())
@@ -96,7 +90,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         BuildMapSpots(selection);
     }
 
-    // ---------- Ambient ----------
 
     private void BuildAmbient()
     {
@@ -109,7 +102,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
             new Color(0.6f, 0.9f, 1f, 0.5f), 30f, 9f, 0.025f, new Vector3(0f, 0.03f, 0f), 0.04f);
     }
 
-    // ---------- Eve ----------
 
     private void BuildEve()
     {
@@ -154,7 +146,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
             _eveGlow.localScale = Vector3.one * 0.001f * (0.9f + 0.15f * pulse);
         }
 
-        // Subtitles follow the voice line by line, then fade away.
         if (_eveDirector != null && _lines != null && _lines.Count > 0 && _subtitle != null)
         {
             double time = _eveDirector.time;
@@ -175,7 +166,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         }
     }
 
-    /// <summary>Line spoken at <paramref name="time"/>: each line gets a share of the voice proportional to its length.</summary>
     private string LineAt(float time)
     {
         int totalChars = 0;
@@ -214,7 +204,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Globe ----------
 
     private void UpdateGlobe()
     {
@@ -238,7 +227,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         OfflineViewOverlay.Flash(Holo, 0.5f, 0.9f);
         OfflineFx.HapticAll(0.7f, 0.3f);
 
-        // Shockwave on the floor.
         RectTransform wave = OfflineFx.CreateCanvas("[Offline] Globe Shockwave", null, new Vector2(1000, 1000), 0.001f, 90);
         wave.position = new Vector3(center.x, globe.position.y + 0.05f, center.z);
         wave.rotation = Quaternion.Euler(90f, 0f, 0f);
@@ -254,7 +242,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         }
         globe.localScale = baseScale;
 
-        // Holographic halo + orbit ring around the earth.
         RectTransform halo = OfflineFx.CreateCanvas("[Offline] Globe Halo", null, new Vector2(1000, 1000), radius * 0.0032f, 70);
         halo.position = center;
         halo.gameObject.AddComponent<OfflineBillboard>();
@@ -294,7 +281,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         Destroy(wave.gameObject);
     }
 
-    // ---------- Map spots ----------
 
     private void BuildMapSpots(OfflineMapSelection selection)
     {
@@ -320,7 +306,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         _ => scene,
     };
 
-    /// <summary>Called by the map choice before loading: the spot bursts into light and the view "warps".</summary>
     public static IEnumerator MapChosen(Button button)
     {
         Vector3 at = button != null ? button.transform.position : Vector3.zero;
@@ -333,7 +318,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         Camera head = Camera.main;
         if (head != null)
         {
-            // Particles rushing past the player: the "teleport".
             for (int i = 0; i < 4; i++)
             {
                 Vector3 p = head.transform.position + head.transform.forward * (3f + i);
@@ -350,7 +334,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Loop ----------
 
     private void Update()
     {
@@ -366,7 +349,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Helpers ----------
 
     private static IEnumerator FadeOut(RectTransform canvas, float duration)
     {
@@ -399,11 +381,6 @@ public sealed class OfflineLobbyFeedback : MonoBehaviour
     }
 }
 
-/// <summary>
-/// A map hotspot on the globe panel (the place name is already printed on the map picture).
-/// Idle: a soft glow breathes behind the name so it reads as clickable. While pointed at ("hold"): the glow
-/// lights up, the spot grows a little and the name gives off energy: sparks rising from it and expanding waves.
-/// </summary>
 public sealed class OfflineMapSpot : MonoBehaviour, UnityEngine.EventSystems.IPointerEnterHandler, UnityEngine.EventSystems.IPointerExitHandler
 {
     private static readonly Color Energy = new(0.35f, 0.85f, 1f);
@@ -469,7 +446,6 @@ public sealed class OfflineMapSpot : MonoBehaviour, UnityEngine.EventSystems.IPo
         _hover = Mathf.MoveTowards(_hover, _pointed ? 1f : 0f, dt * 6f);
         Vector2 size = _rect.rect.size;
 
-        // Glow: breathing when idle, bright while pointed at.
         float breathe = 0.5f + 0.5f * Mathf.Sin(t * 2.2f);
         _glow.color = new Color(Energy.r, Energy.g, Energy.b, Mathf.Lerp(0.12f + 0.12f * breathe, 0.65f, _hover));
         _glow.rectTransform.localScale = Vector3.one * (1f + 0.06f * breathe + 0.15f * _hover);
@@ -500,7 +476,6 @@ public sealed class OfflineMapSpot : MonoBehaviour, UnityEngine.EventSystems.IPo
             _sparkLife[i] += dt / _sparkDuration[i];
             float k = Mathf.Clamp01(_sparkLife[i]);
             RectTransform spark = _sparks[i].rectTransform;
-            // Rise fast, slow down, sway a little.
             spark.anchoredPosition = _sparkStart[i] + _sparkVelocity[i] * OfflineFx.EaseOut(k) + new Vector2(Mathf.Sin((t + i) * 9f) * 6f, 0f);
             spark.localScale = Vector3.one * Mathf.Lerp(1.3f, 0.3f, k);
             Color c = i % 3 == 0 ? Color.white : Energy;
@@ -518,7 +493,6 @@ public sealed class OfflineMapSpot : MonoBehaviour, UnityEngine.EventSystems.IPo
             }
             _waveLife[i] += dt / 0.9f;
             float k = Mathf.Clamp01(_waveLife[i]);
-            // Stretched ring: follows the wide shape of the name.
             _waves[i].rectTransform.sizeDelta = new Vector2(size.x, size.y) * Mathf.Lerp(0.6f, 1.7f, OfflineFx.EaseOut(k));
             _waves[i].color = new Color(Energy.r, Energy.g, Energy.b, (1f - k) * 0.7f);
             _waves[i].enabled = true;

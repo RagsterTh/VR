@@ -5,11 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// End-of-session screen (offline): what the visitor did, the score counting up, the grade, a 3-letter name entry
-/// when the score makes the Top 10 and the ranking of the mode. Built at runtime inside the entry menu's panel
-/// (same canvas, so the controller ray already works). Advances by itself so an event queue never gets stuck.
-/// </summary>
 public sealed class OfflineResultsScreen : MonoBehaviour
 {
     private const string Letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -33,7 +28,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
     private bool _done;
     private int _rank = -1;
 
-    /// <summary>Shows the result inside <paramref name="panel"/> and returns when the visitor (or the timer) continues.</summary>
     public static IEnumerator Show(Transform panel)
     {
         var screen = panel.gameObject.AddComponent<OfflineResultsScreen>();
@@ -63,10 +57,8 @@ public sealed class OfflineResultsScreen : MonoBehaviour
             yield return null;
         }
 
-        // The result stays on the panel while the caller fades to the next scene (the menu underneath stays hidden).
     }
 
-    // ---------- Layout ----------
 
     private void Build(Transform panel)
     {
@@ -81,11 +73,9 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         Text("Title", "RESULTADO", 64f, Color.white, new Vector2(1300, 80), new Vector2(0, 350));
         _headline = Text("Headline", string.Empty, 34f, Gold, new Vector2(1300, 50), new Vector2(0, 290));
 
-        // Left: what happened.
         string mode = OfflineScore.Mode == OfflineExperienceMode.FullExperience ? "EXPERIÊNCIA COMPLETA" : "COMBATE";
         Text("Mode", mode, 30f, Cyan, new Vector2(600, 40), new Vector2(-340, 230));
 
-        // Right: ranking of this mode.
         Text("Rank Title", "TOP 10 DE HOJE  -  " + OfflineDifficulty.Label(OfflineScore.Difficulty), 30f, Cyan, new Vector2(600, 40), new Vector2(340, 230));
         for (int i = 0; i < OfflineLeaderboard.MaxEntries; i++)
         {
@@ -95,7 +85,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         }
         RefreshRanking(-1);
 
-        // Bottom: name entry (shown only when the score makes the Top 10) + main button.
         _entry = new GameObject("Initials", typeof(RectTransform));
         var entryRect = (RectTransform)_entry.transform;
         entryRect.SetParent(_root, false);
@@ -118,7 +107,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
 
     private IEnumerator Reveal()
     {
-        // Each part: what was measured, and how many of its points it gave.
         Text("Kills", "INIMIGOS ELIMINADOS  " + OfflineScore.Kills + "     CRÍTICOS  " + OfflineWeakPoint.Crits, 24f, new Color(0.7f, 0.75f, 0.8f), new Vector2(600, 34), new Vector2(-340, 190));
         List<OfflineScore.Part> parts = OfflineScore.Breakdown();
         for (int i = 0; i < parts.Count; i++)
@@ -178,7 +166,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         _idle = 0f;
     }
 
-    // ---------- Actions ----------
 
     private void Step(int slot, int delta)
     {
@@ -203,7 +190,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
             _mainLabel.text = "CONTINUAR";
             _headline.text = $"SALVO: {name}";
             OfflineFx.HapticAll(0.5f, 0.12f);
-            // Give a moment to see the name on the board before the timer moves on.
             _autoAdvance = Mathf.Min(_autoAdvance, 10f);
             return;
         }
@@ -231,7 +217,6 @@ public sealed class OfflineResultsScreen : MonoBehaviour
         }
     }
 
-    // ---------- UI helpers ----------
 
     private TextMeshProUGUI Text(string name, string text, float size, Color color, Vector2 box, Vector2 position, Transform parent = null)
     {

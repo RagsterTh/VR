@@ -4,11 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Offline combat "juice": gun recoil + bullet trails, kill explosions with hit-stop and "+1",
-/// boss hit flashes, a kill counter and arrows pointing at enemies outside the player's view.
-/// Called from Gun/Enemy/Boss offline branches; one instance per combat scene.
-/// </summary>
 public sealed class OfflineCombatFeedback : MonoBehaviour
 {
     private static OfflineCombatFeedback _instance;
@@ -58,7 +53,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // Arriving on a globe map: show the place name once the fade is over.
         if (!OfflineSession.IsMapScene)
             yield break;
         yield return new WaitForSecondsRealtime(1.5f);
@@ -77,7 +71,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             _instance = null;
     }
 
-    // ---------- Events from gameplay ----------
 
     public static void Shot(Gun gun, GameObject bullet)
     {
@@ -91,16 +84,13 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             recoil = gun.gameObject.AddComponent<OfflineRecoil>();
         recoil.Kick();
 
-        // Bullets leave along -up of the gun point (see PlayerBullet).
         Transform gunPoint = gun.transform.childCount > 0 ? gun.transform.GetChild(0) : gun.transform;
         OfflineShotFx.Muzzle(gunPoint.position, -gunPoint.up);
 
-        // Slight pitch change per shot so rapid fire does not sound like a loop.
         var audio = gun.GetComponent<AudioSource>();
         if (audio != null)
             audio.pitch = Random.Range(0.93f, 1.08f);
 
-        // Sharp kick followed by a softer tail on the firing hand.
         OfflineFx.HapticNear(gun.transform, 0.55f, 0.04f);
         Instance.StartCoroutine(HapticTail(gun.transform));
 
@@ -115,7 +105,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             OfflineFx.HapticNear(gun, 0.2f, 0.08f);
     }
 
-    /// <summary>A player bullet hit something: sparks and flash at the point (bigger on enemies).</summary>
     public static void BulletImpact(Vector3 point, Vector3 bulletDirection, bool enemy)
     {
         if (enemy)
@@ -126,7 +115,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         OfflineShotFx.Impact(point, -bulletDirection.normalized, enemy);
     }
 
-    /// <summary>An enemy appeared: blink the edge of the view on its side and vibrate that hand.</summary>
     public static void EnemySpawned(Transform enemy)
     {
         if (enemy == null)
@@ -137,7 +125,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         feedback._spawnTimes[enemy] = Time.unscaledTime;
         if (!feedback._enemies.Contains(enemy))
             feedback._enemies.Add(enemy);
-        // Glowing core visible from the moment the enemy appears.
         if (enemy.GetComponent<Enemy>() != null && enemy.GetComponent<OfflineWeakPoint>() == null)
             enemy.gameObject.AddComponent<OfflineWeakPoint>();
         if (enemy.GetComponent<OfflineEnemyMarker>() == null)
@@ -208,9 +195,7 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         }
     }
 
-    // ---------- End of the battle ----------
 
-    /// <summary>Enemies (and bosses) still alive in the scene.</summary>
     public static int AliveEnemies()
     {
         int alive = 0;
@@ -252,7 +237,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         OfflineHelmetHud.SetObjective(text, color);
     }
 
-    // ---------- HUD ----------
 
     private void AddKill(float secondsAlive)
     {
@@ -287,7 +271,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             glow.enabled = false;
             _glows.Add(glow);
 
-            // Chevron: a diamond with a darker notch reads as an arrow pointing outwards.
             Image arrow = OfflineFx.AddImage(_hud, "Enemy Arrow", OfflineFx.White, new Color(1f, 0.2f, 0.15f, 0.95f), new Vector2(60, 60));
             arrow.material = OfflineFx.OverlayMaterial;
             Image notch = OfflineFx.AddImage(arrow.transform, "Notch", OfflineFx.White, new Color(0.25f, 0f, 0f, 1f), new Vector2(42, 42), new Vector2(-18f, -18f));
@@ -305,7 +288,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         if (_head == null || _hud == null)
             return;
 
-        // Life, heal, mission and compass live on the helmet HUD; this canvas keeps only the enemy arrows.
         OfflineHelmetHud.Ensure();
 
         if (Time.unscaledTime >= _nextScan)
@@ -347,7 +329,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
 
             float distance = local.magnitude;
             float proximity = 1f - Mathf.Clamp01((distance - _nearDistance) / Mathf.Max(0.1f, _farDistance - _nearDistance));
-            // Three quick blinks right after the enemy appears.
             float blink = alerting ? (Mathf.Repeat((now - spawned) / _spawnAlertTime * 3f, 1f) < 0.55f ? 1f : 0.15f) : 0f;
 
             Image glow = _glows[used];
@@ -363,7 +344,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
             notch.enabled = true;
             var rect = arrow.rectTransform;
             rect.anchoredPosition = direction * _arrowRadius;
-            // The diamond's corner at +45deg points along the direction.
             rect.localRotation = Quaternion.Euler(0f, 0f, angle - 45f);
             rect.localScale = Vector3.one * (0.8f + 0.25f * pulse + 0.3f * proximity + 0.4f * blink);
             arrow.color = new Color(1f, 0.2f, 0.15f, 0.6f + 0.4f * Mathf.Max(pulse * (0.5f + 0.5f * proximity), blink));
@@ -378,7 +358,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
         }
     }
 
-    // ---------- Helpers ----------
 
     private static Vector3 Center(Transform target)
     {
@@ -406,7 +385,6 @@ public sealed class OfflineCombatFeedback : MonoBehaviour
     }
 }
 
-/// <summary>Visual kick of the gun when it fires: snaps back and up, then settles with a small spring overshoot.</summary>
 public sealed class OfflineRecoil : MonoBehaviour
 {
     private Vector3 _basePosition;
@@ -431,7 +409,6 @@ public sealed class OfflineRecoil : MonoBehaviour
             return;
 
         _time += Time.deltaTime;
-        // Damped spring: 1 at the shot, crosses zero and overshoots a little before resting.
         float k = Mathf.Exp(-_time * 14f) * Mathf.Cos(_time * 26f);
         if (_time > 0.6f)
             k = 0f;
@@ -441,10 +418,6 @@ public sealed class OfflineRecoil : MonoBehaviour
     }
 }
 
-/// <summary>
-/// Energy look for pooled player bullets: a thin white core trail inside a wide blue one, plus a glowing head.
-/// Trails are cleared on reuse so they never streak across the scene.
-/// </summary>
 public sealed class OfflineBulletTrail : MonoBehaviour
 {
     [Tooltip("Hide the bullet's own mesh (red sphere) so the projectile is a pure energy bolt.")]
@@ -490,13 +463,11 @@ public sealed class OfflineBulletTrail : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Glowing head that travels with the bullet.
         OfflineShotFx.Glow(transform.position, 0.22f, OfflineShotFx.Energy, 0.05f);
         OfflineShotFx.Glow(transform.position, 0.1f, new Color(1f, 1f, 1f, 0.8f), 0.05f);
     }
 }
 
-/// <summary>Red diamond floating above an enemy, drawn on top of everything so it can be spotted behind cover.</summary>
 public sealed class OfflineEnemyMarker : MonoBehaviour
 {
     private RectTransform _canvas;
@@ -537,7 +508,6 @@ public sealed class OfflineEnemyMarker : MonoBehaviour
         bool alerting = now < _alertUntil;
         float bob = Mathf.Sin(now * 3f) * 0.05f;
         _canvas.position = transform.position + Vector3.up * (_height + bob);
-        // Constant apparent size: grows with distance.
         _canvas.localScale = Vector3.one * 0.001f * Mathf.Clamp(distance * 0.35f, 0.6f, 6f) * (alerting ? 1.4f : 1f);
         float pulse = 0.6f + 0.4f * Mathf.Sin(now * (alerting ? 16f : 6f));
         _halo.color = new Color(1f, 0.1f, 0.05f, 0.35f * pulse + (alerting ? 0.3f : 0f));

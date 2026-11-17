@@ -2,10 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// First thing that runs in every offline scene: forces the VR path (no PC operator view),
-/// switches off objects that only make sense online, and fades in once the local rig is placed.
-/// </summary>
 [DefaultExecutionOrder(-10000)]
 public sealed class OfflineSceneBootstrap : MonoBehaviour
 {
@@ -31,11 +27,9 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
 
         EnsurePointableCanvasModule();
         OfflineKiosk.Ensure();
-        // Before any Start: the automatic "start the battle" step must already see the practice as pending.
         if (OfflineSession.IsCombatScene)
             OfflineTutorial.Prepare(gameObject);
 
-        // Buttons created in the offline scene respond even when the editor setup has not been rerun.
         foreach (GameObject root in gameObject.scene.GetRootGameObjects())
         {
             foreach (Button button in root.GetComponentsInChildren<Button>(true))
@@ -46,10 +40,6 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Meta Interaction SDK canvases (globe panels, credits) assert when the EventSystem has no PointableCanvasModule.
-    /// Added here, before their Start runs, for any offline scene that uses them.
-    /// </summary>
     private void EnsurePointableCanvasModule()
     {
         System.Type canvasType = null, moduleType = null;
@@ -68,7 +58,6 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
         host.AddComponent(moduleType);
     }
 
-    /// <summary>Target for scene events that used to wait for the host (e.g. end of the credits).</summary>
     public void ReturnToEntry()
     {
         OfflineSession.ReturnToEntry();
@@ -76,7 +65,6 @@ public sealed class OfflineSceneBootstrap : MonoBehaviour
 
     private IEnumerator Start()
     {
-        // Visual/haptic feedback (offline only): medical scene and combat scenes.
         if (FindAnyObjectByType<MedicalQuestions>() != null && FindAnyObjectByType<OfflineMedicalFeedback>() == null)
             gameObject.AddComponent<OfflineMedicalFeedback>();
         if (FindAnyObjectByType<GameController>() != null && FindAnyObjectByType<OfflineCombatFeedback>() == null)

@@ -1,12 +1,6 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-/// <summary>
-/// Brings the Karen/EVE robot to life (offline). The timeline's recorded clip animates an old armature that the
-/// robot's meshes are not attached to, so the robot stood still. This animates the robot's root instead (the timeline
-/// does not drive it): hover, slowly turning towards the player, talking nods/bounce while the voice plays and
-/// neon parts glowing brighter when she speaks. Everything moves together, so the skinned mouth stays aligned.
-/// </summary>
 public sealed class OfflineEveAnimator : MonoBehaviour
 {
     [SerializeField] private float _hoverHeight = 0.035f;
@@ -52,7 +46,6 @@ public sealed class OfflineEveAnimator : MonoBehaviour
         bool talking = Director != null && Director.state == PlayState.Playing && Director.time < _voiceLength;
         _talk = Mathf.MoveTowards(_talk, talking ? 1f : 0f, Time.deltaTime * 3f);
 
-        // Turn towards the player's head, within limits, smoothly.
         Camera head = Camera.main;
         float targetYaw = 0f;
         if (head != null && transform.parent != null)
@@ -66,7 +59,6 @@ public sealed class OfflineEveAnimator : MonoBehaviour
         }
         _yaw = Mathf.LerpAngle(_yaw, targetYaw, 1f - Mathf.Exp(-_turnSpeed * Time.deltaTime));
 
-        // Speech rhythm: a mix of two frequencies reads as natural nodding.
         float speech = (Mathf.Sin(t * 7.3f) * 0.6f + Mathf.Sin(t * 11.1f) * 0.4f) * _talk;
         float hover = Mathf.Sin(t * _hoverSpeed) * _hoverHeight + Mathf.Abs(speech) * 0.012f;
         float sway = Mathf.Sin(t * _hoverSpeed * 0.5f) * 1.5f;
@@ -74,7 +66,6 @@ public sealed class OfflineEveAnimator : MonoBehaviour
         transform.localPosition = _basePosition + Vector3.up * hover;
         transform.localRotation = _baseRotation * Quaternion.Euler(speech * _talkNod, _yaw, sway * (1f - 0.5f * _talk));
 
-        // Neon glows brighter while she talks.
         float glow = 1f + 0.8f * _talk * (0.6f + 0.4f * Mathf.Abs(speech)) + 0.15f * Mathf.Sin(t * 2f);
         for (int i = 0; i < _neon.Length; i++)
         {

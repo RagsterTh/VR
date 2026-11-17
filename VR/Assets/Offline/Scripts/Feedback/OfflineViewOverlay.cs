@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Colored vignette on the edges of the player's view (damage flash, heal flash, low-life pulse).
-/// A world-space quad just in front of the headset; screen-space overlays do not show in VR.
-/// </summary>
 public sealed class OfflineViewOverlay : MonoBehaviour
 {
     private static OfflineViewOverlay _instance;
@@ -29,7 +25,6 @@ public sealed class OfflineViewOverlay : MonoBehaviour
         }
     }
 
-    /// <summary>Colored flash on the edges of the view.</summary>
     public static void Flash(Color color, float strength = 0.8f, float duration = 0.35f)
     {
         OfflineViewOverlay overlay = Instance;
@@ -40,7 +35,6 @@ public sealed class OfflineViewOverlay : MonoBehaviour
 
     public static void SetLowLife(bool lowLife)
     {
-        // Turning it off must not create the overlay (it is called from OnDestroy while a scene unloads).
         if (_instance == null && !lowLife)
             return;
         Instance._lowLife = lowLife;
@@ -97,7 +91,6 @@ public sealed class OfflineViewOverlay : MonoBehaviour
         for (int x = 0; x < size; x++)
         {
             float d = Mathf.Sqrt((x - half) * (x - half) + (y - half) * (y - half)) / half;
-            // Clear center, strong edges.
             texture.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0.35f, 1f, d))));
         }
         texture.Apply();

@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Inputs.Haptics;
 
-/// <summary>Small tactile and visual acknowledgement for world-space VR buttons.</summary>
 [RequireComponent(typeof(Button))]
 public sealed class OfflineButtonFeedback : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
