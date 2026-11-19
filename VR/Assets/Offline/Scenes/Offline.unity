@@ -7839,7 +7839,7 @@ MonoBehaviour:
   _panelDistance: 1.3
   _panelHeightOffset: -0.15
   _followHead: 1
-  _followDeadZone: 25
+  _followDeadZone: 60
   _followSpeed: 3
   _tutorial: 1
   _tutorialTimeout: 25

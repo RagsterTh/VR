@@ -42,9 +42,9 @@ public static class OfflineDifficulty
 
     public static string Description(OfflineDifficultyLevel level) => level switch
     {
-        OfflineDifficultyLevel.Recruta => "INIMIGOS MAIS LENTOS E FRÁGEIS",
-        OfflineDifficultyLevel.Elite => "MAIS RÁPIDOS, MAIS FORTES, 3 TIROS NO CORPO",
-        _ => "EQUILIBRADO  -  2 TIROS NO CORPO"
+        OfflineDifficultyLevel.Recruta => "1 TIRO NO CORPO  -  MENOS DANO",
+        OfflineDifficultyLevel.Elite => "MUITO RÁPIDOS, DANO DOBRADO, 3 TIROS NO CORPO",
+        _ => "INIMIGOS MAIS RÁPIDOS  -  2 TIROS NO CORPO"
     };
 
     public static Color Color(OfflineDifficultyLevel level) => level switch
@@ -56,16 +56,23 @@ public static class OfflineDifficulty
 
     public static float SpawnScale => Current switch
     {
-        OfflineDifficultyLevel.Recruta => 0.65f,
-        OfflineDifficultyLevel.Elite => 1.2f,
-        _ => 1f
+        OfflineDifficultyLevel.Recruta => 0.85f,
+        OfflineDifficultyLevel.Elite => 1.6f,
+        _ => 1.15f
     };
 
     public static float DamageScale => Current switch
     {
-        OfflineDifficultyLevel.Recruta => 0.6f,
+        OfflineDifficultyLevel.Recruta => 0.8f,
+        OfflineDifficultyLevel.Elite => 2f,
+        _ => 1.25f
+    };
+
+    public static float MoveScale => Current switch
+    {
+        OfflineDifficultyLevel.Recruta => 1f,
         OfflineDifficultyLevel.Elite => 1.5f,
-        _ => 1f
+        _ => 1.2f
     };
 
     public static int BodyHits => Current switch

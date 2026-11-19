@@ -6,7 +6,7 @@ public sealed class OfflineWaves : MonoBehaviour
 {
     public const int WaveCount = 3;
     private static readonly float[] WaveEnds = { 0.27f, 0.6f };
-    private static readonly float[] WaveSpeed = { 0.55f, 0.8f, 1.05f };
+    private static readonly float[] WaveSpeed = { 0.75f, 1.05f, 1.4f };
 
     private static OfflineWaves _instance;
 

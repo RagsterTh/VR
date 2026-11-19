@@ -1,12 +1,12 @@
 # ninja log v5
-76	527	8132661693854234	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	8b7c319931f8d51c
-529	876	8132661696842830	C:/Users/antonio.santos4/Documents/GitHub/VR/VR/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.VR/gradle-project/unityLibrary/build/intermediates/cxx/Debug/2yp3k224/obj/arm64-v8a/libswappywrapper.so	cf6948b457cf83f2
-44	2843	8132661716912086	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	9b637c3736af48c5
-16	2895	8132661717447691	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	462a9e5f6a0bc31b
-24	2911	8132661717578162	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	732312f211329d99
-54	2928	8132661717729070	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c899098729720f00
-0	2943	8132661717955480	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	f29cb3df2374529c
-33	3069	8132661719186946	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d3438c7fd6a81ee
-8	3100	8132661719468879	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b57272c52438d34
-66	3210	8132661720616583	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	22b5ab2ffcb2af38
-3211	3373	8132661722214001	C:/Users/antonio.santos4/Documents/GitHub/VR/VR/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.VR/gradle-project/unityLibrary/build/intermediates/cxx/Debug/2yp3k224/obj/arm64-v8a/libgame.so	28c689ad0d7563bd
+83	742	8167912631588878	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	8b7c319931f8d51c
+745	1592	8167912638438688	C:/Users/antonio.santos4/Documents/GitHub/VR/VR/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.VR/gradle-project/unityLibrary/build/intermediates/cxx/Debug/2yp3k224/obj/arm64-v8a/libswappywrapper.so	cf6948b457cf83f2
+52	2178	8167912645884885	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	9b637c3736af48c5
+38	2202	8167912646096439	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	732312f211329d99
+1	2207	8167912646182018	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	462a9e5f6a0bc31b
+61	2228	8167912646408479	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c899098729720f00
+16	2253	8167912646643149	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	f29cb3df2374529c
+27	2410	8167912648141419	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	d3438c7fd6a81ee
+9	2435	8167912648461688	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	b57272c52438d34
+71	2469	8167912648808203	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	22b5ab2ffcb2af38
+2470	2722	8167912651325805	C:/Users/antonio.santos4/Documents/GitHub/VR/VR/Library/PramData/AndroidApplicationController/Cache/com.DefaultCompany.VR/gradle-project/unityLibrary/build/intermediates/cxx/Debug/2yp3k224/obj/arm64-v8a/libgame.so	28c689ad0d7563bd

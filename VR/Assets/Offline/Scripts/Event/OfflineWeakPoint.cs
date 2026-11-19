@@ -14,6 +14,9 @@ public sealed class OfflineWeakPoint : MonoBehaviour
     private Transform _anchor;
     private Vector3 _localPoint;
     private int _hits;
+    private UnityEngine.AI.NavMeshAgent _agent;
+    private float _baseSpeed = -1f;
+    private bool _speedSet;
 
     public static void ResetSession() => Crits = 0;
 
@@ -86,10 +89,27 @@ public sealed class OfflineWeakPoint : MonoBehaviour
         _localPoint = _anchor.InverseTransformPoint(top);
     }
 
-    private void OnEnable() => _hits = 0;
+    private void OnEnable()
+    {
+        _hits = 0;
+        _speedSet = false;
+    }
 
     private void LateUpdate()
     {
+        if (!_speedSet)
+        {
+            _speedSet = true;
+            if (_agent == null)
+                _agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (_agent != null)
+            {
+                if (_baseSpeed < 0f)
+                    _baseSpeed = _agent.speed;
+                _agent.speed = _baseSpeed * OfflineDifficulty.MoveScale;
+            }
+        }
+
         float pulse = 0.8f + 0.2f * Mathf.Sin(Time.unscaledTime * 9f + GetInstanceID());
         OfflineShotFx.Glow(WorldPoint, 0.45f * pulse, new Color(1f, 0.6f, 0.1f, 0.9f), 0.03f);
         OfflineShotFx.Glow(WorldPoint, 0.12f, new Color(1f, 1f, 0.8f, 1f), 0.03f);

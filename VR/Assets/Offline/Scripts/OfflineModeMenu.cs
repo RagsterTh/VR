@@ -27,7 +27,7 @@ public sealed class OfflineModeMenu : MonoBehaviour
 
     [Tooltip("The panel follows the head smoothly when the player looks away (outside the dead zone).")]
     [SerializeField] private bool _followHead = true;
-    [SerializeField] private float _followDeadZone = 25f;
+    [SerializeField] private float _followDeadZone = 60f;
     [SerializeField] private float _followSpeed = 3f;
 
     [Header("Event")]

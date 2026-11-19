@@ -3,6 +3,7 @@ using System.Collections;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -230,18 +231,68 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
         go.SetActive(false);
     }
 
-    private IEnumerator ShowExplanation(string text, float duration)
+    private static InputAction _continue;
+
+    private static InputAction Continue
+    {
+        get
+        {
+            if (_continue == null)
+            {
+                _continue = new InputAction("Continue", InputActionType.Button);
+                _continue.AddBinding("<XRController>{RightHand}/triggerPressed");
+                _continue.AddBinding("<XRController>{LeftHand}/triggerPressed");
+                _continue.AddBinding("<XRController>{RightHand}/primaryButton");
+                _continue.AddBinding("<XRController>{LeftHand}/primaryButton");
+                _continue.AddBinding("<Keyboard>/space");
+                _continue.AddBinding("<Mouse>/leftButton");
+                _continue.Enable();
+            }
+            return _continue;
+        }
+    }
+
+    private IEnumerator ShowExplanation(string text, float minimum, float maximum)
     {
         if (_explanation == null || string.IsNullOrEmpty(text))
+        {
+            yield return new WaitForSecondsRealtime(minimum);
             yield break;
+        }
         _explanation.gameObject.SetActive(true);
-        _explanationText.text = text;
         var group = _explanation.GetComponent<CanvasGroup>();
         float t = 0f;
-        while (t < duration)
+        bool ready = false;
+        bool released = !Continue.IsPressed();
+        while (t < maximum)
         {
             t += Time.unscaledDeltaTime;
-            group.alpha = Mathf.Clamp01(Mathf.Min(t / 0.25f, (duration - t) / 0.25f));
+            group.alpha = Mathf.Clamp01(t / 0.25f);
+            if (!ready && t >= minimum)
+            {
+                ready = true;
+                OfflineFx.HapticAll(0.15f, 0.05f);
+            }
+            float blink = 0.55f + 0.45f * Mathf.Sin(Time.unscaledTime * 5f);
+            string hint = ready
+                ? $"\n\n<size=70%><color=#FFFFFF{(int)(blink * 255):X2}>APERTE O GATILHO PARA CONTINUAR</color></size>"
+                : $"\n\n<size=70%><color=#FFFFFF55>LEIA COM ATENÇÃO  {Mathf.CeilToInt(minimum - t)}</color></size>";
+            _explanationText.text = text + hint;
+
+            bool pressed = Continue.IsPressed();
+            if (!pressed)
+                released = true;
+            if (ready && released && Continue.WasPressedThisFrame())
+                break;
+            yield return null;
+        }
+
+        OfflineFx.HapticAll(0.25f, 0.05f);
+        float fade = 0f;
+        while (fade < 0.2f)
+        {
+            fade += Time.unscaledDeltaTime;
+            group.alpha = 1f - fade / 0.2f;
             yield return null;
         }
         _explanation.gameObject.SetActive(false);
@@ -322,11 +373,9 @@ public sealed class OfflineMedicalFeedback : MonoBehaviour
                 StartCoroutine(Blink(rightImage, Green, rightColor, _answerHold));
         }
 
-        float hold = correct ? Mathf.Max(_answerHold, 3.5f) : Mathf.Max(_answerHold, 7f);
+        float minimum = correct ? Mathf.Max(_answerHold, 2.5f) : Mathf.Max(_answerHold, 5f);
         string explanation = ExplanationFor(correct, clicked, wound);
-        if (!string.IsNullOrEmpty(explanation))
-            StartCoroutine(ShowExplanation(explanation, hold));
-        yield return new WaitForSecondsRealtime(hold);
+        yield return ShowExplanation(explanation, minimum, 60f);
 
         if (clickedImage != null) clickedImage.color = clickedColor;
         if (rightImage != null) rightImage.color = rightColor;

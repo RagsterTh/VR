@@ -348,21 +348,29 @@ public sealed class OfflineFx : MonoBehaviour
         return 1f + c3 * Mathf.Pow(k - 1f, 3f) + c1 * Mathf.Pow(k - 1f, 2f);
     }
 
+    private static readonly System.Collections.Generic.Dictionary<Transform, (Vector3 scale, int token)> Punching = new();
+
     public static IEnumerator Punch(Transform target, float amount = 0.15f, float duration = 0.2f)
     {
         if (target == null)
             yield break;
-        Vector3 baseScale = target.localScale;
+        Vector3 baseScale = Punching.TryGetValue(target, out var running) ? running.scale : target.localScale;
+        int token = running.token + 1;
+        Punching[target] = (baseScale, token);
         float t = 0f;
-        while (t < duration && target != null)
+        while (t < duration && target != null && Punching.TryGetValue(target, out var current) && current.token == token)
         {
             t += Time.unscaledDeltaTime;
             float k = t / duration;
             target.localScale = baseScale * (1f + amount * Mathf.Sin(k * Mathf.PI));
             yield return null;
         }
-        if (target != null)
-            target.localScale = baseScale;
+        if (Punching.TryGetValue(target, out var last) && last.token == token)
+        {
+            Punching.Remove(target);
+            if (target != null)
+                target.localScale = baseScale;
+        }
     }
 
     public static IEnumerator Shake(Transform target, float amount = 12f, float duration = 0.35f)
